@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object class="102" className="GATE" name="SatelOutput" version="1">
+	<features>
+        <feature enum="0,1" get="true" index="0" name="Value" range="0-1" set="false" type="num" unit="bool">
+			<enum name="Off" resKey="sateloutput_value_enum_off" value="0"/>
+			<enum name="On" resKey="sateloutput_value_enum_on" value="1"/>
+			<hint lang="pl" value="Zwraca stan wyjścia:&#13;1 - wyjście załączone,&#13;0 - wyjście wyłączone,&#13;-1 - stan wyjścia nieznany (brak połączenia  z centralką)"/>
+			<hint lang="en" value="Returns output state:&#13;1 - On state at the output,&#13;0 - Off state at the output,&#13;-1 - unknown output state (no connection with Satel)"/>
+			<hint lang="de" value="Gibt 1 für aktivierten Bereich, betretenen Eingang, eingeschalteten Ausgang zurück. Gibt 0 für deaktivierte Bereich, unbetretenen Eingang, ausgeschalteten Ausgang zurück."/>
+            <desc resKey="sateloutput_value"/>
+        </feature>
+		<feature get="true" index="1" name="Nr" range="1-256" set="true" type="num" unit="number">
+			<hint lang="pl" value="Parametr definiujący, do którego wyjścia odnosi się obiekt"/>
+			<hint lang="en" value="Parameter defining to which output refers object"/>
+			<hint lang="de" value="Parameter, der definiert, auf welchen Ausgang das Objekt verweist"/>
+            <desc resKey="sateloutput_nr"/>
+        </feature>
+		<feature default="_" get="true" index="2" name="UserPassword" range="0-99999" set="true" type="str" unit="number">
+			<hint lang="pl" value="Hasło użytkownika, dla _ zastosuje hasło administratora"/>
+			<hint lang="en" value="User password. When setting the user password to '_', it will use the administrator password"/>
+			<hint lang="de" value="Benutzer-Passwort; für '_' wird das Administrator-Passwort erfragt"/>
+            <desc resKey="sateloutput_userpassword"/>
+        </feature>
+	</features>
+	<methods>
+		<method call="set" index="1" name="SetNr" range="1-256" return="void" unit="number">
+			<param name="Nr" type="num" unit="number"/>
+			<hint lang="pl" value="Ustawia parametr definiujący, do którego wyjścia odnosi się obiekt"/>
+			<hint lang="en" value="Sets the parameter defining to which output refers object"/>
+			<hint lang="de" value="Bestimmt den Parameter, mit dem definiert wird, auf welchen Bereich, Eingang, Ausgang sich das Objekt bezieht."/>
+            <desc resKey="sateloutput_setnr"/>
+        </method>
+		<method call="set" index="2" name="SetUserPassword" return="void">
+			<param default="-" name="Password" range="0-99999" type="str" unit="number"/>
+			<hint lang="pl" value="Ustawia hasło użytkownika, dla '_' zastosuje hasło administratora"/>
+			<hint lang="en" value="Sets the user password. When setting the user password to '_', it will use the administrator password"/>
+			<hint lang="de" value="Definiert das Benutzer-Passwort; für '_' wird das Administrator-Passwort erfragt"/>
+            <desc resKey="sateloutput_setuserpassword"/>
+        </method>
+		<method call="execute" index="0" name="SwitchOn" return="void">
+			<hint lang="pl" value="Załącza wyjście"/>
+			<hint lang="en" value="Sets output value to 1"/>
+			<hint lang="de" value="Schaltet den Ausgang ein"/>
+            <desc resKey="sateloutput_switchon"/>
+        </method>
+		<method call="execute" index="1" name="SwitchOff" return="void">
+			<hint lang="pl" value="Wyłącza wyjście"/>
+			<hint lang="en" value="Sets output value to 0"/>
+			<hint lang="de" value="Schaltet den Ausgang aus"/>
+            <desc resKey="sateloutput_switchoff"/>
+        </method>
+	</methods>
+	<events>
+		<event address="0" name="OnChange">
+			<hint lang="pl" value="Zdarzenie wywoływane przy zmianie stanu (niezależnie od wartości)"/>
+			<hint lang="en" value="Event occurring when a change in the state takes place (regardless of the value)"/>
+			<hint lang="de" value="Ereignis, das bei Statusänderung (abgesehen vom Wert) aufgerufen wird"/>
+            <desc resKey="sateloutput_onchange"/>
+        </event>
+		<event address="1" name="OnSwitchOn">
+			<hint lang="pl" value="Zdarzenie wywoływane przy ustawieniu On na wyjściu"/>
+			<hint lang="en" value="Event occurring when On state is set at output"/>
+			<hint lang="de" value="Ereignis, das bei eingeschaltetem Ausgang und betretenem Eingang aufgerufen wir"/>
+            <desc resKey="sateloutput_onswitchon"/>
+        </event>
+		<event address="2" name="OnSwitchOff">
+			<hint lang="pl" value="Zdarzenie wywoływane przy ustawieniu Off na wyjściu"/>
+			<hint lang="en" value="Event occurring when Off state is set at output"/>
+			<hint lang="de" value="Ereignis, das bei ausgeschaltetem Ausgang und Normalzustand des Eingangs aufgerufen wird"/>
+            <desc resKey="sateloutput_onswitchoff"/>
+        </event>
+	</events>
+</object>

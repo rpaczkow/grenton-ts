@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="BUTTModule" typeId="03">
+	<!--hwType=0x3(3), hwVer=0x1(1), fwType=0x2(2), fwApiVer=0x14(20)-->
+	<firmware typeId="02" version="14">
+		<object class="7" count="8" name="BUTTON" type="in">
+			<interface>
+				<features>
+					<feature default="0" enum="0,1,2" get="true" index="1" name="Mode" set="true" type="num">
+						<enum name="Monostable" resKey="button_mode_enum_monostable" value="0"/>
+						<enum name="Bistable" resKey="button_mode_enum_bistable" value="1"/>
+						<enum name="Locked" resKey="button_mode_enum_locked" value="2"/>
+						<hint lang="pl" value="Zwraca ustawiony tryb działania przycisku (0 - monostabilny, 1 - bistabilny, 2 - zablokowany).&#13;W trybie zablokowanym diody świecą na czerwono ciągłym światłem"/>
+						<hint lang="en" value="Returns the selected mode of button action (0 - Monostable, 1 - Bistable, 2 - Locked).&#13;In locked mode, the diode is illuminated in continuous red light"/>
+						<hint lang="de" value="Gibt den vorgegebenen Tastenmodus (0 – monostabil,1 – bistabil, 2 – gesperrt) zurück. Im gesperrten Modus leuchtet die LED mit rotem Dauerlicht"/>
+                        <desc resKey="button_mode_1"/>
+                    </feature>
+					<feature default="1000" get="true" index="2" name="HoldDelay" range="100-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas w milisekundach, po jakim po wciśnięciu i przytrzymaniu przycisku wyzwalane jest zdarzenie OnHold (domyślnie 500 ms)"/>
+						<hint lang="en" value="Time in milliseconds after which, when pressing and holding a button, the OnGold event occurs"/>
+						<hint lang="de" value="Zeit in Millisekunden, die verlaufen muss, bevor das Ereignis OnHold generiert wird, nachdem die Taste betätigt und gedrückt gehalten worden ist"/>
+                        <desc resKey="button_holddelay_1"/>
+                    </feature>
+					<feature default="100" get="true" index="3" name="HoldInterval" range="100-2000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Odstęp cykliczny w milisekundach, po jakim podczas trzymania przycisku wyzwalane są kolejne zdarzenia OnHold"/>
+						<hint lang="en" value="Cyclical interval in milliseconds after which, when pressing and holding a button, the OnHold event occurs"/>
+						<hint lang="de" value="Zyklisches Zeitintervall in Millisekunden, das verlaufen muss, bevor das Ereignis OnHold generiert wird, während die Taste betätigt und gedrückt gehalten wird"/>
+                        <desc resKey="button_holdinterval"/>
+                    </feature>
+					<feature enum="0,1" get="true" index="0" name="Value" set="false" type="num" unit="bool">
+						<hint lang="pl" value="Zwraca stan wejścia jako 0 lub 1"/>
+						<hint lang="en" value="Returns input state as 0 or 1"/>
+						<hint lang="de" value="Gibt den Eingangsstatus als 0 oder 1 zurück"/>
+                        <desc resKey="button_value"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="execute" index="0" name="ShowOK" return="void" set="0">
+						<hint lang="pl" value="Powoduje miganie zielonej diody na przycisku przez 2 sekundy (częstotliwość 500ms)"/>
+						<hint lang="en" value="Causes the green diose on the button to flash for 2 seconds (frequency 500ms). The red diode on the button is off"/>
+						<hint lang="de" value="Lässt die grüne Tatsten-LED zwei Sekunden lang (alle 500 ms) blinken. Die rote Tasten-LED bleibt aus"/>
+                        <desc resKey="button_showok_1"/>
+                    </method>
+					<method call="execute" index="0" name="ShowError" return="void" set="1">
+						<hint lang="pl" value="Powoduje miganie czerwonej diody na przycisku przez 2 sekundy (częstotliwość 500ms)"/>
+						<hint lang="en" value="Causes the red diode on the button to flash for 2 seconds (frequency 500 ms). The green diode on the button is off"/>
+						<hint lang="de" value="Lässt die rote Tatsten-LED zwei Sekunden lang (alle 500 ms) blinken. Die grüne Tasten-LED bleibt aus"/>
+                        <desc resKey="button_showerror"/>
+                    </method>
+					<method call="set" index="2" name="SetHoldDelay" range="100-5000" return="void">
+						<param name="HoldDelay" type="num"/>
+						<hint lang="pl" value="Ustawia wartość HoldDelay"/>
+						<hint lang="en" value="Sets HoldDelay value"/>
+						<hint lang="de" value="Bestimmt den Wert von HoldDelay"/>
+                        <desc resKey="button_setholddelay"/>
+                    </method>
+					<method call="set" index="3" name="SetHoldInterval" range="100-2000" return="void">
+						<param name="HoldInterval" type="num"/>
+						<hint lang="pl" value="Ustawia wartość HoldInterval"/>
+						<hint lang="en" value="Sets HoldInterval value"/>
+						<hint lang="de" value="Bestimmt den Wert von HoldInterval"/>
+                        <desc resKey="button_setholdinterval"/>
+                    </method>
+					<method call="execute" index="1" name="LedSwitchOn" return="void" set="2">
+						<hint lang="pl" value="Załącza zieloną diodę na przycisku"/>
+						<hint lang="en" value="Activates the green diode on the button"/>
+						<hint lang="de" value="Schaltet die grüne Tasten-LED ein"/>
+                        <desc resKey="button_ledswitchon"/>
+                    </method>
+					<method call="execute" index="2" name="LedSwitchOff" return="void" set="4">
+						<hint lang="pl" value="Wyłącza zieloną diodę na przycisku"/>
+						<hint lang="en" value="Deactivates the green diode on the button"/>
+						<hint lang="de" value="Schaltet die grüne Tasten-LED aus"/>
+                        <desc resKey="button_ledswitchoff"/>
+                    </method>
+					<method call="set" index="1" name="SetMode" range="0-2" return="enum" type="num">
+						<param name="Mode" type="num"/>
+						<enum name="Monostable" value="0"/>
+						<enum name="Bistable" value="1"/>
+						<enum name="Locked" value="2"/>
+						<hint lang="pl" value="Ustawia tryb działania przycisku (0 - monostabilny, 1 - bistabilny, 2 - zablokowany).&#13;W trybie zablokowanym diody świecą na czerwono ciągłym światłem."/>
+						<hint lang="en" value="Sets mode of button action (0 - Monostable, 1 - Bistable, 2 - Locked).&#13;In locked mode, the diode is illuminated in continuous red light"/>
+						<hint lang="de" value="Bestimmt den Tastenmodus (0 - monostabil, 1 – bistabil, 2 – gesperrt). Im gesperrten Modus leuchtet die LED mit rotem Dauerlicht"/>
+                        <desc resKey="button_setmode_1"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany stanu na przeciwny"/>
+						<hint lang="en" value="Occurs when a change in the input state takes place (regardless of the value)"/>
+						<hint lang="de" value="Wird aufgerufen, falls eine Änderung des Eingangsstatus erfolgt (unabhängig vom Wert)"/>
+                        <desc resKey="button_onchange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu wysokiego na wejściu"/>
+						<hint lang="en" value="Occurs when the high state is set at input"/>
+						<hint lang="de" value="Wird aufgerufen, sobald ein Hochzustand am Eingang ansteht"/>
+                        <desc resKey="button_onswitchon_1"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu niskiego na wejściu"/>
+						<hint lang="en" value="Occurs when the low state is set at input"/>
+						<hint lang="de" value="Wird aufgerufen, sobald ein Niedrigzustand am Eingang ansteht"/>
+                        <desc resKey="button_onswitchoff_1"/>
+                    </event>
+					<event address="3" name="OnShortPress">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na okres 500ms-2000ms"/>
+						<hint lang="en" value="Occurs after pressing the button for 500ms - 2000 ms"/>
+						<hint lang="de" value="Wird aufgerufen, nachdem die Taste 500 - 2000 ms lang gedrückt gehalten worden ist"/>
+                        <desc resKey="button_onshortpress_1"/>
+                    </event>
+					<event address="4" name="OnLongPress">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na okres 2000ms-5000ms"/>
+						<hint lang="en" value="Occurs after pressing the button for two seconds"/>
+						<hint lang="de" value="Wird aufgerufen, nachdem die Taste zwei Sekunden lang gedrückt gehalten worden ist"/>
+                        <desc resKey="button_onlongpress_1"/>
+                    </event>
+					<event address="5" name="OnHold">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wejście jest w stanie wysokim, pierwszy raz po upłynięciu czasu HoldDelay, a następnie cyklicznie co wartość HoldInterval"/>
+						<hint lang="en" value="Occurs for the first time after HoldDelay time passes and then cyclically every HoldInterval value"/>
+						<hint lang="de" value="Wird zum ersten Mal aufgerufen, sobald die Zeit von HoldDelay abgelaufen ist und danach zyklisch in den mit HoldInterval vorgegebenen Zeitabständen"/>
+                        <desc resKey="button_onhold_1"/>
+                    </event>
+					<event address="6" name="OnClick">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na czas krótszy niż 500ms"/>
+						<hint lang="en" value="Occurs after pressing the button for less than 500 ms"/>
+						<hint lang="de" value="Wird aufgerufen, nachdem die Taste kürzer als 500 ms gedrückt gehalten worden ist"/>
+                        <desc resKey="button_onclick_1"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="20" count="1" name="PANELSENSTEMP" type="in">
+			<interface>
+				<features>
+					<feature default="0.1" get="true" index="1" name="Threshold" range="0-1" set="true" type="num" unit="number">
+						<hint lang="pl" value="Wielkość histerezy (dokładność 0.1°C) określajaca czułość, przy której następuje wygenerowanie zdarzeń: OnChange, OnLower, OnRise"/>
+						<hint lang="en" value="Hysteresis size (accuracy 0.1°C) specifying the sensitivity when the following events are generated: OnChange, OnLower, OnRise"/>
+						<hint lang="de" value="Hysterese (Genauigkeit 0,1˚C) der Empfindlichkeit, bei der folgende Ereignisse generiert werden: OnChange, OnLower, OnRaise"/>
+                        <desc resKey="panelsenstemp_threshold_1"/>
+                    </feature>
+					<feature default="300" get="true" index="2" name="Sensitivity" range="0-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas (w ms) dla którego próbkowane wartości są uśredniane"/>
+						<hint lang="en" value="Time (in ms) for which the sampled values are averaged"/>
+						<hint lang="de" value="Zeit (in ms), für die abgetastete Werte gemittelt werden"/>
+                        <desc resKey="panelsenstemp_sensitivity"/>
+                    </feature>
+					<feature default="0" get="true" index="3" name="MinValue" range="0-100" set="true" type="num" unit="°C">
+						<hint lang="pl" value="Minimalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Mindestwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="panelsenstemp_minvalue"/>
+                    </feature>
+					<feature default="40" get="true" index="4" name="MaxValue" range="0-100" set="true" type="num" unit="°C">
+						<hint lang="pl" value="Maksymalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRnge"/>
+						<hint lang="en" value="Maximum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Höchstwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="panelsenstemp_maxvalue"/>
+                    </feature>
+					<feature get="true" index="0" name="Value" range="0-100" set="false" type="num" unit="°C">
+						<hint lang="pl" value="Wartość wejścia w zakresie od 0.0 do 6553.5 (°C)"/>
+						<hint lang="en" value="Input value: for temperature sensor from 0.0 to 6553.5 (°C)"/>
+						<hint lang="de" value="Eingangswert: für Temperatursensor von 0,0 bis 6553,5 (°C)"/>
+                        <desc resKey="panelsenstemp_value_2"/>
+                    </feature>
+					<!--
+					<feature name="CalibThr" index="5" type="num" get="true"
+						set="true" default="0.1" >
+						<hint lang="pl" value=""/>
+					</feature>
+					-->
+				</features>
+				<methods>
+				</methods>
+				<events>
+					<event address="0" name="OnChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany stanu na przeciwny"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+						<hint lang="de" value="Ereignis bei Änderung des Eingangsstatus"/>
+                        <desc resKey="panelsenstemp_onchange"/>
+                    </event>
+					<event address="1" name="OnRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event resulting from exceeding the upper threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der oberen Hysterese-Schwelle"/>
+                        <desc resKey="panelsenstemp_onrise"/>
+                    </event>
+					<event address="2" name="OnLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event resulting from exceeding the lower threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der unteren Hysterese-Schwelle aufgerufen wird"/>
+                        <desc resKey="panelsenstemp_onlower"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wyjściu znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding any range"/>
+						<hint lang="de" value="Ereignis bei Überschreitung des zulässigen Bereichs"/>
+                        <desc resKey="panelsenstemp_onoutofrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="21" count="1" name="PANELSENSLIGHT" type="in">
+			<interface>
+				<features>
+					<feature default="0.1" get="true" index="1" name="Threshold" range="0-1" set="true" type="num" unit="number">
+						<hint lang="pl" value="Wielkość histerezy (dokładność 0.1%;) określajaca czułość, przy której następuje wygenerowanie zdarzeń: OnChange, OnLower, OnRise"/>
+						<hint lang="en" value="Hysteresis size (accuracy 0.1%) specifying the sensitivity when the following events are generated: OnChange, OnLower, OnRise"/>
+						<hint lang="de" value="Hysterese (Genauigkeit 0,1%) der Empfindlichkeit, bei der folgende Ereignisse generiert werden: OnChange, OnLower, OnRaise"/>
+                        <desc resKey="panelsenslight_threshold_3"/>
+                    </feature>
+					<feature default="500" get="true" index="2" name="Sensitivity" range="0-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas (w ms), dla którego próbkowane wartości są uśredniane"/>
+						<hint lang="en" value="Hysteresis size (accuracy 0.1%) specifying the sensitivity when the following events are generated: OnChange, OnLower, OnRise"/>
+						<hint lang="de" value="Zeit (in ms), für die abgetastete Werte gemittelt werden"/>
+                        <desc resKey="panelsenslight_sensitivity_1"/>
+                    </feature>
+					<feature default="0" get="true" index="3" name="MinValue" range="0-100" set="true" type="num" unit="%">
+						<hint lang="pl" value="Minimalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Mindestwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="panelsenslight_minvalue"/>
+                    </feature>
+					<feature default="100" get="true" index="4" name="MaxValue" range="0-100" set="true" type="num" unit="%">
+						<hint lang="pl" value="Maksymalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRnge"/>
+						<hint lang="en" value="Maximum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Höchstwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="panelsenslight_maxvalue"/>
+                    </feature>
+					<feature get="true" index="0" name="Value" range="0-100" set="false" type="num" unit="%">
+						<hint lang="pl" value="Wartość wejścia w zakresie od 0 do 100 %"/>
+						<hint lang="en" value="Maximum value of the Value characteristic after exceeding which the OnOutoFRange event is generated"/>
+						<hint lang="de" value="Eingangswert: für Temperatursensor von 0 bis 100 %"/>
+                        <desc resKey="panelsenslight_value_2"/>
+                    </feature>
+					<!--
+					<feature name="CalibThr" index="5" type="num" get="true"
+						set="true" default="0.1" >
+						<hint lang="pl" value=""/>
+					</feature>
+					-->
+					<!--feature name="CalibThr" index="5" type="num" get="true" set="true" 
+						default="0.1" / -->
+				</features>
+				<methods>
+				</methods>
+				<events>
+					<event address="0" name="OnChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany stanu na przeciwny"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+						<hint lang="de" value="Ereignis bei Änderung des Eingangsstatus"/>
+                        <desc resKey="panelsenslight_onchange"/>
+                    </event>
+					<event address="1" name="OnRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event resulting from exceeding the upper threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der oberen Hysterese-Schwelle"/>
+                        <desc resKey="panelsenslight_onrise"/>
+                    </event>
+					<event address="2" name="OnLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event resulting from exceeding the lower threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der unteren Hysterese-Schwelle aufgerufen wird"/>
+                        <desc resKey="panelsenslight_onlower"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wyjściu znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding any range"/>
+						<hint lang="de" value="Ereignis bei Überschreitung des zulässigen Bereichs"/>
+                        <desc resKey="panelsenslight_onoutofrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

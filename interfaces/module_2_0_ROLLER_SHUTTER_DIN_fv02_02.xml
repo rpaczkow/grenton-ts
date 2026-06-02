@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="ROLLER_SH_DIN" typeId="17">
+	<!--hwType=0x17(23), hwVer=0x1(1), fwType=0x2(2), fwApiVer=0x2(2)-->
+	<firmware typeId="02" version="02">
+		<object class="24" count="1" name="ROLLER_SHUTTER" type="out">
+			<interface>
+				<features>
+					<feature enum="0,1,2,3" get="true" index="0" name="State" set="false" type="num" unit="-">
+						<enum name="Stop" resKey="roller_shutter_state_enum_stop" value="0"/>
+						<enum name="Up" resKey="roller_shutter_state_enum_up" value="1"/>
+						<enum name="Down" resKey="roller_shutter_state_enum_down" value="2"/>
+						<enum name="Blocked" resKey="roller_shutter_state_enum_blocked" value="3"/>
+						<hint lang="pl" value="Stan wyjścia:&#13;0 - stoi,&#13;1 - ruch w górę,&#13;2 - ruch w dół,&#13;3 - roleta zablokowana"/>
+						<hint lang="en" value="Output state:&#13;0 - no movement,&#13;1 - moving upwards,&#13;2 - moving downwards,&#13;3 - blocked"/>
+						<hint lang="de" value="Ausgangsstatus:&#13;0 - keine Bewegung,&#13;1 - Bewegung nach unten,&#13;2 - Bewegung nach oben,&#13;3 - Verstopft"/>
+                        <desc resKey="roller_shutter_state_1"/>
+                    </feature>
+					<feature enum="0,1" get="true" index="3" name="Up" set="false" type="num">
+						<enum name="Off" resKey="roller_shutter_up_enum_off" value="0"/>
+						<enum name="On" resKey="roller_shutter_up_enum_on" value="1"/>
+						<hint lang="pl" value="Stan przekaźnika UP"/>
+						<hint lang="en" value="State of UP relay (moving upwards)"/>
+						<hint lang="de" value="Zustand des Relais UP"/>
+                        <desc resKey="roller_shutter_up"/>
+                    </feature>
+					<feature enum="0,1" get="true" index="4" name="Down" set="false" type="num">
+						<enum name="Off" resKey="roller_shutter_down_enum_off" value="0"/>
+						<enum name="On" resKey="roller_shutter_down_enum_on" value="1"/>
+						<hint lang="pl" value="Stan przekaźnika DOWN"/>
+						<hint lang="en" value="State of DOWN relay (moving downwards)"/>
+						<hint lang="de" value="Zustand des Relais DOWN"/>
+                        <desc resKey="roller_shutter_down"/>
+                    </feature>
+					<feature get="true" index="2" name="LoadCurrent" set="false" type="num" unit="mA">
+						<hint lang="pl" value="Aktualny prąd obciążenia"/>
+						<hint lang="en" value="Load current value"/>
+						<hint lang="de" value="Laststrom"/>
+                        <desc resKey="roller_shutter_loadcurrent"/>
+                    </feature>
+					<feature default="1600" get="true" index="5" name="Overcurrent" set="true" type="num" unit="mA">
+						<hint lang="pl" value="Wartość prądu obciążenia, po przekroczeniu której generowane jest zdarzenie OnOvercurrent"/>
+						<hint lang="en" value="Load current value, when exceeded, the OnOvercurrent event is generated"/>
+						<hint lang="de" value="Laststrom, wenn überschritten, das OnOvercurrent-Ereignis wird generiert"/>
+                        <desc resKey="roller_shutter_overcurrent"/>
+                    </feature>
+					<feature default="0" enum="0,1" get="true" index="6" name="VoltageType" set="true" type="num" unit="">
+						<enum name="AC" resKey="roller_shutter_voltagetype_enum_ac" value="0"/>
+						<enum name="DC" resKey="roller_shutter_voltagetype_enum_dc" value="1"/>
+						<hint lang="pl" value="Rodzaj napięcia obciążenia:&#13;0 - AC,&#13;1 - DC"/>
+						<hint lang="en" value="Load voltage type:&#13;0 - AC,&#13;1 - DC"/>
+						<hint lang="de" value="Lastspannungsart:&#13;0 - AC,&#13;1 - DC"/>
+                        <desc resKey="roller_shutter_voltagetype"/>
+                    </feature>
+					<feature default="0" get="true" index="7" name="Position" set="false" type="num" unit="%">
+						<hint lang="pl" value="Procentowe określenie otwarcia rolety:&#13;0% - pełne zamknięcie,&#13;100% - pełne otwarcie"/>
+						<hint lang="en" value="Percentage value of the shutter opening:&#13;0% - fully closed,&#13;100% - fully open"/>
+						<hint lang="de" value="Prozentwert des Rollladen opening Öffnung:&#13;0% - geschlossen,&#13;100% - geöffnet"/>
+                        <desc resKey="roller_shutter_position"/>
+                    </feature>
+					<feature default="0" get="true" index="8" name="LamelPosition" set="false" type="num" unit="°">
+						<hint lang="pl" value="Pozycja lameli rolety:&#13;90 - pełne zamknięcie,&#13;0 - pełne otwarcie"/>
+						<hint lang="en" value="Roller shutter lamel position&#13;90 - fully closed,&#13;0 - fully open"/>
+						<hint lang="de" value="Rollladen-Lamellenposition&#13;90 - geschlossen,&#13;0 - geöffnet"/>
+                        <desc resKey="roller_shutter_lamelposition"/>
+                    </feature>       
+					<feature default="30000" get="true" index="9" name="MaxTime" range="0-600000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas w milisekundach potrzebny do pełnego otwarcia / zamknięcia rolety"/>
+						<hint lang="en" value="The time in milliseconds it takes to fully open / close the blind"/>
+						<hint lang="de" value="Die Zeit in Millisekunden, die zum vollständigen Öffnen / Schließen benötigt wird"/>
+						<desc resKey="roller_shutter_maxtime_2"/>
+					</feature>
+					<feature default="0" get="true" index="10" name="LamelMoveTimeout" range="0-60000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Maksymalny czas cyklu pracy lameli rolety, jeśli roleta nie posiada lameli powinien być ustawiony na 0"/>
+						<hint lang="en" value="The maximum working time of the shutter's slats, if the shutter does not have slats, should be set to 0"/>
+						<hint lang="de" value="Die maximale Arbeitszeit der Verschlusslamellen, Sollte auf 0 gesetzt werden 0 wenn der Rollladen keine Lamellen hat"/>
+                        <desc resKey="roller_shutter_lamelmovetimeout"/>
+                    </feature>
+					<feature default="0" get="true" index="11" name="DistributedLogicGroup" range="0-10000" set="true" type="num">
+						<hint lang="pl" value="Grupa Distributed Logic - grupa broadcastowa dla rozproszonej logiki"/>
+						<hint lang="en" value="Distributed Logic group - broadcast group for distributed logic"/>
+						<hint lang="de" value="Verteilte Logikgruppe - Broadcast-Gruppe für verteilte Logik"/>
+					    <desc resKey="roller_shutter_distributedlogicgroup"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="execute" index="10" name="SetPosition" return="void"> 
+						<param name="Position" range="0-100" type="num" unit="%" value="0"/>
+			<!-->
+						<param name="Lamel" optional="true" type="num" range="" unit="">
+							<parametrized name="Default" type="num" value="0"/>
+							<parametrized name="PreviusState" type="num" value="1"/>
+							<parametrized name="LamelPosition" type="num" range="0-90" />
+						</param>
+			-->
+						<hint lang="pl" value="Ustawienie w ilu procentach roleta jest otwarta:&#13;0% - roleta zamknięta,&#13;100% - roleta otwarta"/>
+						<hint lang="en" value="Shutter opening percentage setting:&#13;0% - fully closed,&#13;100% - fully open"/>
+						<hint lang="de" value="Prozentwert des Rollladen opening Öffnung:&#13;0% - geschlossen,&#13;100% - geöffnet"/>
+                        <desc resKey="roller_shutter_setposition"/>
+                    </method>
+					<method call="execute" index="9" name="SetLamelPosition" return="void"> 
+						<param name="Position" range="0-90" type="num" unit="°" value="0"/>
+						<hint lang="pl" value="Ustawia pozycję lameli"/>
+						<hint lang="en" value="Sets the position of the slats"/>
+						<hint lang="de" value="Legt die Position der Lamellen fest"/>
+                        <desc resKey="roller_shutter_setlamelposition"/>
+                    </method>
+					<method call="execute" index="8" name="Calibration" return="void">
+						<param name="Direction" type="num" unit="-">
+							<parametrized name="Up" value="1"/>
+							<parametrized name="Down" value="0"/>
+						</param>
+						<hint lang="pl" value="Kalibruje pozycję rolety"/>
+						<hint lang="en" value="Calibrates the shutter position"/>
+						<hint lang="de" value="Kalibriert die Verschlussposition"/>
+                        <desc resKey="roller_shutter_calibration"/>
+                    </method>
+					<method call="set" index="9" name="SetMaxTime" return="void"> 
+						<param name="Timeout" range="0-600000" type="num" unit="ms" value="0"/>
+						<hint lang="pl" value="Ustawia czas cyklu rolety"/>
+						<hint lang="en" value="Sets the cycle time of the shutter"/>
+						<hint lang="de" value="Legt die Zykluszeit des Verschlusses fest"/>
+                        <desc resKey="roller_shutter_setmaxtime"/>
+                    </method>
+					<method call="set" index="10" name="SetLamelMoveTimeout" return="void"> 
+						<param name="Timeout" range="0-60000" type="num" unit="ms" value="0"/>
+						<hint lang="pl" value="Ustawia czas cyklu lameli"/>
+						<hint lang="en" value="Sets the cycle time of the slats"/>
+						<hint lang="de" value="Legt die Zykluszeit der Lamellen fest"/>
+                        <desc resKey="roller_shutter_setlamelmovetimeout"/>
+                    </method>
+					<method call="execute" index="0" name="MoveUp" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="MaxTime" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Roleta do góry lub stop. Parametr Time to czas przez jaki roleta ma się otwierać:&#13;num - czas otwierania (lub do pełnego otwarcia),&#13;0 - czas otwierania równy MaxTime + LamelMoveTimeout (lub do pełnego otwarcia)"/>
+						<hint lang="en" value="Roller shutter UP or STOP if moving. Parameter Time:&#13;num - move up time (or until roller shutter is open),&#13;0 - move up time equal MaxTime + LamelMoveTimeout (or until roller shutter is open)"/>
+						<hint lang="de" value="Rollladen nach oben oder Stopp, falls in Bewegung. Der Parameter Time bestimmt die Zeit, während der der Rollladen auffahren soll: &#13;0 - Auffahrzeit gleich MaxTime + LamelMoveTimeout (oder bis vollständig geöffnet)&#13;num - Auffahrzeit (oder bis vollständig geöffnet)"/>
+                        <desc resKey="roller_shutter_moveup_1"/>
+                    </method>
+					<method call="execute" index="1" name="MoveDown" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="MaxTime" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Roleta w dół lub stop. Parametr Time to czas przez jaki roleta ma się zamykać:&#13;num - czas zamykania (lub do pełnego zamknięcia),&#13;0 - czas zamykania równy MaxTime + LamelMoveTimeout (lub do pełnego zamknięcia)"/>
+						<hint lang="en" value="Roller shutter DOWN or STOP if moving. Parameter Time:&#13;num - move down time (or until roller shutter is closed),&#13;0 - move down time equal MaxTime + LamelMoveTimeout (or until roller shutter is closed)"/>
+						<hint lang="de" value="Rollladen nach unten oder Stopp, falls in Bewegung. Der Parameter Time bestimmt die Zeit, während der der Rollladen abfahren soll: &#13;0 - Abfahrzeit gleich MaxTime + LamelMoveTimeout (oder bis vollständig geschlossen)&#13;num - Abfahrzeit (oder bis vollständig geschlossen)"/>
+                        <desc resKey="roller_shutter_movedown_1"/>
+                    </method>
+					<method call="execute" index="2" name="Start" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="MaxTime" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Roleta do góry jeśli poprzednio ruch w dół, roleta w dół jeśli poprzednio ruch w górę. Parametr Time to czas jazdy rolety:&#13;num - czas jazdy (lub do osiągnięcia pozycji krańcowej),&#13;0 - czas jazdy równy MaxTime + LamelMoveTimeout (lub do osiągnięcia pozycji krańcowej)"/>
+						<hint lang="en" value="Roller shutter up if the preceding motion was down or roller shutter down if the preceding motion was up. Parameter Time:&#13;num - move time (or until roller shutter is at the end position),&#13;0 - move time equal MaxTime + LamelMoveTimeout (or until roller shutter is at the end position)"/>
+						<hint lang="de" value="Rollladen nach oben, falls vorher nach unten oder Rollladen nach unten, falls vorher nach oben. Parameter Time: &#13;0 - Fahrzeit gleich MaxTime + LamelMoveTimeout (oder bis die Endposition erreicht ist) &#13;num - Fahrzeit (oder bis die Endposition erreicht ist)"/>
+                        <desc resKey="roller_shutter_start_1"/>
+                    </method>
+					<method call="execute" index="3" name="Stop" return="void">
+						<hint lang="pl" value="Stop jeśli roleta jest w ruchu"/>
+						<hint lang="en" value="STOP if moving"/>
+						<hint lang="de" value="Stopp, falls in Bewegung"/>
+                        <desc resKey="roller_shutter_stop"/>
+                    </method>
+					<method call="execute" index="4" name="Hold" return="void">
+						<hint lang="pl" value="Hold z odwracaniem kierunku"/>
+						<hint lang="en" value="Hold with direction change"/>
+						<hint lang="de" value="Hold mit Richtungswechsel"/>
+                        <desc resKey="roller_shutter_hold"/>
+                    </method>
+					<method call="execute" index="5" name="HoldUp" return="void">
+						<hint lang="pl" value="Hold zawsze w górę"/>
+						<hint lang="en" value="Hold always up"/>
+						<hint lang="de" value="Hold stets nach oben"/>
+                        <desc resKey="roller_shutter_holdup"/>
+                    </method>
+					<method call="execute" index="6" name="HoldDown" return="void">
+						<hint lang="pl" value="Hold zawsze w dół"/>
+						<hint lang="en" value="Hold always down"/>
+						<hint lang="de" value="Hold stets nach unten"/>
+                        <desc resKey="roller_shutter_holddown"/>
+                    </method>
+					<method call="execute" index="13" name="SetRollerBlocked" return="enum" type="num" unit="bool">
+						<param default="0" name="State" optional="true" range="0-1" type="num" unit="ms">
+							<parametrized name="UnBlocked" type="num" value="0"/>
+							<parametrized name="Blocked" type="num" value="1"/>
+						</param>
+						<hint lang="pl" value="Włącza / wyłącza możliwość sterowania roletą"/>
+						<hint lang="en" value="Enables / disables the ability to control the roller shutter"/>
+						<hint lang="de" value="Aktiviert / deaktiviert die Steuerung des Rollladens"/>
+                        <desc resKey="roller_shutter_setrollerblocked"/>
+                    </method>
+					<method call="execute" index="14" name="LamelStart" return="void" type="num" unit="-">
+						<hint lang="pl" value="Zmienia pozycję lameli o 45°"/>
+						<hint lang="en" value="Changes the position of the slats by 45°"/>
+						<hint lang="de" value="Ändert die Position der Lamellen um 45°"/>
+                        <desc resKey="roller_shutter_lamelstart"/>
+                    </method>
+			<!--
+					<method name="SetVoltageType" call="execute" index="7"  return="void" >
+						<param name="VoltageType" type="num" unit="-">
+							<parametrized name="AC" value="0"/>
+							<parametrized name="DC" value="1"/>
+						</param>
+						<hint lang="pl" value="Ustawia cechę VoltageType" />
+						<hint lang="en" value="TODO"/>
+						<hint lang="de" value="Hold stets nach unten"/>			
+                    </method> 
+            -->        
+				</methods>
+				<events>
+					<event address="0" name="OnStateChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany cechy State"/>
+						<hint lang="en" value="Result from a change in the State properties"/>
+						<hint lang="de" value="Ereignis, das bei Statusänderung eines jeden Ausgangs aufgerufen"/>
+                        <desc resKey="roller_shutter_onstatechange_1"/>
+                    </event>
+					<event address="1" name="OnUp">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany stanu ze Stop na Up"/>
+						<hint lang="en" value="Occurs when changing the Stop state to the Up state"/>
+						<hint lang="de" value="Wird bei Statusänderung von Stopp auf Up aufegrufen"/>
+                        <desc resKey="roller_shutter_onup"/>
+                    </event>
+					<event address="2" name="OnDown">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany stanu ze Stop na Down"/>
+						<hint lang="en" value="Occurs when changing the Stop state to the Down state"/>
+						<hint lang="de" value="Wird bei Statusänderung von Stopp auf Down aufegrufen"/>
+                        <desc resKey="roller_shutter_ondown"/>
+                    </event>
+					<event address="3" name="OnStart">
+						<hint lang="pl" value="Zdarzenie wywoływane po uruchomieniu rolety"/>
+						<hint lang="en" value="Occurs when the shutter is activated"/>
+						<hint lang="de" value="Wird bei Der Rollladen aktiviert ist"/>
+                        <desc resKey="roller_shutter_onstart_1"/>
+                    </event>
+					<event address="4" name="OnStop">
+						<hint lang="pl" value="Zdarzenie wywoływane po zatrzymaniu rolety"/>
+						<hint lang="en" value="Occurs when the shutter is stopped"/>
+						<hint lang="de" value="Wird bei Der Rollladen deaktiviert ist"/>
+                        <desc resKey="roller_shutter_onstop_1"/>
+                    </event>
+					<event address="5" name="OnOvercurrent">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy prąd obciążenia przekroczy wartość Overcurrent"/>
+						<hint lang="en" value="Occurs when the load current exceeds the Overcurrent value"/>
+						<hint lang="de" value="Wird bei Laststrom den Überstromwert überschreitet"/>
+                        <desc resKey="roller_shutter_onovercurrent"/>
+                    </event>
+					<event address="6" name="OnLamelClosed">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy lamele zostają zamknięte (wartość 90°)"/>
+						<hint lang="en" value="Occurs when the slats are closed (value 90°)"/>
+						<hint lang="de" value="Wird bei Lamellen geschlossen sind (Wert 90°)"/>
+                        <desc resKey="roller_shutter_onlamelclosed"/>
+                    </event>
+					<event address="7" name="OnLamelOpen">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy lamele zostają otwarte (wartość 0°)"/>
+						<hint lang="en" value="Occurs when the slats are opened (value 0°)"/>
+						<hint lang="de" value="Wird bei Lamellen geöffnet sind (Wert 0°)"/>
+                        <desc resKey="roller_shutter_onlamelopen"/>
+                    </event>
+				</events>
+			</interface>
+		</object>	
+		<object class="12" count="1" name="PowerSupplyVoltage" type="in">
+			<interface>
+				<features>
+					<feature default="0" get="true" index="0" name="Value" range="0-24" set="false" type="num" unit="V">
+						<hint lang="pl" value="Wartość napięcia zasilania"/>
+						<hint lang="en" value="Current power supply voltage value"/>
+					    <desc resKey="powersupplyvoltage_value"/>
+                    </feature>
+					<feature default="0" divisor="1" get="true" index="1" name="Value%" range="0-1000000" set="false" type="num" unit="%">
+						<hint lang="pl" value="Wartość napięcia zasilania jako procent wartości maksymalnej (MaxValue)"/>
+						<hint lang="en" value="Current percentage input value of the maximum value (MaxValue characteristic)"/>
+					    <desc resKey="powersupplyvoltage_value_1"/>
+                    </feature>
+					<feature default="0.5" get="true" index="3" name="Sensitivity" range="0-10" set="true" type="num" unit="V">
+						<hint lang="pl" value="Czułość - minimalna zmiana wartości napięcia zasilania, która wywołuje zdarzenia OnValueChange, OnValueLower lub OnValueRise"/>
+						<hint lang="en" value="Minimum change of input state when the OnValueChange, OnValueLower or OnValueRise event is generated"/>
+					    <desc resKey="powersupplyvoltage_sensitivity"/>
+                    </feature>
+					<feature default="21" get="true" index="5" name="MinValue" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość minimalna napięcia zasilania po przekroczeniu której generowane jest zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+					    <desc resKey="powersupplyvoltage_minvalue"/>
+                    </feature>
+					<feature default="24" get="true" index="6" name="MaxValue" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość maksymalna napięcia zasilania po przekroczeniu której generowane jest zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Maximum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+					    <desc resKey="powersupplyvoltage_maxvalue"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="3" name="SetSensitivity" return="void">
+						<hint lang="pl" value="Ustawia czułość pomiaru napięcia zasilania"/>
+						<hint lang="en" value="Sets input sensitivity value"/>
+						<param name="Sensitivity" range="0-10" type="num" unit="V"/>
+					    <desc resKey="powersupplyvoltage_setsensitivity"/>
+                    </method>
+					<method call="set" index="5" name="SetMinValue" return="void">
+						<hint lang="pl" value="Ustawia wartość MinValue"/>
+						<hint lang="en" value="Sets MinValue"/>
+						<param name="MinValue" type="num"/>
+					    <desc resKey="powersupplyvoltage_setminvalue"/>
+                    </method>
+					<method call="set" index="6" name="SetMaxValue" return="void">
+						<hint lang="pl" value="Ustawia wartość MaxValue"/>
+						<hint lang="en" value="Sets MaxValue"/>
+						<param name="MaxValue" type="num"/>
+					    <desc resKey="powersupplyvoltage_setmaxvalue"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+					    <desc resKey="powersupplyvoltage_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event occurs when a value lower than the value from the last reading appears at input"/>
+					    <desc resKey="powersupplyvoltage_onvaluelower"/>
+                    </event>
+					<event address="2" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event occurs when a value higher than the value from the last reading appears at input"/>
+					    <desc resKey="powersupplyvoltage_onvaluerise"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy napięcia zasilania znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding the permissible range (MinValue - MaxValue)"/>
+					    <desc resKey="powersupplyvoltage_onoutofrange"/>
+                    </event>
+					<event address="6" name="OnInRange">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wartość napięcia zasilania powróci do wyznaczonego zakresu (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurs when value returns to MinValue - MaxValue range"/>
+					    <desc resKey="powersupplyvoltage_oninrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

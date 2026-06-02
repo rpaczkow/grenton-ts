@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object class="202" className="GATE" name="ModbusSlaveConfigRTU" version="1">
+	<features>
+		<feature default="19200" enum="1200,2400,4800,9600,19200,38400,57600,115200" get="true" index="1" name="TransmissionSpeed" set="true" type="num" unit="bps">
+			<enum name="1200" resKey="modbus_transmisionspeed_enum_1200" value="1200"/> 
+			<enum name="2400" resKey="modbus_transmisionspeed_enum_2400" value="2400"/> 
+			<enum name="4800" resKey="modbus_transmisionspeed_enum_4800" value="4800"/> 
+			<enum name="9600" resKey="modbus_transmisionspeed_enum_9600" value="9600"/> 
+			<enum name="19200" resKey="modbus_transmisionspeed_enum_19200" value="19200"/>
+			<enum name="38400" resKey="modbus_transmisionspeed_enum_38400" value="38400"/> 
+			<enum name="57600" resKey="modbus_transmisionspeed_enum_57600" value="57600"/>	
+			<enum name="115200" resKey="modbus_transmisionspeed_enum_115200" value="115200"/>
+			<hint lang="pl" value="Prędkość transmisji"/>
+			<hint lang="en" value="Transmission Speed"/>
+			<hint lang="de" value="Übertragungsgeschwindigkeit"/>
+            <desc resKey="modbus_transmisionspeed"/>
+		</feature>
+		<feature default="0" enum="0,1,2" get="true" index="2" name="Parity" set="true" type="num" unit="">
+			<enum name="None" resKey="modbus_parity_enum_none" value="0"/> 
+			<enum name="Odd" resKey="modbus_parity_enum_odd" value="1"/>
+			<enum name="Even" resKey="modbus_parity_enum_even" value="2"/> 	
+			<hint lang="pl" value="Bit parzystości:&#13; 0 - None&#13; 1 - Odd&#13; 2 - Even"/>
+			<hint lang="en" value="Parity bit:&#13; 0 - None&#13; 1 - Odd&#13; 2 - Even"/>
+			<hint lang="de" value="Paritätsbit:&#13; 0 - Keine&#13;1 - Ungerade&#13;2 - Gerade"/>
+            <desc resKey="modbus_parity"/>
+		</feature>
+		<feature default="0" enum="0,1,2" get="true" index="3" name="StopBits" set="true" type="num" unit="bits">
+			<enum name="1" resKey="modbus_stopbits_enum_1" value="0"/> 
+			<enum name="1.5" resKey="modbus_stopbits_enum_15" value="1"/>
+			<enum name="2" resKey="modbus_stopbits_enum_2" value="2"/> 	
+			<hint lang="pl" value="Bity stopu:&#13; 0 - 1 bit stopu&#13; 1 - 1.5 bitu stopu&#13; 2 - 2 bity stopu"/>
+			<hint lang="en" value="Stop bits:&#13; 0 - 1 stop bit&#13; 1 - 1.5 stop bits&#13; 2 - 2 stop bits"/>
+			<hint lang="de" value=" Stoppbits:&#13; 0 - 1 Stoppbit&#13; 1 - 1,5 Stoppbits&#13; 2 - 2 Stoppbits"/>
+            <desc resKey="modbus_stopbits"/>
+		</feature>
+	</features>
+	<methods>
+		<method call="set" index="1" name="SetTransmissionSpeed" return="void" visible="false">
+			<param default="9600" enum="1200,2400,4800,9600,19200,38400,57600,115200" name="TransmissionSpeed" type="num" unit="bps">
+				<enum name="1200" value="1200"/> 
+				<enum name="2400" value="2400"/> 
+				<enum name="4800" value="4800"/> 
+				<enum name="9600" value="9600"/> 
+				<enum name="19200" value="19200"/>
+				<enum name="38400" value="38400"/> 
+				<enum name="57600" value="57600"/>	
+				<enum name="115200" value="115200"/>
+			</param>
+			<hint lang="pl" value="Ustawia prędkość transmisji"/>
+			<hint lang="en" value="Sets transmission speed"/>
+			<hint lang="de" value="Bestimmt die Übertragungsgeschwindigkeit"/>
+			<desc resKey="modbus_settransmisionspeed"/>
+		</method>
+		<method name="SetParity" index="2" call="set" return="void" visible="false">
+			<param name="Parity" type="num" enum="0,1,2" unit="">
+				<enum value="0" name="None" /> 
+				<enum value="1" name="Odd" />
+				<enum value="2" name="Even" />
+			</param>
+			<hint lang="pl" value="Ustawia sprawdzanie parzystości"/>
+			<hint lang="en" value="Sets parity check type"/>
+			<hint lang="de" value="Setzt Paritätsprüfung"/>
+			<desc resKey="modbus_setparity"/>
+		</method>
+		<method name="SetStopBits" index="3" call="set" return="void" visible="false">
+			<param name="StopBits" type="num" enum="0,1,2" unit="bits">
+				<enum value="0" name="1" /> 
+				<enum value="1" name="1.5" />
+				<enum value="2" name="2" />
+			</param>
+			<hint lang="pl" value="Ustawia liczbę bitów stopu"/>
+			<hint lang="en" value="Sets stop bit count"/>
+			<hint lang="de" value="Setzt die Stoppbit-Nummer"/>
+			<desc resKey="modbus_setstopbits"/>
+		</method>
+	</methods>
+	<events>
+	</events> 
+</object>

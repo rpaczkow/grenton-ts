@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="GSM" typeId="05">
+	<!--hwType=0x5(5), hwVer=0x1(1), fwType=0x0(0), fwApiVer=0x1(1)-->
+	<firmware typeId="00" version="01">
+		<object class="10" count="1" name="GSM" type="in">
+			<interface>
+				<features>
+					<feature get="true" index="0" name="Inbox" range="0-160" set="false" type="str">
+						<hint lang="pl" value="Skrzynka odbiorcza zawierająca ostatnio otrzymany SMS. Nie dotyczy SMS-ów Y/N wysyłanych w odpowiedzi na pytanie z metody Ask"/>
+						<hint lang="en" value="Inbox containing the last received text message. Does not apply to Y/N text messages sent in response to queries made using the Ask method"/>
+						<hint lang="de" value="Eingangsbox mit zuletzt empfangener SMS. Y/N-Nachrichten als Antworten auf Ask()-Fragen werden damit nicht erfasst"/>
+                        <desc resKey="gsm_inbox"/>
+                    </feature>
+					<feature get="true" index="1" name="Outbox" range="0-160" set="false" type="str">
+						<hint lang="pl" value="Skrzynka nadawcza zawierająca bufor wyjściowy"/>
+						<hint lang="en" value="Outbox containing the outgoing buffer"/>
+						<hint lang="de" value="Ausgangsbox mit Ausgangspuffer"/>
+                        <desc resKey="gsm_outbox"/>
+                    </feature>
+					<feature default="" get="true" index="2" name="AccessList" range="0-100" set="true" type="str" unit="string">
+						<hint lang="pl" value="Lista numerów z których mogą być wysyłane rozkazy np. 555555555;666666666; Na końcu musi być średnik!"/>
+						<hint lang="en" value="List of numbers which can be used for sending requests, e.g. 555555555;666666666; A semi- colon must be included at the end of every number at list!"/>
+						<hint lang="de" value="Verzeichnis von Nummern, von denen aus Befehle verschickt werden können np. 555555555;666666666; Immer mit Semikolon beendet!"/>
+                        <desc resKey="gsm_accesslist"/>
+                    </feature>
+					<feature default="" get="true" index="3" name="ScriptList" range="0-100" set="true" type="str" unit="string">
+						<hint lang="pl" value="Lista skryptów, które mogą być wywoływane przez SMS-y, np. skrypt1;skrypt2;skrypt3;"/>
+						<hint lang="en" value="List of scripts (scenes) which can be requested by the text messages. List format: script1;script2;script3; etc. In practise, this will look as follows: waterplants;switchonboiler;switchoffboiler; A semi- colon must be included at the end of every scrip name!"/>
+						<hint lang="de" value="Liste von Skripts (Szenen), die mit Kurznachrichten (SMS) aufgerufen werden können. script1;script2;script3; etc. also praktisch: gießen;ofenein;ofenaus; immer mit Semikolon beendet!"/>
+                        <desc resKey="gsm_scriptlist"/>
+                    </feature>
+					<feature default="" get="true" index="4" name="Password" range="0-20" set="true" type="str" unit="string">
+						<hint lang="pl" value="Hasło jakie musi być przesłane w SMS'ie wysyłanym na adres bramki (jeśli PassMandatory jest ustawiona na 1)"/>
+						<hint lang="en" value="Password which must be included in a text message sent to the address of the gateway (if PassMandatory is set to 1)"/>
+						<hint lang="de" value="Passwort, dass an die Gateway-Adresse per SMS gesendet werden muss (falls PassMandatory auf 1 steht)"/>
+                        <desc resKey="gsm_password"/>
+                    </feature>
+					<feature default="1" get="true" index="5" name="PassMandatory" set="true" type="confirmation">
+						<hint lang="pl" value="Jeśli jest ustawiona na: 0 - hasło nie jest wymagane, 1 - hasło jest wymagane"/>
+						<hint lang="en" value="If set to 0, password is not required. If set to 1, password is required"/>
+						<hint lang="de" value="Sofern der Parameter auf 0 steht, ist das Passwort nicht erforderlich. Steht der Parameter auf 1, wird das Passwort erfragt"/>
+                        <desc resKey="gsm_passmandatory"/>
+                    </feature>
+					<feature default="" get="true" index="6" name="ConfirmMessage" range="0-50" set="true" type="str" unit="string">
+						<hint lang="pl" value="Tekstowy komunikat potwierdzający. Jeśli zostanie zdefiniowany, to będzie on wysyłany po każdym prawidłowym uruchomieniu skryptu, którego nazwa została wysłana SMS-em"/>
+						<hint lang="en" value="A confirmation text message. If defined, it will be sent after each correct activation of a script which name was sent via text message"/>
+						<hint lang="de" value="Bestätigungstext. Wird er definiert, dann wird er nach jedem korrekt aktivierten Skript verschickt, dessen Name per SMS gesandt wurde"/>
+                        <desc resKey="gsm_confirmmessage"/>
+                    </feature>
+					<feature default="" get="true" index="7" name="RefuseMessage" range="0-50" set="true" type="str" unit="string">
+						<hint lang="pl" value="Tekstowy komunikat odmowy. Jeśli zostanie zdefiniowany, to będzie on wysyłany po każdym błędnym rozkazie, np. Nie ma takiej komendy"/>
+						<hint lang="en" value="A refusal text message. If defined, it will be sent after each incorrect activation of a script which name was sent via text message"/>
+						<hint lang="de" value="Ablehnungstext. Wird er definiert, dann wird er nach jedem fehlerhaften Befehl (z. B. Aufrufen eines nicht existierenden Befehls) verschickt"/>
+                        <desc resKey="gsm_refusemessage"/>
+                    </feature>
+					<feature get="true" index="8" name="SignalLevel" range="0-32" set="false" type="num">
+						<hint lang="pl" value="Poziom sygnału sieci komórkowej"/>
+						<hint lang="en" value="Mobile network signal level in the range of 0-32"/>
+						<hint lang="de" value="Signalstärke des Mobilfunknetzes im Bereich 0 - 32 (0 - kein Signal; 32 - max. Signalstärke)"/>
+                        <desc resKey="gsm_signallevel"/>
+                    </feature>
+					<feature default="" get="true" index="9" name="AskConfirm" range="0-10" set="true" type="str" unit="string">
+						<hint lang="pl" value="Tekst określający postać odpowiedzi twierdzącej, np. tak"/>
+						<hint lang="en" value="Text specifying the form of a confirmation message for the Ask method, e.g. 'y', 'yes'"/>
+						<hint lang="de" value="Text zur Bestimmung der Bestätigungsantwort auf Ask()-Fragen, z. B. 'y','yes','ja','j'"/>
+                        <desc resKey="gsm_askconfirm"/>
+                    </feature>
+					<feature default="" get="true" index="10" name="AskRefuse" range="0-10" set="true" type="str" unit="string">
+						<hint lang="pl" value="Tekst określający postać odpowiedzi odmownej, np. nie"/>
+						<hint lang="en" value="Text specifying the form of a refusal message for the Ask method, e.g. 'y', 'yes'"/>
+						<hint lang="de" value="Text zur Bestimmung der Verneinungsantwort auf Ask()-Fragen, Z. B. 'n', 'no', 'nein"/>
+                        <desc resKey="gsm_askrefuse"/>
+                    </feature>
+					<feature default="" get="true" index="11" name="PIN" range="0-4" set="true" type="str" unit="number">
+						<hint lang="pl" value="Kod PIN karty SIM"/>
+						<hint lang="en" value="PIN code of a SIM card"/>
+						<hint lang="de" value="PIN-Code für die SIM-Karte"/>
+                        <desc resKey="gsm_pin"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="execute" index="0" name="ClearInbox" return="void">
+						<hint lang="pl" value="Czyści bufor wejściowy (skrzynkę odbiorczą). Bufor wejściowy jest automatycznie nadpisywany w momencie otrzymania nowego SMS-a, nie dotyczy SMS'ów z odpowiedzią typu Y/N"/>
+						<hint lang="en" value="Clears the incoming buffer (inbox). The incoming buffer is cleared automatically when a new text message is received. This does not apply to text messages with Y/N confirmations"/>
+						<hint lang="de" value="Leert den Eingangspuffer (die Eingangsbox). Der Eingangspuffer wird automatisch geleert, sobald eine neue SMS eingegangen ist - Y/N-Nachrichten werden damit nicht erfasst"/>
+                        <desc resKey="gsm_clearinbox"/>
+                    </method>
+					<method call="execute" index="1" name="ClearOutbox" return="void">
+						<hint lang="pl" value="Czyści bufor wyjściowy (skrzynkę nadawczą)"/>
+						<hint lang="en" value="Clears outgoing buffer (outbox)"/>
+						<hint lang="de" value="Leert den Ausgangspuffer (die Ausgangsbox)"/>
+                        <desc resKey="gsm_clearoutbox"/>
+                    </method>
+					<method call="execute" index="2" name="AddToOutbox" return="void">
+						<param name="Text" type="str"/>
+						<hint lang="pl" value="Dodaje tekst do bufora wyjściowego (skrzynki nadawczej)"/>
+						<hint lang="en" value="Adds text to outgoing buffer (outbox)"/>
+						<hint lang="de" value="Fügt einen Text in den Ausgangspuffer (in die Ausgangsbox) ein"/>
+                        <desc resKey="gsm_addtooutbox"/>
+                    </method>
+					<method call="execute" index="3" name="SendOutboxTo" return="void">
+						<param name="Text" type="str"/>
+						<hint lang="pl" value="Wysyła zawartość skrzynki nadawczej na podany numer"/>
+						<hint lang="en" value="Sends outbox content to the specified number"/>
+						<hint lang="de" value="Sendet den Outbox-Inhalt an die angegebene Nummer"/>
+                        <desc resKey="gsm_sendoutboxto"/>
+                    </method>
+					<method call="execute" index="4" name="Ask" return="confirmation" timeout="60000">
+						<param name="Telphone" range="9-9" type="str"/>
+						<param name="Question" type="str"/>
+						<param name="Timeout" type="str"/>
+						<hint lang="pl" value="Metoda wysyłająca zapytanie na nr telefonu. Zwraca:&#13;1 - gdy odpowiedź odesłana SMS-em była twierdząca,&#13;0 - jeśli odpowiedź była przeczaca lub użytkownik nie odpowiedział w wymaganym czasie TimeOut"/>
+						<hint lang="en" value="A method which sends an enquiry to a telephone number. It returns:&#13;1 - if the user received the message with a confirmation response&#13;0 - if the response was a refusal or if the user did not respond in the required time (timeout).&#13;Parameters: Ask (phone number; enquiry; timeout in seconds).&#13;At the end of the enquiry, the following text form is always added: [AskConfimr/ AskRefuse] so for instance: [Y/N] or [yes/no]"/>
+						<hint lang="de" value="Methode zur Sendung von Fragen an eine Telefonnummer.&#13;Gibt 1 zurück, falls der Benutzer eine bestätigende SMS zurückgeschickt hat bzw. &#13;0, falls dessen Antwort verneinend oder verspätet (timeout) war. Technische Daten Walzenlader: Ask(Telefonnummer; Frage; Timeout in Sekunden).&#13;Jede Frage endet wie folgt: [AskConfirm/AskRefuse], also z. B. [J/N] oder [yes/no]"/>
+                        <desc resKey="gsm_ask"/>
+                    </method>
+					<method call="execute" index="5" name="Call" return="confirmation" timeout="60000">
+						<param name="Telphone" range="9-9" type="str"/>
+						<hint lang="pl" value="Łączy z podanym numerem. Zwraca 1 - gdy nawiąże połączenie, 0 - gdy nie ma połączenia"/>
+						<hint lang="en" value="Calls the specified number. The method returns 1 if the connection is established or 0 when there is no connection"/>
+						<hint lang="de" value="Verbindet mit der angegebenen Nummer. Die Methode gibt 1 zurück, falls die Verbindung zustande kommt bzw. 0, falls die Verbindung nicht möglich ist."/>
+                        <desc resKey="gsm_call"/>
+                    </method>
+					<method call="execute" index="6" name="Drop" return="void">
+						<hint lang="pl" value="Rozłącza połączenie głosowe"/>
+						<hint lang="en" value="Drops the voice call"/>
+						<hint lang="de" value="Bricht den Anruf ab"/>
+                        <desc resKey="gsm_drop"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnReceive">
+						<hint lang="pl" value="Zdarzenie wywoływane natychmiast po otrzymaniu SMS-a. użytkownik może odczytać cechę Inbox by sprawdzić treść SMS-a"/>
+						<hint lang="en" value="Occurs immediately after receiving a text message. The user can read an Inbox characteristic to check the text message content"/>
+						<hint lang="de" value="Wird sofort nach SMS-Eingang aufgerufen. Der Benutzer kann die Inbox-Eigenschaft und SMS lesen"/>
+                        <desc resKey="gsm_onreceive"/>
+                    </event>
+					<event address="1" name="OnSend">
+						<hint lang="pl" value="Zdarzenie wywoływane natychmiast po wysłaniu SMS-a"/>
+						<hint lang="en" value="Occurs immediately after sending a text message"/>
+						<hint lang="de" value="Wird sofort nach SMS-Ausgang aufgerufen"/>
+                        <desc resKey="gsm_onsend"/>
+                    </event>
+					<event address="2" name="OnStatus">
+						<hint lang="pl" value="Zdarzenie wywoływane po otrzymaniu SMS-a z komenda status"/>
+						<hint lang="en" value="Occurs immediately after receiving a text message with the status command"/>
+						<hint lang="de" value="Wird aufgerufen, sobald die SMS mit Statusbefehl eingegangen ist"/>
+                        <desc resKey="gsm_onstatus"/>
+                    </event>
+					<event address="3" name="OnCall">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie odebrania połączenia głosowego (Odbierane są tylko połączenia z numerów znajdujących się na AccessList, pozostałe są odrzucane)"/>
+						<hint lang="en" value="Occurs when a voice call is answered (only AccessList number calls are answered - the remainder are rejected)"/>
+						<hint lang="de" value="Wird bei Anrufempfang aufgerufen (es werden nur Anrufe von den AccessList-Nummern empfangen; sonstige Anrufe werden abgelehnt)"/>
+                        <desc resKey="gsm_oncall"/>
+                    </event>
+					<event address="4" name="OnScript">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie przyjścia SMS-a z poprawna komenda, hasłem i z numeru znajdującego się na AccessList"/>
+						<hint lang="en" value="Occurs when a text message is received with the correct command, password and from an AccessList telephone number"/>
+						<hint lang="de" value="Wird bei SMS-Eingang aufgerufen, sofern der eingehende Befehl oder das Passwort korrekt sind und die sendende Nummer zur AccessList gehört"/>
+                        <desc resKey="gsm_onscript"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

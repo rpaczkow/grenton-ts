@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- DO NOT EDIT: automatically generated file -->
+<object class="262" className="GATE" name="HEOS" version="1">
+	<features>
+		<feature index="0" name="Host" get="true" set="true" type="str" default="0.0.0.0" unit="IP">
+			<hint lang="de" value="HEOS IP-Adresse"/>
+			<hint lang="en" value="HEOS IP Address"/>
+			<hint lang="pl" value="Adres IP HEOS"/>
+			<desc resKey="gate_heos_host"/>
+		</feature>
+		<feature index="1" name="UserName" get="true" set="true" type="str" default="\z" unit="-">
+			<hint lang="de" value="Benutzername"/>
+			<hint lang="en" value="User name"/>
+			<hint lang="pl" value="Nazwa użytkownika"/>
+			<desc resKey="gate_heos_username"/>
+		</feature>
+		<feature index="2" name="Password" get="false" set="true" type="str" default="\z" unit="-">
+			<hint lang="de" value="Passwort"/>
+			<hint lang="en" value="Password"/>
+			<hint lang="pl" value="Hasło"/>
+			<desc resKey="gate_heos_password"/>
+		</feature>
+		<feature index="3" name="Status" get="true" set="false" type="num" unit="-">
+			<hint lang="de" value="Kommunikationsstatus mit Lautsprecher:&#13;  0 - Keine Verbindung,&#13;  1 - Verbunden"/>
+			<hint lang="en" value="Communication status:&#13;  0 - no connection,&#13;  1 - connected"/>
+			<hint lang="pl" value="Stan komunikacji z głośnikiem:&#13;  0 - brak połączenia,&#13;  1 - połączono"/>
+			<desc resKey="gate_heos_status"/>
+		</feature>
+		<feature index="4" name="ErrorCode" get="true" set="false" type="num" unit="-">
+			<hint lang="de" value="Letzter HEOS CLI-Fehlercode"/>
+			<hint lang="en" value="Last HEOS CLI error code"/>
+			<hint lang="pl" value="Ostatni kod błędu HEOS CLI"/>
+			<desc resKey="gate_heos_errorcode"/>
+		</feature>
+		<feature index="5" name="Volume" get="true" set="false" type="num" range="0-100" unit="%">
+			<hint lang="de" value="Lautstärke im Bereich von 0% bis 100%"/>
+			<hint lang="en" value="Volume level ranging from 0% to 100%"/>
+			<hint lang="pl" value="Głośność w zakresie od 0% do 100%"/>
+			<desc resKey="gate_heos_volume"/>
+		</feature>
+		<feature index="6" name="Mute" get="true" set="false" type="num" enum="0,1" unit="bool">
+			<enum name="OFF" value="0" resKey="gate_heos_mute_enum_off" />
+			<enum name="ON" value="1" resKey="gate_heos_mute_enum_on" />
+			<hint lang="de" value="Stummschaltungszustand:&#13;  0 - Aus,&#13;  1 - Ein"/>
+			<hint lang="en" value="Mute state:&#13;  0 - off,&#13;  1 - on"/>
+			<hint lang="pl" value="Stan wyciszenia:&#13;  0 - wyłączone,&#13;  1 - włączone"/>
+			<desc resKey="gate_heos_mute"/>
+		</feature>
+		<feature index="7" name="Artist" get="true" set="false" type="str" unit="-">
+			<hint lang="de" value="Interpret"/>
+			<hint lang="en" value="Artist"/>
+			<hint lang="pl" value="Nazwa autora"/>
+			<desc resKey="gate_heos_artist"/>
+		</feature>
+		<feature index="8" name="Title" get="true" set="false" type="str" unit="-">
+			<hint lang="de" value="Titel"/>
+			<hint lang="en" value="Title"/>
+			<hint lang="pl" value="Tytuł utworu"/>
+			<desc resKey="gate_heos_title"/>
+		</feature>
+		<feature index="9" name="PlayerState" get="true" set="false" type="num" unit="-">
+			<hint lang="de" value="Wiedergabestatus:&#13;  0 - Angehalten,&#13;  1 - Pause,&#13;  2 - Wiedergabe"/>
+			<hint lang="en" value="Player state:&#13;  0 - stopped,&#13;  1 - paused,&#13;  2 - playing"/>
+			<hint lang="pl" value="Stan odtwarzania:&#13;  0 - zatrzymane,&#13;  1 - pauza,&#13;  2 - odtwarzanie"/>
+			<desc resKey="gate_heos_playerstate"/>
+		</feature>
+		<feature index="10" name="Shuffle" get="true" set="false" type="num" enum="0,1" unit="-">
+			<enum name="OFF" value="0" resKey="gate_heos_shuffle_enum_off" />
+			<enum name="ON" value="1" resKey="gate_heos_shuffle_enum_on" />
+			<hint lang="de" value="Stummschaltungszustand:&#13;  0 - Aus,&#13;  1 - Ein"/>
+			<hint lang="en" value="Shuffle mode:&#13;  0 - off,&#13;  1 - on"/>
+			<hint lang="pl" value="Tryb odtwarzania losowego:&#13;  0 - wyłączone,&#13;  1 - włączone"/>
+			<desc resKey="gate_heos_shuffle"/>
+		</feature>
+		<feature index="11" name="Repeat" get="true" set="false" type="num" enum="0,1,2" unit="-">
+			<enum name="off" value="0" resKey="gate_heos_repeat_enum_off" />
+			<enum name="on_one" value="1" resKey="gate_heos_repeat_enum_on_one" />
+			<enum name="on_all" value="2" resKey="gate_heos_repeat_enum_on_all" />
+			<hint lang="de" value="Wiederholungsmodus:&#13;  0 - Aus,&#13;  1 - Einzelner Titel,&#13;  2 - Alle Titel"/>
+			<hint lang="en" value="Repeat mode:&#13;  0 - off,&#13;  1 - one,&#13;  2 - all"/>
+			<hint lang="pl" value="Tryb powtarzania:&#13;  0 - wyłączone,&#13;  1 - jeden utwór,&#13;  2 - wszystkie utwory"/>
+			<desc resKey="gate_heos_repeat"/>
+		</feature>
+		<feature index="12" name="AlbumArt" get="true" set="false" type="str" unit="-">
+			<hint lang="de" value="Albumcover-Adresse"/>
+			<hint lang="en" value="Album art address"/>
+			<hint lang="pl" value="Adres okładki albumu"/>
+			<desc resKey="gate_heos_albumart"/>
+		</feature>
+		<feature index="13" name="ObjectID" get="true" set="false" type="str" unit="-">
+			<hint lang="de" value="Objekt-ID"/>
+			<hint lang="en" value="Object ID"/>
+			<hint lang="pl" value="ID obiektu"/>
+			<desc resKey="gate_heos_objectid"/>
+		</feature>
+		<feature index="14" name="GroupID" get="true" set="false" type="str" unit="-">
+			<hint lang="de" value="Gruppenleiter-Objekt-ID"/>
+			<hint lang="en" value="Group leader object ID"/>
+			<hint lang="pl" value="ID obiektu lidera grupy"/>
+			<desc resKey="gate_heos_groupid"/>
+		</feature>
+		<feature index="15" name="Name" get="true" set="false" type="str" unit="-">
+			<hint lang="de" value="Lautsprechername"/>
+			<hint lang="en" value="Speaker name"/>
+			<hint lang="pl" value="Nazwa głośnika"/>
+			<desc resKey="gate_heos_name"/>
+		</feature>
+		<feature index="16" name="SourceName" get="true" set="false" type="str" unit="-">
+			<hint lang="de" value="Wiedergabequelle"/>
+			<hint lang="en" value="Input source"/>
+			<hint lang="pl" value="Źródło odtwarzania"/>
+			<desc resKey="gate_heos_sourcename"/>
+		</feature>
+	</features>
+	<methods>
+		<method call="set" index="0" name="SetHost" return="void" visible="false">
+			<param name="Host" type="str" unit="IP" />
+			<hint lang="de" value="Setze HEOS IP-Adresse"/>
+			<hint lang="en" value="Sets the HEOS IP Address"/>
+			<hint lang="pl" value="Ustawia adres IP Sonos"/>
+			<desc resKey="gate_heos_sethost"/>
+		</method>
+		<method call="set" index="1" name="SetUserName" return="void" visible="false">
+			<param name="UserName" type="str" unit="-" />
+			<hint lang="de" value="Setze Benutzername"/>
+			<hint lang="en" value="Sets the user name"/>
+			<hint lang="pl" value="Ustawia nazwę użytkownika"/>
+			<desc resKey="gate_heos_setusername"/>
+		</method>
+		<method call="set" index="2" name="SetPassword" return="void" visible="false">
+			<param name="Password" type="str" unit="-" />
+			<hint lang="de" value="Setze Passwort"/>
+			<hint lang="en" value="Set the password"/>
+			<hint lang="pl" value="Ustawia hasło"/>
+			<desc resKey="gate_heos_setpassword"/>
+		</method>
+		<method call="set" index="5" name="SetVolume" return="void">
+			<param name="Volume" type="num" range="0-100" unit="%" />
+			<hint lang="de" value="Setze Lautstärke im Bereich von 0% bis 100%"/>
+			<hint lang="en" value="Sets the volume level, ranging from 0% to 100%"/>
+			<hint lang="pl" value="Ustawia głośność w zakresie od 0% do 100%"/>
+			<desc resKey="gate_heos_setvolume"/>
+		</method>
+		<method call="set" index="6" name="SetMute" return="void">
+			<param name="Mute" type="num" enum="0,1" unit="bool">
+				<enum name="OFF" value="0" resKey="gate_heos_mute_enum_off" />
+				<enum name="ON" value="1" resKey="gate_heos_mute_enum_on" />
+			</param>
+			<hint lang="de" value="Setze Stummschaltungszustand"/>
+			<hint lang="en" value="Sets the mute state"/>
+			<hint lang="pl" value="Ustawia stan wyciszenia"/>
+			<desc resKey="gate_heos_setmute"/>
+		</method>
+		<method call="set" index="10" name="SetShuffle" return="void">
+			<param name="Shuffle" type="num" enum="0,1" unit="-">
+				<enum name="OFF" value="0" resKey="gate_heos_shuffle_enum_off" />
+				<enum name="ON" value="1" resKey="gate_heos_shuffle_enum_on" />
+			</param>
+			<hint lang="de" value="Setze Zufallswiedergabe-Modus"/>
+			<hint lang="en" value="Sets the shuffle mode"/>
+			<hint lang="pl" value="Ustawia tryb losowego odtwarzania"/>
+			<desc resKey="gate_heos_setshuffle"/>
+		</method>
+		<method call="set" index="11" name="SetRepeat" return="void">
+			<param name="Repeat" type="num" enum="0,1,2" unit="-">
+				<enum name="off" value="0" resKey="gate_heos_repeat_enum_off" />
+				<enum name="on_one" value="1" resKey="gate_heos_repeat_enum_on_one" />
+				<enum name="on_all" value="2" resKey="gate_heos_repeat_enum_on_all" />
+			</param>
+			<hint lang="de" value="Setze Wiederholungsmodus"/>
+			<hint lang="en" value="Sets the repeat mode"/>
+			<hint lang="pl" value="Ustawia tryb powtarzania"/>
+			<desc resKey="gate_heos_setrepeat"/>
+		</method>
+		<method call="execute" index="0" name="Play" return="void">
+			<hint lang="de" value="Starte Wiedergabe"/>
+			<hint lang="en" value="Starts playback"/>
+			<hint lang="pl" value="Rozpoczyna odtwarzanie"/>
+			<desc resKey="gate_heos_play"/>
+		</method>
+		<method call="execute" index="1" name="Pause" return="void">
+			<hint lang="de" value="Unterbricht Wiedergabe (Pause)"/>
+			<hint lang="en" value="Pauses playback"/>
+			<hint lang="pl" value="Wstrzymuje odtwarzanie (pauza)"/>
+			<desc resKey="gate_heos_pause"/>
+		</method>
+		<method call="execute" index="2" name="Stop" return="void">
+			<hint lang="de" value="Stoppt Wiedergabe"/>
+			<hint lang="en" value="Stops playback"/>
+			<hint lang="pl" value="Zatrzymuje odtwarzanie"/>
+			<desc resKey="gate_heos_stop"/>
+		</method>
+		<method call="execute" index="3" name="Next" return="void">
+			<hint lang="de" value="Springt zum nächsten Titel"/>
+			<hint lang="en" value="Switches to the next track"/>
+			<hint lang="pl" value="Przełącza na następną ścieżkę"/>
+			<desc resKey="gate_heos_next"/>
+		</method>
+		<method call="execute" index="4" name="Prev" return="void">
+			<hint lang="de" value="Springt zum vorherigen Titel"/>
+			<hint lang="en" value="Switches to the previous track"/>
+			<hint lang="pl" value="Przełącza na poprzednią ścieżkę"/>
+			<desc resKey="gate_heos_prev"/>
+		</method>
+		<method call="execute" index="5" name="VolumeUp" return="void">
+			<param name="VolumeStep" type="num" range="1-10" unit="%" />
+			<hint lang="de" value="Erhöht die Lautstärke um den angegebenen Prozentsatz"/>
+			<hint lang="en" value="Increases the volume by a specified percentage"/>
+			<hint lang="pl" value="Zwiększa głośność o wartość określoną w procentach"/>
+			<desc resKey="gate_heos_volumeup"/>
+		</method>
+		<method call="execute" index="6" name="VolumeDown" return="void">
+			<param name="VolumeStep" type="num" range="1-10" unit="%" />
+			<hint lang="de" value="Verringert die Lautstärke um den angegebenen Prozentsatz"/>
+			<hint lang="en" value="Decreases the volume by a specified percentage"/>
+			<hint lang="pl" value="Zmniejsza głośność o wartość określoną w procentach"/>
+			<desc resKey="gate_heos_volumedown"/>
+		</method>
+		<method call="execute" index="7" name="SwitchMute" return="void">
+			<hint lang="de" value="Wechselt den Stummschaltungszustand"/>
+			<hint lang="en" value="Switches the mute state"/>
+			<hint lang="pl" value="Przełącza stan wyciszenia"/>
+			<desc resKey="gate_heos_switchmute"/>
+		</method>
+		<method call="execute" index="8" name="SwitchPlay" return="void">
+			<hint lang="de" value="Wechselt den Wiedergabestatus zwischen Pause und Wiedergabe"/>
+			<hint lang="en" value="Switches the playback state between paused and playing"/>
+			<hint lang="pl" value="Przełącza stan odtwarzania pomiędzy pauzą, a odtwarzaniem"/>
+			<desc resKey="gate_heos_switchplay"/>
+		</method>
+		<method call="execute" index="9" name="AddToGroup" return="void">
+			<param name="Id" type="str" unit="-" />
+			<hint lang="de" value="Fügt den Lautsprecher, der durch ObjectID angegeben ist, zur Gruppe des aktuellen Lautsprechers hinzu"/>
+			<hint lang="en" value="Adds the speaker specified by ObjectID to the current speaker&apos;s group"/>
+			<hint lang="pl" value="Dodaje głośnik określony przez ObjectID do grupy bieżącego głośnika"/>
+			<desc resKey="gate_heos_addtogroup"/>
+		</method>
+		<method call="execute" index="10" name="DestroyGroup" return="void">
+			<hint lang="de" value="Löst die aktuelle Lautsprechergruppe auf"/>
+			<hint lang="en" value="Destroys the current speaker group"/>
+			<hint lang="pl" value="Rozbija bieżącą grupę głośników"/>
+			<desc resKey="gate_heos_destroygroup"/>
+		</method>
+		<method call="execute" index="11" name="PlayPresetStation" return="void">
+			<param name="Id" type="num" unit="-" />
+			<hint lang="de" value="Spielt die auf der HEOS-App-Favoritenliste angegebene Station/den angegebenen Titel"/>
+			<hint lang="en" value="Plays the station/track specified in the favorites list in the HEOS app"/>
+			<hint lang="pl" value="Odtwarza stację/utwór określony na liście ulubionych w aplikacji HEOS"/>
+			<desc resKey="gate_heos_playpresetstation"/>
+		</method>
+		<method call="execute" index="12" name="PlayInputSource" return="void">
+			<param name="Source" type="str" unit="-" />
+			<hint lang="de" value="Setzt die physikalische Wiedergabequelle mit dem angegebenen Namen gemäß der HEOS-Dokumentation, z. B. &quot;inputs/aux1&quot;"/>
+			<hint lang="en" value="Sets the physical input source with the given name, in accordance with the HEOS documentation, e.g., &quot;inputs/aux1&quot;"/>
+			<hint lang="pl" value="Ustawia fizyczne źródło odtwarzania o podanej nazwie, zgodnie z dokumentacją HEOS, np. &quot;inputs/aux1&quot;"/>
+			<desc resKey="gate_heos_playinputsource"/>
+		</method>
+		<method call="execute" index="13" name="PlayUrl" return="void">
+			<param name="Url" type="str" unit="-" />
+			<hint lang="de" value="Spielt einen Stream anhand der URL ab"/>
+			<hint lang="en" value="Play a stream specified by url"/>
+			<hint lang="pl" value="Odtwarza strumień wskazany przy pomocy adresu url"/>
+			<desc resKey="gate_heos_playurl"/>
+		</method>
+		<method call="execute" index="14" name="PlayUSB" return="void">
+			<param name="Path" type="str" unit="-" />
+			<param name="Action" type="num" optional="true" unit="-">
+				<parametrized name="PlayNow" value="1" type="num" />
+				<parametrized name="PlayNext" value="2" type="num" />
+				<parametrized name="PlayLast" value="3" type="num" />
+				<parametrized name="Replace" value="4" type="num" />
+			</param>
+			<hint lang="de" value="Spielt eine Audiodatei von einem USB-Speichergerät anhand des vollständigen Dateipfads mit Erweiterung, z. B. &quot;nachrichten/leck.mp3&quot;"/>
+			<hint lang="en" value="Plays an audio file from a USB storage device using the full file path with the extension, e.g., &quot;messages/leak.mp3&quot;"/>
+			<hint lang="pl" value="Odtwarza plik audio z nośnika USB za pomocą pełnej ścieżki pliku wraz z rozszerzeniem np. &quot;komunikaty/wyciek.mp3&quot;"/>
+			<desc resKey="gate_heos_playusb"/>
+		</method>
+		<method call="execute" index="15" name="PlayUSBClip" return="void">
+			<param name="Path" type="str" unit="-" />
+			<param name="RestartNowPlaying" type="num" optional="true" unit="-">
+				<parametrized name="No" value="0" type="num" />
+				<parametrized name="Yes" value="1" type="num" />
+			</param>
+			<hint lang="de" value="Spielt eine Audiodatei von einem USB-Speichergerät anhand des vollständigen Dateipfads mit Erweiterung, z. B. &quot;nachrichten/leck.mp3&quot;, optional wird die vorherige Wiedergabe wiederhergestellt, wenn während der Wiedergabe einer Warteschlange/Station eine Audiodatei aufgerufen wird"/>
+			<hint lang="en" value="Plays an audio file from a USB storage device using the full file path with the extension, e.g., &quot;messages/leak.mp3&quot;, when playing an audio file during playback of a queue/station, optionally restores the previous playback"/>
+			<hint lang="pl" value="Odtwarza plik audio z nośnika USB za pomocą pełnej ścieżki pliku wraz z rozszerzeniem np. &quot;komunikaty/wyciek.mp3&quot;, w przypadku wywołania pliku audio podczas odtwarzania kolejki/stacji opcjonalnie przywraca poprzednie odtwarzanie"/>
+			<desc resKey="gate_heos_playusbclip"/>
+		</method>
+	</methods>
+	<events>
+		<event address="0" name="OnConnected">
+			<hint lang="de" value="Ereignis, das nach erfolgreicher Verbindung mit dem Lautsprecher ausgelöst wird"/>
+			<hint lang="en" value="Event executed after successful speaker connection establishment"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po nawiązaniu połączenia z głośnikiem"/>
+			<desc resKey="gate_heos_onconnected"/>
+		</event>
+		<event address="1" name="OnDisconnected">
+			<hint lang="de" value="Ereignis, das nach der Trennung vom Lautsprecher ausgelöst wird"/>
+			<hint lang="en" value="Event executed after the speaker connection has been lost"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zerwaniu połączenia z głośnikiem"/>
+			<desc resKey="gate_heos_ondisconnected"/>
+		</event>
+		<event address="2" name="OnError">
+			<hint lang="de" value="Ereignis, das nach einem Fehler ausgelöst wird"/>
+			<hint lang="en" value="Event executed after an error has been detected"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po wystąpieniu błędu"/>
+			<desc resKey="gate_heos_onerror"/>
+		</event>
+		<event address="3" name="OnChange">
+			<hint lang="de" value="Ereignis, das nach Änderungen der Werte von Stummschaltung, Lautstärke, Titel, Interpret, Wiedergabestatus, Zufallswiedergabe, Wiederholungsmodus, Albumcover, Wiedergabequelle oder Gruppen-ID ausgelöst wird"/>
+			<hint lang="en" value="Event executed after a Mute, Volume, Title, Artist, PlayerState, Shuffle, Repeat, AlbumArt, SourceName or GroupID change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Mute, Volume, Title, Artist, PlayerState, Shuffle, Repeat, AlbumArt, SourceName lub GroupID"/>
+			<desc resKey="gate_heos_onchange"/>
+		</event>
+		<event address="4" name="OnMuteChange">
+			<hint lang="de" value="Ereignis, das nach Änderungen des Stummschaltungszustands ausgelöst wird"/>
+			<hint lang="en" value="Event executed after a Mute change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Mute"/>
+			<desc resKey="gate_heos_onmutechange"/>
+		</event>
+		<event address="5" name="OnVolumeChange">
+			<hint lang="de" value="Ereignis, das nach Änderungen der Lautstärke ausgelöst wird"/>
+			<hint lang="en" value="Event executed after a Volume change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Volume"/>
+			<desc resKey="gate_heos_onvolumechange"/>
+		</event>
+		<event address="6" name="OnTitleChange">
+			<hint lang="de" value="Ereignis, das nach Änderungen des Titels ausgelöst wird"/>
+			<hint lang="en" value="Event executed after a Title change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Title"/>
+			<desc resKey="gate_heos_ontitlechange"/>
+		</event>
+		<event address="7" name="OnArtistChange">
+			<hint lang="de" value="Ereignis, das nach Änderungen des Interpreten ausgelöst wird"/>
+			<hint lang="en" value="Event executed after an Artist change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Artist"/>
+			<desc resKey="gate_heos_onartistchange"/>
+		</event>
+		<event address="8" name="OnPlayerStateChange">
+			<hint lang="de" value="Ereignis, das nach Änderungen des Wiedergabestatus ausgelöst wird"/>
+			<hint lang="en" value="Event executed after a PlayerState change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości PlayerState"/>
+			<desc resKey="gate_heos_onplayerstatechange"/>
+		</event>
+		<event address="9" name="OnShuffleChange">
+			<hint lang="de" value="Ereignis, das nach Änderungen des Zufallswiedergabe-Modus ausgelöst wird"/>
+			<hint lang="en" value="Event executed after a Shuffle change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Shuffle"/>
+			<desc resKey="gate_heos_onshufflechange"/>
+		</event>
+		<event address="10" name="OnRepeatChange">
+			<hint lang="de" value="Ereignis, das nach Änderungen des Wiederholungsmodus ausgelöst wird"/>
+			<hint lang="en" value="Event executed after a Repeat change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Repeat"/>
+			<desc resKey="gate_heos_onrepeatchange"/>
+		</event>
+		<event address="11" name="OnAlbumArtChange">
+			<hint lang="de" value="Ereignis, das nach Änderungen des Albumcovers ausgelöst wird"/>
+			<hint lang="en" value="Event executed after an AlbumArt change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości AlbumArt"/>
+			<desc resKey="gate_heos_onalbumartchange"/>
+		</event>
+		<event address="12" name="OnSourceChange">
+			<hint lang="de" value="Ereignis, das nach Änderungen des Wiedergabequellennamens ausgelöst wird"/>
+			<hint lang="en" value="Event executed after a SourceName change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości SourceName"/>
+			<desc resKey="gate_heos_onsourcechange"/>
+		</event>
+		<event address="13" name="OnGroupChange">
+			<hint lang="de" value="Ereignis, das nach Änderungen der Gruppen-ID ausgelöst wird"/>
+			<hint lang="en" value="Event executed after a GroupID change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości GroupID"/>
+			<desc resKey="gate_heos_ongroupchange"/>
+		</event>
+		<event address="14" name="OnPlaybackError">
+			<hint lang="de" value="Ereignis, das nach einem Wiedergabefehler ausgelöst wird"/>
+			<hint lang="en" value="Event executed after a playback error occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po wystąpieniu błędu odtwarzania"/>
+			<desc resKey="gate_heos_onplaybackerror"/>
+		</event>
+		<event address="15" name="OnClipEnd">
+			<hint lang="de" value="Ereignis, das nach Beendigung der Wiedergabe einer mit PlayUSBClip gestarteten Audiodatei ausgelöst wird"/>
+			<hint lang="en" value="Event executed after playback started using PlayUSBClip ends"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zakończeniu odtwarzania rozpoczętego przy pomocy PlayUSBClip"/>
+			<desc resKey="gate_heos_onclipend"/>
+		</event>
+	</events>
+</object>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="ZWAVE_UNKNOWN_MODULE" typeId="ffffffffffff">
+	<!--hwType=0xffffffffffff(281474976710655), hwVer=0x1(1), fwType=0x0(0), fwApiVer=0x0(0)-->
+	<firmware typeId="0" version="0">
+		<object class="61" count="1" name="ZWAVE_UNKNOWN_MODULE" type="out">
+			<interface>
+				<features>
+				</features>
+				<methods>
+					<method call="execute" index="0" name="BasicSet" return="void">
+						<param name="Value" range="0-255" type="num"/>
+						<hint lang="pl" value="Wysyła komendę BASIC_SET do modułu Z-Wave"/>
+						<hint lang="en" value="Sends commend BASIC_SET to Z-Wave module"/>
+						<hint lang="de" value="Sendet das BASIC_SET an das Z-Wave-Modul"/>
+                        <desc resKey="zwave_unknown_module_basicset"/>
+                    </method>
+					<method call="execute" index="1" name="MultiChannelBasicSet" return="void">
+						<param name="Endpoint" range="0-127" type="num"/>
+						<param name="Value" range="0-255" type="num"/>
+						<hint lang="pl" value="Wysyła komendę BASIC_SET do endpointu wielokanałowego modułu Z-Wave"/>
+						<hint lang="en" value="Sends commend BASIC_SET to Z-Wave module's multichannel endpoint"/>
+						<hint lang="de" value="Sendet den Befehl BASIC_GET an den Multichannel-Endpunkt von Z-Wave-Modulen"/>
+                        <desc resKey="zwave_unknown_module_multichannelbasicset"/>
+                    </method>
+				</methods>
+				<events>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

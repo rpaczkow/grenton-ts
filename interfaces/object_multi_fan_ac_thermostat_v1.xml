@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object class="46" name="MultiFanACThermostat" version="1">
+    <features>
+        <feature get="false" index="0" name="Source" set="true" type="table">
+            <hint lang="pl" value="Wejście termostatu, powiązanie termostatu z czujnikiem temperatury"/>
+            <hint lang="en" value="Thermostat input, connection to a temperature sensor"/>
+            <desc resKey="thermostat_source"/>
+        </feature>
+        <feature get="false" index="1" name="Control" set="true" type="table">
+            <hint lang="pl" value="Wyjście termostatu, powiązanie termostatu z elementem sterującym (Y)"/>
+            <hint lang="en" value="Thermostat output, thermostat linking to control element (Y)"/>
+            <desc resKey="multi_fan_ac_thermostat_control"/>
+        </feature>
+        <feature get="false" index="15" name="FanLowControl" set="true" type="table">
+            <hint lang="pl" value="Wyjście termostatu, powiązanie termostatu z wentylatorem (Gl)"/>
+            <hint lang="en" value="Thermostat fan output, connection with the fan (Gl)"/>
+            <desc resKey="multi_fan_ac_thermostat_fancontrol_low"/>
+        </feature>
+        <feature get="false" index="16" name="FanMediumControl" set="true" type="table">
+            <hint lang="pl" value="Wyjście termostatu, powiązanie termostatu z wentylatorem (Gm)"/>
+            <hint lang="en" value="Thermostat fan output, connection with the fan (Gm)"/>
+            <desc resKey="multi_fan_ac_thermostat_fancontrol_medium"/>
+        </feature>
+        <feature get="false" index="17" name="FanHighControl" set="true" type="table">
+            <hint lang="pl" value="Wyjście termostatu, powiązanie termostatu z wentylatorem (Gh)"/>
+            <hint lang="en" value="Thermostat fan output, connection with the fan (Gh)"/>
+            <desc resKey="multi_fan_ac_thermostat_fancontrol_high"/>
+        </feature>
+        <feature enum="-1,0,1" get="true" index="2" name="OutputType" set="false" type="num">
+            <enum name="Auto" resKey="thermostat_outputtype_enum_auto" value="-1"/>
+            <enum name="Digital" resKey="thermostat_outputtype_enum_digital" value="0"/>
+            <enum name="Analog" resKey="thermostat_outputtype_enum_analog" value="1"/>
+            <hint lang="pl" value="Typ wyjścia:&#13;-1 - autodetekcja&#13;0 - cyfrowe&#13;1 - analogowe"/>
+            <hint lang="en" value="Determination of the output type (-1 - autodetection, 0 - digital output, 1 - analog output)"/>
+            <desc resKey="thermostat_outputtype"/>
+        </feature>
+        <feature default="20" get="true" index="3" name="PointValue" set="true" type="num" unit="°C">
+            <hint lang="pl" value="Wartość ręcznie zadanej temperatury"/>
+            <hint lang="en" value="The value of the temperature set manually"/>
+            <desc resKey="thermostat_pointvalue"/>
+        </feature>
+        <feature default="17" get="true" index="4" name="HolidayModeValue" set="true" type="num" unit="°C">
+            <hint lang="pl" value="Wartość temperatury dla trybu wakacyjnego"/>
+            <hint lang="en" value="The temperature value for the holiday mode"/>
+            <desc resKey="thermostat_holidaymodevalue"/>
+        </feature>
+        <feature default="2" get="true" index="5" name="Hysteresis" set="true" type="num" unit="°C">
+            <hint lang="pl" value="Wielkość histerezy"/>
+            <hint lang="en" value="Hysteresis value - defining the limits of thermostat activation and deactivation"/>
+            <desc resKey="thermostat_hysteresis"/>
+        </feature>
+        <feature enum="0,1" get="true" index="6" name="State" set="false" type="num">
+            <hint lang="pl" value="Stan pracy: 1 - aktywny, 0 - zatrzymany"/>
+            <hint lang="en" value="Operation status (1 - active thermostat, 0 - inactive)"/>
+            <desc resKey="thermostat_state"/>
+        </feature>
+        <feature default="1" enum="0,1" get="true" index="7" name="ControlDirection" set="true" type="num">
+            <enum name="Normal (heating)" resKey="multi_fan_ac_thermostat_controldirection_enum_normal" value="0"/>
+            <enum name="Reverse (cooling)" resKey="multi_fan_ac_thermostat_controldirection_enum_reverse" value="1"/>
+            <hint lang="pl" value="Kierunek pracy:&#13;0 - tryb grzania &#13;1 - tryb chłodzenia"/>
+            <hint lang="en" value="Working direction:&#13;0 - heating mode &#13;1 - cooling mode"/>
+            <desc resKey="multi_fan_ac_thermostat_controldirection"/>
+        </feature>
+        <feature enum="0,1,2,3" get="true" index="8" name="Mode" set="false" type="num">
+            <enum name="use PointValue" resKey="thermostat_mode_enum_usepointvalue" value="0"/>
+            <enum name="HolidayMode" resKey="thermostat_mode_enum_holidaymode" value="1"/>
+            <enum name="AutoMode" resKey="thermostat_mode_enum_automode" value="2"/>
+            <enum name="HeatUp" resKey="thermostat_mode_enum_heatup" value="3"/>
+            <hint lang="pl" value="Tryb pracy:&#13;0 - tryb ręczny (użycie PointValue)&#13;1 - tryb wakacyjny (użycie HolidayModeValue)&#13;2 - tryb automatyczny (użycie wartości z Harmonogramu - AutoMode)&#13;3 - tryb podgrzewania (użycie wartości HeatUp)"/>
+            <hint lang="en" value="Operating mode (0 - manual mode (using `PointValue`), 1 - holiday mode (` HolidayModeValue`), 2 - automatic mode (`AutoMode` value from the Schedule), 3 - heating mode (`HeatUp` value))"/>
+            <desc resKey="thermostat_mode"/>
+        </feature>
+        <feature get="true" index="9" name="Data" set="true" type="str">
+            <hint lang="pl" value="Wartość cechy Data"/>
+            <hint lang="en" value="A string that defines the schedule for changing values"/>
+            <desc resKey="thermostat_data"/>
+        </feature>
+        <feature default="0" get="true" index="10" name="Min" set="true" type="num" unit="°C">
+            <hint lang="pl" value="Dolna wartość zakresu wbudowanego harmonogramu"/>
+            <hint lang="en" value="The lower value of the scope of the built-in schedule"/>
+            <desc resKey="thermostat_min"/>
+        </feature>
+        <feature default="30" get="true" index="11" name="Max" set="true" type="num" unit="°C">
+            <hint lang="pl" value="Górna wartość zakresu wbudowanego harmonogramu"/>
+            <hint lang="en" value="The upper value of the scope of the built-in schedule"/>
+            <desc resKey="thermostat_max"/>
+        </feature>
+        <feature get="true" index="12" name="TargetTemp" set="false" type="num" unit="°C">
+            <hint lang="pl" value="Zwraca aktualną wartość docelowej temperatury, w odróżnieniu od SetPoint uwzględnia status AutoMode i HolidayMode"/>
+            <hint lang="en" value="The current value of the target temperature"/>
+            <desc resKey="thermostat_targettemp"/>
+        </feature>
+        <feature get="true" index="14" name="CurrentTemp" set="false" type="num" unit="°C">
+            <hint lang="pl" value="Zwraca wartość temperatury na czujniku"/>
+            <hint lang="en" value="Returns the temperature value at the sensor"/>
+            <desc resKey="thermostat_currenttemp"/>
+        </feature>
+        <feature get="true" index="13" name="ControlOutValue" set="false" type="num">
+            <hint lang="pl" value="Wartość przypisywana do wyjścia sterującego"/>
+            <hint lang="en" value="The value assigned to the control output"/>
+            <desc resKey="multi_fan_ac_thermostat_controloutvalue"/>
+        </feature>
+        <feature get="true" index="22" name="FanControlOutValue" set="false" type="num">
+            <hint lang="pl" value="Wartość przypisywana do wyjścia sterującego wentylatorem\:\n0 - wyłączone,\n1 - włączone (Low),\n2 - włączone (Medium),\n3 - włączone (High)"/>
+            <hint lang="en" value="The value assigned to the fan control output\:\n0 - off,\n1 - on (low),\n2 - on (medium),\n3 - on (high)"/>
+            <desc resKey="multi_fan_ac_thermostat_fancontroloutvalue"/>
+        </feature>
+        <feature default="0" enum="0,1,2,3" get="true" index="18" name="FanMode" set="true" type="num">
+            <enum name="Auto" resKey="multi_fan_ac_thermostat_fanmode_enum_auto" value="0"/>
+            <enum name="Low" resKey="multi_fan_ac_thermostat_fanmode_enum_low" value="1"/>
+            <enum name="Medium" resKey="multi_fan_ac_thermostat_fanmode_enum_medium" value="2"/>
+            <enum name="High" resKey="multi_fan_ac_thermostat_fanmode_enum_high" value="3"/>
+            <hint lang="pl" value="Tryb pracy wentylatora\:\n0 - tryb automatyczny (automatyczne załączanie oraz zmiana prędkości),\n1 - tryb pracy ciągłej (Low),\n2 - tryb pracy ciągłej (Medium),\n3 - tryb pracy ciągłej (High)"/>
+            <hint lang="en" value="Fan mode\:\n0 - automatic mode (automatic activation and speed adjustment),\n1 - always-on mode (low),\n2 - always-on mode (medium),\n3 - always-on mode (high)"/>
+            <desc resKey="multi_fan_ac_thermostat_fanmode"/>
+        </feature>
+        <feature default="5" get="true" index="19" name="ControlSwitchDelay" set="true" type="num" unit="s" range="1-600">
+            <hint lang="pl" value="Opóźnienie włączenia lub wyłączenia wyjścia sterującego w stosunku do wyjścia wentylatora"/>
+            <hint lang="en" value="Delay for turning the control output on or off in relation to the fan output"/>
+            <desc resKey="multi_fan_ac_thermostat_controlswitchdelay"/>
+        </feature>
+        <feature default="300" get="true" index="20" name="ProtectionDelayOn" set="true" type="num" unit="s" range="0-600">
+            <hint lang="pl" value="Czas, przez który wyjście sterujące nie może zostać załączone po wyłączeniu (funkcja ochrony sprężarki)"/>
+            <hint lang="en" value="The time for which the control output cannot be turned on after it has been turned off (compressor protection function)"/>
+            <desc resKey="multi_fan_ac_thermostat_protectiondelayon"/>
+        </feature>
+        <feature default="120" get="true" index="21" name="ProtectionDelayOff" set="true" type="num" unit="s" range="0-600">
+            <hint lang="pl" value="Czas, przez który wyjście sterujące nie może zostać wyłączone po załączeniu (funkcja ochrony sprężarki)"/>
+            <hint lang="en" value="The time for which the control output cannot be turned off after it is turned on (compressor protection function)"/>
+            <desc resKey="multi_fan_ac_thermostat_protectiondelayoff"/>
+        </feature>
+        <feature default="2" get="true" index="23" name="MediumFanSpeedDelta" set="true" type="num" unit="°C" range="1-50">
+            <hint lang="pl" value="Różnica pomiędzy temperaturą źródłową a docelową dla załączenia drugiego stopnia wentylatora"/>
+            <hint lang="en" value="The difference between the source and target temperatures to activate the second stage of the fan"/>
+            <desc resKey="multi_fan_ac_thermostat_mediumfanspeeddelta"/>
+        </feature>
+        <feature default="5" get="true" index="24" name="HighFanSpeedDelta" set="true" type="num" unit="°C" range="1-50">
+            <hint lang="pl" value="Różnica pomiędzy temperaturą źródłową a docelową dla załączenia trzeciego stopnia wentylatora"/>
+            <hint lang="en" value="The difference between the source and target temperatures to activate the third stage of the fan"/>
+            <desc resKey="multi_fan_ac_thermostat_highfanspeeddelta"/>
+        </feature>
+        <feature default="0.1" get="true" index="25" name="FanSpeedHysteresis" set="true" type="num" unit="°C" range="0-4">
+			<hint lang="pl" value="Wielkość histerezy dla zmiany prędkości wentylatora"/>
+            <hint lang="en" value="Fan speed hysteresis value - defining the limits of the fan stage activation and deactivation"/>
+            <desc resKey="multi_fan_ac_thermostat_fanspeedhysteresis"/>
+        </feature>
+        -->
+    </features>
+    <methods>
+        <method call="execute" index="0" name="Start" return="void">
+            <hint lang="pl" value="Przełącza w stan aktywny (State=1)"/>
+            <hint lang="en" value="Switching thermostat to active state (`State` = 1)"/>
+            <desc resKey="thermostat_start"/>
+        </method>
+        <method call="execute" index="1" name="Stop" return="void">
+            <hint lang="pl" value="Przełącza w stan zatrzymania (State=0)"/>
+            <hint lang="en" value="Switching the thermostat to an inactive state (`State` = 0)"/>
+            <desc resKey="thermostat_stop"/>
+        </method>
+        <method call="execute" index="2" name="IncreaseDegree" return="void">
+            <hint lang="pl" value="Zwiększa PointValue o 1°C"/>
+            <hint lang="en" value="Increase `PointValue` by 1°C"/>
+            <desc resKey="thermostat_increasedegree"/>
+        </method>
+        <method call="execute" index="3" name="DecreaseDegree" return="void">
+            <hint lang="pl" value="Zmniejsza PointValue o 1°C"/>
+            <hint lang="en" value="Decrease `PointValue` by 1°C"/>
+            <desc resKey="thermostat_decreasedegree"/>
+        </method>
+        <method call="execute" index="4" name="HeatUp" return="void">
+            <param name="Value" type="num" unit="°C"/>
+            <param name="Time" type="num" unit="m"/>
+            <hint lang="pl" value="Podnosi wartość PointValue o wartość Value, na wskazany okres czasu (Time) wyrażony w minutach"/>
+            <hint lang="en" value="Increasing `PointValue` by a given value at a specified time"/>
+            <desc resKey="thermostat_heatup"/>
+        </method>
+        <method call="execute" index="5" name="HolidayModeStart" return="void">
+            <hint lang="pl" value="Uruchamia tryb wakacyjny"/>
+            <hint lang="en" value="Starting `holiday mode`"/>
+            <desc resKey="thermostat_holidaymodestart"/>
+        </method>
+        <method call="execute" index="6" name="HolidayModeStop" return="void">
+            <hint lang="pl" value="Zatrzymuje tryb wakacyjny"/>
+            <hint lang="en" value="Stopping the `holiday mode`"/>
+            <desc resKey="thermostat_holidaymodestop"/>
+        </method>
+        <method call="execute" index="7" name="AutoModeStart" return="void">
+            <hint lang="pl" value="Uruchamia tryb AutoMode (pobieranie docelowej temperatury z harmonogramu zamiast z cechy PointValue)"/>
+            <hint lang="en" value="Starting the `AutoMode` mode (downloading temperature from the schedule)"/>
+            <desc resKey="thermostat_automodestart"/>
+        </method>
+        <method call="execute" index="8" name="AutoModeStop" return="void">
+            <hint lang="pl" value="Zatrzymuje tryb AutoMode"/>
+            <hint lang="en" value="Stop the `AutoMode` mode"/>
+            <desc resKey="thermostat_automodestop"/>
+        </method>
+        <method call="set" get="true" index="9" name="SetData" return="void" set="true">
+            <param name="Data" type="str"/>
+            <hint lang="pl" value="Ustawienie tygodniowego harmonogramu"/>
+            <hint lang="en" value="Setting the weekly schedule"/>
+            <desc resKey="thermostat_setdata"/>
+        </method>
+        <method call="set" get="true" index="10" name="SetMin" return="void" set="true" visible="false">
+            <param name="Min" type="num" unit="°C"/>
+            <hint lang="pl" value="Ustawia minimalną wartość zakresu wbudowanego harmonogramu"/>
+            <hint lang="en" value="Sets the minimum value for the built-in schedule range"/>
+            <desc resKey="thermostat_setmin"/>
+        </method>
+        <method call="set" get="true" index="11" name="SetMax" return="void" set="true" visible="false">
+            <param name="Max" type="num" unit="°C"/>
+            <hint lang="pl" value="Ustawia maksymalną wartość zakresu wbudowanego harmonogramu"/>
+            <hint lang="en" value="Sets the maximum value for the built-in schedule range"/>
+            <desc resKey="thermostat_setmax"/>
+        </method>
+        <method call="set" get="true" index="0" name="SetSource" return="void" set="true" visible="false">
+            <param name="Source" type="table"/>
+            <hint lang="pl" value="Ustawia powiązanie termostatu z czujnikiem temperatury"/>
+            <hint lang="en" value="Sets the binding of the thermostat to the temperature sensor"/>
+            <desc resKey="thermostat_setsource"/>
+        </method>
+        <method call="set" get="true" index="1" name="SetControl" return="void" set="true" visible="false">
+            <param name="Control" type="table"/>
+            <hint lang="pl" value="Ustawia powiązanie termostatu z wyjściem elementu sterującego"/>
+            <hint lang="en" value="Act to link the thermostat with the control output"/>
+            <desc resKey="multi_fan_ac_thermostat_setcontrol"/>
+        </method>
+        <method call="set" get="true" index="15" name="SetFanLowControl" return="void" set="true" visible="false">
+            <param name="FanControl" type="table"/>
+            <hint lang="pl" value="Ustawia powiązanie termostatu z wyjściem wentylatora"/>
+            <hint lang="en" value="Act to link the thermostat with the fan control output"/>
+            <desc resKey="multi_fan_ac_thermostat_setfancontrol"/>
+        </method>
+        <method call="set" get="true" index="16" name="SetFanMediumControl" return="void" set="true" visible="false">
+            <param name="FanControl" type="table"/>
+            <hint lang="pl" value="Ustawia powiązanie termostatu z wyjściem wentylatora"/>
+            <hint lang="en" value="Act to link the thermostat with the fan control output"/>
+            <desc resKey="multi_fan_ac_thermostat_setfancontrol"/>
+        </method>
+        <method call="set" get="true" index="17" name="SetFanHighControl" return="void" set="true" visible="false">
+            <param name="FanControl" type="table"/>
+            <hint lang="pl" value="Ustawia powiązanie termostatu z wyjściem wentylatora"/>
+            <hint lang="en" value="Act to link the thermostat with the fan control output"/>
+            <desc resKey="multi_fan_ac_thermostat_setfancontrol"/>
+        </method>
+        <method call="set" get="true" index="2" name="SetOutputType" return="void" set="true">
+            <param enum="-1,0,1" name="OutputType" type="num"/>
+            <hint lang="pl" value="Typ wyjścia:&#13;Auto - autodetekcja&#13;Digital - cyfrowe&#13;Analog - analogowe"/>
+            <hint lang="en" value="Output type setting (`Auto` - auto detection,` Digital` - digital output, `Analog` - analog output)"/>
+            <desc resKey="thermostat_setoutputtype"/>
+        </method>
+        <method call="set" get="true" index="3" name="SetPointValue" return="void" set="true">
+            <param name="PointValue" type="num" unit="°C"/>
+            <hint lang="pl" value="Ustawia wartość ręcznie zadanej temperatury"/>
+            <hint lang="en" value="Setting the manually set temperature"/>
+            <desc resKey="thermostat_setpointvalue"/>
+        </method>
+        <method call="set" get="true" index="4" name="SetHolidayModeValue" return="void" set="true">
+            <param name="HolidayModeValue" type="num" unit="°C"/>
+            <hint lang="pl" value="Ustawia wartość temperatury dla trybu wakacyjnego"/>
+            <hint lang="en" value="Setting the temperature value for the holiday mode"/>
+            <desc resKey="thermostat_setholidaymodevalue"/>
+        </method>
+        <method call="set" get="true" index="5" name="SetHysteresis" return="void" set="true">
+            <param name="Hysteresis" type="num" unit="°C"/>
+            <hint lang="pl" value="Ustawia wartość histerezy"/>
+            <hint lang="en" value="Setting the hysteresis value"/>
+            <desc resKey="thermostat_sethysteresis"/>
+        </method>
+        <method call="set" get="true" index="7" name="SetControlDirection" return="void" set="true">
+            <param enum="0,1" name="ControlDirection" type="num"/>
+            <hint lang="pl" value="Ustawia kierunek pracy"/>
+            <hint lang="en" value="Setting the working direction"/>
+            <desc resKey="multi_fan_ac_thermostat_setcontroldirection"/>
+        </method>
+        <method call="set" get="true" index="6" name="SetState" return="void" set="true">
+            <param name="State" type="num"/>
+            <hint lang="pl" value="Ustawia stan"/>
+            <hint lang="en" value="Sets the state"/>
+            <desc resKey="thermostat_setstate"/>
+        </method>
+        <method call="set" get="true" index="8" name="SetMode" return="void" set="true">
+            <param name="Mode" type="num"/>
+            <hint lang="pl" value="Ustawia tryb pracy"/>
+            <hint lang="en" value="Sets the operation mode"/>
+            <desc resKey="thermostat_setmode"/>
+        </method>
+        <method call="set" get="true" index="18" name="SetFanMode" return="void" set="true">
+            <param name="FanMode" type="num"/>
+            <hint lang="pl" value="Ustawia tryb pracy wentylatora"/>
+            <hint lang="en" value="Sets the fan mode"/>
+            <desc resKey="multi_fan_ac_thermostat_setfanmode"/>
+        </method>
+        <method call="set" get="true" index="19" name="SetControlSwitchDelay" return="void" set="true">
+            <param name="ControlSwitchDelay" range="1-600" type="num" unit="s"/>
+            <hint lang="pl" value="Ustawia opóźnienie włączenia lub wyłączenia wyjścia elementu sterującego w stosunku do wyjścia wentylatora"/>
+            <hint lang="en" value="Sets the delay for turning the control output on or off in relation to the fan output"/>
+            <desc resKey="multi_fan_ac_thermostat_setcontrolswitchdelay"/>
+        </method>
+        <method call="set" get="true" index="20" name="SetProtectionDelayOn" return="void" set="true">
+            <param name="ProtectionDelayOn" range="0-600" type="num" unit="s"/>
+            <hint lang="pl" value="Ustawia czas, przez który wyjście sterujące nie może zostać załączone po wyłączeniu (funkcja ochrony sprężarki)"/>
+            <hint lang="en" value="Sets the time for which the control output cannot be turned on after it has been turned off (compressor protection function)"/>
+            <desc resKey="multi_fan_ac_thermostat_setprotectiondelayon"/>
+        </method>
+        <method call="set" get="true" index="21" name="SetProtectionDelayOff" return="void" set="true">
+            <param name="ProtectionDelayOff" range="0-600" type="num" unit="s"/>
+            <hint lang="pl" value="Ustawia czas, przez który wyjście sterujące nie może zostać wyłączone po załączeniu (funkcja ochrony sprężarki)"/>
+            <hint lang="en" value="Sets the time for which the control output cannot be turned off after it is turned on (compressor protection function)"/>
+            <desc resKey="multi_fan_ac_thermostat_setprotectiondelayoff"/>
+        </method>
+        <method call="set" get="true" index="23" name="SetMediumFanSpeedDelta" return="void" set="true">
+            <param name="Delta" range="1-50" type="num" unit="°C"/>
+            <hint lang="pl" value="Określa różnicę pomiędzy temperaturą źródłową a docelową dla załączenia drugiego stopnia wentylatora"/>
+            <hint lang="en" value="Specifies the difference between the source and target temperatures to activate the second stage of the fan"/>
+            <desc resKey="multi_fan_ac_thermostat_setmediumfanspeeddelta"/>
+        </method>
+        <method call="set" get="true" index="24" name="SetHighFanSpeedDelta" return="void" set="true">
+            <param name="Delta" range="1-50" type="num" unit="°C"/>
+            <hint lang="pl" value="Określa różnicę pomiędzy temperaturą źródłową a docelową dla załączenia trzeciego stopnia wentylatora"/>
+            <hint lang="en" value="Specifies the difference between the source and target temperatures to activate the third stage of the fan"/>
+            <desc resKey="multi_fan_ac_thermostat_sethighfanspeeddelta"/>
+        </method>
+        <method call="set" get="true" index="25" name="SetFanSpeedHysteresis" return="void" set="true">
+            <param name="Hysteresis" range="1-50" type="num" unit="°C"/>
+            <hint lang="pl" value="Ustawia wartość histerezy dla zmiany prędkości wentylatora"/>
+            <hint lang="en" value="Setting the fan speed hysteresis value"/>
+            <desc resKey="multi_fan_ac_thermostat_setfanspeedhysteresis"/>
+        </method>
+    </methods>
+    <events>
+        <event address="0" name="OnPointValueChange">
+            <hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości PointValue"/>
+            <hint lang="en" value="An event generated when the value of the `PointValue` property is changed"/>
+            <desc resKey="thermostat_onchange"/>
+        </event>
+        <event address="1" name="OnStart">
+            <hint lang="pl" value="Zdarzenie wywoływane przy wznowieniu pracy termostatu"/>
+            <hint lang="en" value="The event is generated when the thermostat is restarted"/>
+            <desc resKey="thermostat_onstart"/>
+        </event>
+        <event address="2" name="OnStop">
+            <hint lang="pl" value="Zdarzenie wywoływane przy zatrzymaniu pracy termostatu"/>
+            <hint lang="en" value="Event generated when the thermostat stops working"/>
+            <desc resKey="thermostat_onstop"/>
+        </event>
+        <event address="3" name="OnControlOutValueOn">
+            <hint lang="pl" value="Zdarzenie wywoływane gdy wyjście ControlOutValue jest załączane"/>
+            <hint lang="en" value="An event generated when output ControlOutValue is switched on"/>
+            <desc resKey="multi_fan_ac_thermostat_onouton"/>
+        </event>
+        <event address="4" name="OnControlOutValueOff">
+            <hint lang="pl" value="Zdarzenie wywoływane gdy wyjście ControlOutValue jest wyłączane"/>
+            <hint lang="en" value="An event generated when output ControlOutValue is switched off"/>
+            <desc resKey="multi_fan_ac_thermostat_onoutoff"/>
+        </event>
+        <event address="5" name="OnHolidayModeOn">
+            <hint lang="pl" value="Zdarzenie wywoływane przy uruchomieniu trybu wakacyjnego"/>
+            <hint lang="en" value="An event generated when starting holiday mode"/>
+            <desc resKey="thermostat_onholidaymodeon"/>
+        </event>
+        <event address="6" name="OnHolidayModeOff">
+            <hint lang="pl" value="Zdarzenie wywoływane przy wyłączeniu trybu wakacyjnego"/>
+            <hint lang="en" value="An event generated when the holiday mode is turned off"/>
+            <desc resKey="thermostat_onholidaymodeoff"/>
+        </event>
+    </events>
+</object>

@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="RS232_CONTROLLER_DIN" typeId="2b">
+	<!--hwType=0x2b(43), hwVer=0x1(1), fwType=0x2(2), fwApiVer=0x1(1)-->
+	<firmware typeId="02" version="01">
+		<object class="33" count="1" name="RS232_CONTROLLER" type="out">
+			<interface>
+				<features>
+					<feature default="1" enum="0,1" get="true" index="0" name="RepresentationType" set="true" type="num">
+						<enum name="HEX" resKey="rs_controller_representationtype_enum_hex" value="0"/>
+						<enum name="ASCII" resKey="rs_controller_representationtype_enum_ascii" value="1"/>
+						<hint lang="pl" value="Typ reprezentacji danych"/>
+						<hint lang="en" value="Data representation type"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_representationtype"/>
+                    </feature>
+					<feature default="9600" enum="1200,2400,4800,9600,19200,38400,57600,115200" get="true" index="1" name="BaudRate" set="true" type="num" unit="bps">
+						<enum name="1200" resKey="rs_controller_baudrate_enum_1200" value="1200"/> 
+						<enum name="2400" resKey="rs_controller_baudrate_enum_2400" value="2400"/> 
+						<enum name="4800" resKey="rs_controller_baudrate_enum_4800" value="4800"/> 
+						<enum name="9600" resKey="rs_controller_baudrate_enum_9600" value="9600"/> 
+						<enum name="19200" resKey="rs_controller_baudrate_enum_19200" value="19200"/>
+						<enum name="38400" resKey="rs_controller_baudrate_enum_38400" value="38400"/> 
+						<enum name="57600" resKey="rs_controller_baudrate_enum_57600" value="57600"/>	
+						<enum name="115200" resKey="rs_controller_baudrate_enum_115200" value="115200"/>
+						<hint lang="pl" value="Prędkość transmisji"/>
+						<hint lang="en" value="Transmission Speed"/>
+						<hint lang="de" value=""/>
+        			    <desc resKey="rs_controller_baudrate"/>
+                    </feature>
+					<feature default="8" enum="8,9" get="true" index="2" name="WordLenght" set="true" type="num" unit="">
+						<enum name="8" resKey="rs_controller_wordlenght_enum_8" value="8"/>
+						<enum name="9" resKey="rs_controller_wordlenght_enum_9" value="9"/>
+						<hint lang="pl" value="Długość słowa"/>
+						<hint lang="en" value="Length of word"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_wordlenght"/>
+                    </feature>
+					<feature default="0" enum="0,1,2" get="true" index="3" name="StopBits" set="true" type="num" unit="">
+						<enum name="1" resKey="rs_controller_stopbits_enum_1" value="0"/>
+						<enum name="1.5" resKey="rs_controller_stopbits_enum_1_5" value="1"/>
+						<enum name="2" resKey="rs_controller_stopbits_enum_2" value="2"/>
+						<hint lang="pl" value="Bity stopu:&#13; 0 - 1 bit stopu&#13; 1 - 1.5 bitu stopu&#13; 2 - 2 bity stopu"/>
+						<hint lang="en" value="Stop bits:&#13; 0 - 1 stop bit&#13; 1 - 1.5 stop bits&#13; 2 - 2 stop bits"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_stopbits"/>
+                    </feature>
+					<feature default="0" enum="0,1,2" get="true" index="4" name="Parity" set="true" type="num" unit="">
+						<enum name="None" resKey="rs_controller_parity_enum_none" value="0"/>
+						<enum name="Odd" resKey="rs_controller_parity_enum_odd" value="1"/>
+						<enum name="Even" resKey="rs_controller_parity_enum_even" value="2"/>
+						<hint lang="pl" value="Bit parzystości:&#13; 0 - None&#13; 1 - Odd&#13; 2 - Even"/>
+						<hint lang="en" value="Parity bit:&#13; 0 - None&#13; 1 - Odd&#13; 2 - Even"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_parity"/>
+                    </feature>
+					<feature default="" get="true" index="5" name="TxBuffer" set="false" type="str" unit="">
+						<hint lang="pl" value="Bufor nadawczy. Czyszczony automatycznie po wysłaniu metody SendTxBuffer"/>
+						<hint lang="en" value="Transceiver buffer. Cleared automatically after calling SendTxBuffer"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_txbuffer"/>
+                    </feature>
+					<feature default="" get="true" index="6" name="RxBuffer" range="" set="false" type="str" unit="">
+						<hint lang="pl" value="Bufor odbiorczy. Dane przychodzące są dodawane do buforu. Po odczytaniu danych należy wyczyścić bufor metodą ClearRxBuffer"/>
+						<hint lang="en" value="Receiver buffer. Incoming data is added to the buffer. After analyzing the data, clear the buffer using ClearRxBuffer"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_rxbuffer"/>
+                    </feature>
+					<feature default="1" get="true" index="7" name="ResponseSize" range="" set="true" type="num" unit="">
+						<hint lang="pl" value="Rozmiar spodziewanej odpowiedzi określany minimalną liczbą bajtów w buforze odbiorczym, dla której ma zostać wygenerowane zdarzenie OnReceive. Ustawienie 0 powoduje brak generowania zdarzenia"/>
+						<hint lang="en" value="The size of the expected response determined by the minimum number of bytes in the receive buffer for which an OnReceive event will occur. Setting it to 0 causes the event to not occur"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_responsesize"/>
+                    </feature>
+					<feature default="100" get="true" index="8" name="ResponseTimeout" range="100-1000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas oczekiwania na odpowiedź"/>
+						<hint lang="en" value="Time of response"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_responsetimeout"/>
+                    </feature>
+<!--					
+					<feature default="" get="true" index="9" name="State" range="" set="false" type="num" unit="">
+						<hint lang="pl" value="Stan urządzenia:"/>
+						<hint lang="en" value="State of device"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_state"/>
+                    </feature>
+-->					
+				</features>
+				<methods>
+					<method call="set" index="0" name="SetRepresentationType" return="void"> 
+						<param default="1" enum="0,1" name="Type" type="num" unit="">
+							<enum name="HEX" value="0"/>
+							<enum name="ASCI" value="1"/>
+						</param>
+						<hint lang="pl" value="Ustawia typ reprezentacji danych"/>
+						<hint lang="en" value="Sets data representation type"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_setrepresentationtype"/>
+                    </method>
+					<method call="set" index="1" name="SetBaudRate" range="1-115200" return="void">
+						<param default="9600" name="BaudRate" type="num" unit="bps"/>
+						<hint lang="pl" value="Ustawia prędkość transmisji"/>
+						<hint lang="en" value="Sets transmission speed"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_setbaudrate"/>
+                    </method>
+					<method call="set" index="2" name="SetWordLenght" return="void"> 
+						<param default="8" enum="8,9" name="WordLength" type="num" unit="">
+							<enum name="8" value="8"/>
+							<enum name="9" value="9"/>
+						</param>
+						<hint lang="pl" value="Ustawia długość słowa"/>
+						<hint lang="en" value="Sets length of word"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_setwordlenght"/>
+                    </method>
+					<method call="set" index="3" name="SetStopBits" return="void"> 
+						<param default="0" enum="0,1,2" name="StopBits" type="num" unit="">
+							<enum name="1" value="0"/>
+							<enum name="1.5" value="1"/>
+							<enum name="2" value="2"/>
+						</param>
+						<hint lang="pl" value="Ustawia liczbę bitów stopu"/>
+						<hint lang="en" value="Sets stop bits number"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_setstopbits"/>
+                    </method>
+					<method call="set" index="4" name="SetParity" return="void"> 
+						<param default="0" enum="0,1,2" name="Parity" type="num" unit="">
+							<enum name="None" value="0"/>
+							<enum name="Odd" value="1"/>
+							<enum name="Even" value="2"/>
+						</param>
+						<hint lang="pl" value="Ustawia kontrolę parzystości"/>
+						<hint lang="en" value="Sets parity control type"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_setparity"/>
+                    </method>
+					<method call="execute" index="3" name="AddToTxBuffer" return="void"> 
+						<param name="Tx" type="str" unit=""/>
+						<hint lang="pl" value="Dodaje dane do buforu nadawczego"/>
+						<hint lang="en" value="Add data to transceiver buffer"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_addtotxbuffer"/>
+                    </method>
+					<method call="set" index="7" name="SetResponseSize" return="void"> 
+						<param default="" name="Size" type="num" unit=""/>
+						<hint lang="pl" value="Ustawia długość spodziewanej odpowiedzi"/>
+						<hint lang="en" value="Sets size of response"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_setresponsesize"/>
+                    </method>
+					<method call="set" index="8" name="SetResponseTimeout" return="void"> 
+						<param default="100" name="Time" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia czas oczekiwania na odpowiedź"/>
+						<hint lang="en" value="Sets time of response"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_setresponsetimeout"/>
+                    </method>
+					<method call="execute" index="0" name="ClearRxBuffer" return="void"> 
+						<param name="Size" type="num" unit="">
+							<parametrized name="All" value="0"/>
+							<parametrized name="Size"/>
+						</param>
+						<hint lang="pl" value="Czyści bufor odbiorczy"/>
+						<hint lang="en" value="Clears receiver buffer"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_clearrxbuffer"/>
+                    </method>
+					<method call="execute" index="1" name="ClearTxBuffer" return="void"> 
+						<param name="Size" type="num" unit="">
+							<parametrized name="All" value="0"/>
+							<parametrized name="Size"/>
+						</param>
+						<hint lang="pl" value="Czyści bufor nadawczy"/>
+						<hint lang="en" value="Clears transceiver buffer"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_cleartxbuffer"/>
+                    </method>
+					<method call="execute" index="2" name="SendTxBuffer" return="void"> 
+						<param name="EndLineCharacter" type="num" unit="">
+							<parametrized name="None" value="0"/>
+							<parametrized name="CR" value="1"/>
+							<parametrized name="LF" value="2"/>
+							<parametrized name="CRLF" value="3"/>
+						</param>						
+						<hint lang="pl" value="Wysyła bufor nadawczy"/>
+						<hint lang="en" value="Sends transceiver buffer"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_sendtxbuffer"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnReceive">
+						<hint lang="pl" value="Zdarzenie wywoływane, kiedy kontroler odebrał dane. Jeśli rozmiar otrzymanych danych jest mniejszy niż ResponseSize, zdarzenie zostanie wygenerowane po uzbieraniu danych w buforze odbiorczym. Ustawienie ResponseSize=0 powoduje brak generowania zdarzenia"/>
+						<hint lang="en" value="Occurs when controller receives data. If the size of the received data is smaller than ResponseSize, the event will be generated after the data is collected in the receive buffer. The event will not occur for ResponseSize=0 "/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_onreceive"/>
+                    </event>
+					<event address="1" name="OnTransmit">
+						<hint lang="pl" value="Zdarzenie wywoływane kiedy kontroler wysyła dane"/>
+						<hint lang="en" value="Occurs when controller is sending data"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_ontransmit"/>
+                    </event>
+					<event address="2" name="OnResponseTimeout">
+						<hint lang="pl" value="Zdarzenie wywoływane kiedy został przekroczony czas odpowiedzi"/>
+						<hint lang="en" value="Occurs when the response time has been exceeded"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_onresponsetimeout"/>
+                    </event>
+<!--					
+					<event address="3" name="OnStateChange">
+						<hint lang="pl" value="Zdarzenie wywoływane kiedy zmieni się wartość cechy State"/>
+						<hint lang="en" value="Occurs when State is changed"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_onstatechange"/>
+                    </event>
+-->
+					<event address="4" name="OnOverflow">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie przepełnienia bufora odbiorczego"/>
+						<hint lang="en" value="Occurs when the receiver buffer is overflown"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_onoverflow"/>
+                    </event>
+					<event address="5" name="OnTransmitError">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie niepoprawnego wysłania danych"/>
+						<hint lang="en" value="Occurs during transmission error"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="rs_controller_ontransmiterror"/>
+                    </event>
+				</events>
+			</interface>
+		</object>	
+		<object class="12" count="1" name="PowerSupplyVoltage" type="in">
+			<interface>
+				<features>
+					<feature default="0" get="true" index="0" name="Value" range="0-24" set="false" type="num" unit="V">
+						<hint lang="pl" value="Wartość napięcia zasilania"/>
+						<hint lang="en" value="Current power supply voltage value"/>
+					    <desc resKey="powersupplyvoltage_value"/>
+                    </feature>
+					<feature default="0" divisor="1" get="true" index="1" name="Value%" range="0-1000000" set="false" type="num" unit="%">
+						<hint lang="pl" value="Wartość napięcia zasilania jako procent wartości maksymalnej (MaxValue)"/>
+						<hint lang="en" value="Current percentage input value of the maximum value (MaxValue characteristic)"/>
+					    <desc resKey="powersupplyvoltage_value_2"/>
+                    </feature>
+					<feature default="0.5" get="true" index="3" name="Sensitivity" range="0-10" set="true" type="num" unit="V">
+						<hint lang="pl" value="Czułość - minimalna zmiana wartości napięcia zasilania, która wywołuje zdarzenia OnValueChange, OnValueLower lub OnValueRise"/>
+						<hint lang="en" value="Minimum change of input state when the OnValueChange, OnValueLower or OnValueRise event is generated"/>
+					    <desc resKey="powersupplyvoltage_sensitivity"/>
+                    </feature>
+					<feature default="21" get="true" index="5" name="MinValue" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość minimalna napięcia zasilania po przekroczeniu której generowane jest zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+					    <desc resKey="powersupplyvoltage_minvalue"/>
+                    </feature>
+					<feature default="24" get="true" index="6" name="MaxValue" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość maksymalna napięcia zasilania po przekroczeniu której generowane jest zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Maximum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+					    <desc resKey="powersupplyvoltage_maxvalue"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="3" name="SetSensitivity" return="void">
+						<hint lang="pl" value="Ustawia czułość pomiaru napięcia zasilania"/>
+						<hint lang="en" value="Sets input sensitivity value"/>
+						<param name="Sensitivity" range="0-10" type="num" unit="V"/>
+					    <desc resKey="powersupplyvoltage_setsensitivity"/>
+                    </method>
+					<method call="set" index="5" name="SetMinValue" return="void">
+						<hint lang="pl" value="Ustawia wartość MinValue"/>
+						<hint lang="en" value="Sets MinValue"/>
+						<param name="MinValue" type="num"/>
+					    <desc resKey="powersupplyvoltage_setminvalue"/>
+                    </method>
+					<method call="set" index="6" name="SetMaxValue" return="void">
+						<hint lang="pl" value="Ustawia wartość MaxValue"/>
+						<hint lang="en" value="Sets MaxValue"/>
+						<param name="MaxValue" type="num"/>
+					    <desc resKey="powersupplyvoltage_setmaxvalue"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+					    <desc resKey="powersupplyvoltage_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event occurs when a value lower than the value from the last reading appears at input"/>
+					    <desc resKey="powersupplyvoltage_onvaluelower"/>
+                    </event>
+					<event address="2" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event occurs when a value higher than the value from the last reading appears at input"/>
+					    <desc resKey="powersupplyvoltage_onvaluerise"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy napięcia zasilania znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding the permissible range (MinValue - MaxValue)"/>
+					    <desc resKey="powersupplyvoltage_onoutofrange"/>
+                    </event>
+					<event address="6" name="OnInRange">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wartość napięcia zasilania powróci do wyznaczonego zakresu (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurs when value returns to MinValue - MaxValue range"/>
+					    <desc resKey="powersupplyvoltage_oninrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="ZWAVE_FAKRO_FTP_V" typeId="008500020011">
+	<!--hwType=0x8500020011(571230781457), hwVer=0x1(1), fwType=0x0(0), fwApiVer=0xff(255)-->
+	<firmware typeId="0" version="ff">
+		<object class="59" count="1" name="ZWAVE_ROLLER_SHUTTER" type="out">
+			<interface>
+				<features>
+					<feature get="true" index="0" name="M1" set="false" type="confirmation" unit="bool">
+						<hint lang="pl" value="Stan przekaźnika M1"/>
+						<hint lang="en" value="State of M1 relay (moving upwards)"/>
+					    <desc resKey="zwave_roller_shutter_m1"/>
+                    </feature>
+					<feature get="true" index="1" name="M2" set="false" type="confirmation" unit="bool">
+						<hint lang="pl" value="Stan przekaźnika M2"/>
+						<hint lang="en" value="State of M2 relay (moving downwards)"/>
+					    <desc resKey="zwave_roller_shutter_m2"/>
+                    </feature>
+					<feature enum="0,1,2" get="true" index="2" name="State" set="false" type="num" unit="-">
+						<enum name="Stop" resKey="zwave_roller_shutter_state_enum_stop" value="0"/>
+						<enum name="Up" resKey="zwave_roller_shutter_state_enum_up" value="1"/>
+						<enum name="Down" resKey="zwave_roller_shutter_state_enum_down" value="2"/>
+						<hint lang="pl" value="Stan wyjścia:&#13;0 - stoi, &#13;1 - ruch w górę, &#13;2 - ruch w dół"/>
+						<hint lang="en" value="Output state&#13;0 - output inactive&#13;1 - output active"/>
+					    <desc resKey="zwave_roller_shutter_state_1"/>
+                    </feature>
+					<feature default="30000" get="true" index="3" name="MaxTime" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Domyślna wartość parametru Time, jeśli wpisano 0"/>
+						<hint lang="en" value="Default Time parameter value. 0 if not specified"/>
+					    <desc resKey="zwave_roller_shutter_maxtime"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="execute" index="0" name="Up" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="UseMaxTime" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Okno do góry. Parametr Time to czas przez jaki okno ma się otwierać&#13;num - czas otwierania, 0 - czas otwierania równy MaxTime"/>
+						<hint lang="en" value="Window up or STOP if moving. Parameter Time:&#13;number - output is active for specified timer&#13;0 - output is active for the time specified in MaxTime"/>
+					    <desc resKey="zwave_roller_shutter_up_2"/>
+                    </method>
+					<method call="execute" index="1" name="Down" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="UseMaxTime" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Okno w dół. Parametr Time to czas przez jaki okno ma się zamykać&#13;num - czas zamykania, 0 - czas zamykania równy MaxTime"/>
+						<hint lang="en" value="Window down or STOP if moving. Parameter Time:&#13;number - output is active for specified timer&#13;0 - output is active for the time specified in MaxTime"/>
+					    <desc resKey="zwave_roller_shutter_down_1"/>
+                    </method>
+					<method call="execute" index="2" name="Start" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="UseMaxTime" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Okno do góry jeśli poprzednio ruch w dół, okno w dół jeśli poprzednio ruch w górę. Parametr Time to czas przez jaki okno ma być w ruchu&#13;num - czas otwierania/zamykania okna, 0 - czas jazdy równy MaxTime"/>
+						<hint lang="en" value="Window up if the preceding motion was down or window down if the preceding motion was up"/>
+					    <desc resKey="zwave_roller_shutter_start_1"/>
+                    </method>
+					<method call="execute" index="3" name="Stop" return="void">
+						<hint lang="pl" value="Stop jeśli roleta jest w ruchu"/>
+						<hint lang="en" value="STOP if moving"/>
+					    <desc resKey="zwave_roller_shutter_stop"/>
+                    </method>
+					<method call="execute" index="4" name="Hold" return="void">
+						<hint lang="pl" value="Hold z odwracaniem kierunku"/>
+						<hint lang="en" value="Hold with direction change"/>
+					    <desc resKey="zwave_roller_shutter_hold"/>
+                    </method>
+					<method call="execute" index="5" name="HoldUp" return="void">
+						<hint lang="pl" value="Hold zawsze w górę"/>
+						<hint lang="en" value="Hold always up"/>
+					    <desc resKey="zwave_roller_shutter_holdup"/>
+                    </method>
+					<method call="execute" index="6" name="HoldDown" return="void">
+						<hint lang="pl" value="Hold zawsze w dół"/>
+						<hint lang="en" value="Hold always down"/>
+					    <desc resKey="zwave_roller_shutter_holddown"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany stanu wyjścia"/>
+						<hint lang="en" value="Result from a change in the state of any of the outputs"/>
+					    <desc resKey="zwave_roller_shutter_onchange"/>
+                    </event>
+					<event address="1" name="OnUp">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany stanu ze Stop na Up"/>
+						<hint lang="en" value="Occurs when changing the Stop state to the Up state"/>
+					    <desc resKey="zwave_roller_shutter_onup"/>
+                    </event>
+					<event address="2" name="OnDown">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany stanu ze Stop na Down"/>
+						<hint lang="en" value="Occurs when changing the Stop state to the Down state"/>
+					    <desc resKey="zwave_roller_shutter_ondown"/>
+                    </event>
+					<event address="3" name="OnStart">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie wywołania komendy Start"/>
+						<hint lang="en" value="Occurs when Start is requested"/>
+					    <desc resKey="zwave_roller_shutter_onstart"/>
+                    </event>
+					<event address="4" name="OnStop">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie wywołania komendy Stop"/>
+						<hint lang="en" value="Occurs when Stop is requested"/>
+					    <desc resKey="zwave_roller_shutter_onstop"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

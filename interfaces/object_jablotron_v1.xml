@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object class="150" className="GATE" name="Jablotron" version="1">
+	<features>
+		<feature default="1*1234" get="true" index="0" name="AdminCode" set="true" type="str" unit="string">
+			<hint lang="pl" value="Kod dostępu administratora"/>
+			<hint lang="en" value="Administrator access code"/>
+			<hint lang="de" value="Administrator-Zugriffscode"/>
+		    <desc resKey="jablotron_admincode"/>
+        </feature>
+		<feature default="1000" get="true" index="1" name="UpdatePeriod" range="500-25000" set="true" type="num">
+			<hint lang="pl" value="Okres aktualizacji stanu centralki"/>
+			<hint lang="en" value="System state update period"/>
+			<hint lang="de" value="Zeitraum zur Aktualisierung des Systemstatus"/>
+		    <desc resKey="jablotron_updateperiod"/>
+        </feature>
+	</features>	
+	<methods>
+		<method call="set" index="0" name="SetAdminCode" return="void" unit="string">
+			<param name="Code" type="str"/>
+			<hint lang="pl" value="Ustawia kod dostępu Administratora"/>
+			<hint lang="en" value="Sets the administrator code"/>
+			<hint lang="de" value="Legt den Administratorcode fest"/>
+		    <desc resKey="jablotron_setadmincode"/>
+        </method>
+		<method call="set" index="1" name="SetUpdatePeriod" range="500-25000" return="void">
+			<param name="Time" type="num" unit="ms"/>
+			<hint lang="pl" value="Ustawia wartość parametru UpdatePeriod"/>
+			<hint lang="en" value="Sets the state update period - UpdatePeriod"/>
+			<hint lang="de" value="Legt den Zustandsaktualisierungszeitraum fest - UpdatePeriod"/>
+		    <desc resKey="jablotron_setupdateperiod"/>
+        </method>
+	</methods>
+	<events>
+	</events>
+</object>

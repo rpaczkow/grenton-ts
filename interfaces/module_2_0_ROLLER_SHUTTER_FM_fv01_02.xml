@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="ROLLER_SH_FM" typeId="20">
+	<!--hwType=0x20(32), hwVer=0x1(1), fwType=0x2(2), fwApiVer=0x1(1)-->
+	<firmware typeId="02" version="01">
+		<object class="24" count="1" name="ROLLER_SHUTTER" type="out">
+			<interface>
+				<features>
+					<feature enum="0,1,2" get="true" index="0" name="State" set="false" type="num" unit="-">
+						<enum name="Stop" resKey="roller_shutter_state_enum_stop" value="0"/>
+						<enum name="Up" resKey="roller_shutter_state_enum_up" value="1"/>
+						<enum name="Down" resKey="roller_shutter_state_enum_down" value="2"/>
+						<hint lang="pl" value="Stan wyjścia:&#13;0 - stoi,&#13;1 - ruch w górę,&#13;2 - ruch w dół"/>
+						<hint lang="en" value="Output state:&#13;0 - no movement,&#13;1 - moving upwards,&#13;2 - moving downwards"/>
+						<hint lang="de" value="Ausgangsstatus:&#13;0 - keine Bewegung,&#13;1 - Bewegung nach unten,&#13;2 - Bewegung nach oben"/>
+                        <desc resKey="roller_shutter_state"/>
+                    </feature>
+					<feature default="30000" get="true" index="1" name="MaxTime" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Domyślna wartość parametru Time, jeśli wpisano 0"/>
+						<hint lang="en" value="Default Time parameter value. 0 if not specified"/>
+						<hint lang="de" value="Maximale Rollladen-Fahrzeit"/>
+                        <desc resKey="roller_shutter_maxtime"/>
+                    </feature>
+					<feature enum="0,1" get="true" index="3" name="Up" set="false" type="num">
+						<enum name="Off" resKey="roller_shutter_up_enum_off" value="0"/>
+						<enum name="On" resKey="roller_shutter_up_enum_on" value="1"/>
+						<hint lang="pl" value="Stan przekaźnika UP"/>
+						<hint lang="en" value="State of UP relay (moving upwards)"/>
+						<hint lang="de" value="Zustand des Relais UP"/>
+                        <desc resKey="roller_shutter_up"/>
+                    </feature>
+					<feature enum="0,1" get="true" index="4" name="Down" set="false" type="num">
+						<enum name="Off" resKey="roller_shutter_down_enum_off" value="0"/>
+						<enum name="On" resKey="roller_shutter_down_enum_on" value="1"/>
+						<hint lang="pl" value="Stan przekaźnika DOWN"/>
+						<hint lang="en" value="State of DOWN relay (moving downwards)"/>
+						<hint lang="de" value="Zustand des Relais DOWN"/>
+                        <desc resKey="roller_shutter_down"/>
+                    </feature>
+					<feature get="true" index="2" name="LoadCurrent" set="false" type="num" unit="mA">
+						<hint lang="pl" value="Aktualny prąd obciążenia"/>
+						<hint lang="en" value="Load current value"/>
+						<hint lang="de" value="Laststrom"/>
+                        <desc resKey="roller_shutter_loadcurrent"/>
+                    </feature>
+					<feature default="1600" get="true" index="5" name="Overcurrent" set="true" type="num" unit="mA">
+						<hint lang="pl" value="Wartość prądu obciążenia, po przekroczeniu której generowane jest zdarzenie OnOvercurrent"/>
+						<hint lang="en" value="Load current value, when exceeded, the OnOvercurrent event is generated"/>
+						<hint lang="de" value="Laststrom, wenn überschritten, das OnOvercurrent-Ereignis wird generiert"/>
+                        <desc resKey="roller_shutter_overcurrent"/>
+                    </feature>
+					<feature default="0" enum="0,1" get="true" index="6" name="VoltageType" set="true" type="num" unit="">
+						<enum name="AC" resKey="roller_shutter_voltagetype_enum_ac" value="0"/>
+						<enum name="DC" resKey="roller_shutter_voltagetype_enum_dc" value="1"/>
+						<hint lang="pl" value="Rodzaj napięcia obciążenia:&#13;0 - AC,&#13;1 - DC"/>
+						<hint lang="en" value="Load voltage type:&#13;0 - AC,&#13;1 - DC"/>
+						<hint lang="de" value="Lastspannungsart:&#13;0 - AC,&#13;1 - DC"/>
+                        <desc resKey="roller_shutter_voltagetype"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="execute" index="0" name="MoveUp" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="UseMaxTime" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Roleta do góry. Parametr Time to czas przez jaki roleta ma się otwierać:&#13;num - czas otwierania,&#13;0 - czas otwierania równy MaxTime"/>
+						<hint lang="en" value="Roller shutter up or STOP if moving. Parameter Time:&#13;number - output is active for specified timer&#13;0 - output is active for the time specified in MaxTime"/>
+						<hint lang="de" value="Rollladen nach oben oder Stopp, falls in Bewegung. Der Parameter Time bestimmt die Zeit, während der der Rollladen auffahren soll: &#13;0 - Auffahrzeit gleich MaxTime&#13;num - Auffahrzeit"/>
+                        <desc resKey="roller_shutter_moveup"/>
+                    </method>
+					<method call="execute" index="1" name="MoveDown" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="UseMaxTime" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Roleta w dół. Parametr Time to czas przez jaki roleta ma się zamykać:&#13;num - czas zamykania,&#13;0 - czas zamykania równy MaxTime"/>
+						<hint lang="en" value="Roller shutter down or STOP if moving. Parameter Time:&#13;number - output is active for specified timer&#13;0 - output is active for the time specified in MaxTime"/>
+						<hint lang="de" value="Rollladen nach unten oder Stopp, falls in Bewegung. Der Parameter Time bestimmt die Zeit, während der der Rollladen abfahren soll: &#13;0 - Abfahrzeit gleich MaxTime&#13;num - Abfahrzeit"/>
+                        <desc resKey="roller_shutter_movedown"/>
+                    </method>
+					<method call="execute" index="2" name="Start" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="UseMaxTime" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Roleta do góry jeśli poprzednio ruch w dół, roleta w dół jeśli poprzednio ruch w górę. Parametr Time to czas jazdy rolety:&#13;num - czas jazdy,&#13;0 - czas jazdy rolety równy MaxTime"/>
+						<hint lang="en" value="Roller shutter up if the preceding motion was down or roller shutter down if the preceding motion was up"/>
+						<hint lang="de" value="Rollladen nach oben, falls vorher nach unten oder Rollladen nach unten, falls vorher nach oben. Parameter Time: &#13;0 - Fahrzeit gleich MaxTime &#13;num - Fahrzeit"/>
+                        <desc resKey="roller_shutter_start"/>
+                    </method>
+					<method call="execute" index="3" name="Stop" return="void">
+						<hint lang="pl" value="Stop jeśli roleta jest w ruchu"/>
+						<hint lang="en" value="STOP if moving"/>
+						<hint lang="de" value="Stopp, falls in Bewegung"/>
+                        <desc resKey="roller_shutter_stop"/>
+                    </method>
+					<method call="execute" index="4" name="Hold" return="void">
+						<hint lang="pl" value="Hold z odwracaniem kierunku"/>
+						<hint lang="en" value="Hold with direction change"/>
+						<hint lang="de" value="Hold mit Richtungswechsel"/>
+                        <desc resKey="roller_shutter_hold"/>
+                    </method>
+					<method call="execute" index="5" name="HoldUp" return="void">
+						<hint lang="pl" value="Hold zawsze w górę"/>
+						<hint lang="en" value="Hold always up"/>
+						<hint lang="de" value="Hold stets nach oben"/>
+                        <desc resKey="roller_shutter_holdup"/>
+                    </method>
+					<method call="execute" index="6" name="HoldDown" return="void">
+						<hint lang="pl" value="Hold zawsze w dół"/>
+						<hint lang="en" value="Hold always down"/>
+						<hint lang="de" value="Hold stets nach unten"/>
+                        <desc resKey="roller_shutter_holddown"/>
+                    </method>
+			<!--	
+					<method name="SetVoltageType" call="execute" index="7"  return="void" >
+						<param name="VoltageType" type="num" unit="-">
+							<parametrized name="AC" value="0"/>
+							<parametrized name="DC" value="1"/>
+						</param>
+						<hint lang="pl" value="Ustawia cechę VoltageType" />
+						<hint lang="en" value="TODO"/>
+						<hint lang="de" value="Hold stets nach unten"/>			
+                    </method> 
+            -->        
+				</methods>
+				<events>
+					<event address="0" name="OnStateChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany cechy State"/>
+						<hint lang="en" value="Result from a change in the State properties"/>
+						<hint lang="de" value="Ereignis, das bei Statusänderung eines jeden Ausgangs aufgerufen"/>
+                        <desc resKey="roller_shutter_onstatechange_1"/>
+                    </event>
+					<event address="1" name="OnUp">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany stanu ze Stop na Up"/>
+						<hint lang="en" value="Occurs when changing the Stop state to the Up state"/>
+						<hint lang="de" value="Wird bei Statusänderung von Stopp auf Up aufegrufen"/>
+                        <desc resKey="roller_shutter_onup"/>
+                    </event>
+					<event address="2" name="OnDown">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany stanu ze Stop na Down"/>
+						<hint lang="en" value="Occurs when changing the Stop state to the Down state"/>
+						<hint lang="de" value="Wird bei Statusänderung von Stopp auf Down aufegrufen"/>
+                        <desc resKey="roller_shutter_ondown"/>
+                    </event>
+					<event address="3" name="OnStart">
+						<hint lang="pl" value="Zdarzenie wywoływane po uruchomieniu rolety"/>
+						<hint lang="en" value="Occurs when the shutter is activated"/>
+						<hint lang="de" value="Wird bei Der Rollladen aktiviert ist"/>
+                        <desc resKey="roller_shutter_onstart_1"/>
+                    </event>
+					<event address="4" name="OnStop">
+						<hint lang="pl" value="Zdarzenie wywoływane po zatrzymaniu rolety"/>
+						<hint lang="en" value="Occurs when the shutter is stopped"/>
+						<hint lang="de" value="Wird bei Der Rollladen deaktiviert ist"/>
+                        <desc resKey="roller_shutter_onstop_1"/>
+                    </event>
+					<event address="5" name="OnOvercurrent">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy prąd obciążenia przekroczy wartość Overcurrent"/>
+						<hint lang="en" value="Occurs when the load current exceeds the Overcurrent value"/>
+						<hint lang="de" value="Wird bei Laststrom den Überstromwert überschreitet"/>
+                        <desc resKey="roller_shutter_onovercurrent"/>
+                    </event>
+				</events>
+			</interface>
+		</object>	
+		<object class="3" count="2" name="DIN" type="in">
+			<interface>
+					<features>
+						<feature default="0" get="true" index="1" name="Inertion" range="0-500" set="true" type="num" unit="ms">
+							<hint lang="pl" value="Określa stałą czasową wejścia"/>
+							<hint lang="en" value="Specifies the time constant of the input"/>
+						    <desc resKey="din_inertion"/>
+                    	</feature>
+						<feature default="500" get="true" index="2" name="HoldDelay" range="100-5000" set="true" type="num" unit="ms">
+							<hint lang="pl" value="Czas po jakim po wciśnięciu i przytrzymaniu wyzwalane jest zdarzenie OnHold"/>
+							<hint lang="en" value="Time in milliseconds after which, when pressing and holding a button, the OnHold event occurs"/>					
+						    <desc resKey="din_holddelay"/>
+                    	</feature>
+						<feature default="100" get="true" index="3" name="HoldInterval" range="100-2000" set="true" type="num" unit="ms">
+							<hint lang="pl" value="Odstęp cykliczny w milisekundach, po jakim podczas trzymania przycisku wyzwalane są kolejne zdarzenia OnHold"/>
+							<hint lang="en" value="Cyclical interval in milliseconds after which, when pressing and holding a button, the OnHold event occurs"/>
+						    <desc resKey="din_holdinterval"/>
+                    	</feature>
+						<feature get="true" index="0" name="Value" range="0-1" set="false" type="num" unit="bool">
+							<hint lang="pl" value="Zwraca stan wejścia jako 0 lub 1"/>
+							<hint lang="en" value="Returns input state as 0 or 1"/>
+						    <desc resKey="din_value"/>
+                    	</feature>
+				    	<feature default="0" get="true" index="6" name="DistributedLogicGroup" range="0-10000" set="true" type="num">
+							<hint lang="pl" value="Grupa Distributed Logic - grupa broadcastowa dla rozproszonej logiki"/>
+							<hint lang="en" value="Distributed Logic group - broadcast group for distributed logic"/>
+						    <desc resKey="din_distributedlogicgroup"/>
+                    	</feature>
+						<feature default="0" enum="0,1,2" get="true" index="4" name="StatisticState" previousValue="true" set="true" type="num" unit="number"  >
+    						<enum name="Off" resKey="din_statisticstate_enum_off" value="0"/>
+    						<enum name="Continuous" resKey="din_statisticstate_enum_continuous" value="1"/>
+    						<enum name="Pulse" resKey="din_statisticstate_enum_pulse" value="2"/>
+    						<hint lang="pl" value="Włącza raportowanie pomiaru do modułu statystyk:&#13;Off - wyłączony,&#13;Continuous - pomiar obciążenia w całym okresie pracy urządzenia,&#13;Pulse - pomiar zliczany w momencie pojawienia się stanu wysokiego na wejściu."/>
+                            <hint lang="en" value="Enables measurement reporting to the statistics module:&#13;Off - turned off,&#13;Continuous - load measurement for the whole device's period operation&#13;Pulse - load measurement counted at the moment of a high state appearing on the input"/>
+                            <desc resKey="din_statisticstate"/>
+                    	</feature>
+						<feature correctValue="1,2" default="0" dependOn="4" get="true" index="5" name="Load" set="true" type="num" unit="W" range="0-60000">
+                            <hint lang="pl" value="Mnożnik mierzonej wartości. Dla StatisticState:&#13;Continuous - wartość zużycia w jednostce czasu,&#13;Pulse - wartość zużycia dla jednego impulsu (np. 1l, 1m^3, 1kW)"/>
+    						<hint lang="en" value="The measured value multiplier. For StatisticState:&#13;Continuous - load measurement value in the unit of time,&#13;Pulse - load measurement value for the single impulse (e.g. 1kW)"/>
+				    	    <desc resKey="din_load"/>
+                    	</feature>
+					</features>
+					<methods>
+						<method call="set" index="1" name="SetInertion" return="void">
+							<param name="Inertion" type="num" unit="ms"/>
+							<hint lang="pl" value="Ustawia czas inercji wejścia"/>
+							<hint lang="en" value="Minimum interval in milliseconds which has to pass between  presses of a button so that it is interpreted as a new pressing activity"/>
+							<hint lang="de" value="Mindestintervall in Millisekunden, das zwischen Tastendrücken vergehen muss, damit es als neuer Druckvorgang interpretiert wird"/>
+						    <desc resKey="din_setinertion"/>
+                    	</method>
+						<method call="set" index="2" name="SetHoldDelay" return="void">
+							<param name="HoldDelay" type="num" unit="ms"/>
+							<hint lang="pl" value="Ustawia wartość HoldDelay"/>
+							<hint lang="en" value="Sets HoldDelay value"/>
+							<hint lang="de" value="Bestimmt den Wert von HoldDelay"/>
+						    <desc resKey="din_setholddelay"/>
+                    	</method>
+						<method call="set" index="3" name="SetHoldInterval" return="void">
+							<param name="HoldInterval" type="num" unit="ms"/>
+							<hint lang="pl" value="Ustawia wartość HoldInterval"/>
+							<hint lang="en" value="Sets HoldInterval value"/>
+							<hint lang="de" value="Bestimmt den Wert von HoldInterval"/>
+						    <desc resKey="din_setholdinterval"/>
+                    	</method>
+					</methods>
+					<events>
+						<event address="0" name="OnValueChange">
+							<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany stanu na przeciwny"/>
+							<hint lang="en" value="Occurs when a change in the input state takes place (regardless of the value)"/>
+							<hint lang="de" value="Wird aufgerufen, sobald der Eingang den entgegengesetzten Zustand annimmt"/>
+						    <desc resKey="din_onvaluechange"/>
+                    	</event>
+						<event address="1" name="OnSwitchOn">
+							<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu wysokiego na wejściu"/>
+							<hint lang="en" value="Occurs when the high state is set at input"/>
+							<hint lang="de" value="Wird aufgerufen, sobald ein Hochzustand am Eingang ansteht"/>
+						    <desc resKey="din_onswitchon"/>
+                    	</event>
+						<event address="2" name="OnSwitchOff">
+							<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu niskiego na wejściu"/>
+							<hint lang="en" value="Occurs when the low state is set at input"/>
+							<hint lang="de" value="Wird aufgerufen, sobald ein Niedrigzustand am Eingang ansteht"/>
+						    <desc resKey="din_onswitchoff"/>
+                    	</event>
+						<event address="3" name="OnShortPress">
+							<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na okres 500 ms - 2000 ms"/>
+							<hint lang="en" value="Occurs after pressing the button for 500 ms - 2000 ms"/>
+							<hint lang="de" value="Wird aufgerufen, nachdem die Taste 500 ms - 2000 ms lang gedrückt gehalten worden ist"/>
+						    <desc resKey="din_onshortpress"/>
+                    	</event>
+						<event address="4" name="OnLongPress">
+							<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na okres dłuższy niż 2000 ms"/>
+							<hint lang="en" value="Occurs after pressing the button for at least 2000 ms"/>
+							<hint lang="de" value="Wird aufgerufen, nachdem die Taste zwei Sekunden lang gedrückt gehalten worden ist"/>
+						    <desc resKey="din_onlongpress"/>
+                    	</event>
+						<event address="5" name="OnHold">
+							<hint lang="pl" value="Zdarzenie wywoływane gdy wejście jest w stanie wysokim, pierwszy raz po upłynięciu czasu HoldDelay, a następnie cyklicznie co wartość HoldInterval"/>
+							<hint lang="en" value="Occurs for the first time after HoldDelay time and then cyclically every HoldInterval value"/>
+							<hint lang="de" value="Wird zum ersten Mal aufgerufen, sobald die Zeit von HoldDelay abgelaufen ist und danach zyklisch in den mit HoldInterval vorgegebenen Zeitabständen"/>
+						    <desc resKey="din_onhold"/>
+                    	</event>
+						<event address="6" name="OnClick">
+							<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na czas krótszy niż 500 ms"/>
+							<hint lang="en" value="Occurs after pressing the button for less than 500 ms"/>
+							<hint lang="de" value="Wird aufgerufen, nachdem die Taste kürzer als 500 ms gedrückt gehalten worden ist"/>
+						    <desc resKey="din_onclick"/>
+                    	</event>
+					</events>
+				</interface>
+		</object>
+		<object class="12" count="1" name="PowerSupplyVoltage" type="in">
+			<interface>
+				<features>
+					<feature default="0" get="true" index="0" name="Value" range="0-24" set="false" type="num" unit="V">
+						<hint lang="pl" value="Wartość napięcia zasilania"/>
+						<hint lang="en" value="Current power supply voltage value"/>
+					    <desc resKey="powersupplyvoltage_value"/>
+                    </feature>
+					<feature default="0" divisor="1" get="true" index="1" name="Value%" range="0-1000000" set="false" type="num" unit="%">
+						<hint lang="pl" value="Wartość napięcia zasilania jako procent wartości maksymalnej (MaxValue)"/>
+						<hint lang="en" value="Current percentage input value of the maximum value (MaxValue characteristic)"/>
+					    <desc resKey="powersupplyvoltage_value_1"/>
+                    </feature>
+					<feature default="0.5" get="true" index="3" name="Sensitivity" range="0-10" set="true" type="num" unit="V">
+						<hint lang="pl" value="Czułość - minimalna zmiana wartości napięcia zasilania, która wywołuje zdarzenia OnValueChange, OnValueLower lub OnValueRise"/>
+						<hint lang="en" value="Minimum change of input state when the OnValueChange, OnValueLower or OnValueRise event is generated"/>
+					    <desc resKey="powersupplyvoltage_sensitivity"/>
+                    </feature>
+					<feature default="21" get="true" index="5" name="MinValue" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość minimalna napięcia zasilania po przekroczeniu której generowane jest zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+					    <desc resKey="powersupplyvoltage_minvalue"/>
+                    </feature>
+					<feature default="24" get="true" index="6" name="MaxValue" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość maksymalna napięcia zasilania po przekroczeniu której generowane jest zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Maximum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+					    <desc resKey="powersupplyvoltage_maxvalue"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="3" name="SetSensitivity" return="void">
+						<hint lang="pl" value="Ustawia czułość pomiaru napięcia zasilania"/>
+						<hint lang="en" value="Sets input sensitivity value"/>
+						<param name="Sensitivity" range="0-10" type="num" unit="V"/>
+					    <desc resKey="powersupplyvoltage_setsensitivity"/>
+                    </method>
+					<method call="set" index="5" name="SetMinValue" return="void">
+						<hint lang="pl" value="Ustawia wartość MinValue"/>
+						<hint lang="en" value="Sets MinValue"/>
+						<param name="MinValue" type="num"/>
+					    <desc resKey="powersupplyvoltage_setminvalue"/>
+                    </method>
+					<method call="set" index="6" name="SetMaxValue" return="void">
+						<hint lang="pl" value="Ustawia wartość MaxValue"/>
+						<hint lang="en" value="Sets MaxValue"/>
+						<param name="MaxValue" type="num"/>
+					    <desc resKey="powersupplyvoltage_setmaxvalue"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+					    <desc resKey="powersupplyvoltage_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event occurs when a value lower than the value from the last reading appears at input"/>
+					    <desc resKey="powersupplyvoltage_onvaluelower"/>
+                    </event>
+					<event address="2" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event occurs when a value higher than the value from the last reading appears at input"/>
+					    <desc resKey="powersupplyvoltage_onvaluerise"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy napięcia zasilania znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding the permissible range (MinValue - MaxValue)"/>
+					    <desc resKey="powersupplyvoltage_onoutofrange"/>
+                    </event>
+					<event address="6" name="OnInRange">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wartość napięcia zasilania powróci do wyznaczonego zakresu (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurs when value returns to MinValue - MaxValue range"/>
+					    <desc resKey="powersupplyvoltage_oninrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

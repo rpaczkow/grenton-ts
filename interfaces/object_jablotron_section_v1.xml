@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object class="151" className="GATE" name="JablotronSection" version="1">
+	<features>
+	    <feature get="true" index="0" name="State" set="false" type="num" unit="number">
+			<hint lang="pl" value="Zwraca stan sekcji:&#13;1 - READY - normalny tryb pracy,&#13;2 - ARMED_PART - częściowe uzbrojenie sekcji,&#13;3 - ARMED - sekcja uzbrojona,&#13;4 - SERVICE - załączony tryb serwisowy,&#13;5 - BLOCKED - sekcja zablokowana,&#13;6 - OFF - sekcja wyłączona&#13;-1 - stan sekcji nieznany (brak połączenia z centralką)"/>
+			<hint lang="en" value="Returns section state:&#13;1 - READY,&#13;2 - ARMED_PART,&#13;3 - ARMED,&#13;4 - SERVICE,&#13;5 - BLOCKED,&#13;6 - OFF,&#13;-1 - unknown section state (no connection with Jablotron)"/>
+		    <hint lang="de" value="Gibt den Bereichsstatus zurück: &#13;1 - READY - normaler Betriebsmodus, &#13;2 - ARMED_PART - Bereich teilweise scharf, &#13;3 - ARMED - Bereich scharf, &#13;4 - SERVICE - Servicemodus aktiviert, &#13;5 - BLOCKED - Bereich deaktiviert, &#13;6 - OFF - Abschnitt deaktiviert, &#13;-1 - Status des Abschnitts unbekannt (keine Verbindung mit dem Bedienfeld)"/>
+			<desc resKey="jablotronsection_state"/>
+        </feature>
+		<feature get="true" index="1" name="Nr" range="1-15" set="true" type="num" unit="number">
+			<hint lang="pl" value="Parametr definiujący, do której sekcji odnosi się obiekt"/>
+			<hint lang="en" value="Parameter defining which section the object refers to"/>
+			<hint lang="de" value="Parameter, der definiert, auf welchen Abschnitt sich das Objekt bezieht"/>
+		    <desc resKey="jablotronsection_nr"/>
+        </feature>
+		<feature default="*" get="true" index="2" name="AccessCode" set="true" type="str" unit="string">
+			<hint lang="pl" value="Kod dostępu, dla '*' zastosuje kod administratora"/>
+			<hint lang="en" value="Access code. When setting the user code to '*', it will use the administrator code"/>
+			<hint lang="de" value="Zugangscode. Wenn Sie den Benutzercode auf '*' setzen, wird der Administratorcode verwendet"/>
+		    <desc resKey="jablotronsection_accesscode"/>
+        </feature>
+	</features>
+	<methods>
+		<method call="set" index="1" name="SetNr" range="1-15" return="void" unit="number">
+			<param name="Nr" type="num" unit="number"/>
+			<hint lang="pl" value="Ustawia parametr definiujący, do której sekcji odnosi się obiekt"/>
+			<hint lang="en" value="Sets the parameter defining which zone the object refers to"/>
+			<hint lang="de" value="Setzt den Parameter, der definiert, auf welche Zone sich das Objekt bezieht"/>
+		    <desc resKey="jablotronsection_setnr"/>
+        </method>
+		<method call="set" index="2" name="SetAccessCode" return="void">
+			<param default="*" name="Code" type="str" unit="string"/>
+			<hint lang="pl" value="Ustawia kod dostępu, dla '*' zastosuje kod administratora"/>
+			<hint lang="en" value="Sets the access code. When setting the code to '*', it will use the administrator code"/>
+			<hint lang="de" value="Legt den Zugangscode fest. Wenn Sie den Code auf „*“ setzen, wird der Administratorcode verwendet"/>
+		    <desc resKey="jablotronsection_setaccesscode"/>
+        </method>
+		<method call="execute" index="0" name="Arm" return="void">
+			<hint lang="pl" value="Uzbraja sekcję"/>
+			<hint lang="en" value="Arms the section"/>
+			<hint lang="de" value="Armiert die Sektion"/>
+		    <desc resKey="jablotronsection_arm"/>
+        </method>
+		<method call="execute" index="1" name="ArmPartially" return="void">
+			<hint lang="pl" value="Częściowo uzbraja sekcję"/>
+			<hint lang="en" value="Partially arms the section"/>
+			<hint lang="de" value="Sektion teilweise bewaffnen"/>
+		    <desc resKey="jablotronsection_armpartially"/>
+        </method>
+		<method call="execute" index="2" name="Disarm" return="void">
+			<hint lang="pl" value="Rozbraja sekcję"/>
+			<hint lang="en" value="Disarms the section"/>
+			<hint lang="de" value="Entschärft die Sektion"/>
+		    <desc resKey="jablotronsection_disarm"/>
+        </method>
+	</methods>
+	<events>
+		<event address="0" name="OnStateChange">
+			<hint lang="pl" value="Zdarzenie wywoływane przy zmianie stanu (niezależnie od wartości)"/>
+			<hint lang="en" value="An event occurring when the state changes (regardless of the value)"/>
+			<hint lang="de" value="Ein Ereignis, das auftritt, wenn sich der Zustand ändert (unabhängig vom Wert)"/>
+		    <desc resKey="jablotronsection_onstatechange"/>
+        </event>
+		<event address="1" name="OnArm">
+			<hint lang="pl" value="Zdarzenie wywoływane przy uzbrojeniu sekcji"/>
+			<hint lang="en" value="An event occurring when the section is armed"/>
+			<hint lang="de" value="Ein Ereignis, das eintritt, wenn die Sektion aktiviert ist"/>
+		    <desc resKey="jablotronsection_onarm"/>
+        </event>
+		<event address="2" name="OnDisarm">
+			<hint lang="pl" value="Zdarzenie wywoływane przy rozbrojeniu sekcji"/>
+			<hint lang="en" value="An event occurring when the section is disarmed"/>
+			<hint lang="de" value="Ein Ereignis, das auftritt, wenn die Sektion unscharf geschaltet wird"/>
+		    <desc resKey="jablotronsection_ondisarm"/>
+        </event>
+	</events>
+</object>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- DO NOT EDIT: automatically generated file -->
+<object class="264" className="GATE" name="DenonMarantzAVR" version="1">
+	<features>
+		<feature index="0" name="Host" get="true" set="true" type="str" default="0.0.0.0" unit="IP">
+			<hint lang="de" value="AV-Receiver IP-Adresse"/>
+			<hint lang="en" value="AV reciver IP address"/>
+			<hint lang="pl" value="Adres IP amplitunera AV"/>
+			<desc resKey="gate_denonmarantzavr_host"/>
+		</feature>
+		<feature index="1" name="Zone" get="true" set="true" type="num" enum="1,2,3" default="1" unit="-">
+			<enum name="MAIN" value="1" resKey="gate_denonmarantzavr_zone_enum_main" />
+			<enum name="Zone2" value="2" resKey="gate_denonmarantzavr_zone_enum_zone2" />
+			<enum name="Zone3" value="3" resKey="gate_denonmarantzavr_zone_enum_zone3" />
+			<hint lang="de" value="AV-Receiver-Zone"/>
+			<hint lang="en" value="AV receiver zone"/>
+			<hint lang="pl" value="Strefa amplitunera AV"/>
+			<desc resKey="gate_denonmarantzavr_zone"/>
+		</feature>
+		<feature index="2" name="Status" get="true" set="false" type="num" unit="-">
+			<hint lang="de" value="Kommunikationsstatus mit dem Lautsprecher:&#13;  0 - Keine Verbindung,&#13;  1 - Verbunden"/>
+			<hint lang="en" value="Communication status:&#13;  0 - no connection,&#13;  1 - connected"/>
+			<hint lang="pl" value="Stan komunikacji z głośnikiem:&#13;  0 - brak połączenia,&#13;  1 - połączono"/>
+			<desc resKey="gate_denonmarantzavr_status"/>
+		</feature>
+		<feature index="3" name="SystemPower" get="true" set="false" type="num" enum="0,1" unit="-">
+			<enum name="STANDBY" value="0" resKey="gate_denonmarantzavr_systempower_enum_standby" />
+			<enum name="ON" value="1" resKey="gate_denonmarantzavr_systempower_enum_on" />
+			<hint lang="de" value="Systemleistungszustand:&#13;  0 - Standby,&#13;  1 - Ein"/>
+			<hint lang="en" value="System power state:&#13;  0 - standby,&#13;  1 - on"/>
+			<hint lang="pl" value="Stan zasilania systemu:&#13;  0 - uśpienie,&#13;  1 - włączone"/>
+			<desc resKey="gate_denonmarantzavr_systempower"/>
+		</feature>
+		<feature index="4" name="ZonePower" get="true" set="false" type="num" enum="0,1" unit="-">
+			<enum name="OFF" value="0" resKey="gate_denonmarantzavr_zonepower_enum_off" />
+			<enum name="ON" value="1" resKey="gate_denonmarantzavr_zonepower_enum_on" />
+			<hint lang="de" value="Zonenleistungszustand:&#13;  0 - Aus,&#13;  1 - Ein"/>
+			<hint lang="en" value="Zone power state:&#13;  0 - off,&#13;  1 - on"/>
+			<hint lang="pl" value="Stan zasilania strefy:&#13;  0 - wyłączone,&#13;  1 - włączone"/>
+			<desc resKey="gate_denonmarantzavr_zonepower"/>
+		</feature>
+		<feature index="5" name="Volume" get="true" set="false" type="num" range="0-98" unit="%">
+			<hint lang="de" value="Lautstärke im Bereich von 0% bis 98%"/>
+			<hint lang="en" value="Volume level ranging from 0% to 98%"/>
+			<hint lang="pl" value="Głośność w zakresie od 0% do 98%"/>
+			<desc resKey="gate_denonmarantzavr_volume"/>
+		</feature>
+		<feature index="6" name="Mute" get="true" set="false" type="num" enum="0,1" unit="-">
+			<enum name="OFF" value="0" resKey="gate_denonmarantzavr_mute_enum_off" />
+			<enum name="ON" value="1" resKey="gate_denonmarantzavr_mute_enum_on" />
+			<hint lang="de" value="Stummschaltungszustand:&#13;  0 - Aus,&#13;  1 - Ein"/>
+			<hint lang="en" value="Mute state:&#13;  0 - off,&#13;  1 - on"/>
+			<hint lang="pl" value="Stan wyciszenia:&#13;  0 - wyłączone,&#13;  1 - włączone"/>
+			<desc resKey="gate_denonmarantzavr_mute"/>
+		</feature>
+		<feature index="7" name="Input" get="true" set="false" type="str" unit="-">
+			<hint lang="de" value="Signalquelle"/>
+			<hint lang="en" value="Input source"/>
+			<hint lang="pl" value="Źródło sygnału"/>
+			<desc resKey="gate_denonmarantzavr_input"/>
+		</feature>
+		<feature index="8" name="SurroundMode" get="true" set="false" type="str" unit="-">
+			<hint lang="de" value="Surround-Sound-Modus"/>
+			<hint lang="en" value="Surround mode"/>
+			<hint lang="pl" value="Tryb dźwięku przestrzennego"/>
+			<desc resKey="gate_denonmarantzavr_surroundmode"/>
+		</feature>
+		<feature index="9" name="SpeakerPreset" get="true" set="false" type="num" range="1-2" unit="-">
+			<hint lang="de" value="Lautsprecher-Voreinstellung"/>
+			<hint lang="en" value="Speaker preset"/>
+			<hint lang="pl" value="Preset głośników"/>
+			<desc resKey="gate_denonmarantzavr_speakerpreset"/>
+		</feature>
+	</features>
+	<methods>
+		<method call="set" index="0" name="SetHost" return="void" visible="false">
+			<param name="Host" type="str" unit="IP" />
+			<hint lang="de" value="Setzen der AV-Receiver-IP-Adresse"/>
+			<hint lang="en" value="Sets the AV reciver IP Address"/>
+			<hint lang="pl" value="Ustawia adres IP amplitunera AV"/>
+			<desc resKey="gate_denonmarantzavr_sethost"/>
+		</method>
+		<method call="set" index="1" name="SetZone" return="void" visible="false">
+			<param name="Zone" type="num" enum="1,2,3" unit="-">
+				<enum name="MAIN" value="1" resKey="gate_denonmarantzavr_zone_enum_main" />
+				<enum name="Zone2" value="2" resKey="gate_denonmarantzavr_zone_enum_zone2" />
+				<enum name="Zone3" value="3" resKey="gate_denonmarantzavr_zone_enum_zone3" />
+			</param>
+			<hint lang="de" value="Setzen der AV-Receiver-Zone"/>
+			<hint lang="en" value="Sets the receiver zone"/>
+			<hint lang="pl" value="Ustawia strefę amplitunera AV"/>
+			<desc resKey="gate_denonmarantzavr_setzone"/>
+		</method>
+		<method call="set" index="3" name="SetSystemPower" return="void">
+			<param name="SystemPower" type="num" enum="0,1" unit="-">
+				<enum name="STANDBY" value="0" resKey="gate_denonmarantzavr_systempower_enum_standby" />
+				<enum name="ON" value="1" resKey="gate_denonmarantzavr_systempower_enum_on" />
+			</param>
+			<hint lang="de" value="Setzt den Stromzustand des Systems"/>
+			<hint lang="en" value="Sets the system power state"/>
+			<hint lang="pl" value="Ustawia stan zasilania systemu"/>
+			<desc resKey="gate_denonmarantzavr_setsystempower"/>
+		</method>
+		<method call="set" index="4" name="SetZonePower" return="void">
+			<param name="ZonePower" type="num" enum="0,1" unit="-">
+				<enum name="OFF" value="0" resKey="gate_denonmarantzavr_zonepower_enum_off" />
+				<enum name="ON" value="1" resKey="gate_denonmarantzavr_zonepower_enum_on" />
+			</param>
+			<hint lang="de" value="Setzen des Zonenleistungszustands"/>
+			<hint lang="en" value="Sets the zone power state"/>
+			<hint lang="pl" value="Ustawia stan zasilania strefy"/>
+			<desc resKey="gate_denonmarantzavr_setzonepower"/>
+		</method>
+		<method call="set" index="5" name="SetVolume" return="void">
+			<param name="Volume" type="num" range="0-98" unit="%" />
+			<hint lang="de" value="Setzen der Lautstärke im Bereich von 0% bis 98%"/>
+			<hint lang="en" value="Sets the volume level, ranging from 0% to 98%"/>
+			<hint lang="pl" value="Ustawia głośność w zakresie od 0% do 98%"/>
+			<desc resKey="gate_denonmarantzavr_setvolume"/>
+		</method>
+		<method call="set" index="6" name="SetMute" return="void">
+			<param name="Mute" type="num" enum="0,1" unit="-">
+				<enum name="OFF" value="0" resKey="gate_denonmarantzavr_mute_enum_off" />
+				<enum name="ON" value="1" resKey="gate_denonmarantzavr_mute_enum_on" />
+			</param>
+			<hint lang="de" value="Setzen des Stummschaltungszustands"/>
+			<hint lang="en" value="Sets the mute state"/>
+			<hint lang="pl" value="Ustawia stan wyciszenia"/>
+			<desc resKey="gate_denonmarantzavr_setmute"/>
+		</method>
+		<method call="set" index="7" name="SetInput" return="void">
+			<param name="Input" type="str" unit="-" />
+			<hint lang="de" value="Setzen der Signalquelle"/>
+			<hint lang="en" value="Sets the input source"/>
+			<hint lang="pl" value="Ustawia źródło sygnału"/>
+			<desc resKey="gate_denonmarantzavr_setinput"/>
+		</method>
+		<method call="set" index="8" name="SetSurroundMode" return="void">
+			<param name="SurroundMode" type="str" unit="-" />
+			<hint lang="de" value="Setzen des Surround-Sound-Modus"/>
+			<hint lang="en" value="Sets the surround mode"/>
+			<hint lang="pl" value="Ustawia tryb dźwięku przestrzennego"/>
+			<desc resKey="gate_denonmarantzavr_setsurroundmode"/>
+		</method>
+		<method call="set" index="9" name="SetSpeakerPreset" return="void">
+			<param name="SpeakerPreset" type="num" range="1-2" unit="-" />
+			<hint lang="de" value="Setzen der ausgewählten Lautsprecher-Voreinstellung"/>
+			<hint lang="en" value="Sets the speaker preset"/>
+			<hint lang="pl" value="Ustawia wybrany preset głośników"/>
+			<desc resKey="gate_denonmarantzavr_setspeakerpreset"/>
+		</method>
+		<method call="execute" index="0" name="VolumeUp" return="void">
+			<param name="VolumeStep" type="num" range="1-10" unit="%" />
+			<hint lang="de" value="Lautstärke um den angegebenen Prozentsatz erhöhen"/>
+			<hint lang="en" value="Increases the volume by a specified percentage"/>
+			<hint lang="pl" value="Zwiększa głośność o wartość określoną w procentach"/>
+			<desc resKey="gate_denonmarantzavr_volumeup"/>
+		</method>
+		<method call="execute" index="1" name="VolumeDown" return="void">
+			<param name="VolumeStep" type="num" range="1-10" unit="%" />
+			<hint lang="de" value="Lautstärke um den angegebenen Prozentsatz verringern"/>
+			<hint lang="en" value="Decreases the volume by a specified percentage"/>
+			<hint lang="pl" value="Zmniejsza głośność o wartość określoną w procentach"/>
+			<desc resKey="gate_denonmarantzavr_volumedown"/>
+		</method>
+		<method call="execute" index="2" name="SwitchMute" return="void">
+			<hint lang="de" value="Stummschaltung umschalten"/>
+			<hint lang="en" value="Switches the mute state"/>
+			<hint lang="pl" value="Przełącza stan wyciszenia"/>
+			<desc resKey="gate_denonmarantzavr_switchmute"/>
+		</method>
+		<method call="execute" index="3" name="QuickSelect" return="void">
+			<param name="ID" type="num" range="1-5" unit="-" />
+			<hint lang="de" value="Auswahl der Schnellauswahl-Einstellungen"/>
+			<hint lang="en" value="Selects the Quick Select settings"/>
+			<hint lang="pl" value="Wybiera ustawienia Quick Select"/>
+			<desc resKey="gate_denonmarantzavr_quickselect"/>
+		</method>
+	</methods>
+	<events>
+		<event address="0" name="OnConnected">
+			<hint lang="de" value="Ereignis nach erfolgreicher Verbindung mit dem Receiver"/>
+			<hint lang="en" value="Event executed after successful receiver connection establishment"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po nawiązaniu połączenia z amplitunerem"/>
+			<desc resKey="gate_denonmarantzavr_onconnected"/>
+		</event>
+		<event address="1" name="OnDisconnected">
+			<hint lang="de" value="Ereignis nach Trennen vom Receiver"/>
+			<hint lang="en" value="Event executed after the receiver connection has been lost"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zerwaniu połączenia z amplitunerem"/>
+			<desc resKey="gate_denonmarantzavr_ondisconnected"/>
+		</event>
+		<event address="2" name="OnChange">
+			<hint lang="de" value="Ereignis nach Änderungen der Werte von SystemPower, ZonePower, Volume, Mute, Input, SurroundMode oder SpeakerPreset"/>
+			<hint lang="en" value="Event executed after a SystemPower, ZonePower, Volume, Mute, Input, SurroundMode or SpeakerPreset change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości SystemPower, ZonePower, Volume, Mute, Input, SurroundMode lub SpeakerPreset"/>
+			<desc resKey="gate_denonmarantzavr_onchange"/>
+		</event>
+		<event address="3" name="OnMuteChange">
+			<hint lang="de" value="Ereignis nach Änderungen des Stummschaltungszustands"/>
+			<hint lang="en" value="Event executed after a Mute change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Mute"/>
+			<desc resKey="gate_denonmarantzavr_onmutechange"/>
+		</event>
+		<event address="4" name="OnVolumeChange">
+			<hint lang="de" value="Ereignis nach Änderungen des Lautstärkewerts"/>
+			<hint lang="en" value="Event executed after a Volume change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Volume"/>
+			<desc resKey="gate_denonmarantzavr_onvolumechange"/>
+		</event>
+		<event address="5" name="OnSystemPowerChange">
+			<hint lang="de" value="Ereignis nach Änderungen des Systemleistungszustands"/>
+			<hint lang="en" value="Event executed after a SystemPower change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości SystemPower"/>
+			<desc resKey="gate_denonmarantzavr_onsystempowerchange"/>
+		</event>
+		<event address="6" name="OnZonePowerChange">
+			<hint lang="de" value="Ereignis nach Änderungen des Zonenleistungszustands"/>
+			<hint lang="en" value="Event executed after a ZonePower change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości ZonePower"/>
+			<desc resKey="gate_denonmarantzavr_onzonepowerchange"/>
+		</event>
+		<event address="7" name="OnInputChange">
+			<hint lang="de" value="Ereignis nach Änderungen des Werts der Signalquelle"/>
+			<hint lang="en" value="Event executed after a Input change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Input"/>
+			<desc resKey="gate_denonmarantzavr_oninputchange"/>
+		</event>
+		<event address="8" name="OnSurroundModeChange">
+			<hint lang="de" value="Ereignis nach Änderungen des Werts des Surround-Sound-Modus"/>
+			<hint lang="en" value="Event executed after a SurroundMode change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości SurroundMode"/>
+			<desc resKey="gate_denonmarantzavr_onsurroundmodechange"/>
+		</event>
+		<event address="9" name="OnSpeakerPresetChange">
+			<hint lang="de" value="Ereignis nach Änderungen des Werts der Lautsprecher-Voreinstellung"/>
+			<hint lang="en" value="Event executed after a SpeakerPreset change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości SpeakerPreset"/>
+			<desc resKey="gate_denonmarantzavr_onspeakerpresetchange"/>
+		</event>
+	</events>
+</object>

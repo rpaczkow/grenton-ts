@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- DO NOT EDIT: automatically generated file -->
+<object class="252" className="GATE" name="CoolMaster" version="1">
+	<features>
+		<feature index="0" name="CoolMasterNetID" get="true" set="true" type="str" unit="-">
+			<hint lang="en" value="CoolMasterNet object ID"/>
+			<hint lang="pl" value="ID obiektu CoolMasterNet"/>
+			<hint lang="de" value="CoolMasterNet-Objekt-ID"/>
+			<desc resKey="gate_coolmaster_coolmasternetid"/>
+		</feature>
+		<feature index="1" name="UIDs" get="true" set="true" type="str" unit="-">
+			<hint lang="en" value="One or more space-separated HVAC UIDs"/>
+			<hint lang="pl" value="Jeden lub więcej identyfikatorów klimatyzatorów oddzielonych spacją"/>
+			<hint lang="de" value="Eine oder mehrere durch Leerzeichen getrennte HLK-UIDs"/>
+			<desc resKey="gate_coolmaster_uids"/>
+		</feature>
+		<feature index="2" name="SupportedModes" get="true" set="true" type="str" default="1,2,3,4,5" unit="-">
+			<hint lang="en" value="List of supported operation modes separated by a comma"/>
+			<hint lang="pl" value="Lista wspieranych trybów pracy oddzielonych przecinkiem"/>
+			<hint lang="de" value="Liste der unterstützten Betriebsmodi, getrennt durch ein Komma"/>
+			<desc resKey="gate_coolmaster_supportedmodes"/>
+		</feature>
+		<feature index="3" name="SupportedFanSpeeds" get="true" set="true" type="str" default="0,1,2,3,4,5" unit="-">
+			<hint lang="en" value="List of supported fan speeds separated by a comma, entering &quot;-&quot; means no support"/>
+			<hint lang="pl" value="Lista wspieranych prędkości wentylatora oddzielonych przecinkiem, wpisanie &quot;-&quot; oznacza brak wsparcia"/>
+			<hint lang="de" value="Liste der unterstützten Lüftergeschwindigkeiten durch ein Komma getrennt, die Eingabe von &quot;-&quot; bedeutet keine Unterstützung"/>
+			<desc resKey="gate_coolmaster_supportedfanspeeds"/>
+		</feature>
+		<feature index="4" name="SupportedLouverPositions" get="true" set="true" type="str" default="1,2,3,4,5,6,7" unit="-">
+			<hint lang="en" value="List of supported louver positions separated by a comma, entering &quot;-&quot; means no support"/>
+			<hint lang="pl" value="Lista wspieranych pozycji żaluzji regulującej przepływ powietrza oddzielonych przecinkiem, wpisanie &quot;-&quot; oznacza brak wsparcia"/>
+			<hint lang="de" value="Liste unterstützter Lamellenpositionen durch Komma getrennt, Eingabe von &quot;-&quot; bedeutet keine Unterstützung"/>
+			<desc resKey="gate_coolmaster_supportedlouverpositions"/>
+		</feature>
+		<feature index="5" name="Status" get="true" set="false" type="num" unit="-">
+			<hint lang="en" value="Connection status:&#13;  0 - no connection,&#13;  1 - connected"/>
+			<hint lang="pl" value="Stan połączenia:&#13;  0 - brak połączenia,&#13;  1 - połączono"/>
+			<hint lang="de" value="Verbindungsstatus:&#13;  0 - keine Verbindung,&#13;  1 - verbunden"/>
+			<desc resKey="gate_coolmaster_status"/>
+		</feature>
+		<feature index="6" name="State" get="true" set="false" type="num" enum="0,1" unit="-">
+			<enum name="Off" value="0" resKey="gate_coolmaster_state_enum_off" />
+			<enum name="On" value="1" resKey="gate_coolmaster_state_enum_on" />
+			<hint lang="en" value="Operation state:&#13;  1 - active,&#13;  0 - inactive,&#13;  &quot;-&quot; - state desynchronized"/>
+			<hint lang="pl" value="Stan pracy:&#13;  1 - aktywny,&#13;  0 - zatrzymany,&#13;  &quot;-&quot; - brak synchronizacji stanu"/>
+			<hint lang="de" value="Betriebszustand:&#13;  1 - aktiv,&#13;  0 - inaktiv,&#13;  &quot;-&quot; - Zustand desynchronisiert"/>
+			<desc resKey="gate_coolmaster_state"/>
+		</feature>
+		<feature index="7" name="Mode" get="true" set="false" type="num" enum="1,2,3,4,5" unit="-">
+			<enum name="Cool" value="1" resKey="gate_coolmaster_mode_enum_cool" />
+			<enum name="Heat" value="2" resKey="gate_coolmaster_mode_enum_heat" />
+			<enum name="Fan" value="3" resKey="gate_coolmaster_mode_enum_fan" />
+			<enum name="Dry" value="4" resKey="gate_coolmaster_mode_enum_dry" />
+			<enum name="Auto" value="5" resKey="gate_coolmaster_mode_enum_auto" />
+			<hint lang="en" value="Operation mode:&#13;  1 - cool,&#13;  2 - heat,&#13;  3 - fan,&#13;  4 - dry,&#13;  5 - auto,&#13;  &quot;-&quot; - state desynchronized"/>
+			<hint lang="pl" value="Tryb pracy:&#13;  1 - chłodzenie,&#13;  2 - ogrzewanie,&#13;  3 - wentylator,&#13;  4 - suszenie,&#13;  5 - automatyczny,&#13;  &quot;-&quot; - brak synchronizacji stanu"/>
+			<hint lang="de" value="Betriebsmodus:&#13;  1 - Kühlen,&#13;  2 - Heizen,&#13;  3 - Lüfter,&#13;  4 - Trocknen,&#13;  5 - Auto,&#13;  &quot;-&quot; - Zustand desynchronisiert"/>
+			<desc resKey="gate_coolmaster_mode"/>
+		</feature>
+		<feature index="8" name="TargetTemp" get="true" set="false" type="num" unit="°C/F">
+			<hint lang="en" value="Target temperature&#13;  &quot;-&quot; - state desynchronized"/>
+			<hint lang="pl" value="Zadana temperatura&#13;  &quot;-&quot; - brak synchronizacji stanu"/>
+			<hint lang="de" value="Zieltemperatur&#13;  &quot;-&quot; - Zustand desynchronisiert"/>
+			<desc resKey="gate_coolmaster_targettemp"/>
+		</feature>
+		<feature index="9" name="FanSpeed" get="true" set="false" type="num" enum="0,1,2,3,4,5" unit="-">
+			<enum name="VLow" value="0" resKey="gate_coolmaster_fanspeed_enum_vlow" />
+			<enum name="Low" value="1" resKey="gate_coolmaster_fanspeed_enum_low" />
+			<enum name="Med" value="2" resKey="gate_coolmaster_fanspeed_enum_med" />
+			<enum name="High" value="3" resKey="gate_coolmaster_fanspeed_enum_high" />
+			<enum name="Top" value="4" resKey="gate_coolmaster_fanspeed_enum_top" />
+			<enum name="Auto" value="5" resKey="gate_coolmaster_fanspeed_enum_auto" />
+			<hint lang="en" value="Fan speed: 0-5,&#13;  5 - auto,&#13;  &quot;-&quot; - state desynchronized"/>
+			<hint lang="pl" value="Prędkość wentylatora: 0-5,&#13;  5 - auto,&#13;  &quot;-&quot; - brak synchronizacji stanu"/>
+			<hint lang="de" value="Lüftergeschwindigkeit: 0-5,&#13;  5 - auto,&#13;  &quot;-&quot; - Zustand desynchronisiert"/>
+			<desc resKey="gate_coolmaster_fanspeed"/>
+		</feature>
+		<feature index="10" name="LouverPosition" get="true" set="false" type="num" enum="1,2,3,4,5,6,7" unit="-">
+			<enum name="Auto" value="1" resKey="gate_coolmaster_louverposition_enum_auto" />
+			<enum name="Horizontal" value="2" resKey="gate_coolmaster_louverposition_enum_horizontal" />
+			<enum name="Angle30" value="3" resKey="gate_coolmaster_louverposition_enum_angle30" />
+			<enum name="Angle45" value="4" resKey="gate_coolmaster_louverposition_enum_angle45" />
+			<enum name="Angle60" value="5" resKey="gate_coolmaster_louverposition_enum_angle60" />
+			<enum name="Vertical" value="6" resKey="gate_coolmaster_louverposition_enum_vertical" />
+			<enum name="Stopped" value="7" resKey="gate_coolmaster_louverposition_enum_stopped" />
+			<hint lang="en" value="Louver position:&#13;  0 - no support,&#13;  1 - auto,&#13;  2 - horizontal,&#13;  3 - 30°,&#13;  4 - 45°,&#13;  5 - 60°,&#13;  6 - vertical,&#13;  7 - stopped,&#13;  &quot;-&quot; - state desynchronized"/>
+			<hint lang="pl" value="Pozycja żaluzji regulującej przepływ powietrza:&#13;  0 - brak wsparcia,&#13;  1 - automatyczna,&#13;  2 - horyzontalna,&#13;  3 - 30°,&#13;  4 - 45°,&#13;  5 - 60°,&#13;  6 - wertykalna,&#13;  7 - zatrzymana,&#13;  &quot;-&quot; - brak synchronizacji stanu"/>
+			<hint lang="de" value="Lamellenposition:&#13;  0 - keine Unterstützung,&#13;  1 - automatisch,&#13;  2 - horizontal,&#13;  3 - 30\u00B0,&#13;  4 - 45\u00B0,&#13;  5 - 60\u00B0,&#13;  6 - vertikal,&#13;  7 - angehalten,&#13;  &quot;-&quot; - Zustand desynchronisiert"/>
+			<desc resKey="gate_coolmaster_louverposition"/>
+		</feature>
+		<feature index="11" name="AmbientTemp" get="true" set="false" type="str" unit="°C/F">
+			<hint lang="en" value="Ambient temperature or the average ambient temperature in case of a device group"/>
+			<hint lang="pl" value="Temperatura otoczenia lub wartość średnia temperatury w przypadku grupy urządzeń"/>
+			<hint lang="de" value="Umgebungstemperatur oder die durchschnittliche Umgebungstemperatur im Falle einer Gerätegruppe"/>
+			<desc resKey="gate_coolmaster_ambienttemp"/>
+		</feature>
+		<feature index="12" name="FailureCode" get="true" set="false" type="str" unit="-">
+			<hint lang="en" value="Failure code"/>
+			<hint lang="pl" value="Kod błędu"/>
+			<hint lang="de" value="Fehlercode"/>
+			<desc resKey="gate_coolmaster_failurecode"/>
+		</feature>
+	</features>
+	<methods>
+		<method call="set" index="0" name="SetCoolMasterNetID" return="void" visible="false">
+			<param name="CoolMasterNetID" type="str" unit="-" />
+			<hint lang="en" value="Sets the CoolMasterNet object ID"/>
+			<hint lang="pl" value="Ustawia ID obiektu CoolMasterNet"/>
+			<hint lang="de" value="Setzt die CoolMasterNet-Objekt-ID"/>
+			<desc resKey="gate_coolmaster_setcoolmasternetid"/>
+		</method>
+		<method call="set" index="1" name="SetUIDs" return="void" visible="false">
+			<param name="UIDs" type="str" unit="-" />
+			<hint lang="en" value="Sets HVAC UIDs"/>
+			<hint lang="pl" value="Ustawia UID klimatyzatorów"/>
+			<hint lang="de" value="Setzt HLK-UIDs"/>
+			<desc resKey="gate_coolmaster_setuids"/>
+		</method>
+		<method call="set" index="2" name="SetSupportedModes" return="void">
+			<param name="SupportedModes" type="str" unit="-" />
+			<hint lang="en" value="Sets the list of supported operation modes"/>
+			<hint lang="pl" value="Ustawia listę wspieranych trybów pracy"/>
+			<hint lang="de" value="Legt die Liste der unterstützten Betriebsmodi fest"/>
+			<desc resKey="gate_coolmaster_setsupportedmodes"/>
+		</method>
+		<method call="set" index="3" name="SetSupportedFanSpeeds" return="void">
+			<param name="SupportedFanSpeeds" type="str" unit="-" />
+			<hint lang="en" value="Sets the list of supported fan speeds"/>
+			<hint lang="pl" value="Ustawia listę wspieranych prędkości wentylatora"/>
+			<hint lang="de" value="Legt die Liste der unterstützten Lüftergeschwindigkeiten fest"/>
+			<desc resKey="gate_coolmaster_setsupportedfanspeeds"/>
+		</method>
+		<method call="set" index="4" name="SetSupportedLouverPositions" return="void">
+			<param name="SupportedLouverPositions" type="str" unit="-" />
+			<hint lang="en" value="Sets the list of supported louver positions"/>
+			<hint lang="pl" value="Ustawia listę wspieranych pozycji szczeliny wentylacyjnej"/>
+			<hint lang="de" value="Legt die Liste der unterstützten Lamellenpositionen fest"/>
+			<desc resKey="gate_coolmaster_setsupportedlouverpositions"/>
+		</method>
+		<method call="set" index="6" name="SetState" return="void">
+			<param name="State" type="num" enum="0,1" unit="-">
+				<enum name="Off" value="0" resKey="gate_coolmaster_state_enum_off" />
+				<enum name="On" value="1" resKey="gate_coolmaster_state_enum_on" />
+			</param>
+			<hint lang="en" value="Sets the working status"/>
+			<hint lang="pl" value="Ustawia stan pracy"/>
+			<hint lang="de" value="Setzt den Arbeitsstatus"/>
+			<desc resKey="gate_coolmaster_setstate"/>
+		</method>
+		<method call="set" index="7" name="SetMode" return="void">
+			<param name="Mode" type="num" enum="1,2,3,4,5" unit="-">
+				<enum name="Cool" value="1" resKey="gate_coolmaster_mode_enum_cool" />
+				<enum name="Heat" value="2" resKey="gate_coolmaster_mode_enum_heat" />
+				<enum name="Fan" value="3" resKey="gate_coolmaster_mode_enum_fan" />
+				<enum name="Dry" value="4" resKey="gate_coolmaster_mode_enum_dry" />
+				<enum name="Auto" value="5" resKey="gate_coolmaster_mode_enum_auto" />
+			</param>
+			<hint lang="en" value="Sets the operation mode"/>
+			<hint lang="pl" value="Ustawia tryb pracy"/>
+			<hint lang="de" value="Setzt den Betriebsmodus"/>
+			<desc resKey="gate_coolmaster_setmode"/>
+		</method>
+		<method call="set" index="8" name="SetTargetTemp" return="void">
+			<param name="TargetTemp" type="num" unit="°C/F" />
+			<hint lang="en" value="Sets the temperature setpoint"/>
+			<hint lang="pl" value="Ustawia wartość zadanej temperatury"/>
+			<hint lang="de" value="Setzt den Temperatursollwert"/>
+			<desc resKey="gate_coolmaster_settargettemp"/>
+		</method>
+		<method call="set" index="9" name="SetFanSpeed" return="void">
+			<param name="FanSpeed" type="num" enum="0,1,2,3,4,5" unit="-">
+				<enum name="VLow" value="0" resKey="gate_coolmaster_fanspeed_enum_vlow" />
+				<enum name="Low" value="1" resKey="gate_coolmaster_fanspeed_enum_low" />
+				<enum name="Med" value="2" resKey="gate_coolmaster_fanspeed_enum_med" />
+				<enum name="High" value="3" resKey="gate_coolmaster_fanspeed_enum_high" />
+				<enum name="Top" value="4" resKey="gate_coolmaster_fanspeed_enum_top" />
+				<enum name="Auto" value="5" resKey="gate_coolmaster_fanspeed_enum_auto" />
+			</param>
+			<hint lang="en" value="Sets the fan speed"/>
+			<hint lang="pl" value="Ustawia prędkość wentylatora"/>
+			<hint lang="de" value="Setzt die Lüftergeschwindigkeit"/>
+			<desc resKey="gate_coolmaster_setfanspeed"/>
+		</method>
+		<method call="set" index="10" name="SetLouverPosition" return="void">
+			<param name="LouverPosition" type="num" enum="1,2,3,4,5,6,7" unit="-">
+				<enum name="Auto" value="1" resKey="gate_coolmaster_louverposition_enum_auto" />
+				<enum name="Horizontal" value="2" resKey="gate_coolmaster_louverposition_enum_horizontal" />
+				<enum name="Angle30" value="3" resKey="gate_coolmaster_louverposition_enum_angle30" />
+				<enum name="Angle45" value="4" resKey="gate_coolmaster_louverposition_enum_angle45" />
+				<enum name="Angle60" value="5" resKey="gate_coolmaster_louverposition_enum_angle60" />
+				<enum name="Vertical" value="6" resKey="gate_coolmaster_louverposition_enum_vertical" />
+				<enum name="Stopped" value="7" resKey="gate_coolmaster_louverposition_enum_stopped" />
+			</param>
+			<hint lang="en" value="Sets the louver position"/>
+			<hint lang="pl" value="Ustawia pozycję żaluzji regulującej przepływ powietrza"/>
+			<hint lang="de" value="Stellt die Lamellenposition ein"/>
+			<desc resKey="gate_coolmaster_setlouverposition"/>
+		</method>
+		<method call="execute" index="0" name="TurnOn" return="void">
+			<hint lang="en" value="Turns on the HVAC unit or units in case of a device group"/>
+			<hint lang="pl" value="Włącza klimatyzator lub grupę klimatyzatorów"/>
+			<hint lang="de" value="Schaltet die HVAC-Einheit oder -Einheiten im Falle einer Gerätegruppe ein"/>
+			<desc resKey="gate_coolmaster_turnon"/>
+		</method>
+		<method call="execute" index="1" name="TurnOff" return="void">
+			<hint lang="en" value="Turns off the HVAC unit or units in case of a device group"/>
+			<hint lang="pl" value="Wyłącza klimatyzator lub grupę klimatyzatorów"/>
+			<hint lang="de" value="Schaltet die HVAC-Einheit oder -Einheiten im Falle einer Gerätegruppe aus"/>
+			<desc resKey="gate_coolmaster_turnoff"/>
+		</method>
+		<method call="execute" index="2" name="SwitchMode" return="void">
+			<hint lang="en" value="Sets the next operation mode"/>
+			<hint lang="pl" value="Przełącza tryb pracy na kolejny"/>
+			<hint lang="de" value="Setzt den nächsten Betriebsmodus"/>
+			<desc resKey="gate_coolmaster_switchmode"/>
+		</method>
+	</methods>
+	<events>
+		<event address="0" name="OnConnected">
+			<hint lang="en" value="Event occurring after successfull CoolMasterNet connection establishment"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po nawiązaniu połączenia z jednostką"/>
+			<hint lang="de" value="Ereignis, das nach erfolgreichem CoolMasterNet-Verbindungsaufbau auftritt"/>
+			<desc resKey="gate_coolmaster_onconnected"/>
+		</event>
+		<event address="1" name="OnDisconnected">
+			<hint lang="en" value="Event occurring after the CoolMasterNet connection has been lost"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zerwaniu połączenia z jednostką"/>
+			<hint lang="de" value="Ereignis, das auftritt, nachdem die CoolMasterNet-Verbindung unterbrochen wurde"/>
+			<desc resKey="gate_coolmaster_ondisconnected"/>
+		</event>
+		<event address="2" name="OnChange">
+			<hint lang="en" value="Event executed after a change occurs on State, Mode, TargetTemp, FanSpeed or LouverPosition"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości State, Mode, TargetTemp, FanSpeed, LouverPosition"/>
+			<hint lang="de" value="Ereignis wird ausgeführt, nachdem eine Änderung bei State, Mode, TargetTemp, FanSpeed ​​oder LouverPosition auftritt"/>
+			<desc resKey="gate_coolmaster_onchange"/>
+		</event>
+		<event address="3" name="OnModeChange">
+			<hint lang="en" value="Event executed after a Mode change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Mode"/>
+			<hint lang="de" value="Ereignis wird ausgeführt, nachdem ein Moduswechsel erfolgt ist"/>
+			<desc resKey="gate_coolmaster_onmodechange"/>
+		</event>
+		<event address="4" name="OnTargetTempChange">
+			<hint lang="en" value="Event executed after a TargetTemp change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości TargetTemp"/>
+			<hint lang="de" value="Ereignis wird ausgeführt, nachdem eine TargetTemp-Änderung auftritt"/>
+			<desc resKey="gate_coolmaster_ontargettempchange"/>
+		</event>
+		<event address="5" name="OnFanSpeedChange">
+			<hint lang="en" value="Event executed after a FanSpeed change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości FanSpeed"/>
+			<hint lang="de" value="Ereignis wird ausgeführt, nachdem eine Lüftergeschwindigkeitsänderung auftritt"/>
+			<desc resKey="gate_coolmaster_onfanspeedchange"/>
+		</event>
+		<event address="6" name="OnLouverPositionChange">
+			<hint lang="en" value="Event executed after a LouverPosition change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości LouverPosition"/>
+			<hint lang="de" value="Ereignis, das ausgeführt wird, nachdem eine LouverPosition-Änderung auftritt"/>
+			<desc resKey="gate_coolmaster_onlouverpositionchange"/>
+		</event>
+		<event address="7" name="OnTurnOn">
+			<hint lang="en" value="Event executed after the HVAC unit or group of units is turned on"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po włączeniu klimatyzatora lub grupy klimatyzatorów"/>
+			<hint lang="de" value="Ereignis, das ausgeführt wird, nachdem die HLK-Einheit oder Gruppe von Einheiten eingeschaltet wurde"/>
+			<desc resKey="gate_coolmaster_onturnon"/>
+		</event>
+		<event address="8" name="OnTurnOff">
+			<hint lang="en" value="Event executed after the HVAC unit or group of units is turned off"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po wyłączeniu klimatyzatora lub grupy klimatyzatorów"/>
+			<hint lang="de" value="Ereignis, das ausgeführt wird, nachdem die HLK-Einheit oder eine Gruppe von Einheiten ausgeschaltet wurde"/>
+			<desc resKey="gate_coolmaster_onturnoff"/>
+		</event>
+		<event address="9" name="OnFailure">
+			<hint lang="en" value="Event executed after detecting an error"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po wystąpieniu błędu"/>
+			<hint lang="de" value="Ereignis wird ausgeführt, nachdem ein Fehler erkannt wurde"/>
+			<desc resKey="gate_coolmaster_onfailure"/>
+		</event>
+		<event address="10" name="OnDesynchronization">
+			<hint lang="en" value="Event executed after desynchronisation of the grouped HVAC units properties occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po desynchronizacji cech klimatyzatorów należących do grupy"/>
+			<hint lang="de" value="Ereignis, das ausgeführt wird, nachdem die Eigenschaften der gruppierten HLK-Einheiten desynchronisiert wurden"/>
+			<desc resKey="gate_coolmaster_ondesynchronization"/>
+		</event>
+	</events>
+</object>

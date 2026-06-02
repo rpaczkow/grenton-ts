@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="DIMMER_MOSFET_DIN" typeId="1a">
+	<!--hwType=0x1a(26), hwVer=0x1(1), fwType=0x2(2), fwApiVer=0x2(2)-->
+	<firmware typeId="02" version="02">
+		<object class="5" count="1" name="DIMM" type="out">
+			<interface>
+				<features>
+					<feature default="0" get="true" index="0" name="Value" range="0-1" set="true" type="num" unit="num">
+						<hint lang="pl" value="Podaje aktualną wartość wyjścia (0.0 - 1.0)"/>
+						<hint lang="en" value="Specifies the current output value (0.0 - 1.0)"/>
+						<hint lang="de" value="Gibt den Ausgang-Istwert an (0.0 - 1.0)"/>
+                        <desc resKey="dimm_value"/>
+                    </feature>
+					<feature default="500" get="true" index="1" name="RampTime" range="0-15000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Wartość opóźnienia czasu rozjaśniania lub ściemniania wyjścia (w ms)"/>
+						<hint lang="en" value="The value of the delay time of brightening or dimming the output (in ms)"/>
+						<hint lang="de" value="Der Wert der Verzögerungszeit des Aufhellens oder Dimmens des Ausgangs (in ms)"/>
+                        <desc resKey="dimm_ramptime"/>
+                    </feature>
+					<feature default="0" get="true" index="2" name="MinValue" range="0-1" set="true" type="num" unit="num">
+						<hint lang="pl" value="Minimalna wartość jaka może przyjąć Value, próba ustawienia wartości mniejszej zwraca błąd"/>
+						<hint lang="en" value="Minimum value which Value can adopt. Attempting to set a lower value will generate an error"/>
+						<hint lang="de" value="Mindestwert, der von Value angenommen werden kann. Ein höherer Wert von Value generiert eine Fehlermeldung. Bereich: 0.0 - 1.0"/>
+                        <desc resKey="dimm_minvalue"/>
+                    </feature>
+					<feature default="1" get="true" index="3" name="MaxValue" range="0-1" set="true" type="num" unit="num">
+						<hint lang="pl" value="Maksymalna wartość jaka może przyjąć Value, próba ustawienia wartości większej zwraca błąd"/>
+						<hint lang="en" value="Maximum value which Value can adopt. Attempting to set a higher value will generate an error"/>
+						<hint lang="de" value="Höchstwert, der von Value angenommen werden kann. Ein höherer Wert von Value generiert eine Fehlermeldung. Bereich: 0.0 - 1.0"/>
+                        <desc resKey="dimm_maxvalue"/>
+                    </feature>
+					<feature default="0" get="true" index="6" name="StartLevel" range="0-1" set="true" type="num" unit="num">
+						<hint lang="pl" value="Zwraca aktualną wartość progu załączenia wyjścia (0.0 - 1.0)"/>
+						<hint lang="en" value="Specifies the threshold of the output (0.0 - 1.0)"/>
+						<hint lang="de" value="Gibt den Schwellenwert an (0.0 - 1.0)"/>
+                        <desc resKey="dimm_startlevel"/>
+                    </feature>
+                    <feature default="0" get="true" index="8" name="DistributedLogicGroup" range="0-10000" set="true" type="num">
+						<hint lang="pl" value="Grupa Distributed Logic - grupa broadcastowa dla rozproszonej logiki"/>
+						<hint lang="en" value="Distributed Logic group - broadcast group for distributed logic"/>
+						<hint lang="de" value="Distributed Logic Gruppe - Broadcast-Gruppe für verteilte Logik"/>
+					    <desc resKey="dimm_distributedlogicgroup"/>
+                    </feature>
+					<feature default="0" enum="0,1" get="true" index="4" name="StatisticState" previousValue="true" set="true" type="num" unit="number"  >
+						<enum name="Off" resKey="dimm_statisticstate_enum_off" value="0"/>
+						<enum name="Continuous" resKey="dimm_statisticstate_enum_continuous" value="1"/>
+						<hint lang="pl" value="Włącza raportowanie pomiaru do modułu statystyk:&#13;Off - wyłączony,&#13;Continuous - pomiar obciążenia w całym okresie pracy urządzenia"/>
+						<hint lang="en" value="Enables measurement reporting to the statistics module:&#13;Off - turned off,&#13;Continuous - load measurement for the whole device's period operation"/>
+						<hint lang="de" value="Art der Messung: &#13;Off - ausgeschaltet, &#13;Continuous - Belastungsmessung während der gesamten Arbeitszeit des Geräts"/>
+                        <desc resKey="dimm_statisticstate"/>
+                    </feature>
+					<feature correctValue="1" default="0" dependOn="4" get="true" index="5" name="Load" set="true" type="num" unit="W" range="0-60000" >
+						<hint lang="pl" value="Mnożnik mierzonej wartości. Dla StatisticState:&#13;Continuous - wartość zużycia w jednostce czasu"/>
+						<hint lang="en" value="The measured value multiplier. For StatisticState:&#13;Continuous - load measurement in the unit of time"/>
+						<hint lang="de" value="Messwertfaktor. Für StatisticState: &#13;Continuous - Verbrauch pro Zeiteinheit"/>
+                        <desc resKey="dimm_load"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="0" name="SetValue" return="void">
+						<param name="Value" type="num"/>
+						<hint lang="pl" value="Ustawia wartość wyjścia (0.0 - 1.0)"/>
+						<hint lang="en" value="Sets output value (0.0 - 1.0)"/>
+						<hint lang="de" value="Bestimmt den Ausgangswert (0.0 - 1.0)"/>
+                        <desc resKey="dimm_setvalue"/>
+                    </method>
+					<method call="set" index="1" name="SetRampTime" return="void">
+						<param name="RampTime" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia czas rozjaśniania lub ściemniania wyjścia (w ms)"/>
+						<hint lang="en" value="Sets the time for brightening or dimming the output (in ms)"/>
+						<hint lang="de" value="Legt die Zeit zum Aufhellen oder Dimmen des Ausgangs fest (in ms)"/>
+                        <desc resKey="dimm_setramptime"/>
+                    </method>
+					<method call="set" index="2" name="SetMinValue" return="void">
+						<param name="Value" type="num"/>
+						<hint lang="pl" value="Ustawia minimalną wartość, którą może przyjąć wyjście. Zakres: 0.0 - 1.0"/>
+						<hint lang="en" value="Setting the minimum value which can be adopted by an output. Attempting to set a lower value will generate an error. Range: 0.0 - 1.0"/>
+						<hint lang="de" value="Bestimmt den Mindestwert, der vom Ausgang angenommen werden kann. Bereich: 0.0 - 1.0"/>
+                        <desc resKey="dimm_setminvalue"/>
+                    </method>
+					<method call="set" index="3" name="SetMaxValue" return="void">
+						<param name="Value" type="num"/>
+						<hint lang="pl" value="Ustawia maksymalną wartość, którą może przyjąć wyjście. Zakres: 0.0 - 1.0"/>
+						<hint lang="en" value="Setting the maximum value which can be adopted by an output. Attempting to set a higher value will generate an error. Range: 0.0 - 1.0"/>
+						<hint lang="de" value="Bestimmt den Höchstwert, der vom Ausgang angenommen werden kann. Bereich: 0.0 - 1.0"/>
+                        <desc resKey="dimm_setmaxvalue"/>
+                    </method>
+					<method call="set" index="6" name="SetStartLevel" return="void">
+						<param name="Value" type="num"/>
+						<hint lang="pl" value="Ustawia wartość progu załączenia (zakres 0.0 - 1.0)"/>
+						<hint lang="en" value="Sets the threshold of the output (0.0 - 1.0)"/>
+						<hint lang="de" value="Bestimmt den Schwellenwert (0.0 - 1.0)"/>
+                        <desc resKey="dimm_setstartlevel"/>
+                    </method>
+					<method call="execute" index="1" name="Switch" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							
+							<parametrized name="Default" type="num" value="500"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Zmienia wartość wyjścia na przeciwny (MinValue - MaxValue). Pierwszy parametr (Time) to czas zmiany:&#13;0 - włącza/wyłącza wyjście na stałe,&#13; number - na czas określony w parametrze.&#13;Drugi parametr (Ramp) jest opcjonalny i określa czas narastania wartości (domyślnie 500ms)"/>
+						<hint lang="en" value="Changes the output value to opposite (MinValue - MaxValue). The first parameter is the time of change:&#13;0 - switches output to continuous mode&#13;number - switches output for a specified time by a parameter( in milliseconds)&#13;The second parameter is the ramp (time of value increments which is optional. If this parameter is not specified, the default ramp is used"/>
+						<hint lang="de" value="Ändert den Ausgabewert ins Gegenteil (MinValue - MaxValue). Der erste Parameter ist die Wechselzeit:&#13;0 – schaltet den Ausgang für eine unbestimmte Zeit ein;&#13;num – schaltet den Ausgang für eine mit Parametern bestimmte Zeit (in Millisekunden) ein. &#13;Der zweite Parameter ist die Rampe; się ist optional und bestimmt die Rampenzeit eines Werts (Standardeinstellung 500 ms)"/>
+                        <desc resKey="dimm_switch"/>
+                    </method>
+					<method call="execute" index="2" name="SwitchOn" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value="500"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Ustawienie wartości wyjścia na MaxValue. Pierwszy parametr to czas na jaki ma się przełączyć; rampa określa czas narastania wartości"/>
+						<hint lang="en" value="Sets output value to MaxValue. The first parameter is the time of switching (how long it is to be switched for). The second parameter is the ramp (time of value increments) which is optional"/>
+						<hint lang="de" value="Bestimmt den Wert von MaxValue (Standardeinstellung 1). Der erste Parameter ist die Zeit, für die umgeschaltet werden soll. Die Rampe bestimmt die Rampenzeit (Anstiegszeit) von Value"/>
+                        <desc resKey="dimm_switchon"/>
+                    </method>
+					<method call="execute" index="3" name="SwitchOff" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value="500"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Ustawienie wartości wyjścia na MinValue. Pierwszy parametr to czas na jaki ma się przełączyć; rampa określa czas narastania wartości"/>
+						<hint lang="en" value="Sets output value to MinValue. The first parameter is the time of switching (how long it is to be switched for). The second parameter is the ramp (time of value increments) which is optional"/>
+						<hint lang="de" value="Bestimmt den Wert von MinValue (Standardeinstellung 0). Der erste Parameter ist die Zeit, für die umgeschaltet werden soll. Die Rampe bestimmt die Rampenzeit (Abfallzeit) von Value"/>
+                        <desc resKey="dimm_switchoff"/>
+                    </method>
+					<method call="execute" index="0" name="HoldValue" return="void">
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value="500"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Realizuje funkcję rozjaśniania/ściemniania wyjścia z użyciem Rampy podanej w parametrze"/>
+						<hint lang="en" value="Executes the function of illuminating/ dimming"/>
+						<hint lang="de" value="Führt die Dimmfunktion (heller/dunkler) aus"/>
+                        <desc resKey="dimm_holdvalue"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości wyjścia"/>
+						<hint lang="en" value="Event resulting from changing the output state"/>
+						<hint lang="de" value="Ereignis bei Änderung des Ausgangsstatus"/>
+                        <desc resKey="dimm_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości wyjścia z MinValue na wartość większą"/>
+						<hint lang="en" value="Event occurring when the output value is changed from MinValue to a higher value"/>
+						<hint lang="de" value="Wird aufgerufen, sobald der Ausgangswert von MinValue auf höher gewechselt wird"/>
+                        <desc resKey="dimm_onswitchon"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości wyjścia na MinValue"/>
+						<hint lang="en" value="Event occurring when MinValue is set at the output"/>
+						<hint lang="de" value="Wird aufgerufen, sobald der Ausgang auf MinValue gesetzt wrid"/>
+                        <desc resKey="dimm_onswitchoff"/>
+                    </event>
+					<event address="3" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości wyjścia na większą niż poprzednia"/>
+						<hint lang="en" value="Event occurring when the set value is higher than the current value"/>
+						<hint lang="de" value="Wird aufgerufen, falls der eingestellte Wert höher ist als der aktuelle"/>
+                        <desc resKey="dimm_onvaluerise"/>
+                    </event>
+					<event address="4" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości wyjścia na mniejszą niż poprzednia"/>
+						<hint lang="en" value="Event occurring when the set value is lower than the current value"/>
+						<hint lang="de" value="Wird aufgerufen, falls der eingestellte Wet niedriger ist als der aktuelle"/>
+                        <desc resKey="dimm_onvaluelower"/>
+                    </event>
+					<event address="5" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości wyjścia na wartość spoza zakresu (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurring when setting a value which is higher than the maximum value or lower than the minimum value"/>
+						<hint lang="de" value="Wird aufgerufen, sobald ein höherer Wert als MaxValue oder ein niedrigerer Wert als MinValue eingestellt wird"/>
+                        <desc resKey="dimm_onoutofrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

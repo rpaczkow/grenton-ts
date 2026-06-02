@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="SMART_PANEL_FM_4" typeId="03">
+	<!--hwType=0x3(3), hwVer=0x1(1), fwType=0x3(3), fwApiVer=0x7(7)-->
+	<firmware typeId="03" version="07">
+		<object class="30" count="16" name="PANEL_BUTTON" type="in">
+			<interface>
+				<features>
+					<feature default="0" enum="0,1,2" get="true" index="1" name="Mode" set="true" type="num">
+						<enum name="Monostable" resKey="panel_button_mode_enum_monostable" value="0"/>
+						<enum name="Bistable" resKey="panel_button_mode_enum_bistable" value="1"/>
+						<enum name="Locked" resKey="panel_button_mode_enum_locked" value="2"/>
+						<hint lang="pl" value="Zwraca ustawiony tryb działania przycisku:&#13;0 - monostabilny (monostable),&#13;1 - bistabilny (bistable),&#13;2 - zablokowany (locked)"/>
+						<hint lang="en" value="Returns the selected mode of button action:&#13;0 – monostable,&#13;1 – bistable,&#13;2 – locked"/>
+						<hint lang="de" value="Gibt den vorgegebenen Tastenmodus zurück:&#13;0 - monostabil (monostable),&#13;1 - bistable (bistabile),&#13;2 - gesperrt (locked)"/>
+					    <desc resKey="panel_button_mode_1"/>
+                    </feature>
+					<feature default="1000" get="true" index="2" name="HoldDelay" range="100-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas w milisekundach, po jakim po wciśnięciu i przytrzymaniu przycisku wyzwalane jest zdarzenie OnHold (domyślnie 1000 ms)"/>
+						<hint lang="en" value="Time in milliseconds after which, when pressing and holding a button, the OnHold event occurs (default 1000 ms)"/>
+						<hint lang="de" value="Zeit in Millisekunden, die verlaufen muss, bevor das Ereignis OnHold generiert wird, nachdem die Taste betätigt und gedrückt gehalten worden ist (standard 1000 ms)"/>
+					    <desc resKey="panel_button_holddelay_2"/>
+                    </feature>
+					<feature default="100" get="true" index="3" name="HoldInterval" range="100-2000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Odstęp cykliczny w milisekundach, po jakim podczas trzymania przycisku wyzwalane są kolejne zdarzenia OnHold"/>
+						<hint lang="en" value="Cyclical interval in milliseconds after which, when pressing and holding a button, the OnHold event occurs"/>
+						<hint lang="de" value="Zyklisches Zeitintervall in Millisekunden, das verlaufen muss, bevor das Ereignis OnHold generiert wird, während die Taste betätigt und gedrückt gehalten wird"/>
+					    <desc resKey="panel_button_holdinterval_1"/>
+                    </feature>
+					<feature enum="0,1" get="true" index="0" name="Value" set="false" type="num" unit="bool">
+						<hint lang="pl" value="Zwraca stan wejścia jako 0 lub 1"/>
+						<hint lang="en" value="Returns input state as 0 or 1"/>
+						<hint lang="de" value="Gibt den Eingangsstatus als 0 oder 1 zurück"/>
+					    <desc resKey="panel_button_value_1"/>
+                    </feature>
+					<feature default="" get="true" index="4" name="Label" range="0-15" set="true" type="str" unit="string">
+						<hint lang="pl" value="Tekst, który opisuje przycisk"/>
+						<hint lang="en" value="The text that describes the button"/>
+						<hint lang="de" value="Text der Tastenbeschriftung"/>
+					    <desc resKey="panel_button_label"/>
+                    </feature>
+					<feature default="" get="true" index="5" name="IconA" range="0-9" set="true" type="str" unit="string">
+						<hint lang="pl" value="Nazwa pliku ikony w trybie monostabilnym oraz bistabilnym w pozycji OFF. &#13;Nazwa poprzedzona ~ wyświetla ikonę w negatywie. &#13;IconA ma priorytet nad cechą Label"/>
+						<hint lang="en" value="The file name of the icon assigned to the button in monostable and bistable mode in the OFF position. &#13;The name preceded by '~' displays the graphic in negative. IconA has priority on the Label feature"/>
+						<hint lang="de" value="Name des der Taste zugewiesenen Symbols für den mono- sowie bistabilen Modus in der Position OFF. &#13;Wird dem Namen “~” vorangestellt, erscheint die Grafik als Negativ. IconA ist der Eigenschaft Label übergeordnet."/>
+					    <desc resKey="panel_button_icona_1"/>
+                    </feature>
+					<feature default="" get="true" index="6" name="IconB" range="0-9" set="true" type="str" unit="string">
+						<hint lang="pl" value="Nazwa pliku ikony w trybie bistabilnym w pozycji ON. &#13;Nazwa poprzedzona ~ wyświetla ikonę w negatywie"/>
+						<hint lang="en" value="The file name of the icon assigned to the button in bistable mode in the ON position. &#13;The name preceded by '~' displays the graphic in negative"/>
+						<hint lang="de" value="Name des der Taste zugewiesenen Symbols für den bistabilen Modus in der Position ON. &#13;Wird dem Namen “~” vorangestellt, erscheint die Grafik als Negativ"/>
+					    <desc resKey="panel_button_iconb"/>
+                    </feature>
+				</features>
+				<methods>
+						<method call="set" index="1" name="SetMode" range="0-2" return="enum" type="num">
+							<param name="Mode" type="num"/>
+							<enum name="Monostable" value="0"/>
+							<enum name="Bistable" value="1"/>
+							<enum name="Locked" value="2"/>
+							<hint lang="pl" value="Ustawia tryb działania przycisku (0 - monostabilny (monostable), 1 - bistabilny (bistable), 2 - zablokowany (locked))"/>
+							<hint lang="en" value="Sets mode of button action (0 - monostable, 1 - bistable, 2 - locked)"/>
+							<hint lang="de" value="Bestimmt den Tastenmodus (0 - monostabil (monostable), 1 – bistabil (bistable), 2 – gesperrt (locked))"/>
+						    <desc resKey="panel_button_setmode_1"/>
+                    </method>
+						<method call="set" index="2" name="SetHoldDelay" range="100-5000" return="void">
+							<param name="HoldDelay" type="num"/>
+							<hint lang="pl" value="Ustawia wartość HoldDelay"/>
+							<hint lang="en" value="Sets HoldDelay value"/>
+							<hint lang="de" value="Bestimmt den Wert von HoldDelay"/>
+						    <desc resKey="panel_button_setholddelay"/>
+                    </method>
+						<method call="set" index="3" name="SetHoldInterval" range="100-2000" return="void">
+							<param name="HoldInterval" type="num"/>
+							<hint lang="pl" value="Ustawia wartość HoldInterval"/>
+							<hint lang="en" value="Sets HoldInterval value"/>
+							<hint lang="de" value="Bestimmt den Wert von HoldInterval"/>
+						    <desc resKey="panel_button_setholdinterval"/>
+                    </method>
+						<method call="execute" index="3" name="SetLabel" return="void">
+							<param name="Text" range="0-15" type="str"/>
+							<hint lang="pl" value="Ustawia wartość cechy Label"/>
+							<hint lang="en" value="Sets Label value"/>
+							<hint lang="de" value="Bestimmt den Wert von Label"/>
+						    <desc resKey="panel_button_setlabel"/>
+                    </method>
+						<method call="execute" index="4" name="SetIconA" return="void">
+							<param name="Filename[.bmp]" range="0-9" type="str"/>
+							<hint lang="pl" value="Ustawia nazwę pliku BMP ikony A"/>
+							<hint lang="en" value="Sets IconA BMP Filename"/>
+							<hint lang="de" value="Bestimmt den Wert von IconA"/>
+						    <desc resKey="panel_button_seticona"/>
+                    </method>					
+						<method call="execute" index="5" name="SetIconB" return="void">
+							<param name="Filename[.bmp]" range="0-9" type="str"/>
+							<hint lang="pl" value="Ustawia nazwę pliku BMP ikony B"/>
+							<hint lang="en" value="Sets IconB BMP Filename"/>
+							<hint lang="de" value="Bestimmt den Wert von IconB"/>
+						    <desc resKey="panel_button_seticonb"/>
+                    </method>
+						<method call="execute" index="0" name="ShowOK" return="void" set="0">	
+							<hint lang="pl" value="Powoduje miganie zielonej diody na przycisku przez 2 sekundy (częstotliwość 500 ms). Czerwona dioda przycisku pozostaje zgaszona"/>
+							<hint lang="en" value="Causes the green diode on the button to flash for 2 seconds (frequency 500 ms). The red diode on the button is off"/>
+							<hint lang="de" value="Lässt die grüne Tatsten-LED zwei Sekunden lang (alle 500 ms) blinken. Die rote Tasten-LED bleibt aus"/>
+						    <desc resKey="panel_button_showok"/>
+                    </method>
+						<method call="execute" index="0" name="ShowError" return="void" set="1">						
+							<hint lang="pl" value="Powoduje miganie czerwonej diody na przycisku przez 2 sekundy (częstotliwość 500 ms). Zielona dioda przycisku pozostaje zgaszona"/>
+							<hint lang="en" value="Causes the red diode on the button to flash for 2 seconds (frequency 500 ms). The green diode on the button is off"/>
+							<hint lang="de" value="Lässt die rote Tatsten-LED zwei Sekunden lang (alle 500 ms) blinken. Die grüne Tasten-LED bleibt aus"/>
+						    <desc resKey="panel_button_showerror"/>
+                    </method>		
+						<method call="execute" index="1" name="LedSwitchOn" return="void" set="2">
+							<hint lang="pl" value="Załącza zieloną diodę na przycisku"/>
+							<hint lang="en" value="Activates the green diode on the button"/>
+							<hint lang="de" value="Schaltet die grüne Tasten-LED ein"/>
+						    <desc resKey="panel_button_ledswitchon"/>
+                    </method>
+                        <method call="execute" index="2" name="RedLedSwitchOn" return="void" set="16">
+                            <hint lang="pl" value="Załącza czerwoną diodę na przycisku"/>
+							<hint lang="en" value="Activates the red diode on the button"/>
+							<hint lang="de" value="Schaltet die rote Tasten-LED ein"/>
+                            <desc resKey="panel_button_redledswitchon"/>
+                    </method>
+						<method call="execute" index="2" name="LedSwitchOff" return="void" set="4">
+							<hint lang="pl" value="Wyłącza wszystkie diody na przycisku"/>
+							<hint lang="en" value="Deactivates all the diodes on the button"/>
+							<hint lang="de" value="Schaltet alle Tasten-LED aus"/>
+						    <desc resKey="panel_button_ledswitchoff_1"/>
+                    </method>					
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany stanu na przeciwny"/>
+						<hint lang="en" value="Event occurs when a change in the input state takes place (regardless of the value)"/>
+						<hint lang="de" value="Wird aufgerufen, falls eine Änderung des Eingangsstatus erfolgt (unabhängig vom Wert)"/>
+					    <desc resKey="panel_button_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu wysokiego na wejściu"/>
+						<hint lang="en" value="Event occurs when the high state is set at input"/>
+						<hint lang="de" value="Wird aufgerufen, sobald ein Hochzustand am Eingang ansteht"/>
+					    <desc resKey="panel_button_onswitchon_1"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu niskiego na wejściu"/>
+						<hint lang="en" value="Event occurs when the low state is set at input"/>
+						<hint lang="de" value="Wird aufgerufen, sobald ein Niedrigzustand am Eingang ansteht"/>
+					    <desc resKey="panel_button_onswitchoff_1"/>
+                    </event>
+					<event address="3" name="OnShortPress">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na czas 500 ms - 2000 ms"/>
+						<hint lang="en" value="Event occurs after pressing the button for 500ms - 2000 ms"/>
+						<hint lang="de" value="Wird aufgerufen, nachdem die Taste 500 - 2000 ms lang gedrückt gehalten worden ist"/>
+					    <desc resKey="panel_button_onshortpress_1"/>
+                    </event>
+					<event address="4" name="OnLongPress">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na czas dłuższy niż 2000 ms"/>
+						<hint lang="en" value="Event occurs after pressing the button for longer then 2000 ms"/>
+						<hint lang="de" value="Wird aufgerufen, nachdem die Taste länger als 2000 ms gedrückt gehalten worden ist"/>
+					    <desc resKey="panel_button_onlongpress_2"/>
+                    </event>
+					<event address="5" name="OnHold">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wejście jest w stanie wysokim, pierwszy raz po upłynięciu czasu HoldDelay, a następnie cyklicznie co wartość HoldInterval"/>
+						<hint lang="en" value="Event occurs for the first time after HoldDelay time passes and then cyclically every HoldInterval value"/>
+						<hint lang="de" value="Wird zum ersten Mal aufgerufen, sobald die Zeit von HoldDelay abgelaufen ist und danach zyklisch in den mit HoldInterval vorgegebenen Zeitabständen"/>
+					    <desc resKey="panel_button_onhold_1"/>
+                    </event>
+					<event address="6" name="OnClick">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na czas krótszy niż 500 ms"/>
+						<hint lang="en" value="Event occurs after pressing the button for less than 500 ms"/>
+						<hint lang="de" value="Wird aufgerufen, nachdem die Taste kürzer als 500 ms gedrückt gehalten worden ist"/>
+					    <desc resKey="panel_button_onclick_1"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="29" count="1" name="PANEL" type="in">
+			<interface>
+				<features>
+					<feature default="up" get="true" index="4" name="GestureIconUp" range="0-9" set="true" type="str" unit=".bmp">
+						<hint lang="pl" value="Nazwa pliku BMP z ikoną dla gestu Góra (bez rozszerzenia)"/>
+						<hint lang="en" value="The BMP file name of the icon for gesture Up (without extension)"/>
+						<hint lang="de" value="Name der BMP-Datei mit dem Symbol der Geste Nach oben (ohne Erweiterung)"/>
+					    <desc resKey="panel_gestureiconup"/>
+                    </feature>
+					<feature default="down" get="true" index="5" name="GestureIconDown" range="0-9" set="true" type="str" unit=".bmp">
+						<hint lang="pl" value="Nazwa pliku BMP z ikoną dla gestu Dół (bez rozszerzenia)"/>
+						<hint lang="en" value="The BMP file name of the icon for gesture Down (without extension)"/>
+						<hint lang="de" value="Name der BMP-Datei mit dem Symbol der Geste Nach unten (ohne Erweiterung)"/>
+					    <desc resKey="panel_gestureicondown"/>
+                    </feature>
+					<feature default="left" get="true" index="6" name="GestureIconLeft" range="0-9" set="true" type="str" unit=".bmp">
+						<hint lang="pl" value="Nazwa pliku BMP z ikoną dla gestu Lewo (bez rozszerzenia)"/>
+						<hint lang="en" value="The BMP file name of the icon for gesture Left (without extension)"/>
+						<hint lang="de" value="Name der BMP-Datei mit dem Symbol der Geste Nach links (ohne Erweiterung)"/>
+					    <desc resKey="panel_gestureiconleft"/>
+                    </feature>
+					<feature default="right" get="true" index="7" name="GestureIconRight" range="0-9" set="true" type="str" unit=".bmp">
+						<hint lang="pl" value="Nazwa pliku BMP z ikoną dla gestu Prawo (bez rozszerzenia)"/>
+						<hint lang="en" value="The BMP file name of the icon for gesture Right (without extension)"/>
+						<hint lang="de" value="Name der BMP-Datei mit dem Symbol der Geste Nach rechts (ohne Erweiterung)"/>
+					    <desc resKey="panel_gestureiconright"/>
+                    </feature>
+					<feature default="5" get="true" index="10" name="ProximitySens" range="2-100" set="true" type="num" unit="">
+						<hint lang="pl" value="Czułość sensora zbliżeniowego (mniejsza wartość-większa czułość)"/>
+						<hint lang="en" value="Sensitivity of the proximity sensor (less value-more sensitivity)"/>
+						<hint lang="de" value="Empfindlichkeit des Näherungssensors (weniger Wert - mehr Empfindlichkeit)"/>
+					    <desc resKey="panel_proximitysens_1"/>
+                    </feature>
+					<feature default="5000" get="true" index="11" name="ProximityTimeout" range="1000-60000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas po jakim wyświetlacz zostanie wygaszony"/>
+						<hint lang="en" value="The time after which the display will be blanked"/>
+						<hint lang="de" value="Zeit, nach der das Display erlischt"/>
+					    <desc resKey="panel_proximitytimeout"/>
+                    </feature>
+					<feature get="true" index="12" name="ProximityValue" range="-" set="false" type="num" unit="-">
+                        <hint lang="pl" value="Sygnał sensora zbliżeniowego (wartość bezwymiarowa)"/>
+						<hint lang="en" value="Proximity sensor value (dimensionless value)"/>
+						<hint lang="de" value="Signal des Näherungssensors (nicht messbar)"/>
+					    <desc resKey="panel_proximityvalue_1"/>
+                    </feature>
+					<feature default="1" enum="0,1" get="true" index="13" name="BuzzerValue" range="" set="true" type="num" unit="">
+						<enum name="Off" resKey="panel_buzzervalue_enum_off" value="0"/>
+						<enum name="On" resKey="panel_buzzervalue_enum_on" value="1"/> 
+						<hint lang="pl" value="Sterowanie sygnalizacją dźwiękową:&#13;0 - Off&#13;1 - On"/>
+						<hint lang="en" value="Sound indication control:&#13;0 - Off&#13;1 - On"/>
+						<hint lang="de" value="Steuerung der Tonsignale:&#13;0 - Off&#13;1 - On"/>
+					    <desc resKey="panel_buzzervalue"/>
+                    </feature>
+					<feature default="3" enum="0,1,2,3" get="true" index="15" name="GestureMode" range="" set="true" type="num" unit="">
+						<enum name="Off" resKey="panel_gesturemode_enum_off" value="0"/>
+						<enum name="Vertical" resKey="panel_gesturemode_enum_vertical" value="1"/> 
+						<enum name="Horizontal" resKey="panel_gesturemode_enum_horizontal" value="2"/>
+						<enum name="Vert+Horiz" resKey="panel_gesturemode_enum_verthoriz" value="3"/> 
+						<hint lang="pl" value="Wybór orientacji gestów:&#13;0 - Off&#13;1 - Vertical&#13;2 - Horizontal&#13;3 - Vert+Horiz"/>
+						<hint lang="en" value="Selection of gestures orientation:&#13;0 - Off&#13;1 - Vertical&#13;2 - Horizontal&#13;3 - Vert+Horiz"/>
+						<hint lang="de" value="Auswahl der Gestenorientierung:&#13;0 - Off&#13;1 - Vertical&#13;2 - Horizontal&#13;3 - Vert+Horiz"/>
+					    <desc resKey="panel_gesturemode"/>
+                    </feature>
+					<feature default="2" enum="1,2,3" get="true" index="16" name="GestureSens" range="" set="true" type="num" unit="">
+						<enum name="Low" resKey="panel_gesturesens_enum_low" value="1"/>
+						<enum name="Mid" resKey="panel_gesturesens_enum_mid" value="2"/> 
+						<enum name="High" resKey="panel_gesturesens_enum_high" value="3"/> 
+						<hint lang="pl" value="Wybór czułości gestów:&#13;1 - Low&#13;2 - Mid&#13;3 - High"/>
+				        <hint lang="en" value="Selection of gestures sensitivity:&#13;1 - Low&#13;2 - Mid&#13;3 - High"/>
+						<hint lang="de" value="Auswahl der Gestenempfindlichkeit:&#13;1 - Low&#13;2 - Mid&#13;3 - High"/>
+					    <desc resKey="panel_gesturesens_1"/>
+                    </feature>
+					<feature default="1" get="true" index="17" name="PageNr" range="" set="true" type="num" unit="">
+						<hint lang="pl" value="Numer wyświetlanej aktualnie strony"/>
+						<hint lang="en" value="Number of the current page displayed"/>
+						<hint lang="de" value="Nummer der aktuell angezeigten Seite"/>
+					    <desc resKey="panel_pagenr"/>
+                    </feature>
+					<feature default="0" enum="0,1,2" get="true" index="18" name="PageDisplayMode" set="true" type="num">
+						<enum name="ShowImmediately" resKey="panel_pagedisplaymode_enum_showimmediately" value="0"/>
+						<enum name="ShowIconOrName" resKey="panel_pagedisplaymode_enum_showiconorname" value="1"/>
+						<enum name="ShowGesture" resKey="panel_pagedisplaymode_enum_showgesture" value="2"/>
+						<hint lang="pl" value="Informacja przed zmianą strony:&#13;0 - ShowImmediately&#13;1 - ShowIconOrName&#13;2 - ShowGesture"/>
+						<hint lang="en" value="Notification before changing the page:&#13;0 - ShowImmediately&#13;1 - ShowIconOrName&#13;2 - ShowGesture"/>
+						<hint lang="de" value="Benachrichtigung vor dem Ändern der Seite:&#13;0 - ShowImmediately&#13;1 - ShowIconOrName&#13;2 - ShowGesture"/>
+					    <desc resKey="panel_pagedisplaymode"/>
+                    </feature>
+                    <feature default="1" enum="0,1,2" get="true" index="19" name="ButtonsLEDMode" set="true" type="num">
+					    <enum name="LocationLedOFF" resKey="panel_buttonsledmode_enum_locationledoff" value="0"/>
+					    <enum name="LocationLedON" resKey="panel_buttonsledmode_enum_locationledon" value="1"/>
+					    <enum name="LocationLedONforActive" resKey="panel_buttonsledmode_enum_locationledonforactive" value="2"/>
+					    <hint lang="pl" value="Lokalizacja przycisków za pomocą słabego światła LED:&#13;0 - LocationLedOFF&#13;1 - LocationLedON&#13;2 - LocationLedONforActive"/>
+					    <hint lang="en" value="Buttons location using very low LED light:&#13;0 - LocationLedOFF&#13;1 - LocationLedON&#13;2 - LocationLedONforActive"/>
+						<hint lang="de" value="Position der Tasten bei sehr schwachem LED-Licht:&#13;0 - LocationLedOFF&#13;1 - LocationLedON&#13;2 - LocationLedONforActive"/>
+                        <desc resKey="panel_buttonsledmode"/>
+                    </feature>
+                    <feature default="1" enum="0,1" get="true" index="20" name="PageControlMode" set="true" type="num">
+                        <enum name="Command" resKey="panel_pagecontrolmode_enum_command" value="0"/>
+                        <enum name="Gesture/Command" resKey="panel_pagecontrolmode_enum_gesturecommand" value="1"/>
+                        <hint lang="pl" value="Źródło, które przełącza strony:&#13;0 - Command (przełączanie za pomocą metod SetNextPage oraz SetPrevPage)&#13;1 - Gesture/Command (przełączanie za pomocą gestów oraz metod SetNextPage i SetPrevPage)"/>
+                        <hint lang="en" value="The source that switches the pages:&#13;0 - Command (switching using methods SetNextPage and SetPrevPage)&#13;1 - Gesture/Command (switching using gestures and methods SetNextPage/SetPrevPage)"/>
+						<hint lang="de" value="Die Quelle für das Wechseln der Seiten:&#13;0 - Command (Umschalten mit den Methoden SetNextPage und SetPrevPage)&#13;1 - Gesture/Command  (Umschalten mit Gesten und Methoden SetNextPage/SetPrevPage)"/>
+                        <desc resKey="panel_pagecontrolmode"/>
+                    </feature>
+                   <feature default="1" enum="0,1" get="true" index="21" name="GestureDisplayMode" set="true" type="num">
+					    <enum name="Off" resKey="panel_gesturedisplaymode_enum_off" value="0"/>
+                        <enum name="On" resKey="panel_gesturedisplaymode_enum_on" value="1"/>
+                        <hint lang="pl" value="Wyświetlanie informacji o aktualnie wykonanym geście:&#13;0 - Off&#13;1 - On"/>
+                        <hint lang="en" value="Display information about the currently performed gesture:&#13;0 - Off&#13;1 - On"/>
+						<hint lang="de" value="Informationen zur aktuell ausgeführten Geste anzeigen:&#13;0 - Off&#13;1 - On"/>
+                        <desc resKey="panel_gesturedisplaymode"/>
+                    </feature>										
+				</features>
+				<methods>
+					<method call="execute" index="0" name="SwitchOnDisplay" return="void">
+						<hint lang="pl" value="Wybudza wyświetlacz z trybu uśpienia"/>
+						<hint lang="en" value="Wakes the display from sleep mode"/>
+						<hint lang="de" value="Lässt das Display wieder hochfahren"/>
+					    <desc resKey="panel_switchondisplay"/>
+                    </method>
+					<method call="execute" index="1" name="ShowButtons" return="void">
+						<hint lang="pl" value="Zmienia tryb wyświetlania na 'buttons'. &#13;Czyści wyświetlacz i wyświetla ponownie ikony (lub tekst) dla wszystkich przycisków"/>
+						<hint lang="en" value="Changes display mode into 'buttons'. &#13; Clears the display and shows the icons (or text) for every button"/>
+						<hint lang="de" value="Änderung des Display-Modus auf „buttons”. &#13; Löscht das Display und zeigt die Symbole (oder den Text) für jede Taste an"/>
+					    <desc resKey="panel_showbuttons"/>
+                    </method>
+					<method call="execute" index="2" name="ClearScreen" return="void">
+						<hint lang="pl" value="Czyści zawartość wyświetlacza w trybie 'freedraw'"/>
+						<hint lang="en" value="Clears the display in 'freedraw' mode"/>
+						<hint lang="de" value="Leert das Display im Modus „freedraw”"/>
+					    <desc resKey="panel_clearscreen"/>
+                    </method>
+					<method call="execute" index="3" name="PrintText" return="void">
+						<param name="x" range="0-127" type="num"/>
+						<param name="y" range="0-63" type="num"/>
+						<param name="txt" range="0-15" type="str"/>
+						<param name="font size" range="1-3" type="num"/>
+						<hint lang="pl" value="Wyświetla tekst w trybie 'freedraw' z użyciem parametrów: x, y, txt, font size gdzie:&#13;- x oraz y to współrzędne wyrażone w pikselach,&#13;- txt to string,&#13;- font size to rozmiar czcionki (1:10p, 2:14p, 3:32p)"/>
+						<hint lang="en" value="Displays the text in 'freedraw' mode using parameters: x, y, txt, font size, where:&#13; - x and y are the coordinates in pixels,&#13; - txt is the text string,&#13; - font size as: 1 - 10p, 2 - 14p, 3 - 32p"/>
+						<hint lang="de" value="Zeigt den Text im Freedraw-Modus mit den folgenden Parametern an: x, y, txt, font size, wobei:&#13; - x und y sind die Koordinaten in Pixel,&#13; - txt ist der Text,&#13; - font size wie: 1 - 10p, 2 - 14p, 3 - 32p"/>
+					    <desc resKey="panel_printtext_1"/>
+                    </method>
+					<method call="execute" index="20" name="PrintFloat" return="void">
+                        <param name="x" range="0-127" type="num"/>
+                        <param name="y" range="0-63" type="num"/>
+                        <param name="number" range="8" type="num"/>
+                        <param name="precision" range="0-2" type="num"/>
+                        <param name="font size" range="1-3" type="num"/>
+                        <hint lang="pl" value="Wyświetla liczbę w  trybie 'freedraw' z użyciem parametrów: x, y, number, precision, font size, gdzie:&#13; - x oraz y to współrzędne wyrażone w pikselach,&#13; - number to liczba,&#13; - precision to ilość miejsc po przecinku,&#13; - font size to rozmiar czcionki (1:10p, 2:14p, 3:32p)"/>
+						<hint lang="en" value="Displays the float number in 'freedraw' mode using parameters: x, y, number, precision, font size, where:&#13; - x and y are the coordinates in pixels,&#13; - number is the value,&#13; - precision is the value precision,&#13; - font size as: 1 - 10p, 2 - 14p, 3 - 32p"/>
+						<hint lang="de" value="Zeigt den Float-Nummer im Freedraw-Modus mit den folgenden Parametern an: x, y, nummer, precision, font size, wobei:&#13; - x und y sind die Koordinaten in Pixel,&#13; - number ist der Wert,&#13; - precision ist die Wertgenauigkeit,&#13; - font size wie: 1 - 10p, 2 - 14p, 3 - 32p"/>
+                        <desc resKey="panel_printfloat_1"/>
+                    </method>					
+					<method call="execute" index="4" name="DrawLine" return="void">
+						<param name="x" range="0-127" type="num"/>
+						<param name="y" range="0-63" type="num"/>
+						<param name="xe" range="0-127" type="num"/>
+						<param name="ye" range="0-63" type="num"/>
+						<param name="color" range="0-1" type="num"/>
+						<hint lang="pl" value="Rysuje linię w trybie 'freedraw' z użyciem parametrów: x, y, xe, ye, color, gdzie:&#13;- x oraz y to współrzędne początkowe,&#13;- xe oraz ye to współrzędne końcowe,&#13;- color to kolor linii (0 - czarny, 1 - biały).&#13;Współrzędne początkowe oraz końcowe wyrażone są w pikselach"/>
+						<hint lang="en" value="Draws the line in 'freedraw' mode using the parameters: x, y, xe, ye, colour, where:&#13;- x and y are the initial coordinates,&#13;- xe and ye are the final coordinates,&#13;- colour is the line colour ( 0 - black, 1 - white).&#13; Coordinates are in pixels"/>
+						<hint lang="de" value="Zeichnet die Linie im Freedraw-Modus mit den folgenden Parametern: x, y, xe, ye, color, wobei:&#13;- x und y sind die Anfangskoordinaten in Pixel,&#13;- xe und ye sind die Endkoordinaten in Pixel,&#13;- color ist die Linienfarbe (0 - schwarz, 1 - weiß)."/>
+					    <desc resKey="panel_drawline_1"/>
+                    </method>
+					<method call="execute" index="30" name="DrawBox" return="void">
+						<param name="x" range="0-127" type="num"/>
+						<param name="y" range="0-63" type="num"/>
+						<param name="w" range="1-127" type="num"/>
+						<param name="h" range="1-63" type="num"/>
+						<param name="color" range="0-1" type="num"/>
+						<hint lang="pl" value="Rysuje wypełniony prostokąt w trybie 'freedraw' z użyciem parametrów: x, y, w, h, color, gdzie:&#13;- x oraz y to współrzędne początkowe,&#13;- w - szerokość, h - wysokość,&#13;- color to kolor wypełnienia (0 - czarny, 1 - biały).&#13;Współrzędne, wysokość oraz szerokość wyrażone są w pikselach"/>
+						<hint lang="en" value="Draws the filled rectangle in 'freedraw' mode using the parameters: x, y, w, h, colour, where:&#13;- x and y are the initial coordinates,&#13;- w - width, h -  height,&#13;- colour is the line colour ( 0 - black, 1 - white).&#13; Coordinates, width and height are in pixels"/>
+						<hint lang="de" value="Zeichnet das gefüllte Rechteck im Freedraw-Modus mit den folgenden Parametern: x, y, w, h, color, wobei:&#13;- x und y sind die Anfangskoordinaten in Pixel,&#13;- w - Breite, h - Höhe,&#13;- color ist die Linienfarbe (0 - schwarz, 1 - weiß)."/>
+					    <desc resKey="panel_drawbox_1"/>
+                    </method>					
+					<method call="execute" index="5" name="DrawPoint" return="void">
+						<param name="x" range="0-127" type="num"/>
+						<param name="y" range="0-63" type="num"/>
+						<param name="color" range="0-1" type="num"/>
+						<hint lang="pl" value="Rysuje punkt w trybie 'freedraw' z użyciem parametrów: x, y, color, gdzie:&#13;- x oraz y to współrzędne wyrażone w pikselach,&#13;- color to kolor punktu (0 - czarny, 1 - biały)"/>
+						<hint lang="en" value="Draws the point in 'freedraw' mode using the parameters: x, y, colour, where:&#13;- x and y are the initial coordinates,&#13;- colour is the line colour (0 - black, 1 - white)"/>
+						<hint lang="de" value="Zeichnet den Punkt im Freedraw-Modus mit den folgenden Parametern: x, y, color, wobei:&#13;- x und y sind die Anfangskoordinaten in Pixel,&#13;- color ist die Linienfarbe (0 - schwarz, 1 - weiß)."/>
+					    <desc resKey="panel_drawpoint_1"/>
+                    </method>
+					<method call="execute" index="6" name="DrawIcon" return="void">
+						<param name="x" range="0-127" type="num"/>
+						<param name="y" range="0-63" type="num"/>
+						<param name="Filename[.bmp]" range="0-9" type="str"/>
+						<hint lang="pl" value="Rysuje ikonę (bmp) w  trybie 'freedraw' z użyciem parametrów: x, y, Filename, gdzie:&#13;- x oraz y to współrzędne wyrażone w pikselach,&#13;- Filename to nazwa ikony (bez rozszerzenia)"/>
+						<hint lang="en" value="Draws the icon (bmp) in 'freedraw' mode using the parameters: x, y, Filename, where:&#13; - x and y are the coordinates in pixels,&#13; - Filename is the icon name (without extension)"/>
+						<hint lang="de" value="Zeichnet das Symbol (bmp) im Freedraw-Modus mit den folgenden Parametern: x, y, Filename, wobei:&#13; - x und y sind die Koordinaten in Pixel,&#13; - Filename ist der Symbolname (ohne Erweiterung)"/>
+					    <desc resKey="panel_drawicon_1"/>
+                    </method>
+					<method call="execute" index="7" name="DisplayContent" return="void">
+						<hint lang="pl" value="Wyświetla zawartość bufora pamięci graficznej. &#13;Zmienia tryb wyświetlania na 'freedraw'"/>
+						<hint lang="en" value="Displays the memory graphic buffer content. &#13; Changes display mode to 'freedraw'"/>
+						<hint lang="de" value="Zeigt den Inhalt des grafischen Speicherpuffers an.&#13; Ändert den Anzeigemodus in 'freedraw'."/>
+					    <desc resKey="panel_displaycontent"/>
+                    </method>
+					<method call="set" index="4" name="SetGestureIconUp" return="void">
+						<param name="Filename[.bmp]" range="0-9" type="str"/>
+						<hint lang="pl" value="Ustawia ikonę dla wykonania gestu w górę"/>
+						<hint lang="en" value="Sets the icon for gesture Up"/>
+						<hint lang="de" value="Bestimmt das Symbol von GestureIconUp"/>
+					    <desc resKey="panel_setgestureiconup"/>
+                    </method>					
+					<method call="set" index="5" name="SetGestureIconDown" return="void">
+						<param name="Filename[.bmp]" range="0-9" type="str"/>
+						<hint lang="pl" value="Ustawia ikonę dla wykonania gestu w dół"/>
+						<hint lang="en" value="Sets the icon for gesture Down"/>
+						<hint lang="de" value="Bestimmt das Symbol von GestureIconDown"/>
+					    <desc resKey="panel_setgestureicondown"/>
+                    </method>
+					<method call="set" index="6" name="SetGestureIconLeft" return="void">
+						<param name="Filename[.bmp]" range="0-9" type="str"/>
+						<hint lang="pl" value="Ustawia ikonę dla wykonania gestu w lewo"/>
+						<hint lang="en" value="Sets the icon for gesture Left"/>
+						<hint lang="de" value="Bestimmt das Symbol von GestureIconLeft"/>
+					    <desc resKey="panel_setgestureiconleft"/>
+                    </method>
+					<method call="set" index="7" name="SetGestureIconRight" return="void">
+						<param name="Filename[.bmp]" range="0-9" type="str"/>
+						<hint lang="pl" value="Ustawia ikonę dla wykonania gestu w prawo"/>
+						<hint lang="en" value="Sets the icon for gesture Right"/>
+						<hint lang="de" value="Bestimmt das Symbol von GestureIconRight"/>
+					    <desc resKey="panel_setgestureiconright"/>
+                    </method>
+					<method call="set" index="10" name="SetProximitySens" return="void">
+						<param name="ProximitySens" range="2-100" type="num"/>
+						<hint lang="pl" value="Ustawia wartość ProximitySens"/>
+						<hint lang="en" value="Sets the ProximitySens value"/>
+						<hint lang="de" value="Bestimmt den Wert von ProximitySens"/>
+					    <desc resKey="panel_setproximitysens"/>
+                    </method>
+					<method call="set" index="11" name="SetProximityTimeout" return="void">
+						<param name="ProximityTimeout" range="1000-60000" type="num"/>
+						<hint lang="pl" value="Ustawia czas w sekundach po jakim aktywuje się wygaszacz ekranu"/>
+						<hint lang="en" value="Sets the time value (in seconds) after which the screen saver will activate"/>
+						<hint lang="de" value="Stellt den Zeitwert (in Sekunden) ein, nach dem der Bildschirmschoner aktiviert wird"/>
+					    <desc resKey="panel_setproximitytimeout_1"/>
+                    </method>
+					<method call="set" index="13" name="SetBuzzerValue" return="enum">
+						<param name="BuzzerValue" range="0-1" type="num"/>
+						<enum name="On" value="1"/>
+						<enum name="Off" value="0"/>
+						<hint lang="pl" value="Sterowanie dźwiękiem (On/Off)"/>
+						<hint lang="en" value="Sound control (On/Off)"/>
+						<hint lang="de" value="Klangregelung (Ein / Aus)"/>
+					    <desc resKey="panel_setbuzzervalue_2"/>
+                    </method>
+					<method call="set" index="15" name="SetGestureMode" return="enum">
+						<param name="GestureMode" range="0-3" type="num"/>
+						<enum name="Off" value="0"/>
+						<enum name="Vertical" value="1"/> 
+						<enum name="Horizontal" value="2"/>
+						<enum name="Both" value="3"/> 
+						<hint lang="pl" value="Wybór orientacji gestów"/>
+						<hint lang="en" value="Selection of gestures orientation"/>
+						<hint lang="de" value="Auswahl der Gestenorientierung"/>
+					    <desc resKey="panel_setgesturemode"/>
+                    </method>
+					<method call="set" index="16" name="SetGestureSens" return="enum">
+						<param name="GestureSens" range="1-3" type="num"/>
+						<enum name="Low" value="1"/>
+						<enum name="Mid" value="2"/> 
+						<enum name="Hi" value="3"/> 
+						<hint lang="pl" value="Wybór czułości gestów"/>
+				        <hint lang="en" value="Selection of gestures' sensitivity"/>
+						<hint lang="de" value="Auswahl der Gestenempfindlichkeit"/>
+					    <desc resKey="panel_setgesturesens"/>
+                    </method>
+					<method call="execute" index="21" name="SetBeep" return="void">
+						<param name="Frequency" range="30-5700" type="num"/>
+						<param name="Duration" range="1-2000" type="num"/>
+						<param name="Volume" range="0-16" type="num"/>
+						<param name="Reserved" range="0-0" type="num"/>
+						<hint lang="pl" value="Generuje dźwięk o danej częstotliwości [Hz], czasie trwania [ms] i głośności"/>
+						<hint lang="en" value="Generates sound according to frequency [Hz], duration [ms] and volume"/>
+						<hint lang="de" value="Erzeugt Ton nach Frequenz [Hz], Dauer [ms] und Lautstärke"/>
+					    <desc resKey="panel_setbeep_1"/>
+                    </method>
+					<method call="execute" index="22" name="SetPageNr" return="void">
+						<param name="Nr" range="1-4" type="num"/>
+						<hint lang="pl" value="Ustawia numer wyświetlanej strony"/>
+						<hint lang="en" value="Sets the number of the page to be displayed"/>
+						<hint lang="de" value="Stellt die Nummer der anzuzeigenden Seite ein"/>
+					    <desc resKey="panel_setpagenr"/>
+                    </method>							
+					<method call="set" index="18" name="SetPageDisplayMode" range="" return="enum" type="num">
+							<param name="PageDisplayMode" type="num"/>
+						    <enum name="ShowImmediately" value="0"/>
+						    <enum name="ShowIconOrName" value="1"/>
+						    <enum name="ShowGesture" value="2"/>							
+ 							<hint lang="pl" value="Ustawia tryb wyświetlania informacji przed zmianą strony"/>	
+    						<hint lang="en" value="Sets the mode of display notification before changing the page"/>
+							<hint lang="de" value="Stellt den Modus für die Benachrichtigung vor dem Ändern der Seite ein"/>
+					    <desc resKey="panel_setpagedisplaymode"/>
+                    </method>
+					<method call="set" index="19" name="SetButtonsLEDMode" range="" return="enum" type="num">
+						    <param name="ButtonsLEDMode" type="num"/>
+					        <enum name="LocationLedOFF" value="0"/>
+					        <enum name="LocationLedON" value="1"/>
+					        <enum name="LocationLedONforActive" value="2"/>
+						    <hint lang="pl" value="Ustawia tryb lokalizacji przycisków za pomocą diod LED"/>   
+					        <hint lang="en" value="Sets the buttons location mode using very low LED light"/>
+							<hint lang="de" value="Stellt den Positionsmodus der Tasten bei sehr schwachem LED-Licht ein"/>
+                        <desc resKey="panel_setbuttonsledmode"/>
+                    </method>
+                    <method call="set" index="20" name="SetPageControlMode" range="" return="enum" type="num">
+                            <param name="PageControlMode" type="num"/>
+                            <enum name="Command" value="0"/>
+                            <enum name="Gesture/Command" value="1"/>
+                            <hint lang="pl" value="Ustawia źródło, które przełącza strony (komendy / gesty)"/>             
+                            <hint lang="en" value="Sets the source that switches the pages (commands / gestures)"/>
+							<hint lang="de" value="Stellt die Quelle ein, die die Seiten wechselt (Befehle / Gesten)"/>
+                        <desc resKey="panel_setpagecontrolmode"/>
+                    </method>
+                    <method call="set" index="21" name="SetGestureDisplayMode" range="" return="enum" type="num">
+                            <param name="GestureDisplayMode" type="num"/>
+                            <enum name="Off" value="0"/>
+                            <enum name="On" value="1"/>
+                            <hint lang="pl" value="Ustawia tryb wyświetlania informacji o wykonanym geście"/>
+                            <hint lang="en" value="Sets the mode of display information about the currently performed gesture"/>
+							<hint lang="de" value="Stellt den Anzeigemodus für Informationen zur aktuell ausgeführten Geste ein"/>
+                        <desc resKey="panel_setgesturedisplaymode"/>
+                    </method>
+                    <method call="execute" index="27" name="SetNextPage" return="void">
+                            <hint lang="pl" value="Wyświetla następną stronę"/>
+                            <hint lang="en" value="Force next page to be displayed"/>
+							<hint lang="de" value="Erzwingt die Anzeige der nächsten Seite"/>
+                        <desc resKey="panel_setnextpage"/>
+                    </method>
+                    <method call="execute" index="28" name="SetPrevPage" return="void">
+                            <hint lang="pl" value="Wyświetla poprzednią stronę"/>
+                            <hint lang="en" value="Force previous page to be displayed"/>
+							<hint lang="de" value="Erzwingt die Anzeige der vorherigen Seite"/>
+                        <desc resKey="panel_setprevpage"/>
+                    </method>
+                    <method call="execute" index="29" name="Draw" return="void">
+                            <hint lang="pl" value="Wyzwala wywołanie zdarzenia OnDraw w przypadku gdy OLED jest aktywny"/>
+                            <hint lang="en" value="Performs OnDraw event when OLED is active"/>
+							<hint lang="de" value="Führt ein OnDraw-Ereignis aus, wenn OLED aktiv ist"/>
+                        <desc resKey="panel_draw"/>
+                    </method>
+                    <method call="execute" index="31" name="StartCleaningMode" return="void">
+                            <param name="Duration" range="10-255" type="num" unit="s"/>
+                            <hint lang="pl" value="Zablokowanie działania przycisków, gestów oraz odświeżania ekranu na czas czyszczenia panelu (czas trwania blokady wyrażony w sekundach)"/>
+                            <hint lang="en" value="Disabling button functions, gestures, and screen refresh during panel cleaning (blocking time in seconds)"/>
+							<hint lang="de" value="Deaktivierung der Tastenfunktionen, Gesten und Bildschirmaktualisierung während der Reinigung des Panels (Blockierzeit in Sekunden)"/>
+                    	<desc resKey="panel_startcleaningmode"/>
+                    </method>
+		    </methods>
+				<events>
+					<event address="0" name="OnGestureUp">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku wykonania gestu w górę"/>
+						<hint lang="en" value="Event occurs after gesture Up"/>
+						<hint lang="de" value="Ereignis bei Geste „Nach oben”"/>
+					    <desc resKey="panel_ongestureup_1"/>
+                    </event>
+					<event address="1" name="OnGestureDown">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku wykonania gestu w dół"/>
+						<hint lang="en" value="Event occurs after gesture Down"/>
+						<hint lang="de" value="Ereignis bei Geste „Nach unten”"/>
+					    <desc resKey="panel_ongesturedown_1"/>
+                    </event>
+					<event address="2" name="OnGestureLeft">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku wykonania gestu w lewo"/>
+						<hint lang="en" value="Event occurs after gesture Left"/>
+						<hint lang="de" value="Ereignis bei Geste „Nach links”"/>
+					    <desc resKey="panel_ongestureleft_1"/>
+                    </event>
+					<event address="3" name="OnGestureRight">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku wykonania gestu w prawo"/>
+						<hint lang="en" value="Event occurs after gesture Right"/>
+						<hint lang="de" value="Ereignis bei Geste „Nach rechts”"/>
+					    <desc resKey="panel_ongestureright_1"/>
+                    </event>
+					<event address="4" name="OnProximityDetect">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku wykrycia zbliżającego się do wyświetlacza obiektu"/>
+						<hint lang="en" value="Event occurs after detection an object in front of the Smart Panel"/>
+						<hint lang="de" value="Ereignis bei Aufdeckung eines Objekts vor dem Touchscreen"/>
+					    <desc resKey="panel_onproximitydetect_1"/>
+                    </event>
+					<event address="5" name="OnPageChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany strony w panelu"/>
+						<hint lang="en" value="Event occurs after page change"/>
+						<hint lang="de" value="Ereignis tritt nach Seitenwechsel auf"/>
+					    <desc resKey="panel_onpagechange"/>
+                    </event>
+					<event address="6" name="OnDisplayOn">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku wybudzenia wyświetlacza"/>
+						<hint lang="en" value="Event occurs after display on"/>
+						<hint lang="de" value="Ereignis tritt nach Anzeige am auf"/>
+					    <desc resKey="panel_ondisplayon"/>
+                    </event>
+					<event address="7" name="OnDisplayOff">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku wyłączenia wyświetlacza"/>
+						<hint lang="en" value="Event occurs after display off"/>
+						<hint lang="de" value="Ereignis tritt nach dem Ausschalten der Anzeige auf"/>
+					    <desc resKey="panel_ondisplayoff"/>
+                    </event>					
+				</events>
+			</interface>
+		</object>
+		<object class="20" count="1" name="PANELSENSTEMP" type="in">
+			<interface>
+				<features>
+					<feature default="0.1" get="true" index="1" name="Threshold" range="0-1" set="true" type="num" unit="number">
+						<hint lang="pl" value="Wielkość histerezy (dokładność 0.1°C) określająca czułość, przy której następuje wygenerowanie zdarzeń: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="en" value="Hysteresis size (accuracy 0.1°C) specifying the sensitivity when the following events are generated: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="de" value="Hysterese (Genauigkeit 0.1°C) der Empfindlichkeit, bei der folgende Ereignisse generiert werden: OnValueChange, OnValueLower, OnValueRise"/>
+					    <desc resKey="panelsenstemp_threshold_3"/>
+                    </feature>
+					<feature default="1000" get="true" index="2" name="Sensitivity" range="0-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Okres (w ms), w którym próbkowane wartości są uśredniane"/>
+						<hint lang="en" value="Period (in ms) for which the sampled values are averaged"/>
+						<hint lang="de" value="Zeit (in ms), für die abgetastete Werte gemittelt werden"/>
+					    <desc resKey="panelsenstemp_sensitivity_1"/>
+                    </feature>
+					<feature default="0" get="true" index="6" name="Calibration" set="true" type="num" unit="°C">
+						<hint lang="pl" value="Kalibracja temperatury w zakresie od - 10°C do +10°C"/>
+						<hint lang="en" value="Temperature calibration factor within -10°C to +10°C"/>
+						<hint lang="de" value="Temperaturkalibrierungsfaktor innerhalb von -10°C bis +10°C"/>
+					    <desc resKey="panelsenstemp_calibration"/>
+                    </feature>					
+					<feature default="0" get="true" index="3" name="MinValue" range="0-45" set="true" type="num" unit="°C">
+						<hint lang="pl" value="Minimalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Mindestwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+					    <desc resKey="panelsenstemp_minvalue"/>
+                    </feature>
+					<feature default="45" get="true" index="4" name="MaxValue" range="0-45" set="true" type="num" unit="°C">
+						<hint lang="pl" value="Maksymalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRnge"/>
+						<hint lang="en" value="Maximum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Höchstwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+					    <desc resKey="panelsenstemp_maxvalue"/>
+                    </feature>
+					<feature default="0" enum="0,1" get="true" index="9" name="StatisticState" previousValue="true" set="true" type="num" unit="number"  >
+						<enum name="Off" resKey="sensor_statisticstate_enum_off" value="0"/>
+						<enum name="On" resKey="sensor_statisticstate_enum_on" value="1"/>
+						<hint lang="pl" value="Włącza raportowanie pomiaru do modułu statystyk"/>
+						<hint lang="en" value="Enables measurement reporting to the statistics module"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="sensor_statisticstate"/>
+                    </feature>
+					<feature get="true" index="0" name="Value" range="0-45" set="false" type="num" unit="°C">
+						<hint lang="pl" value="Wartość wejścia czujnika temperatury w zakresie od 0.0 do 45.0 (°C)"/>
+						<hint lang="en" value="Input value: for temperature sensor from 0.0 to 45.0 (°C)"/>
+						<hint lang="de" value="Eingangswert: für Temperatursensor von 0.0 bis 45.0 (°C)"/>
+					    <desc resKey="panelsenstemp_value_1"/>
+                    </feature>
+				</features>
+				<methods>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany wartości cechy Value"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+						<hint lang="de" value="Ereignis bei Änderung des Eingangsstatus"/>
+					    <desc resKey="panelsenstemp_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event resulting from exceeding the upper threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der oberen Hysterese-Schwelle"/>
+					    <desc resKey="panelsenstemp_onvaluerise"/>
+                    </event>
+					<event address="2" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event resulting from exceeding the lower threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der unteren Hysterese-Schwelle aufgerufen wird"/>
+					    <desc resKey="panelsenstemp_onvaluelower"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding the specified range (MinValue - MaxValue)"/>
+						<hint lang="de" value="Ereignis bei Überschreitung eines zulässigen (MinValue-MaxValue) Bereichs"/>
+					    <desc resKey="panelsenstemp_onoutofrange_1"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="21" count="1" name="PANELSENSLIGHT" type="in">
+			<interface>
+				<features>
+					<feature default="0.5" get="true" index="1" name="Threshold" range="0-100" set="true" type="num" unit="number">
+						<hint lang="pl" value="Wielkość histerezy (dokładność 0.1%) określająca czułość, przy której następuje wygenerowanie zdarzeń: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="en" value="Hysteresis size (accuracy 0.1%) specifying the sensitivity when the following events are generated: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="de" value="Hysterese (Genauigkeit 0,1%) der Empfindlichkeit, bei der folgende Ereignisse generiert werden: OnValueChange, OnValueLower, OnValueRise"/>
+					    <desc resKey="panelsenslight_threshold"/>
+                    </feature>
+					<feature default="500" get="true" index="2" name="Sensitivity" range="0-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Okres (w ms), w którym próbkowane wartości są uśredniane"/>
+						<hint lang="en" value="Period (in ms) for which the sampled values are averaged"/>
+						<hint lang="de" value="Zeit (in ms), für die abgetastete Werte gemittelt werden"/>
+					    <desc resKey="panelsenslight_sensitivity_2"/>
+                    </feature>
+					<feature default="0" get="true" index="3" name="MinValue" range="0-100" set="true" type="num" unit="%">
+						<hint lang="pl" value="Minimalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Mindestwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+					    <desc resKey="panelsenslight_minvalue"/>
+                    </feature>
+					<feature default="100" get="true" index="4" name="MaxValue" range="0-100" set="true" type="num" unit="%">
+						<hint lang="pl" value="Maksymalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRnge"/>
+						<hint lang="en" value="Maximum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Höchstwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+					    <desc resKey="panelsenslight_maxvalue"/>
+                    </feature>
+					<feature get="true" index="0" name="Value" range="0-100" set="false" type="num" unit="%">
+						<hint lang="pl" value="Wartość wejścia w zakresie od 0 do 100 %"/>
+						<hint lang="en" value="Input value: for light sensor from 0 to 100 %"/>
+						<hint lang="de" value="Eingangswert: für Temperatursensor von 0 bis 100 %"/>
+					    <desc resKey="panelsenslight_value"/>
+                    </feature>
+
+				</features>
+				<methods>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany wartości cechy Value"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+						<hint lang="de" value="Ereignis bei Änderung des Eingangsstatus"/>
+					    <desc resKey="panelsenslight_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event resulting from exceeding the upper threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der oberen Hysterese-Schwelle"/>
+					    <desc resKey="panelsenslight_onvaluerise"/>
+                    </event>
+					<event address="2" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event resulting from exceeding the lower threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der unteren Hysterese-Schwelle aufgerufen wird"/>
+					    <desc resKey="panelsenslight_onvaluelower"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding the specified range (MinValue - MaxValue)"/>
+						<hint lang="de" value="Ereignis bei Überschreitung eines zulässigen (MinValue-MaxValue) Bereichs"/>
+					    <desc resKey="panelsenslight_onoutofrange_1"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="19" count="4" name="PANEL_PAGE" type="in">
+			<interface>
+				<features>			
+					<feature default="0" enum="0,1,2,3" get="true" index="0" name="PageType" set="true" type="num">
+						<enum name="Inactive" resKey="panel_page_pagetype_enum_inactive" value="0"/>
+						<enum name="Buttons" resKey="panel_page_pagetype_enum_buttons" value="1"/>
+						<enum name="Thermostats" resKey="panel_page_pagetype_enum_thermostats" value="2"/>
+						<enum name="FreeDraw" resKey="panel_page_pagetype_enum_freedraw" value="3"/>
+						<hint lang="pl" value="Typ strony wyświetlanej na Smart Panelu:&#13;0 - Inactive&#13;1 - Buttons&#13;2 - Thermostats&#13;3 - FreeDraw"/>
+						<hint lang="en" value="The type of page displayed on the Smart Panel:&#13;0 - Inactive&#13;1 - Buttons&#13;2 - Thermostats&#13;3 - FreeDraw"/>
+						<hint lang="de" value="Der Seitentyp im Smart Panel:&#13;0 - Inactive&#13;1 - Buttons&#13;2 - Thermostats&#13;3 - FreeDraw"/>
+					    <desc resKey="panel_page_pagetype"/>
+                    </feature>
+					<feature default="" get="true" index="1" name="PageName" range="0-15" set="true" type="str" unit="-">
+						<hint lang="pl" value="Nazwa Strony/Nazwa ikony wyświetlana na Smart Panelu. Aktywne w przypadku ustawienia cechy PageDisplayMode na wartość ShowIconOrName w obiekcie PANEL"/>
+						<hint lang="en" value="Page Name/Icon Name of page displayed on the Smart Panel. Enabled when the PageDisplayMode property equals ShowIconOrName in the PANEL object"/>
+						<hint lang="de" value="Seitenname/Symbol Name der Seite, die im Smart Panel angezeigt ist. Es ist aktiviert, wenn die Eigenschaft PageDisplayMode gleich ShowIconOrName im PANEL-Objekt ist"/>
+						    <desc resKey="panel_page_pagename_2"/>
+                    </feature>
+					<feature default="" get="true" index="3" name="Object_1_Id" range="0-23" set="true" type="str" unit="-">
+						<hint lang="pl" value="ID obiektu termostatu lub numer przycisku w zależności od typu strony np.\:\nDla strony typu 'Thermostats'\:\n- w przypadku termostatu na lokalnym CLU\: THE1325\n- w przypadku termostatu na zdalnym CLU\: CLU220000001->THE4321\n- w przypadku obiektu CoolMaster\: CLU521000001->COO6080\nDla strony typu 'Buttons/FreeDraw' należy wpisać numer przycisku (1-16)"/>
+						<hint lang="en" value="ID of the thermostat object (e.g.\: on the local CLU\: THE1325, on the remote CLU\: CLU220000001->THE4321, for the CoolMaster object\: CLU521000001->COO6080).\nIn the case of the PageType feature set to Buttons/FreeDraw mode, enter the number of the button (1-16)"/>
+						<hint lang="de" value="ID des Thermostatobjekts (z. B. auf der lokalen CLU\: THE1325, auf der Remote-CLU\: CLU220000001-> THE4321, für das CoolMaster-Objekt\: CLU521000001->COO6080).\nGeben Sie bei der Funktion PageType, die auf den Modus Buttons/FreeDraw eingestellt ist, die Nummer der Schaltfläche ein (1-16)"/>
+					    <desc resKey="panel_page_object_1_id_1"/>
+                    </feature>
+					<feature default="" get="true" index="4" name="Object_1_Name" range="0-15" set="true" type="str" unit="-">
+						<hint lang="pl" value="Nazwa termostatu wyświetlana na stronie Smart Panelu (brak nazwy - termostat nieaktywny).&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw cecha Object_1_Name pozostaje pusta"/>
+						<hint lang="en" value="Name of the thermostat displayed on the Smart Panel page (no name - thermostat inactive).&#13;In the case of the PageType feature set to Buttons/FreeDraw mode, the property Object_1_Name should be empty"/>
+						<hint lang="de" value="Name des auf der Smart Panel-Seite angezeigten Thermostats (kein Name - Thermostat inaktiv).&#13;Im Fall des PageType-Feature-Sets im Buttons/FreeDraw-Modus sollte die Eigenschaft Object_1_Name leer sein"/>
+					    <desc resKey="panel_page_object_1_name_1"/>
+                    </feature>  
+					<feature default="" get="true" index="15" name="Object_1_CustomIcon" range="0-9" set="true" type="str">
+						<hint lang="pl" value="Ustawia nazwę ikony użytkownika dla termostatu obsługiwanego przez strony Smart Panelu.&#13;Brak nazwy ikony powoduje wyświetlenie domyślnej ikony 'chmode.bmp' lub napisu 'mode' w przypadku braku domyślnej ikony.&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw cecha Object_1_CustomIcon pozostaje pusta.&#13;Ustawienie ikony szerszej niż 64 piksele i/lub wyższej niż 32 piksele może spowodować nadpisanie części lub całego UI termostatu"/>
+						<hint lang="en" value="Sets the custom icon name of the thermostat managed by the Smart Panel pages.&#13;An empty property changes the custom icon to the default 'chmode.bmp' or displays the label 'mode' when missing the default icon's BMP file.&#13;For page type set to Buttons or FreeDraw, the property Object_1_CustomIcon remains empty.&#13;Setting an icon wider than 64 pixels and/or higher than 32 pixels may overwrite a part or all of the thermostat's UI"/>
+						<hint lang="de" value="Stellt den benutzerdefinierten Symbolnamen des Thermostats ein, der von den Smart Panel-Seiten verwaltet ist.&#13;Eine leere Eigenschaft ändert das benutzerdefinierte Symbol in die Standardeinstellung 'chmod.bmp' oder zeigt die Bezeichnung 'Modus' an, wenn die BMP-Datei des Standardsymbols fehlt.&#13;Für den auf Buttons oder FreeDraw festgelegten Seitentyp bleibt die Eigenschaft Object_1_CustomIcon leer"/>
+					    <desc resKey="panel_page_object_1_customicon"/>
+                    </feature>  					
+					<feature default="0" get="true" index="11" name="DistributedLogicGroup_1" range="0-10000" set="true" type="num">
+						<hint lang="pl" value="Grupa Distributed Logic - grupa broadcastowa dla rozproszonej logiki"/>
+						<hint lang="en" value="Distributed Logic group - broadcast group for distributed logic"/>
+						<hint lang="de" value="Distributed Logic gruppe - Rundfunkgruppe für distributed logic"/>
+					    <desc resKey="panel_page_distributedlogicgroup_1"/>
+                    </feature>
+					<feature default="" get="true" index="5" name="Object_2_Id" range="0-23" set="true" type="str" unit="-">
+						<hint lang="pl" value="ID obiektu termostatu lub numer przycisku w zależności od typu strony np.\:\nDla strony typu 'Thermostats'\:\n- w przypadku termostatu na lokalnym CLU\: THE1325\n- w przypadku termostatu na zdalnym CLU\: CLU220000001->THE4321\n- w przypadku obiektu CoolMaster\: CLU521000001->COO6080\nDla strony typu 'Buttons/FreeDraw' należy wpisać numer przycisku (1-16)"/>
+						<hint lang="en" value="ID of the thermostat object (e.g.\: on the local CLU\: THE1325, on the remote CLU\: CLU220000001->THE4321, for the CoolMaster object\: CLU521000001->COO6080).\nIn the case of the PageType feature set to Buttons/FreeDraw mode, enter the number of the button (1-16)"/>
+						<hint lang="de" value="ID des Thermostatobjekts (z. B. auf der lokalen CLU\: THE1325, auf der Remote-CLU\: CLU220000001-> THE4321, für das CoolMaster-Objekt\: CLU521000001->COO6080).\nGeben Sie bei der Funktion PageType, die auf den Modus Buttons/FreeDraw eingestellt ist, die Nummer der Schaltfläche ein (1-16)"/>
+					    <desc resKey="panel_page_object_2_id_1"/>
+                    </feature>
+					<feature default="" get="true" index="6" name="Object_2_Name" range="0-15" set="true" type="str" unit="-">
+						<hint lang="pl" value="Nazwa termostatu wyświetlana na stronie Smart Panelu (brak nazwy - termostat nieaktywny).&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw cecha Object_2_Name pozostaje pusta"/>
+						<hint lang="en" value="Name of the thermostat displayed on the Smart Panel page (no name - thermostat inactive).&#13;In the case of the PageType feature set to Buttons/FreeDraw mode, the property Object_2_Name should be empty"/>
+						<hint lang="de" value="Name des auf der Smart Panel-Seite angezeigten Thermostats (kein Name - Thermostat inaktiv).&#13;Im Fall des PageType-Feature-Sets im Buttons/FreeDraw-Modus sollte die Eigenschaft Object_2_Name leer sein"/>
+					    <desc resKey="panel_page_object_2_name_1"/>
+                    </feature>  
+					<feature default="" get="true" index="16" name="Object_2_CustomIcon" range="0-9" set="true" type="str">
+						<hint lang="pl" value="Ustawia nazwę ikony użytkownika dla termostatu obsługiwanego przez strony Smart Panelu.&#13;Brak nazwy ikony powoduje wyświetlenie domyślnej ikony 'chmode.bmp' lub napisu 'mode' w przypadku braku domyślnej ikony.&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw cecha Object_2_CustomIcon pozostaje pusta.&#13;Ustawienie ikony szerszej niż 64 piksele i/lub wyższej niż 32 piksele może spowodować nadpisanie części lub całego UI termostatu"/>
+						<hint lang="en" value="Sets the custom icon name of the thermostat managed by the Smart Panel pages.&#13;An empty property changes the custom icon to the default 'chmode.bmp' or displays the label 'mode' when missing the default icon's BMP file.&#13;For page type set to Buttons or FreeDraw, the property Object_2_CustomIcon remains empty.&#13;Setting an icon wider than 64 pixels and/or higher than 32 pixels may overwrite a part or all of the thermostat's UI"/>
+						<hint lang="de" value="Stellt den benutzerdefinierten Symbolnamen des Thermostats ein, der von den Smart Panel-Seiten verwaltet ist.&#13;Eine leere Eigenschaft ändert das benutzerdefinierte Symbol in die Standardeinstellung 'chmod.bmp' oder zeigt die Bezeichnung 'Modus' an, wenn die BMP-Datei des Standardsymbols fehlt.&#13;Für den auf Buttons oder FreeDraw festgelegten Seitentyp bleibt die Eigenschaft Object_2_CustomIcon leer"/>
+					    <desc resKey="panel_page_object_2_customicon"/>
+                    </feature>  
+					<feature default="0" get="true" index="12" name="DistributedLogicGroup_2" range="0-10000" set="true" type="num">
+						<hint lang="pl" value="Grupa Distributed Logic - grupa broadcastowa dla rozproszonej logiki"/>
+						<hint lang="en" value="Distributed Logic group - broadcast group for distributed logic"/>
+						<hint lang="de" value="Distributed Logic gruppe - Rundfunkgruppe für distributed logic"/>
+					    <desc resKey="panel_page_distributedlogicgroup_2"/>
+                    </feature>
+					<feature default="" get="true" index="7" name="Object_3_Id" range="0-23" set="true" type="str" unit="-">
+						<hint lang="pl" value="ID obiektu termostatu lub numer przycisku w zależności od typu strony np.\:\nDla strony typu 'Thermostats'\:\n- w przypadku termostatu na lokalnym CLU\: THE1325\n- w przypadku termostatu na zdalnym CLU\: CLU220000001->THE4321\n- w przypadku obiektu CoolMaster\: CLU521000001->COO6080\nDla strony typu 'Buttons/FreeDraw' należy wpisać numer przycisku (1-16)"/>
+						<hint lang="en" value="ID of the thermostat object (e.g.\: on the local CLU\: THE1325, on the remote CLU\: CLU220000001->THE4321, for the CoolMaster object\: CLU521000001->COO6080).\nIn the case of the PageType feature set to Buttons/FreeDraw mode, enter the number of the button (1-16)"/>
+						<hint lang="de" value="ID des Thermostatobjekts (z. B. auf der lokalen CLU\: THE1325, auf der Remote-CLU\: CLU220000001-> THE4321, für das CoolMaster-Objekt\: CLU521000001->COO6080).\nGeben Sie bei der Funktion PageType, die auf den Modus Buttons/FreeDraw eingestellt ist, die Nummer der Schaltfläche ein (1-16)"/>
+					    <desc resKey="panel_page_object_3_id_1"/>
+                    </feature>
+					<feature default="" get="true" index="8" name="Object_3_Name" range="0-15" set="true" type="str" unit="-">
+						<hint lang="pl" value="Nazwa termostatu wyświetlana na stronie Smart Panelu (brak nazwy - termostat nieaktywny).&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw cecha Object_3_Name pozostaje pusta"/>
+						<hint lang="en" value="Name of the thermostat displayed on the Smart Panel page (no name - thermostat inactive).&#13;In the case of the PageType feature set to Buttons/FreeDraw mode, the property Object_3_Name should be empty"/>
+						<hint lang="de" value="Name des auf der Smart Panel-Seite angezeigten Thermostats (kein Name - Thermostat inaktiv).&#13;Im Fall des PageType-Feature-Sets im Buttons/FreeDraw-Modus sollte die Eigenschaft Object_3_Name leer sein"/>
+					    <desc resKey="panel_page_object_3_name_1"/>
+                    </feature>  
+					<feature default="" get="true" index="17" name="Object_3_CustomIcon" range="0-9" set="true" type="str">
+						<hint lang="pl" value="Ustawia nazwę ikony użytkownika dla termostatu obsługiwanego przez strony Smart Panelu.&#13;Brak nazwy ikony powoduje wyświetlenie domyślnej ikony 'chmode.bmp' lub napisu 'mode' w przypadku braku domyślnej ikony.&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw cecha Object_3_CustomIcon pozostaje pusta.&#13;Ustawienie ikony szerszej niż 64 piksele i/lub wyższej niż 32 piksele może spowodować nadpisanie części lub całego UI termostatu"/>
+						<hint lang="en" value="Sets the custom icon name of the thermostat managed by the Smart Panel pages.&#13;An empty property changes the custom icon to the default 'chmode.bmp' or displays the label 'mode' when missing the default icon's BMP file.&#13;For page type set to Buttons or FreeDraw, the property Object_3_CustomIcon remains empty.&#13;Setting an icon wider than 64 pixels and/or higher than 32 pixels may overwrite a part or all of the thermostat's UI"/>
+						<hint lang="de" value="Stellt den benutzerdefinierten Symbolnamen des Thermostats ein, der von den Smart Panel-Seiten verwaltet ist.&#13;Eine leere Eigenschaft ändert das benutzerdefinierte Symbol in die Standardeinstellung 'chmod.bmp' oder zeigt die Bezeichnung 'Modus' an, wenn die BMP-Datei des Standardsymbols fehlt.&#13;Für den auf Buttons oder FreeDraw festgelegten Seitentyp bleibt die Eigenschaft Object_3_CustomIcon leer"/>
+					    <desc resKey="panel_page_object_3_customicon"/>
+                    </feature>  
+					<feature default="0" get="true" index="13" name="DistributedLogicGroup_3" range="0-10000" set="true" type="num">
+						<hint lang="pl" value="Grupa Distributed Logic - grupa broadcastowa dla rozproszonej logiki"/>
+						<hint lang="en" value="Distributed Logic group - broadcast group for distributed logic"/>
+						<hint lang="de" value="Distributed Logic gruppe - Rundfunkgruppe für distributed logic"/>
+					    <desc resKey="panel_page_distributedlogicgroup_3"/>
+                    </feature>
+					<feature default="" get="true" index="9" name="Object_4_Id" range="0-23" set="true" type="str" unit="-">
+						<hint lang="pl" value="ID obiektu termostatu lub numer przycisku w zależności od typu strony np.\:\nDla strony typu 'Thermostats'\:\n- w przypadku termostatu na lokalnym CLU\: THE1325\n- w przypadku termostatu na zdalnym CLU\: CLU220000001->THE4321\n- w przypadku obiektu CoolMaster\: CLU521000001->COO6080\nDla strony typu 'Buttons/FreeDraw' należy wpisać numer przycisku (1-16)"/>
+						<hint lang="en" value="ID of the thermostat object (e.g.\: on the local CLU\: THE1325, on the remote CLU\: CLU220000001->THE4321, for the CoolMaster object\: CLU521000001->COO6080).\nIn the case of the PageType feature set to Buttons/FreeDraw mode, enter the number of the button (1-16)"/>
+						<hint lang="de" value="ID des Thermostatobjekts (z. B. auf der lokalen CLU\: THE1325, auf der Remote-CLU\: CLU220000001-> THE4321, für das CoolMaster-Objekt\: CLU521000001->COO6080).\nGeben Sie bei der Funktion PageType, die auf den Modus Buttons/FreeDraw eingestellt ist, die Nummer der Schaltfläche ein (1-16)"/>
+					    <desc resKey="panel_page_object_4_id_1"/>
+                    </feature>
+					<feature default="" get="true" index="10" name="Object_4_Name" range="0-15" set="true" type="str" unit="-">
+						<hint lang="pl" value="Nazwa termostatu wyświetlana na stronie Smart Panelu (brak nazwy - termostat nieaktywny).&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw cecha Object_4_Name pozostaje pusta"/>
+						<hint lang="en" value="Name of the thermostat displayed on the Smart Panel page (no name - thermostat inactive).&#13;In the case of the PageType feature set to Buttons/FreeDraw mode, the property Object_4_Name should be empty"/>
+						<hint lang="de" value="Name des auf der Smart Panel-Seite angezeigten Thermostats (kein Name - Thermostat inaktiv).&#13;Im Fall des PageType-Feature-Sets im Buttons/FreeDraw-Modus sollte die Eigenschaft Object_4_Name leer sein"/>
+					    <desc resKey="panel_page_object_4_name_1"/>
+                    </feature>  
+					<feature default="" get="true" index="18" name="Object_4_CustomIcon" range="0-9" set="true" type="str">
+						<hint lang="pl" value="Ustawia nazwę ikony użytkownika dla termostatu obsługiwanego przez strony Smart Panelu.&#13;Brak nazwy ikony powoduje wyświetlenie domyślnej ikony 'chmode.bmp' lub napisu 'mode' w przypadku braku domyślnej ikony.&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw cecha Object_4_CustomIcon pozostaje pusta.&#13;Ustawienie ikony szerszej niż 64 piksele i/lub wyższej niż 32 piksele może spowodować nadpisanie części lub całego UI termostatu"/>
+						<hint lang="en" value="Sets the custom icon name of the thermostat managed by the Smart Panel pages.&#13;An empty property changes the custom icon to the default 'chmode.bmp' or displays the label 'mode' when missing the default icon's BMP file.&#13;For page type set to Buttons or FreeDraw, the property Object_4_CustomIcon remains empty.&#13;Setting an icon wider than 64 pixels and/or higher than 32 pixels may overwrite a part or all of the thermostat's UI"/>
+						<hint lang="de" value="Stellt den benutzerdefinierten Symbolnamen des Thermostats ein, der von den Smart Panel-Seiten verwaltet ist.&#13;Eine leere Eigenschaft ändert das benutzerdefinierte Symbol in die Standardeinstellung 'chmod.bmp' oder zeigt die Bezeichnung 'Modus' an, wenn die BMP-Datei des Standardsymbols fehlt.&#13;Für den auf Buttons oder FreeDraw festgelegten Seitentyp bleibt die Eigenschaft Object_4_CustomIcon leer"/>
+					    <desc resKey="panel_page_object_4_customicon"/>
+                    </feature>
+					<feature default="0" get="true" index="14" name="DistributedLogicGroup_4" range="0-10000" set="true" type="num">
+						<hint lang="pl" value="Grupa Distributed Logic - grupa broadcastowa dla rozproszonej logiki"/>
+						<hint lang="en" value="Distributed Logic group - broadcast group for distributed logic"/>
+						<hint lang="de" value="Distributed Logic gruppe - Rundfunkgruppe für distributed logic"/>
+					    <desc resKey="panel_page_distributedlogicgroup_4"/>
+                    </feature>
+					
+				</features>
+				<methods>
+					<method call="set" index="0" name="SetPageType" range="" return="enum" type="num">
+							<param name="PageType" type="num"/>
+			    			<enum name="Inactive" value="0"/>
+				    		<enum name="Buttons" value="1"/>
+					    	<enum name="Thermostates" value="2"/>
+						    <enum name="FreeDraw" value="3"/>
+							<hint lang="pl" value="Ustawia typ strony wyświetlanej na Smart Panelu"/>
+							<hint lang="en" value="The type of page displayed on the Smart Panel"/>
+							<hint lang="de" value="Der Seitentyp im Smart Panel angezeigt"/>
+							
+					    <desc resKey="panel_page_setpagetype"/>
+                    </method>
+					
+					<method call="set" index="1" name="SetPageName" range="0-15" return="void" type="str">
+						<param name="PageName" type="str"/>
+						<hint lang="pl" value="Ustawia nazwę strony/nazwę ikony wyświetlanej na Smart Panelu. Aktywne w przypadku ustawienia cechy PageDisplayMode na wartość ShowIconOrName"/>
+						<hint lang="en" value="Sets the page name/icon name of page displayed on the Smart Panel. Enabled when the PageDisplayMode property equals ShowIconOrName in the PANEL object"/>
+						<hint lang="de" value="Stellt den Seitennamen/Symbolnamen der Seite ein, die im Smart Panel angezeigt wird. Aktiviert, wenn die PageDisplayMode-Eigenschaft ShowIconOrName im PANEL-Objekt entspricht"/>
+					    <desc resKey="panel_page_setpagename"/>
+                    </method>
+					
+					<method call="set" index="3" name="SetObject_1_Id" return="void">
+						<param name="Object_1_Id" range="0-23" type="num"/>
+						<hint lang="pl" value="Ustawia ID obiektu termostatu lub numer przycisku w zależności od typu strony np.:&#13;Dla strony typu 'Thermostats':&#13;- w przypadku termostatu na lokalnym CLU: THE1325&#13;- w przypadku termostatu na zdalnym CLU: CLU220000001-&gt;THE4321&#13;- w przypadku obiektu CoolMaster\: CLU521000001->COO6080&#13;Dla strony typu 'Buttons/FreeDraw' należy wpisać numer przycisku (1-16)"/>
+						<hint lang="en" value="Sets the ID of the thermostat object (e.g.: on the local CLU: THE1325, on the remote CLU: CLU220000001-&gt;THE4321, for the CoolMaster object\: CLU521000001-&gt;COO6080).&#13;In the case of the PageType feature set to Buttons/FreeDraw mode, enter the number of the button (1-16)"/>
+						<hint lang="de" value="Stellt die ID des Thermostatobjekts ein (z. B. auf der lokalen CLU: THE1325, auf der Remote-CLU: CLU220000001-&gt;THE4321, für das CoolMaster-Objekt\: CLU521000001-&gt;COO6080).&#13;Geben Sie bei der Funktion PageType, die auf den Modus Buttons/FreeDraw eingestellt ist, die Nummer der Schaltfläche ein (1-16)"/>
+					    <desc resKey="panel_page_setobject_1_id_1"/>
+                    </method>
+					<method call="set" index="4" name="SetObject_1_Name" range="0-15" return="void" type="str">
+						<param name="Object_1_Name" range="0-15" type="num"/>
+						<hint lang="pl" value="Ustawia nazwę termostatu wyświetlaną na stronie Smart Panelu (brak nazwy - termostat nieaktywny).&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw parametr funkcji pozostaje pusty"/>
+						<hint lang="en" value="Sets the name of the thermostat displayed on the Smart Panel page (no name - thermostat inactive).&#13;In the case of the PageType feature set to Buttons/FreeDraw mode, the parameter of method should be empty"/>
+						<hint lang="de" value="Stellt den Namen des Thermostats ein, der auf der Smart Panel-Seite angezeigt wird (kein Name - Thermostat inaktiv).&#13;Im Fall der PageType-Funktion, die auf den Buttons/FreeDraw-Modus eingestellt ist, sollte der Parameter der Methode leer sein"/>
+					    <desc resKey="panel_page_setobject_1_name"/>
+                    </method>
+					<method call="set" index="15" name="SetObject_1_CustomIcon" range="0-9" return="void" type="str">
+						<param name="Object_1_CustomIcon" range="0-9" type="num"/>
+						<hint lang="pl" value="Ustawia nazwę ikony użytkownika dla termostatu obsługiwanego przez strony Smart Panelu.&#13;Wywołanie funkcji bez nazwy ikony powoduje wyświetlenie domyślnej ikony 'chmode.bmp' lub napisu 'mode' w przypadku braku pliku BMP domyślnej ikony.&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw parametr funkcji pozostaje pusty.&#13;Ustawienie ikony szerszej niż 64 piksele i/lub wyższej niż 32 piksele może spowodować nadpisanie części lub całego UI termostatu"/>
+						<hint lang="en" value="Sets the custom icon name of the thermostat managed by the Smart Panel pages.&#13;Calling the function with an empty parameter changes the custom icon to the default 'chmode.bmp' or displays the label 'mode' when missing the default icon's BMP file.&#13;For page type set to Buttons or FreeDraw, the function parameter remains empty.&#13;Setting an icon wider than 64 pixels and/or higher than 32 pixels may overwrite a part or all of the thermostat's UI"/>
+						<hint lang="de" value="Stellt den benutzerdefinierten Symbolnamen des Thermostats ein, der von den Smart Panel-Seiten verwaltet wird.&#13;Durch Aufrufen der Funktion mit einem leeren Parameter wird das benutzerdefinierte Symbol in die Standardeinstellung 'chmod.bmp' geändert oder die Bezeichnung 'mode' angezeigt, wenn die BMP-Datei mit den Standardsymbolen fehlt.&#13;Bei einem Seitentyp, der auf Schaltflächen oder FreeDraw festgelegt ist, bleibt der Funktionsparameter leer&#13;Das Einstellen eines Symbols, das breiter als 64 Pixel und/oder höher als 32 Pixel ist, kann einen Teil oder die gesamte Benutzeroberfläche des Thermostats überschreiben"/>
+					    <desc resKey="panel_page_setobject_1_customicon"/>
+                    </method>					
+					<method call="set" index="5" name="SetObject_2_Id" return="void">
+						<param name="Object_2_Id" range="0-23" type="num"/>
+						<hint lang="pl" value="Ustawia ID obiektu termostatu lub numer przycisku w zależności od typu strony np.:&#13;Dla strony typu 'Thermostats':&#13;- w przypadku termostatu na lokalnym CLU: THE1325&#13;- w przypadku termostatu na zdalnym CLU: CLU220000001-&gt;THE4321&#13;- w przypadku obiektu CoolMaster\: CLU521000001->COO6080&#13;Dla strony typu 'Buttons/FreeDraw' należy wpisać numer przycisku (1-16)"/>
+						<hint lang="en" value="Sets the ID of the thermostat object (e.g.: on the local CLU: THE1325, on the remote CLU: CLU220000001-&gt;THE4321, for the CoolMaster object\: CLU521000001-&gt;COO6080).&#13;In the case of the PageType feature set to Buttons/FreeDraw mode, enter the number of the button (1-16)"/>
+						<hint lang="de" value="Stellt die ID des Thermostatobjekts ein (z. B. auf der lokalen CLU: THE1325, auf der Remote-CLU: CLU220000001-&gt;THE4321, für das CoolMaster-Objekt\: CLU521000001-&gt;COO6080).&#13;Geben Sie bei der Funktion PageType, die auf den Modus Buttons/FreeDraw eingestellt ist, die Nummer der Schaltfläche ein (1-16)"/>
+					    <desc resKey="panel_page_setobject_2_id_1"/>
+                    </method>
+					<method call="set" index="6" name="SetObject_2_Name" range="0-15" return="void" type="str">
+						<param name="Object_2_Name" range="0-15" type="num"/>
+						<hint lang="pl" value="Ustawia nazwę termostatu wyświetlaną na stronie Smart Panelu (brak nazwy - termostat nieaktywny).&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw parametr funkcji pozostaje pusty"/>
+						<hint lang="en" value="Sets the name of the thermostat displayed on the Smart Panel page (no name - thermostat inactive).&#13;In the case of the PageType feature set to Buttons/FreeDraw mode, the parameter of method should be empty"/>
+						<hint lang="de" value="Stellt den Namen des Thermostats ein, der auf der Smart Panel-Seite angezeigt wird (kein Name - Thermostat inaktiv).&#13;Im Fall der PageType-Funktion, die auf den Buttons/FreeDraw-Modus eingestellt ist, sollte der Parameter der Methode leer sein"/>
+					    <desc resKey="panel_page_setobject_2_name"/>
+                    </method>
+					<method call="set" index="16" name="SetObject_2_CustomIcon" range="0-9" return="void" type="str">
+						<param name="Object_2_CustomIcon" range="0-9" type="num"/>
+						<hint lang="pl" value="Ustawia nazwę ikony użytkownika dla termostatu obsługiwanego przez strony Smart Panelu.&#13;Wywołanie funkcji bez nazwy ikony powoduje wyświetlenie domyślnej ikony 'chmode.bmp' lub napisu 'mode' w przypadku braku domyślnej ikony.&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw parametr funkcji pozostaje pusty.&#13;Ustawienie ikony szerszej niż 64 piksele i/lub wyższej niż 32 piksele może spowodować nadpisanie części lub całego UI termostatu"/>
+						<hint lang="en" value="Sets the custom icon name of the thermostat managed by the Smart Panel pages.&#13;Calling the function with an empty parameter changes the custom icon to the default 'chmode.bmp' or displays the label 'mode' when missing the default icon's BMP file.&#13;For page type set to Buttons or FreeDraw, the function parameter remains empty.&#13;Setting an icon wider than 64 pixels and/or higher than 32 pixels may overwrite a part or all of the thermostat's UI"/>
+						<hint lang="de" value="Stellt den benutzerdefinierten Symbolnamen des Thermostats ein, der von den Smart Panel-Seiten verwaltet wird.&#13;Durch Aufrufen der Funktion mit einem leeren Parameter wird das benutzerdefinierte Symbol in die Standardeinstellung 'chmod.bmp' geändert oder die Bezeichnung 'mode' angezeigt, wenn die BMP-Datei mit den Standardsymbolen fehlt.&#13;Bei einem Seitentyp, der auf Schaltflächen oder FreeDraw festgelegt ist, bleibt der Funktionsparameter leer&#13;Das Einstellen eines Symbols, das breiter als 64 Pixel und/oder höher als 32 Pixel ist, kann einen Teil oder die gesamte Benutzeroberfläche des Thermostats überschreiben"/>
+					    <desc resKey="panel_page_setobject_2_customicon"/>
+                    </method>					
+					<method call="set" index="7" name="SetObject_3_Id" return="void">
+						<param name="Object_3_Id" range="0-23" type="num"/>
+						<hint lang="pl" value="Ustawia ID obiektu termostatu lub numer przycisku w zależności od typu strony np.:&#13;Dla strony typu 'Thermostats':&#13;- w przypadku termostatu na lokalnym CLU: THE1325&#13;- w przypadku termostatu na zdalnym CLU: CLU220000001-&gt;THE4321&#13;- w przypadku obiektu CoolMaster\: CLU521000001->COO6080&#13;Dla strony typu 'Buttons/FreeDraw' należy wpisać numer przycisku (1-16)"/>
+						<hint lang="en" value="Sets the ID of the thermostat object (e.g.: on the local CLU: THE1325, on the remote CLU: CLU220000001-&gt;THE4321, for the CoolMaster object\: CLU521000001-&gt;COO6080).&#13;In the case of the PageType feature set to Buttons/FreeDraw mode, enter the number of the button (1-16)"/>
+						<hint lang="de" value="Stellt die ID des Thermostatobjekts ein (z. B. auf der lokalen CLU: THE1325, auf der Remote-CLU: CLU220000001-&gt;THE4321, für das CoolMaster-Objekt\: CLU521000001-&gt;COO6080).&#13;Geben Sie bei der Funktion PageType, die auf den Modus Buttons/FreeDraw eingestellt ist, die Nummer der Schaltfläche ein (1-16)"/>
+					    <desc resKey="panel_page_setobject_3_id_1"/>
+                    </method>
+					<method call="set" index="8" name="SetObject_3_Name" range="0-15" return="void" type="str">
+						<param name="Object_3_Name" range="0-15" type="num"/>
+						<hint lang="pl" value="Ustawia nazwę termostatu wyświetlaną na stronie Smart Panelu (brak nazwy - termostat nieaktywny).&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw parametr funkcji pozostaje pusty"/>
+						<hint lang="en" value="Sets the name of the thermostat displayed on the Smart Panel page (no name - thermostat inactive).&#13;In the case of the PageType feature set to Buttons/FreeDraw mode, the parameter of method should be empty"/>
+						<hint lang="de" value="Stellt den Namen des Thermostats ein, der auf der Smart Panel-Seite angezeigt wird (kein Name - Thermostat inaktiv).&#13;Im Fall der PageType-Funktion, die auf den Buttons/FreeDraw-Modus eingestellt ist, sollte der Parameter der Methode leer sein"/>
+					    <desc resKey="panel_page_setobject_3_name"/>
+                    </method>
+					<method call="set" index="17" name="SetObject_3_CustomIcon" range="0-9" return="void" type="str">
+						<param name="Object_3_CustomIcon" range="0-9" type="num"/>
+						<hint lang="pl" value="Ustawia nazwę ikony użytkownika dla termostatu obsługiwanego przez strony Smart Panelu.&#13;Wywołanie funkcji bez nazwy ikony powoduje wyświetlenie domyślnej ikony 'chmode.bmp' lub napisu 'mode' w przypadku braku pliku BMP domyślnej ikony.&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw parametr funkcji pozostaje pusty.&#13;Ustawienie ikony szerszej niż 64 piksele i/lub wyższej niż 32 piksele może spowodować nadpisanie części lub całego UI termostatu"/>
+						<hint lang="en" value="Sets the custom icon name of the thermostat managed by the Smart Panel pages.&#13;Calling the function with an empty parameter changes the custom icon to the default'chmode.bmp' or displays the label 'mode' when missing the default icon's BMP file.&#13;For page type set to Buttons or FreeDraw, the function parameter remains empty.&#13;Setting an icon wider than 64 pixels and/or higher than 32 pixels may overwrite a part or all of the thermostat's UI"/>
+						<hint lang="de" value="Stellt den benutzerdefinierten Symbolnamen des Thermostats ein, der von den Smart Panel-Seiten verwaltet wird.&#13;Durch Aufrufen der Funktion mit einem leeren Parameter wird das benutzerdefinierte Symbol in die Standardeinstellung 'chmod.bmp' geändert oder die Bezeichnung 'mode' angezeigt, wenn die BMP-Datei mit den Standardsymbolen fehlt.&#13;Bei einem Seitentyp, der auf Schaltflächen oder FreeDraw festgelegt ist, bleibt der Funktionsparameter leer&#13;Das Einstellen eines Symbols, das breiter als 64 Pixel und/oder höher als 32 Pixel ist, kann einen Teil oder die gesamte Benutzeroberfläche des Thermostats überschreiben"/>
+					    <desc resKey="panel_page_setobject_3_customicon"/>
+                    </method>					
+					<method call="set" index="9" name="SetObject_4_Id" return="void">
+						<param name="Object_4_Id" range="0-23" type="num"/>
+						<hint lang="pl" value="Ustawia ID obiektu termostatu lub numer przycisku w zależności od typu strony np.:&#13;Dla strony typu 'Thermostats':&#13;- w przypadku termostatu na lokalnym CLU: THE1325&#13;- w przypadku termostatu na zdalnym CLU: CLU220000001-&gt;THE4321&#13;- w przypadku obiektu CoolMaster\: CLU521000001->COO6080&#13;Dla strony typu 'Buttons/FreeDraw' należy wpisać numer przycisku (1-16)"/>
+						<hint lang="en" value="Sets the ID of the thermostat object (e.g.: on the local CLU: THE1325, on the remote CLU: CLU220000001-&gt;THE4321, for the CoolMaster object\: CLU521000001-&gt;COO6080).&#13;In the case of the PageType feature set to Buttons/FreeDraw mode, enter the number of the button (1-16)"/>
+						<hint lang="de" value="Stellt die ID des Thermostatobjekts ein (z. B. auf der lokalen CLU: THE1325, auf der Remote-CLU: CLU220000001-&gt;THE4321, für das CoolMaster-Objekt\: CLU521000001-&gt;COO6080).&#13;Geben Sie bei der Funktion PageType, die auf den Modus Buttons/FreeDraw eingestellt ist, die Nummer der Schaltfläche ein (1-16)"/>
+					    <desc resKey="panel_page_setobject_4_id_1"/>
+                    </method>
+					<method call="set" index="10" name="SetObject_4_Name" range="0-15" return="void" type="str">
+						<param name="Object_4_Name" range="0-15" type="num"/>
+						<hint lang="pl" value="Ustawia nazwę termostatu wyświetlaną na stronie Smart Panelu (brak nazwy - termostat nieaktywny).&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw parametr funkcji pozostaje pusty"/>
+						<hint lang="en" value="Sets the name of the thermostat displayed on the Smart Panel page (no name - thermostat inactive).&#13;In the case of the PageType feature set to Buttons/FreeDraw mode, the parameter of method should be empty"/>
+						<hint lang="de" value="Stellt den Namen des Thermostats ein, der auf der Smart Panel-Seite angezeigt wird (kein Name - Thermostat inaktiv).&#13;Im Fall der PageType-Funktion, die auf den Buttons/FreeDraw-Modus eingestellt ist, sollte der Parameter der Methode leer sein"/>
+					    <desc resKey="panel_page_setobject_4_name"/>
+                    </method>
+					<method call="set" index="18" name="SetObject_4_CustomIcon" range="0-9" return="void" type="str">
+						<param name="Object_4_CustomIcon" range="0-9" type="num"/>
+						<hint lang="pl" value="Ustawia nazwę ikony użytkownika dla termostatu obsługiwanego przez strony Smart Panelu.&#13;Wywołanie funkcji bez nazwy ikony powoduje wyświetlenie domyślnej ikony 'chmode.bmp' lub napisu 'mode' w przypadku braku pliku BMP domyślnej ikony.&#13;W przypadku cechy PageType ustawionej na Buttons/FreeDraw parametr funkcji pozostaje pusty.&#13;Ustawienie ikony szerszej niż 64 piksele i/lub wyższej niż 32 piksele może spowodować nadpisanie części lub całego UI termostatu"/>
+						<hint lang="en" value="Sets the custom icon name of the thermostat managed by the Smart Panel pages.&#13;Calling the function with an empty parameter changes the custom icon to the default 'chmode.bmp' or displays the label 'mode' when missing the default icon's BMP file.&#13;For page type set to Buttons or FreeDraw, the function parameter remains empty.&#13;Setting an icon wider than 64 pixels and/or higher than 32 pixels may overwrite a part or all of the thermostat's UI"/>
+						<hint lang="de" value="Stellt den benutzerdefinierten Symbolnamen des Thermostats ein, der von den Smart Panel-Seiten verwaltet wird.&#13;Durch Aufrufen der Funktion mit einem leeren Parameter wird das benutzerdefinierte Symbol in die Standardeinstellung 'chmod.bmp' geändert oder die Bezeichnung 'mode' angezeigt, wenn die BMP-Datei mit den Standardsymbolen fehlt.&#13;Bei einem Seitentyp, der auf Schaltflächen oder FreeDraw festgelegt ist, bleibt der Funktionsparameter leer"/>
+					    <desc resKey="panel_page_setobject_4_customicon"/>
+                    </method>					
+				</methods>
+				<events>
+                    <event address="0" name="OnPageOpen">
+                        <hint lang="pl" value="Zdarzenie wywoływane po otwarciu strony"/>
+						<hint lang="en" value="Event occurs after new page is shown"/>
+						<hint lang="de" value="Ereignis tritt auf, wenn eine neue Seite angezeigt ist"/>
+                        <desc resKey="panel_page_onpageopen"/>
+                    </event>
+                    <event address="1" name="OnPageClose">
+					    <hint lang="pl" value="Zdarzenie wywoływane po zamknięciu strony"/>
+                        <hint lang="en" value="Event occurs after actual page is closed"/>
+						<hint lang="de" value="Ereignis tritt auf, wenn die eigentliche Seite geschlossen ist"/>
+                        <desc resKey="panel_page_onpageclose"/>
+                    </event>             
+                    <event address="2" name="OnDraw">
+                        <hint lang="pl" value="Zdarzenie sygnalizujące potrzebę przerysowania strony"/>
+                        <hint lang="en" value="Event occurs after freedraw page wants to be redrawn"/>
+						<hint lang="de" value="Ereignis tritt auf, wenn die Freedraw-Seite neu gezeichnet werden soll"/>
+                        <desc resKey="panel_page_ondraw"/>
+                    </event>      					
+                    <event address="4" name="OnTherm1ModeButtonClick">
+                        <hint lang="pl" value="Zdarzenie wywoływane po kliknięciu lewego-górnego przycisku 'mode' w termostacie nr 1"/>
+                        <hint lang="en" value="Event occurs after top-left 'mode' button click in the thermostat no. 1"/>
+						<hint lang="de" value="Ereignis tritt auf, wenn Sie oben links in der Thermostat-Nr. 1"/>
+                        <desc resKey="panel_page_ontherm1modebuttonclick"/>
+                    </event>      					
+                    <event address="5" name="OnTherm2ModeButtonClick">
+                        <hint lang="pl" value="Zdarzenie wywoływane po kliknięciu lewego-górnego przycisku 'mode' w termostacie nr 2"/>
+                        <hint lang="en" value="Event occurs after top-left 'mode' button click in the thermostat no. 2"/>
+						<hint lang="de" value="Ereignis tritt auf, wenn Sie oben links in der Thermostat-Nr. 2"/>
+                        <desc resKey="panel_page_ontherm2modebuttonclick"/>
+                    </event>      					
+                    <event address="6" name="OnTherm3ModeButtonClick">
+                        <hint lang="pl" value="Zdarzenie wywoływane po kliknięciu lewego-górnego przycisku 'mode' w termostacie nr 3"/>
+                        <hint lang="en" value="Event occurs after top-left 'mode' button click in the thermostat no. 3"/>
+						<hint lang="de" value="Ereignis tritt auf, wenn Sie oben links in der Thermostat-Nr. 3"/>
+                        <desc resKey="panel_page_ontherm3modebuttonclick"/>
+                    </event>      					
+                    <event address="7" name="OnTherm4ModeButtonClick">
+                        <hint lang="pl" value="Zdarzenie wywoływane po kliknięciu lewego-górnego przycisku 'mode' w termostacie nr 4"/>
+                        <hint lang="en" value="Event occurs after top-left 'mode' button click in the thermostat no. 4"/>
+						<hint lang="de" value="Ereignis tritt auf, wenn Sie oben links in der Thermostat-Nr. 4"/>
+                        <desc resKey="panel_page_ontherm4modebuttonclick"/>
+                    </event>      					
+				
+				</events>
+			</interface>
+		</object>
+	
+	</firmware>
+</module>

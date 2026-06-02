@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object class="152" className="GATE" name="JablotronOutput" version="1">
+	<features>
+        <feature enum="0,1" get="true" index="0" name="State" range="0-1" set="false" type="num" unit="bool">
+			<enum name="Off" resKey="jablotronoutput_state_enum_off" value="0"/>
+			<enum name="On" resKey="jablotronoutput_state_enum_on" value="1"/>
+			<hint lang="pl" value="Zwraca stan wyjścia:&#13;1 - wyjście załączone,&#13;0 - wyjście wyłączone&#13;-1 - stan wyjścia nieznany (brak połączenia z centralką)"/>
+			<hint lang="en" value="Returns output state:&#13;1 - On state at the output,&#13;0 - Off state at the output&#13;-1 - unknown output state (no connection with Jablotron)"/>
+			<hint lang="de" value="Gibt den Ausgangszustand zurück\:&#13;1 - Ein-Zustand am Ausgang,&#13;0 - Aus-Zustand am Ausgang,&#13;-1 - Unbekannter Ausgangszustand (keine Verbindung mit Jablotron)"/>
+		    <desc resKey="jablotronoutput_state"/>
+        </feature>
+		<feature get="true" index="1" name="Nr" range="1-128" set="true" type="num" unit="number">
+			<hint lang="pl" value="Parametr definiujący, do którego wyjścia odnosi się obiekt"/>
+			<hint lang="en" value="Parameter defining to which output refers object"/>
+			<hint lang="de" value="Parameter, der definiert, auf welche Ausgabe sich das Objekt bezieht"/>
+		    <desc resKey="jablotronoutput_nr"/>
+        </feature>
+		<feature default="*" get="true" index="2" name="AccessCode" set="true" type="str" unit="string">
+			<hint lang="pl" value="Kod dostępu, dla * zastosuje kod administratora"/>
+			<hint lang="en" value="Access code. When setting the user code to '*', it will use the administrator code"/>
+			<hint lang="de" value="Zugangscode. Wenn Sie den Benutzercode auf „*“ setzen, wird der Administratorcode verwendet"/>
+		    <desc resKey="jablotronoutput_accesscode"/>
+        </feature>
+	</features>
+	<methods>
+		<method call="set" index="1" name="SetNr" range="1-128" return="void" unit="number">
+			<param name="Nr" type="num" unit="number"/>
+			<hint lang="pl" value="Ustawia parametr definiujący, do którego wyjścia odnosi się obiekt"/>
+			<hint lang="en" value="Sets the parameter defining to which output refers object"/>
+			<hint lang="de" value="Setzt den Parameter, der definiert, auf welches Objekt sich die Ausgabe bezieht"/>
+		    <desc resKey="jablotronoutput_setnr"/>
+        </method>
+		<method call="set" index="2" name="SetAccessCode" return="void">
+			<param default="*" name="Code" type="str" unit="string"/>
+			<hint lang="pl" value="Ustawia kod dostępu, dla '*' zastosuje kod administratora"/>
+			<hint lang="en" value="Sets the access code. When setting the code to '*', it will use the administrator code"/>
+			<hint lang="de" value="Legt den Zugangscode fest. Wenn Sie den Code auf „*“ setzen, wird der Administratorcode verwendet"/>
+		    <desc resKey="jablotronoutput_setaccesscode"/>
+        </method>
+		<method call="execute" index="0" name="SwitchOn" return="void">
+			<hint lang="pl" value="Załącza wyjście"/>
+			<hint lang="en" value="Sets output value to 1"/>
+			<hint lang="de" value="Setzt den Ausgabewert auf 1"/>
+		    <desc resKey="jablotronoutput_switchon"/>
+        </method>
+		<method call="execute" index="1" name="SwitchOff" return="void">
+			<hint lang="pl" value="Wyłącza wyjście"/>
+			<hint lang="en" value="Sets output value to 0"/>
+			<hint lang="de" value="Setzt den Ausgabewert auf 0"/>
+		    <desc resKey="jablotronoutput_switchoff"/>
+        </method>
+	</methods>
+	<events>
+		<event address="0" name="OnChange">
+			<hint lang="pl" value="Zdarzenie wywoływane przy zmianie stanu (niezależnie od wartości)"/>
+			<hint lang="en" value="Event occurring when a change in the state takes place (regardless of the value)"/>
+			<hint lang="de" value="Ereignis, das auftritt, wenn eine Zustandsänderung stattfindet (unabhängig vom Wert)"/>
+		    <desc resKey="jablotronoutput_onchange"/>
+        </event>
+		<event address="1" name="OnSwitchOn">
+			<hint lang="pl" value="Zdarzenie wywoływane przy ustawieniu On na wyjściu"/>
+			<hint lang="en" value="Event occurring when On state is set at output"/>
+			<hint lang="de" value="Ereignis, das eintritt, wenn der Ausgang auf Ein gesetzt wird"/>
+		    <desc resKey="jablotronoutput_onswitchon"/>
+        </event>
+		<event address="2" name="OnSwitchOff">
+			<hint lang="pl" value="Zdarzenie wywoływane przy ustawieniu Off na wyjściu"/>
+			<hint lang="en" value="Event occurring when Off state is set at output"/>
+			<hint lang="de" value="Ereignis, das eintritt, wenn der Ausgang auf Aus gesetzt wird"/>
+		    <desc resKey="jablotronoutput_onswitchoff"/>
+        </event>
+	</events>
+</object>

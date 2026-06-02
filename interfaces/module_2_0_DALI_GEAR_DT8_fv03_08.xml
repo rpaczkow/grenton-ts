@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="DALI_GEAR_DT8" typeId="28">
+	<!--hwType=0x28(40), hwVer=0x1(1), fwType=0x8(8), fwApiVer=0x2(2)-->
+	<firmware typeId="08" version="03">
+		<object class="35" count="1" name="DALI_GEAR_DT8" type="out">		
+				<interface>
+					<features>
+						<feature default="" get="true" index="1" name="Address" range="0-63" set="false" type="num" unit="-">
+							<hint lang="pl" value="Adres statecznika"/>
+							<hint lang="en" value="Ballast address"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_address"/>
+                    </feature>						
+						<feature default="0" get="true" index="0" name="Group" range="0-51" set="true" type="str" unit="-">
+							<hint lang="pl" value="Numery grup do których należy statecznik, kolejne grupy z zakresu 1-16 podawane po przecinku. &#13;0 - brak przynależności do grupy"/>
+							<hint lang="en" value="Ballast group numbers, subsequent groups from the 1-16 range are given after the decimal point. &#13;0 - no belonging to any group"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_group"/>
+                    </feature>	
+						<feature default="" get="true" index="2" name="DAPCValue" range="0-254" set="false" type="num" unit="-">
+							<hint lang="pl" value="Wartość z jaką świeci oprawa"/>
+							<hint lang="en" value="The value of the power with which the luminaire shines"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_dapcvalue"/>
+                    </feature>	
+						<feature default="" get="true" index="6" name="HSVValue" range="0-1" set="false" type="num" unit="-">
+							<hint lang="pl" value="Wartość jasności według modelu HSV (zakres 0.00-1.00)"/>
+							<hint lang="en" value="Brightness value as per the HSV model (range: 0.00-1.00)"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_hsvvalue"/>
+                    </feature>
+						<feature default="" get="true" index="5" name="HSVSaturation" range="0-1" set="false" type="num" unit="-">
+							<hint lang="pl" value="Wartość nasycenia barwy według modelu HSV (0.00-1.00)"/>
+							<hint lang="en" value="Colour saturation value as per the HSV model (0.00-1.00)"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_hsvsaturation"/>
+                    </feature>
+						<feature default="" get="true" index="4" name="HSVHue" range="0-360" set="false" type="num" unit="-">
+							<hint lang="pl" value="Wartość koloru barwy według modelu HSV (0-360)"/>
+							<hint lang="en" value="Colour hue value as per the HSV model (0-360)"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_hsvhue"/>
+                    </feature>
+						<feature default="50" get="true" index="7" name="ColourTemperature" range="0-100" set="true" type="num" unit="-">
+							<hint lang="pl" value="Ustawiana temperatura barwowa na podstawie wywołanej metody SetColourTemperature. Cecha nie pobiera rzeczywistego stanu temperatury barwowej oprawy"/>
+							<hint lang="en" value="The color temperature is set based on the called SetColourTemperature method. The feature does not retrieve the actual color temperature of the fixture"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_colourtemperature"/>
+                    </feature>	
+					</features> 
+					<methods>
+						<method call="execute" index="0" name="Identify" return="void">
+							<hint lang="pl" value="Włącza oprawę na 2 sekundy"/>
+							<hint lang="en" value="Turns on the luminaire for 2 seconds"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_identify"/>
+                    </method>
+						<method call="execute" index="1" name="SetDAPCValue" return="void">
+							<param name="Value" range="0-254" type="num" unit=""/>
+							<param name="RampTime" range="0-15" type="num" unit="">
+								<parametrized name="DefaultRamp" value="0"/>
+								<parametrized name="Ramp"/>
+							</param>
+							<hint lang="pl" value="Ustawia wartość z jaką świeci oprawa. &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+							<hint lang="en" value="Sets the value of the power with which the luminaire shines.  &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_setdapcvalue"/>
+                    </method>
+						<method call="execute" index="2" name="Switch" return="void">
+							<param name="RampTime" range="0-15" type="num" unit="">
+								<parametrized name="DefaultRamp" value="0"/>
+								<parametrized name="Ramp"/>
+							</param>
+							<hint lang="pl" value="Zmienia stan oprawy na przeciwny (0 / 254). &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+							<hint lang="en" value="Changes the luminaire state to the opposite (0 / 254).  &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_switch"/>
+                    </method>
+						<method call="execute" index="3" name="SwitchOn" return="void">
+							<param name="RampTime" range="0-15" type="num" unit="">
+								<parametrized name="DefaultRamp" value="0"/>
+								<parametrized name="Ramp"/>
+							</param>
+							<hint lang="pl" value="Włącza oprawę. &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+							<hint lang="en" value="Turns on the luminaire. &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_switchon"/>
+                    </method>
+						<method call="execute" index="4" name="SwitchOff" return="void">
+							<param name="RampTime" range="0-15" type="num" unit="">
+								<parametrized name="DefaultRamp" value="0"/>
+								<parametrized name="Ramp"/>
+							</param>
+							<hint lang="pl" value="Wyłącza oprawę. &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+							<hint lang="en" value="Turns off the luminaire. &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_switchoff"/>
+                    </method>
+						<method call="execute" index="5" name="Hold" return="void">
+							<param name="RampTime" range="0-10000" type="num" unit="ms"/>
+							<hint lang="pl" value="Realizuje funkcję rozjaśniania / ściemniania oprawy"/>
+							<hint lang="en" value="Executes the function of illuminating / dimming the luminaire"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_hold"/>
+                    </method>	
+						<method call="execute" index="6" name="HoldUp" return="void">
+							<param name="RampTime" range="0-10000" type="num" unit="ms"/>
+							<hint lang="pl" value="Realizuje funkcję rozjaśniania oprawy"/>
+							<hint lang="en" value="Executes the function of illuminating the luminaire"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_holdup"/>
+                    </method>
+						<method call="execute" index="7" name="HoldDown" return="void">
+							<param name="RampTime" range="0-10000" type="num" unit="ms"/>
+							<hint lang="pl" value="Realizuje funkcję ściemniania oprawy"/>
+							<hint lang="en" value="Executes the function of dimming the luminaire"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_holddown"/>
+                    </method>
+						<method call="execute" index="17" name="SetHSVValue" return="void">
+							<param name="Value" range="0-1" type="num" unit="number"/>
+							<param name="RampTime" optional="true" range="0-15" type="num" unit="number">
+								<parametrized name="DefaultRamp" type="num" value="0"/>
+								<parametrized name="Ramp"/>
+							</param>
+							<hint lang="pl" value="Ustawia wartość jasności według modelu HSV (zakres 0.00-1.00). &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+							<hint lang="en" value="Sets brightness value (0.00-1.00). &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_sethsvvalue"/>
+                    </method>
+						<method call="execute" index="16" name="SetHSVSaturation" return="void">
+							<param name="Value" range="0-1" type="num" unit="number"/>
+							<param name="RampTime" optional="true" range="0-15" type="num" unit="number">
+								<parametrized name="DefaultRamp" type="num" value="0"/>
+								<parametrized name="Ramp"/>
+							</param>
+							<hint lang="pl" value="Ustawia wartość nasycenia według modelu HSV (zakres 0.00-1.00). &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+							<hint lang="en" value="Sets saturation value (0.00-1.00). &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_sethsvsaturation"/>
+                    </method>
+						<method call="execute" index="15" name="SetHSVHue" return="void">
+							<param name="Value" range="0-360" type="num" unit="number"/>
+							<param name="RampTime" optional="true" range="0-15" type="num" unit="number">
+								<parametrized name="DefaultRamp" type="num" value="0"/>
+								<parametrized name="Ramp"/>
+							</param>
+							<hint lang="pl" value="Ustawia wartość barwy według modelu HSV (zakres 0-360). &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+							<hint lang="en" value="Sets hue value (0-360). &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_sethsvhue"/>
+                    </method>
+						<method call="execute" index="13" name="SetRGBValue" return="void">
+							<param name="R" range="0-254" type="num" unit=""/>
+							<param name="G" range="0-254" type="num" unit=""/>
+							<param name="B" range="0-254" type="num" unit=""/>
+							<param name="RampTime" range="0-15" type="num" unit="">
+								<parametrized name="DefaultRamp" value="0"/>
+								<parametrized name="Ramp"/>
+							</param>
+							<hint lang="pl" value="Ustawia wartość kanałów R (Red), G (Green), B (Blue). &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+							<hint lang="en" value="Sets the value of the R (Red), G (Green), B (Blue) channels. &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_setrgbvalue"/>
+                    </method>
+						<method call="execute" index="14" name="SetWAFValue" return="void">
+							<param name="W" range="0-254" type="num" unit=""/>
+							<param name="A" range="0-254" type="num" unit=""/>
+							<param name="F" range="0-254" type="num" unit=""/>
+							<param name="RampTime" range="0-15" type="num" unit="">
+								<parametrized name="DefaultRamp" value="0"/>
+								<parametrized name="Ramp"/>
+							</param>
+							<hint lang="pl" value="Ustawia wartość kanału W (White), oraz parametrów A (Amber) i F (Freecolour). &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+							<hint lang="en" value="Sets the value of the W (White) channel, and the A (Amber) and F (Freecolour) parameters. &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_setwafvalue"/>
+                    </method>
+						<method call="execute" index="12" name="SetColourTemperature" return="void">
+							<param name="Value" range="0-100" type="num" unit=""/>
+							<param name="RampTime" range="0-15" type="num" unit="">
+								<parametrized name="DefaultRamp" value="0"/>
+								<parametrized name="Ramp"/>
+							</param>
+							<hint lang="pl" value="Ustawia wartość temperatury koloru, gdzie  0 - fizyczne minimum, 100 - fizyczne maksimum. &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+							<hint lang="en" value="Sets the colour temperature value, where 0 - physical minimum, 100 - physical maximum. &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dt8_setcolourtemperature"/>
+                    </method>
+					</methods>
+					<events>
+					<event address="0" name="OnDAPCValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości DAPCValue"/>
+						<hint lang="en" value="Event occurring when changing the DAPCValue"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_gear_dt8_ondapcvaluechange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości DAPCValue z 0 na wartość większą"/>
+						<hint lang="en" value="Event occurring when the DAPCValue value is changed from 0 to the greater value"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_gear_dt8_onswitchon"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości DAPCValue na 0"/>
+						<hint lang="en" value="Event occurring when the DAPCValue value is changed to 0"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_gear_dt8_onswitchoff"/>
+                    </event>
+					</events>
+				</interface>
+		</object>	
+	</firmware>
+</module>

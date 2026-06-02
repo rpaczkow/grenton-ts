@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object class="100" className="GATE" name="Zone" version="1">
+	<features>
+		<feature get="true" index="0" name="Value" set="false" type="num" unit="-">
+			<hint lang="pl" value="Zwraca stan strefy:&#13;1 - strefa uzbrojona,&#13;0 - strefa rozbrojona,&#13;-1 - stan strefy nieznany (brak połączenia z centralką)"/>
+			<hint lang="en" value="Returns input state:&#13;1 - armed zone,&#13;0 - disarmed zone,&#13;-1 - unknown zone state (no connection with Satel)"/>
+			<hint lang="de" value="Gibt 1 für aktivierten Bereich, betretenen Eingang, eingeschalteten Ausgang zurück. Gibt 0 für deaktivierte Bereich, unbetretenen Eingang, ausgeschalteten Ausgang zurück."/>
+            <desc resKey="satelzone_value"/>
+        </feature>
+		<feature get="true" index="1" name="Nr" range="1-32" set="true" type="num" unit="number">
+			<hint lang="pl" value="Parametr definiujący, do której strefy odnosi się obiekt"/>
+			<hint lang="en" value="Parameter defining to which zone refers object"/>
+			<hint lang="de" value="Parameter, mit dem definiert wird, auf welchen Bereich, Eingang, Ausgang sich das Objekt bezieht."/>
+            <desc resKey="satelzone_nr"/>
+        </feature>
+		<feature default="_" get="true" index="2" name="UserPassword" set="true" type="str" unit="number">
+			<hint lang="pl" value="Hasło użytkownika, dla '_' zastosuje hasło administratora"/>
+			<hint lang="en" value="User password. When setting the user password to '_', it will use the administrator password"/>
+			<hint lang="de" value="Benutzer-Passwort; für '_' wird das Administrator-Passwort erfragt"/>
+            <desc resKey="satelzone_userpassword"/>
+        </feature>
+	</features>
+	<methods>
+		<method call="set" index="1" name="SetNr" range="1-32" return="void" unit="number">
+			<param name="Nr" type="num" unit="-"/>
+			<hint lang="pl" value="Ustawia parametr definiujący, do której strefy odnosi się obiekt"/>
+			<hint lang="en" value="Sets the parameter defining to which zone refers object"/>
+			<hint lang="de" value="Bestimmt den Parameter, mit dem definiert wird, auf welchen Bereich, Eingang, Ausgang sich das Objekt bezieht."/>
+            <desc resKey="satelzone_setnr"/>
+        </method>
+		<method call="set" index="2" name="SetUserPassword" return="void" unit="number">
+			<param default="-" name="Password" range="1-99999" type="str" unit="number"/>
+			<hint lang="pl" value="Ustawia hasło użytkownika, dla '_' zastosuje hasło administratora"/>
+			<hint lang="en" value="Sets the user password. When setting the user password to '_', it will use the administrator password"/>
+			<hint lang="de" value="Definiert das Benutzer-Passwort; für '_' wird das Administrator-Passwort erfragt"/>
+            <desc resKey="satelzone_setuserpassword"/>
+        </method> 
+		<method call="execute" index="0" name="ArmZone" return="void">
+			<hint lang="pl" value="Uzbraja strefę"/>
+			<hint lang="en" value="Arms the zone"/>
+			<hint lang="de" value="Bewaffnet die Zone"/>
+            <desc resKey="satelzone_armzone"/>
+        </method>
+		<method call="execute" index="1" name="DisarmZone" return="void">
+			<hint lang="pl" value="Rozbraja strefę"/>
+			<hint lang="en" value="Disarms the zone"/>
+			<hint lang="de" value="Entwaffnet die Zone"/>
+            <desc resKey="satelzone_disarmzone"/>
+        </method>
+	</methods>
+	<events>
+		<event address="0" name="OnChange">
+			<hint lang="pl" value="Zdarzenie wywoływane przy zmianie stanu (niezależnie od wartości)"/>
+			<hint lang="en" value="Event occurring when a change in the state takes place (regardless of the value)"/>
+			<hint lang="de" value="Ereignis, das bei Statusänderung (abgesehen vom Wert) aufgerufen wird"/>
+            <desc resKey="satelzone_onchange"/>
+        </event>
+		<event address="1" name="OnArm">
+			<hint lang="pl" value="Zdarzenie wywoływane przy uzbrojeniu strefy"/>
+			<hint lang="en" value="Event occurring when zone is armed"/>
+			<hint lang="de" value="Ereignis, das bei Aktivierung des Bereichs aufgerufen wird"/>
+            <desc resKey="satelzone_onarm"/>
+        </event>
+		<event address="2" name="OnDisarm">
+			<hint lang="pl" value="Zdarzenie wywoływane przy rozbrojeniu strefy"/>
+			<hint lang="en" value="Event occurring when zone is disarmed"/>
+			<hint lang="de" value="Ereignis, das bei Deaktivierung des Bereichs aufgerufen wird"/>
+            <desc resKey="satelzone_ondisarm"/>
+        </event>
+	</events>
+</object>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="ZWAVE_FAKRO_ZWP10" typeId="008500010001">
+	<!--hwType=0x8500010001(571230715905), hwVer=0x1(1), fwType=0x0(0), fwApiVer=0xff(255)-->
+	<firmware typeId="0" version="ff">
+		<object class="25" count="2" name="ZWAVE_BINARY_SENSOR" type="in">
+			<interface>
+				<features>
+					<feature get="true" index="0" name="Value" set="false" type="num" unit="bool">
+						<hint lang="pl" value="Zwraca wartość 1 lub 0"/>
+						<hint lang="en" value="Returns input value as 0 or 1"/>
+					    <desc resKey="zwave_binary_sensor_value"/>
+                    </feature>
+				</features>
+				<methods>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+					<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany stanu na przeciwny"/>
+					<hint lang="en" value="Occurs when a change in the input state takes place (regardless of the value)"/>
+					    <desc resKey="zwave_binary_sensor_onchange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+					<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu wysokiego na wejściu"/>
+					<hint lang="en" value="Occurs when the high state is set at input"/>
+					    <desc resKey="zwave_binary_sensor_onswitchon"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+					<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu niskiego na wejściu"/>
+					<hint lang="en" value="Occurs when the low state is set at input"/>
+					    <desc resKey="zwave_binary_sensor_onswitchoff"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object class="103" className="GATE" name="Satel" version="1">
+	<features>
+		<feature enum="0,1" get="true" index="0" name="State" set="false" type="num" unit="bool">
+			<enum name="Disconnected" resKey="satel_state_enum_disconnected" value="0"/>
+			<enum name="Connected" resKey="satel_state_enum_connected" value="1"/>
+			<hint lang="pl" value="Stan centralki:&#13;0 - brak połączenia z centralką&#13;1 - połączono z centralką"/>
+			<hint lang="en" value="Satel state:&#13;0 - no connection with Satel&#13;1 - connected with Satel"/>
+			<hint lang="de" value="Status der Zentraleinheit"/>
+            <desc resKey="satel_state"/>
+        </feature>
+		<feature get="true" index="1" name="LastError" set="false" type="num">
+			<hint lang="pl" value="Ostatni kod błędu modułu ETHM (Satel):&#13;0 - ok&#13;1 - nieprawidłowe hasło"/>
+			<hint lang="en" value="Satel ETHM module last error code:&#13;0 - ok&#13;1 - incorrect passwords"/>
+			<hint lang="de" value="Satel ETHM-Modul letzter Fehlercode:&#13;0 - ok&#13;1 - falsche Kennwörter"/>
+            <desc resKey="satel_lasterror"/>
+        </feature>
+		<feature default="0.0.0.0" get="true" index="2" name="IP" set="true" type="str" unit="string">
+			<hint lang="pl" value="Adres IP modułu ETHM (Satel)"/>
+			<hint lang="en" value="ETHM Satel module IP address"/>
+			<hint lang="de" value="IP-Adress des ETHM-Moduls (Satel)"/>
+            <desc resKey="satel_ip"/>
+        </feature>
+		<feature default="7094" get="true" index="3" name="Port" range="1-65535" set="true" type="num">
+			<hint lang="pl" value="Port modułu ETHM (Satel)"/>
+			<hint lang="en" value="ETHM Satel module port"/>
+			<hint lang="de" value="Port des ETHM-Moduls (Satel)"/>
+            <desc resKey="satel_port"/>
+        </feature>
+		<feature default="1111" get="true" index="4" name="AdminPassword" set="true" type="str" unit="string">
+			<hint lang="pl" value="Hasło administratora Satel"/>
+			<hint lang="en" value="Administrator Satel password"/>
+			<hint lang="de" value="Passwort des Satel-Administrators"/>
+            <desc resKey="satel_adminpassword"/>
+        </feature>
+		<feature default="1000" get="true" index="5" name="UpdateTime" range="1000-20000" set="true" type="num">
+			<hint lang="pl" value="Okres aktualizacji stanu centralki"/>
+			<hint lang="en" value="Satel state update period"/>
+			<hint lang="de" value="Satel-Statusaktualisierungszeitraum"/>
+            <desc resKey="satel_updatetime"/>
+        </feature>
+		<feature default="0" enum="0,1" get="true" index="6" name="EncryptionEnabled" set="true" type="num" unit="bool">
+			<enum name="False" resKey="satel_encryptionenabled_enum_false" value="0"/>
+			<enum name="True" resKey="satel_encryptionenabled_enum_true" value="1"/>
+			<hint lang="pl" value="Szyfrowanie:&#13;True - załączone&#13;False - wyłączone"/>
+			<hint lang="en" value="Encrypting:&#13;True - active&#13;False - inactive"/>
+			<hint lang="de" value="Verchlüsselung"/>
+            <desc resKey="satel_encryptionenabled"/>
+        </feature>
+		<feature default="satel" get="true" index="7" name="EncryptionKey" set="true" type="str" unit="string">
+			<hint lang="pl" value="Klucz szyfrowania Satel"/>
+			<hint lang="en" value="Satel encrypting key"/>
+			<hint lang="de" value="Satel-Verschlüsselungskey"/>
+            <desc resKey="satel_encryptionkey"/>
+        </feature>
+	</features>	
+	<methods>
+		<method call="set" index="5" name="SetUpdateTime" range="1000-20000" return="void">
+			<param name="Time" type="num" unit="ms"/>
+			<hint lang="pl" value="Ustawia wartość parametru UpdateTime"/>
+			<hint lang="en" value="Sets the Satel state update period - UpdateTime"/>
+			<hint lang="de" value="Legt den Aktualisierungszeitraum für den Satel-Status fest - UpdateTime"/>
+            <desc resKey="satel_setupdatetime"/>
+        </method>
+		<method call="set" index="2" name="SetIP" return="void" unit="string">
+			<param name="IP" type="num"/>
+			<hint lang="pl" value="Ustawia adres IP modułu ETHM (Satel)"/>
+			<hint lang="en" value="Sets the ETHM Satel module IP address"/>
+			<hint lang="de" value="Definiert die IP-Adresse des ETHM-Moduls (Satel)"/>
+            <desc resKey="satel_setip"/>
+        </method>
+		<method call="set" index="3" name="SetPort" return="void" unit="string">
+			<param name="Port" type="num"/>
+			<hint lang="pl" value="Ustawia port modułu ETHM (Satel)"/>
+			<hint lang="en" value="Sets the ETHM Satel module port"/>
+			<hint lang="de" value="Bestimmt den Port des ETHM-Moduls (Satel)"/>
+            <desc resKey="satel_setport"/>
+        </method>
+		<method call="set" index="4" name="SetAdminPassword" return="void" unit="string">
+			<param name="Password" type="str"/>
+			<hint lang="pl" value="Ustawia hasło Administratora"/>
+			<hint lang="en" value="Sets the administrator password"/>
+			<hint lang="de" value="Definiert das Administrator-Passwort"/>
+            <desc resKey="satel_setadminpassword"/>
+        </method>
+		<method call="set" index="6" name="SetEncryptionEnabled" return="void" unit="bool">
+			<param name="Enabled" type="num"/>
+			<hint lang="pl" value="Załącza / wyłącza szyfrowanie"/>
+			<hint lang="en" value="Enables or disables encrypting"/>
+			<hint lang="de" value="Aktiviert/Deaktiviert die Verschlüsselung"/>
+            <desc resKey="satel_setencryptionenabled"/>
+        </method>
+		<method call="set" index="7" name="SetEncryptionKey" return="void" unit="string">
+			<param name="Key" type="str"/>
+			<hint lang="pl" value="Ustawia klucz szyfrowania"/>
+			<hint lang="en" value="Sets the Satel encrypting key"/>
+			<hint lang="de" value="Bestimmt den Satel-Verschlüsselungskez"/>
+            <desc resKey="satel_setencryptionkey"/>
+        </method>
+	</methods>
+	<events>
+		<event address="0" name="OnConnected">
+			<hint lang="pl" value="Zdarzenie wywoływane po nawiązaniu połączenia z centralką"/>
+			<hint lang="en" value="The event is triggered after establishing connection with the control panel"/>
+			<hint lang="de" value="Ein Ereignis, das ausgelöst wird, wenn Sie eine Verbindung zur Zentraleinheit herstellen"/>
+            <desc resKey="satel_onconnected"/>
+        </event>
+		<event address="1" name="OnDisconnected">
+			<hint lang="pl" value="Zdarzenie wywoływane po zerwaniu połączenia z centralką"/>
+			<hint lang="en" value="The event is triggered after the connection with the control panel is broken"/>
+			<hint lang="de" value="Ein Ereignis, das nach der Verbindung zur Systemsteuerung auftritt, ist unterbrochen"/>
+            <desc resKey="satel_ondisconnected"/>
+        </event>
+		<event address="2" name="OnError">
+			<hint lang="pl" value="Zdarzenie wywoływane po wystąpieniu błędu centralki (LastError)"/>
+			<hint lang="en" value="The event is triggered after the ECU error (LastError)"/>
+			<hint lang="de" value="Ereignis wird nach einem Fehler der Zentraleinheit ausgelöst (LastError)"/>
+            <desc resKey="satel_onerror"/>
+        </event>
+	</events>
+</object>

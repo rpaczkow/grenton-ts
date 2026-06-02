@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="DALI_MASTER" typeId="27">
+	<!--hwType=0x27(39), hwVer=0x1(1), fwType=0x2(2), fwApiVer=0x2(2)-->
+	<firmware typeId="02" version="02">
+	<object class="27" count="1" name="DALI_MASTER" type="out">		
+			<interface>
+				<features>	
+					<feature enum="0,1,2,3,4" default="" get="true" index="0" name="State" range="" set="false" type="num" unit="">
+						<enum name="WithoutGears" resKey="dali_master_state_enum_withoutgears" value="0"/>
+						<enum name="DaliDiscovery" resKey="dali_master_state_enum_dalidiscovery" value="1"/>
+						<enum name="DaliBusPowerFailure" resKey="dali_master_state_enum_dalibuspowerfailure" value="2"/>
+						<enum name="ConfigurationSaved" resKey="dali_master_state_enum_configurationsaved" value="3"/>
+						<enum name="GettingGroupInformation" resKey="dali_master_state_enum_gettinggroupinformation" value="4"/>					
+						<hint lang="pl" value="0 - brak konfiguracji stateczników&#13;1 - DALI Discovery&#13;2 - brak zasilania magistrali DALI&#13;3 - konfiguracja stateczników znajduje się na urządzeniu&#13;4 - zapisywanie informacji o grupach"/>
+						<hint lang="en" value="0 - no ballast configuration&#13;1 - DALI Discovery&#13;2 - power failure on DALI bus&#13;3 - ballast configuration is on the device&#13;4 - saving information about groups"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_state_1"/>
+                    </feature>	
+					<feature default="" get="true" index="1" name="NumberOfGear" range="" set="false" type="num" unit="">
+						<hint lang="pl" value="Liczba aktywnych stateczników podłączonych do urządzenia. Wartość cechy odświeżana jest po restarcie systemu lub wywołaniu metody UpdateMissingGears"/>
+						<hint lang="en" value="Number of active ballasts connected to the device. The feature value is refreshed after restarting the system or calling the UpdateMissingGears method"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_numberofgear_1"/>
+                    </feature>	
+					<feature default="" get="true" index="3" name="GearAddresses" range="" set="false" type="str" unit="-">
+						<hint lang="pl" value="Adresy stateczników nadane podczas DALI_Discovery. Wartość cechy odświeżana jest po Dali Discovery"/>
+						<hint lang="en" value="Ballast addresses given during DALI_Discovery. The feature value is refreshed after restart system"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_gearaddresses"/>
+                    </feature>	
+					<feature default="" get="true" index="4" name="ActiveGears" range="" set="false" type="str" unit="-">
+						<hint lang="pl" value="Adresy aktywnych stateczników znajdujących się w konfiguracji. Wartość cechy odświeżana jest po restarcie systemu lub wywołaniu metody UpdateMissingGears"/>
+						<hint lang="en" value="Addresses of active ballasts in the configuration. The value of the feature is refreshed when the system is restarted or the UpdateMissingGears method is called"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_activegears"/>
+                    </feature>	
+					<feature default="" get="true" index="5" name="MissingGears" range="" set="false" type="str" unit="-">
+						<hint lang="pl" value="Adresy nieaktywnych stateczników znajdujących się w konfiguracji. Wartość cechy odświeżana jest po restarcie systemu lub wywołaniu metody UpdateMissingGears"/>
+						<hint lang="en" value="Addresses of inactive ballasts in the configuration. The value of the feature is refreshed when the system is restarted or the UpdateMissingGears method is called"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_missinggears"/>
+                    </feature>						
+				</features>
+				<methods>
+					<method call="execute" index="3" name="Identify" return="void">
+						<param name="Address" optional="true" range="0-63" type="num" unit="">
+							<parametrized name="LocalAddress" range="0-63" type="num"/>
+							<parametrized name="Broadcast" type="num" value="255"/>
+						</param>
+						<hint lang="pl" value="Włącza oprawę na 2 sekundy"/>
+						<hint lang="en" value="Turns on the luminaire for 2 seconds"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_identify"/>
+                    </method>
+					<method call="execute" index="1" name="ResetGear" return="void">
+						<param name="Address" optional="true" range="0-63" type="num" unit="">
+							<parametrized name="LocalAddress" range="0-63" type="num"/>
+							<parametrized name="Broadcast" type="num" value="255"/>
+						</param>
+						<hint lang="pl" value="Restartuje statecznik"/>
+						<hint lang="en" value="Restarts the ballast"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_resetgear_1"/>
+                    </method>
+					<method call="execute" index="4" name="ResetLocalAddress" return="void">
+						<param name="Address" optional="true" range="0-63" type="num" unit="">
+							<parametrized name="LocalAddress" range="0-63" type="num"/>
+							<parametrized name="Broadcast" type="num" value="255"/>
+						</param>
+						<param name="RemoveFromController" optional="true" range="0-1" type="num" unit="">
+							<parametrized name="False" value="0" type="num" />
+							<parametrized name="True" value="1" type="num" />
+						</param>
+						<hint lang="pl" value="Usuwa adres na stateczniku. Parametr RemoveFromController:&#13;- True - Usuwa adres z pamięci kontrolera&#13;- False - pozostawia adres w pamięci kontrolera"/>
+						<hint lang="en" value="Removes the address on the ballast. RemoveFromController parameter:&#13;- True - Removes the address from the controller memory.&#13;- False - does not remove the address from the controller memory"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_resetlocaladdress"/>
+                    </method>
+					<method call="execute" index="0" name="ChangeLocalAddress" return="void">
+						<param name="ActualAddress" range="0-63" type="num" unit=""/>
+						<param name="AddressToSet" range="0-63" type="num" unit=""/>
+						<hint lang="pl" value="Zmienia aktualny LocalAddress statecznika na wybrany. Adres nie jest usuwany z pamięci Dali Controller"/>
+						<hint lang="en" value="Changes the current LocalAddress of the ballast to the selected one. The address is not deleted from the Dali Controller memory"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_changelocaladdress"/>
+                    </method>
+					<method call="execute" index="10" name="RemoveGear" return="void">
+						<param name="Address" optional="true" range="0-63" type="num" unit="">
+							<parametrized name="LocalAddress" range="0-63" type="num"/>
+						</param>
+						<hint lang="pl" value="Usuwa statecznik z pamięci kontrolera"/>
+						<hint lang="en" value="Remove the ballast from controller memory"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_remove_gear"/>
+                    </method>
+					<method call="execute" index="13" name="ResolveAddressDuplicate" return="void">
+						<param name="Address" optional="true" range="0-63" type="num" unit=""/>
+						<hint lang="pl" value="Rozwiązuje konflikt adresów stateczników"/>
+						<hint lang="en" value="Solving the problem of address duplication"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_resolveaddressduplicate"/>
+                    </method>
+					<method call="execute" index="15" name="UpdateMissingGears" return="void">
+						<hint lang="pl" value="Sprawdza aktywność stateczników które znajdują sie w konfiguracji"/>
+						<hint lang="en" value=""/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_updatemissinggears"/>
+                    </method>
+					<method call="execute" index="5" name="DALI_Discovery" return="void">
+						<param name="Type" optional="true" range="0-254" type="num" unit="">
+							<parametrized name="GetConfiguration" type="num" value="4"/>
+							<parametrized name="NewWithoutLocalAddress" type="num" value="2"/>
+							<parametrized name="ResetAllLocalAddress" type="num" value="0"/>
+						</param>
+						<hint lang="pl" value="Wyszukiwanie stateczników podłączonych do magistrali DALI oraz nadawanie im adresów lokalnych:&#13; - GetConfiguration - pobranie adresów stateczników znajdujących się na magistrali &#13; - NewWithoutLocalAddress - adresowanie nowych stateczników bez przypisanego adresu; &#13; - ResetAllLocalAddress - adresowanie wszystkich stateczników na magistrali.&#13;W momencie nadania adresu, dany statecznik zostaje załączony na 300 ms.&#13;Podczas DALI_Discovery nie należy wykonywać operacji na urządzeniu"/>
+						<hint lang="en" value="Searching for ballasts connected to the DALI bus and assigning them local addresses. At the time of addressing, the ballast is turned onfor 300 ms. No device operations should be performed during DALI_Discovery"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_dali_discovery_1"/>
+                    </method>
+					<method call="execute" index="12" name="SetPowerOnLevel" return="void">
+						<param name="Address" range="0-63" type="num" unit=""/>
+						<param name="DAPCValue" range="0-253" type="num" unit=""/>
+						<hint lang="pl" value="Dla wybranego adresu zapisuje w pamięci statecznika DACPValue jakie ma zostać ustawione po restarcie/awarii magistrali"/>
+						<hint lang="en" value="For the selected address, it saves in the ballast memory the DACPValue that is to be set after a restart/bus failure"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_setpoweronlevel"/>
+                    </method>
+					<method call="execute" index="2" name="SetDAPCValue" return="void">
+						<param name="Address" optional="true" range="0-63" type="num" unit="">
+							<parametrized name="LocalAddress" range="0-63" type="num"/>
+							<parametrized name="Broadcast" type="num" value="255"/>
+						</param>
+						<param name="Value" range="0-254" type="num" unit=""/>
+						<param name="RampTime" range="0-15" type="num" unit="">
+							<parametrized name="DefaultRamp" value="0"/>
+							<parametrized name="Ramp"/>
+						</param>
+						<hint lang="pl" value="Ustawia wartość z jaką świeci oprawa. &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+						<hint lang="en" value="Sets the value of the power with which the luminaire shines. &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_setdapcvalue"/>
+                    </method>
+					<method call="execute" index="14" name="SetLastActiveLevel" return="void">
+						<param name="Address" range="0-63" type="num" unit=""/>
+						<hint lang="pl" value="Jeżeli statecznik jest wyłączony, włącza statecznik z wartością DACPValue ustawioną przed wyłączeniem"/>
+						<hint lang="en" value="If the ballast is off, turns on the ballast with the DACPValue value set before it was turned off"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_setlastactivelevel"/>
+                    </method>
+					<method call="execute" index="6" name="SetGroupDAPCValue" return="void">
+						<param name="GroupAddress" range="1-16" type="num" unit=""/>
+						<param name="Value" range="0-254" type="num" unit=""/>
+						<param name="RampTime" range="0-15" type="num" unit="">
+							<parametrized name="DefaultRamp" value="0"/>
+							<parametrized name="Ramp"/>
+						</param>
+						<hint lang="pl" value="Ustawia wartość z jaką świeci oprawa dla podanej grupy. &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+						<hint lang="en" value="Sets the value of the power with which the luminaire shines for a given group. &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_setgroupdapcvalue"/>
+                    </method>
+					<method call="execute" index="7" name="GroupSwitch" return="void">
+						<param name="GroupAddress" range="1-16" type="num" unit=""/>
+						<param name="RampTime" range="0-15" type="num" unit="">
+							<parametrized name="DefaultRamp" value="0"/>
+							<parametrized name="Ramp"/>
+						</param>
+						<hint lang="pl" value="Zmienia stan wyjścia dla grupy stateczników na przeciwny. &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+						<hint lang="en" value="Changes the output state for a ballast group to the opposite. &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_groupswitch"/>
+                    </method>
+					<method call="execute" index="8" name="GroupSwitchOn" return="void">
+						<param name="GroupAddress" range="1-16" type="num" unit=""/>
+						<param name="RampTime" range="0-15" type="num" unit="">
+							<parametrized name="DefaultRamp" value="0"/>
+							<parametrized name="Ramp"/>
+						</param>
+						<hint lang="pl" value="Włącza oprawy dla podanej grupy. &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+						<hint lang="en" value="Turns on the luminaire for a given group. &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_groupswitchon"/>
+                    </method>
+					<method call="execute" index="9" name="GroupSwitchOff" return="void">
+						<param name="GroupAddress" range="1-16" type="num" unit=""/>
+						<param name="RampTime" range="0-15" type="num" unit="">
+							<parametrized name="DefaultRamp" value="0"/>
+							<parametrized name="Ramp"/>
+						</param>
+						<hint lang="pl" value="Wyłącza oprawy dla podanej grupy. &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+						<hint lang="en" value="Turns off the luminaire for a given group. &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_master_groupswitchoff"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="1" name="OnDALI_DiscoveryCompleted">
+						<hint lang="pl" value="Zdarzenie wywoływane po zakończeniu wyszukiwania stateczników i nadawaniu im adresów lokalnych"/>
+						<hint lang="en" value="Event occurring after the ballasts have been found and given local addresses"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="dali_master_ondali_discoverycompleated"/>
+                    </event>
+					<event address="2" name="OnDALI_BusPowerFailure">
+						<hint lang="pl" value="Zdarzenie generowane:&#13; - przy braku zasilania magistrali DALI dłuższym niż 1s,&#13; - przy zwarciu na magistrali DALI"/>
+						<hint lang="en" value="Event generated:&#13;- in the event of a power failure on the DALI bus for more than 1s,&#13;- in the event of a short circuit on the DALI bus"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="dali_master_ondali_buspowerfailure"/>
+                    </event>
+				</events>
+			</interface>
+	</object>
+	<object class="12" count="1" name="PowerSupplyVoltage" type="in">
+			<interface>
+				<features>
+					<feature default="0" get="true" index="0" name="Value" range="0-24" set="false" type="num" unit="V">
+						<hint lang="pl" value="Wartość napięcia zasilania"/>
+						<hint lang="en" value="Current power supply voltage value"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="powersupplyvoltage_value"/>
+                    </feature>
+					<feature default="0" divisor="1" get="true" index="1" name="Value%" range="0-1000000" set="false" type="num" unit="%">
+						<hint lang="pl" value="Wartość napięcia zasilania jako procent wartości maksymalnej (MaxValue)"/>
+						<hint lang="en" value="Current percentage input value of the maximum value (MaxValue characteristic)"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="powersupplyvoltage_value_1"/>
+                    </feature>
+					<feature default="0.5" get="true" index="3" name="Sensitivity" range="0-10" set="true" type="num" unit="V">
+						<hint lang="pl" value="Czułość - minimalna zmiana wartości napięcia zasilania, która wywołuje zdarzenia OnValueChange, OnValueLower lub OnValueRise"/>
+						<hint lang="en" value="Minimum change of input state when the OnValueChange, OnValueLower or OnValueRise event is generated"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="powersupplyvoltage_sensitivity"/>
+                    </feature>
+					<feature default="21" get="true" index="5" name="MinValue" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość minimalna napięcia zasilania po przekroczeniu której generowane jest zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="powersupplyvoltage_minvalue"/>
+                    </feature>
+					<feature default="24" get="true" index="6" name="MaxValue" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość maksymalna napięcia zasilania po przekroczeniu której generowane jest zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Maximum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="powersupplyvoltage_maxvalue"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="3" name="SetSensitivity" return="void">
+						<hint lang="pl" value="Ustawia czułość pomiaru napięcia zasilania"/>
+						<hint lang="en" value="Sets input sensitivity value"/>
+						<hint lang="de" value=""/>
+						<param name="Sensitivity" range="0-10" type="num" unit="V"/>
+					    <desc resKey="powersupplyvoltage_setsensitivity"/>
+                    </method>
+					<method call="set" index="5" name="SetMinValue" return="void">
+						<hint lang="pl" value="Ustawia wartość MinValue"/>
+						<hint lang="en" value="Sets MinValue"/>
+						<hint lang="de" value=""/>
+						<param name="MinValue" type="num"/>
+					    <desc resKey="powersupplyvoltage_setminvalue"/>
+                    </method>
+					<method call="set" index="6" name="SetMaxValue" return="void">
+						<hint lang="pl" value="Ustawia wartość MaxValue"/>
+						<hint lang="en" value="Sets MaxValue"/>
+						<hint lang="de" value=""/>
+						<param name="MaxValue" type="num"/>
+					    <desc resKey="powersupplyvoltage_setmaxvalue"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="powersupplyvoltage_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event occurs when a value lower than the value from the last reading appears at input"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="powersupplyvoltage_onvaluelower"/>
+                    </event>
+					<event address="2" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event occurs when a value higher than the value from the last reading appears at input"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="powersupplyvoltage_onvaluerise"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy napięcia zasilania znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding the permissible range (MinValue - MaxValue)"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="powersupplyvoltage_onoutofrange"/>
+                    </event>
+					<event address="6" name="OnInRange">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wartość napięcia zasilania powróci do wyznaczonego zakresu (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurs when value returns to MinValue - MaxValue range"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="powersupplyvoltage_oninrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

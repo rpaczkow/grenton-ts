@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="DOUTModule" typeId="01">
+	<!--hwType=0x1(1), hwVer=0x1(1), fwType=0x3(3), fwApiVer=0x4(4)-->
+	<firmware typeId="03" version="04"> <!-- Wersja Z-Wave -->
+		<object class="4" count="2" name="DOUT" type="out">
+			<interface>
+				<features>
+					<feature default="0" enum="0,1" get="true" index="0" name="Value" previousValue="true" set="true" type="num" unit="bool">
+						<enum name="Off" resKey="dout_value_enum_off" value="0"/>
+						<enum name="On" resKey="dout_value_enum_on" value="1"/>
+						<hint lang="pl" value="Zwraca stan wyjścia jako 1 lub 0"/>
+						<hint lang="en" value="Returns 1 for output set at On and 0 for output set at Off state"/>
+						<hint lang="de" value="Gibt 1 zurück, falls der Ausgang auf „On” bzw. 0, falls der Ausgang auf „Off” steht"/>
+                        <desc resKey="dout_value"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="0" name="SetValue" return="void">
+						<param name="Value" type="num" unit="bool"/>
+						<hint lang="pl" value="Ustawia stan wyjścia jako 1 lub 0"/>
+						<hint lang="en" value="Sets output state to 1 or 0"/>
+						<hint lang="de" value="Setzt den Ausgangsstatus auf 1 oder 0"/>
+                        <desc resKey="dout_setvalue"/>
+                    </method>
+					<method call="execute" index="0" name="Switch" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Zmienia stan wyjścia na przeciwny. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała"/>
+						<hint lang="en" value="Changes the output value from 0 to 1 or from 1 to 0. The first parameter is the time of change:&#13;0 - switches output to continuous mode spec&#13;number - switches output for a time specified by a parameter (in milliseconds)"/>
+						<hint lang="de" value="Wechselt den Ausgangswert von 0 auf 1 oder von 1 auf 0. Der Parameter „time” ist die Wechselzeit: &#13;0 – schaltet den Ausgang für eine unbestimmte Zeit ein; &#13;num – schaltet den Ausgang für eine mit Parametern bestimmte Zeit (in Millisekunden) ein"/>
+                        <desc resKey="dout_switch_3"/>
+                    </method>
+					<method call="execute" index="1" name="SwitchOn" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Załącza wyjście. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała"/>
+						<hint lang="en" value="Sets output value to 1"/>
+						<hint lang="de" value="Setzt den Ausgangswert auf 1"/>
+                        <desc resKey="dout_switchon"/>
+                    </method>
+					<method call="execute" index="2" name="SwitchOff" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Wyłącza wyjście. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała"/>
+						<hint lang="en" value="Sets output value to 0"/>
+						<hint lang="de" value="Setzt den Ausgangswert auf 0"/>
+                        <desc resKey="dout_switchoff"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany stanu na przeciwny"/>
+						<hint lang="en" value="Occurs when a change in the state takes place (regardless of the value)"/>
+						<hint lang="de" value="Wird aufgerufen, falls eine Statusänderung erfolgt (unabhängig vom Wert)"/>
+                        <desc resKey="dout_onchange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu wysokiego na wejściu"/>
+						<hint lang="en" value="Occurs when On(1) is set at output"/>
+						<hint lang="de" value="Wird aufgerufen, sobald der Ausgang auf „On” gesetzt wird"/>
+                        <desc resKey="dout_onswitchon"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu niskiego na wejściu"/>
+						<hint lang="en" value="Occurs when Off(0) is set at output"/>
+						<hint lang="de" value="Wird aufgerufen, sobald der Ausgang auf „Off” gesetzt wird"/>
+                        <desc resKey="dout_onswitchoff"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="3" count="2" name="DIN" type="in">
+			<interface>
+				<features>
+					<feature default="0" get="true" index="1" name="Intertion" range="0-2000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Minimalny czas jaki musi minąć między naciśnięciami przycisku aby było ono zinterpretowane jako nowe naciśnięcie"/>
+						<hint lang="en" value="Input inertia (in ms)"/>
+						<hint lang="de" value="Mindestintervall in Millisekunden, das zwischen einzelnen Tastenbetätigungen verlaufen muss, damit jede Folgebetätigung als Neubetätigung interpretiert werden kann"/>
+                        <desc resKey="din_intertion"/>
+                    </feature>
+					<feature default="500" get="true" index="2" name="HoldDelay" range="0-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas po jakim po wciśnięciu i przytrzymaniu wyzwalane jest zdarzenie OnHold"/>
+						<hint lang="en" value="Time in milliseconds after which, when pressing and holding a button, the OnHold event occurs"/>
+						<hint lang="de" value="Zeit in Millisekunden, die verlaufen muss, bevor das Ereignis OnHold generiert wird, nachdem die Taste betätigt und gedrückt gehalten worden ist"/>
+                        <desc resKey="din_holddelay"/>
+                    </feature>
+					<feature default="50" get="true" index="3" name="HoldInterval" range="0-2000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Odstęp cykliczny w milisekundach, po jakim podczas trzymania przycisku wyzwalane są kolejne zdarzenia OnHold"/>
+						<hint lang="en" value="Cyclical interval in milliseconds after which, when pressing and holding a button, the OnHold event occurs"/>
+						<hint lang="de" value="Zyklisches Zeitintervall in Millisekunden, das verlaufen muss, bevor das Ereignis OnHold generiert wird, während die Taste betätigt und gedrückt gehalten wird"/>
+                        <desc resKey="din_holdinterval"/>
+                    </feature>
+					<feature get="true" index="0" name="Value" range="0-1" set="false" type="num" unit="bool">
+						<hint lang="pl" value="Zwraca stan wejścia jako 0 lub 1"/>
+						<hint lang="en" value="Returns input state as 0 or 1"/>
+						<hint lang="de" value="Gibt den Eingangsstatus als 0 oder 1 zurück"/>
+                        <desc resKey="din_value"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="1" name="SetInertion" return="void">
+						<param name="Inertion" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia czas inercji wejścia"/>
+						<hint lang="en" value="Sets Inertion value"/>
+						<hint lang="de" value="Bestimmt den Wert von Inertion"/>
+                        <desc resKey="din_setinertion_2"/>
+                    </method>
+					<method call="set" index="2" name="SetHoldDelay" return="void">
+						<param name="HoldDelay" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia wartość HoldDelay"/>
+						<hint lang="en" value="Sets HoldDelay value"/>
+						<hint lang="de" value="Bestimmt den Wert von HoldDelay"/>
+                        <desc resKey="din_setholddelay"/>
+                    </method>
+					<method call="set" index="3" name="SetHoldInterval" return="void">
+						<param name="HoldInterval" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia wartość HoldInterval"/>
+						<hint lang="en" value="Sets HoldInterval value"/>
+						<hint lang="de" value="Bestimmt den Wert von HoldInterval"/>
+                        <desc resKey="din_setholdinterval"/>
+                    </method>
+					<!--method name="LinkModule" call="execute" return="void"
+						index="0">
+						<param name="zdarzenie DIN" type="num" range="0-2" />
+						<param name="numer seryjny modulu DOUT" type="str" />
+						<param name="wyjscie modulu DOUT" type="num" />
+						<param name="metoda DOUT" type="num" range="0-2" />
+						<hint lang="pl" value="Metoda linkuje zdarzenie na DINie z metoda na DOUT (z pominieciem CLU)"/>
+					</method>
+					<method name="DeleteLink" call="execute" return="void"
+						index="1">
+						<param name="zdarzenie DIN" type="num" range="0-2" />
+						<hint lang="pl" value="Kasuje link pomiedzy zdarzeniem na DIN a metoda na DOUT"/>
+					</method-->
+				</methods>
+				<events>
+					<event address="0" name="OnChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany stanu na przeciwny"/>
+						<hint lang="en" value="Occurs when a change in the input state takes place (regardless of the value)"/>
+						<hint lang="de" value="Wird aufgerufen, falls eine Änderung des Eingangsstatus erfolgt (unabhängig vom Wert)"/>
+                        <desc resKey="din_onchange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu wysokiego na wejściu"/>
+						<hint lang="en" value="Occurs when the high state is set at input"/>
+						<hint lang="de" value="Wird aufgerufen, sobald ein Hochzustand am Eingang ansteht"/>
+                        <desc resKey="din_onswitchon"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu niskiego na wejściu"/>
+						<hint lang="en" value="Occurs when the low state is set at input"/>
+						<hint lang="de" value="Wird aufgerufen, sobald ein Niedrigzustand am Eingang ansteht"/>
+                        <desc resKey="din_onswitchoff"/>
+                    </event>
+					<event address="3" name="OnShortPress">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na okres 500ms-2000ms"/>
+						<hint lang="en" value="Occurs after pressing the button for 500 - 2000ms"/>
+						<hint lang="de" value="Wird aufgerufen, nachdem die Taste 500 ms - 2000 ms lang gedrückt gehalten worden ist"/>
+                        <desc resKey="din_onshortpress"/>
+                    </event>
+					<event address="4" name="OnLongPress">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na okres 2000ms-5000ms"/>
+						<hint lang="en" value="Occurs after pressing the button for at least 2000ms"/>
+						<hint lang="de" value="Wird aufgerufen, nachdem die Taste zwei Sekunden lang gedrückt gehalten worden ist"/>
+                        <desc resKey="din_onlongpress"/>
+                    </event>
+					<event address="5" name="OnHold">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wejście jest w stanie wysokim, pierwszy raz po upłynięciu czasu HoldDelay, a następnie cyklicznie co wartość HoldInterval"/>
+						<hint lang="en" value="Occurs for the first time after HoldDelay time and then cyclically every HoldInterval value"/>
+						<hint lang="de" value="Wird zum ersten Mal aufgerufen, sobald die Zeit von HoldDelay abgelaufen ist und danach zyklisch in den mit HoldInterval vorgegebenen Zeitabständen"/>
+                        <desc resKey="din_onhold"/>
+                    </event>
+					<event address="6" name="OnClick">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na czas krótszy niż 500ms"/>
+						<hint lang="en" value="Occurs after pressing the button for less than 500 ms"/>
+						<hint lang="de" value="Wird aufgerufen, nachdem die Taste kürzer als 500 ms gedrückt gehalten worden ist"/>
+                        <desc resKey="din_onclick"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

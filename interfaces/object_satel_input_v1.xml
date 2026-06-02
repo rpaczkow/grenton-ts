@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object class="101" className="GATE" name="SatelInput" version="1">
+	<features>
+	    <feature enum="0,1" get="true" index="0" name="Value" set="false" type="num" unit="bool">
+			<enum name="Normal" resKey="satelinput_value_enum_normal" value="0"/> 
+			<enum name="Violated" resKey="satelinput_value_enum_violated" value="1"/> 
+			<hint lang="pl" value="Zwraca stan wejścia:&#13;1 - wejście naruszone,&#13;0 - wejście nienaruszone,&#13;-1 - stan wejścia nieznany (brak połączenia  z centralką)"/>
+			<hint lang="en" value="Returns input state:&#13;1 - high state at the input,&#13;0 - low state at the input,&#13;-1 - unknown input state (no connection with Satel)"/>
+			<hint lang="de" value="Gibt 1 für aktivierten Bereich, betretenen Eingang, eingeschalteten Ausgang zurück. Gibt 0 für deaktivierte Bereich, unbetretenen Eingang, ausgeschalteten Ausgang zurück."/>
+            <desc resKey="satelinput_value"/>
+        </feature> 
+		<feature get="true" index="1" name="Nr" range="1-256" set="true" type="num" unit="number">
+			<hint lang="pl" value="Parametr definiujący, do którego wejścia odnosi się obiekt"/>
+			<hint lang="en" value="Parameter defining to which input refers object"/>
+			<hint lang="de" value="Parameter, der definiert, auf welchen Ausgang das Objekt verweist"/>
+            <desc resKey="satelinput_nr"/>
+        </feature>
+	</features>
+	<methods>
+		<method call="set" index="1" name="SetNr" range="1-256" return="void" unit="number">
+			<param name="Nr" type="num" unit="number"/>
+			<hint lang="pl" value="Ustawia parametr definiujący, do którego wejścia odnosi się obiekt"/>
+			<hint lang="en" value="Sets the parameter defining to which input refers object"/>
+			<hint lang="de" value="Bestimmt den Parameter, mit dem definiert wird, auf welchen Bereich, Eingang, Ausgang sich das Objekt bezieht."/>
+            <desc resKey="satelinput_setnr"/>
+        </method> 
+	</methods>
+	<events>
+		<event address="0" name="OnChange">
+			<hint lang="pl" value="Zdarzenie wywoływane przy zmianie stanu (niezależnie od wartości)"/>
+			<hint lang="en" value="Event occurring when a change in the state takes place (regardless of the value)"/>
+			<hint lang="de" value="Ereignis, das bei Statusänderung (abgesehen vom Wert) aufgerufen wird"/>
+            <desc resKey="satelinput_onchange"/>
+        </event>
+		<event address="1" name="OnSwitchOn">
+			<hint lang="pl" value="Zdarzenie wywoływane przy ustawieniu Violated na wejściu"/>
+			<hint lang="en" value="Event occurring when high state is set at the input"/>
+			<hint lang="de" value="Ereignis, das bei eingeschaltetem Ausgang und betretenem Eingang aufgerufen wir"/>
+            <desc resKey="satelinput_onswitchon"/>
+        </event>
+		<event address="2" name="OnSwitchOff">
+			<hint lang="pl" value="Zdarzenie wywoływane przy ustawieniu Normal na wejściu"/>
+			<hint lang="en" value="Event occurring when normal state is set at the input"/>
+			<hint lang="de" value="Ereignis, das bei ausgeschaltetem Ausgang und Normalzustand des Eingangs aufgerufen wird"/>
+            <desc resKey="satelinput_onswitchoff"/>
+        </event>
+	</events>
+</object>

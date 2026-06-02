@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CLU firmwareType="00000003" firmwareVersion="00000197" hardwareType="00000000" hardwareVersion="00000000" typeName="CLU_ZWAVE">
+	<!--hwType=0x0(0), hwVer=0x1(1), fwType=0x3(3), fwApiVer=0x197(407)-->
+	<interface>
+		<features>
+			<feature get="true" index="0" name="Uptime" set="false" type="num" unit="s">
+				<hint lang="pl" value="Czas pracy urządzenia od ostatniego resetu (w sekundach)"/>
+				<hint lang="en" value="Time of device operation since last reset (in seconds)"/>
+				<hint lang="de" value="Arbeitszeit des Geräts seit dem letzten Reset (in Sekunden)"/>
+                <desc resKey="clu_uptime"/>
+            </feature>
+			<feature get="true" index="1" name="Log" set="false" type="str">
+				<hint lang="pl" value="Wewnętrzny log urządzenia"/>
+				<hint lang="en" value="Internal device log"/>
+				<hint lang="de" value="Inneres Gerätelog"/>
+                <desc resKey="clu_log"/>
+            </feature>
+			<feature enum="0,1,2,3,4,5,6,7,8" get="true" index="2" name="State" set="false" type="num">
+				<enum name="SystemStarting" resKey="clu_state_enum_systemstarting_1" value="0"/>
+				<enum name="SystemOk" resKey="clu_state_enum_systemok_1" value="1"/>
+				<enum name="CriticalError" resKey="clu_state_enum_criticalerror_1" value="2"/>
+				<enum name="ModuleNotResponding" resKey="clu_state_enum_modulenotresponding_1" value="3"/>
+				<enum name="EmergencyMode" resKey="clu_state_enum_emergencymode_1" value="4"/>
+				<enum name="MonitorMode" resKey="clu_state_enum_monitormode_1" value="5"/>
+				<enum name="AddingZ-WaveNode" resKey="clu_state_enum_addingzwavenode_1" value="6"/>
+				<enum name="RemovingZ-WaveNode" resKey="clu_state_enum_removingzwavenode_1" value="7"/>
+				<enum name="Z-WaveAddRemoveOk" resKey="clu_state_enum_zwaveaddremoveok_1" value="8"/>
+				
+				<hint lang="pl" value="Stan urządzenia"/>
+				<hint lang="en" value="Device state"/>
+				<hint lang="de" value="Gerätestatus"/>
+                <desc resKey="clu_state"/>
+            </feature>
+			<feature get="true" index="3" name="IsLocalPower" set="false" type="confirmation" unit="bool">
+				<hint lang="pl" value="Stan zasilania"/>
+				<hint lang="en" value="Power state"/>
+				<hint lang="de" value="Stromstatus"/>
+                <desc resKey="clu_islocalpower"/>
+            </feature>	
+			<feature get="true" index="5" name="Date" set="false" type="str">
+				<hint lang="pl" value="Zwraca aktualną datę"/>
+				<hint lang="en" value="Returns the current date"/>
+				<hint lang="de" value="Gibt das aktuelle Datum zurück"/>
+                <desc resKey="clu_date"/>
+            </feature>
+			<feature get="true" index="6" name="Time" set="false" type="str">
+				<hint lang="pl" value="Zwraca aktualny czas (hh:mm:ss)"/>
+				<hint lang="en" value="Returns the current time (hh:mm:dd)"/>
+				<hint lang="de" value="Aktuelle Zeit (hh:mm:dd)"/>
+                <desc resKey="clu_time_1"/>
+            </feature>	
+			<feature get="true" index="7" name="Day" range="1-31" set="false" type="num">
+				<hint lang="pl" value="Zwraca numer bieżącego dnia miesiąca"/>
+				<hint lang="en" value="Returns the number of the current day of the month"/>
+				<hint lang="de" value="Nummer des laufenden Tages im Monat"/>
+                <desc resKey="clu_day"/>
+            </feature>	
+			<feature get="true" index="8" name="Month" range="1-12" set="false" type="num">
+				<hint lang="pl" value="Zwraca numer bieżącego miesiąca"/>
+				<hint lang="en" value="Returns the current number of the month"/>
+				<hint lang="de" value="Nummer des laufenden Monats"/>
+                <desc resKey="clu_month"/>
+            </feature>	
+			<feature get="true" index="9" name="Year" set="false" type="num">
+				<hint lang="pl" value="Zwraca numer bieżącego roku"/>
+				<hint lang="en" value="Returns the current number of the year"/>
+				<hint lang="de" value="Nummer des laufenden Jahres"/>
+                <desc resKey="clu_year"/>
+            </feature>	
+			<feature get="true" index="10" name="DayOfWeek" range="0-6" set="false" type="num">
+				<hint lang="pl" value="Zwraca numer bieżącego dnia tygodnia (0=niedziela)"/>
+				<hint lang="en" value="Returns the current day of the week (0=Sunday)"/>
+				<hint lang="de" value="Nummer des laufenden Tages in der Woche (0 = Sonntag)"/>
+                <desc resKey="clu_dayofweek"/>
+            </feature>		
+			<feature get="true" index="11" name="Hour" range="0-23" set="false" type="num" unit="h">
+				<hint lang="pl" value="Zwraca aktualną godzinę (bez minut i sekund)"/>
+				<hint lang="en" value="Returns the current hour (no minutes or seconds)"/>
+				<hint lang="de" value="Aktuelle Uhrzeit (ohne Minuten und Sekunden)"/>
+                <desc resKey="clu_hour"/>
+            </feature>	
+			<feature get="true" index="12" name="Minute" range="0-59" set="false" type="num" unit="m">
+				<hint lang="pl" value="Zwraca aktualną liczbę minut od ostatniej pełnej godziny"/>
+				<hint lang="en" value="Returns the current number of minutes from last full hour"/>
+				<hint lang="de" value="Aktuelle Anzahl von Minuten seit der letzten vollen Stunde"/>
+                <desc resKey="clu_minute"/>
+            </feature>	
+			<feature get="true" index="13" name="UnixTime" set="false" type="num" unit="s">
+				<hint lang="pl" value="Zwraca aktualny uniksowy znacznik czasu"/>
+				<hint lang="en" value="Returns the current Unix time"/>
+				<hint lang="de" value="Aktueller Unix-Timestamp"/>
+                <desc resKey="clu_unixtime"/>
+            </feature>
+			<!--			
+			<feature name="ClientsPollInterval" index="15" type="num" get="true" set="true" default="1000" range="200-10000" unit="ms" >
+				<hint lang="pl" value=""/>
+				<hint lang="en" value=""/>
+			</feature>	
+			<feature name="ClientsAliveTime" index="16" type="num" get="true" set="true" default="60" range="10-3600" unit="s" >
+				<hint lang="pl" value=""/>
+				<hint lang="en" value=""/>
+			</feature>	
+			-->
+			<feature get="true" index="17" name="FirmwareVersion" set="false" type="str">
+				<hint lang="pl" value="Wersja oprogramowania CLU"/>
+				<hint lang="en" value="CLU firmware version"/>
+				<hint lang="de" value="Softwareversion CLU"/>
+                <desc resKey="clu_firmwareversion_3"/>
+            </feature>	
+		</features>	
+		<methods>
+			<method call="execute" index="0" name="AddToLog" return="void">
+				<hint lang="pl" value="Dodaje do loga wewnętrznego nowy wpis"/>	
+				<hint lang="en" value="Adds a new entry to the internal log"/>	
+				<param name="Log" type="str"/>
+				<hint lang="de" value="Fügt neue Eintragungen ins innere Log ein"/>
+                <desc resKey="clu_addtolog"/>
+            </method>
+			<method call="execute" index="1" name="ClearLog" return="void">
+				<hint lang="pl" value="Kasuje zawartość wewnętrznego logu urządzenia"/>
+				<hint lang="en" value="Deletes the contents of the internal device log"/>
+				<hint lang="de" value="Löscht den Inhalt des inneren Gerätelogs"/>
+                <desc resKey="clu_clearlog"/>
+            </method>
+			<method call="execute" index="2" name="SetDateTime" return="void">
+				<hint lang="pl" value="Ustawia datę i czas"/>
+				<hint lang="en" value="Sets date and time"/>
+				<param name="UnixTimestamp" type="timestamp"/>
+				<hint lang="de" value="Stellt Datum und Zeit ein"/>
+                <desc resKey="clu_setdatetime"/>
+            </method>
+			<method call="execute" index="3" name="StartZWaveDiscovery" return="void">
+				<hint lang="pl" value="Uruchamia wykrywanie urządzeń bezprzewodowych"/>
+				<hint lang="en" value="Initiates Z-Wave module discovery mode"/>
+				<param name="Time" type="num"/>
+				<hint lang="de" value="Aktiviert das Hinzufügen von Z-Wave-Modulen(falls die Zeit = 0, dann nur bis zum ersten hinzugefügten Knoten)"/>
+                <desc resKey="clu_startzwavediscovery"/>
+            </method>
+			<method call="execute" index="4" name="StopZWaveDiscovery" return="void">
+				<hint lang="pl" value="Wstrzymuje wykrywanie urządzeń bezprzewodowych"/>
+				<hint lang="en" value="Stops Z-Wave module discovery mode"/>
+				<hint lang="de" value="Stoppt das Hinzufügen von Z-Wave-Modulen"/>
+                <desc resKey="clu_stopzwavediscovery"/>
+            </method>
+			<!--<method name="ClearNetwork" call="execute" return="void" index="5" >
+				<hint lang="pl" value="Czysci informacje o istniejacych polaczeniach z bezprzewodowymi urzadzeniami"/>
+				<hint lang="en" value="Cleares information about nodes"/>
+			</method>
+			<method name="DumpDebug" call="execute" return="void" index="6">
+				<hint lang="pl" value=""/>    
+				<hint lang="en" value=""/>  
+				<param name="Name" type="str" range="3-8" />
+			</method>
+			<method name="SetClientsPollInterval" call="set" return="void" index="15">
+				<hint lang="pl" value=""/>
+				<hint lang="en" value=""/>
+				<param name="ClientsPollInterval" type="num" range="200-10000" />
+			</method>
+			<method name="SetClientsAliveTime" call="set" return="void"  index="16">
+				<hint lang="pl" value=""/>    
+				<hint lang="en" value=""/>    
+				<param name="ClientsAliveTime" type="num" range="10-3600" />
+			</method> -->
+		</methods>
+		<events>
+			<event address="0" name="OnInit">
+				<hint lang="pl" value="Zdarzenie wywoływane jednorazowo w momencie inicjalizacji urządzenia"/>
+				<hint lang="en" value="Event occurring once during device initialization"/>
+				<hint lang="de" value="Ereignis, das einmalig aufgerufen wird, sobald das Gerät aktiviert wird"/>
+                <desc resKey="clu_oninit_1"/>
+            </event>
+			<!--<event name="OnLocalPowerOff" address="1" >
+				<hint lang="pl" value=""/>
+				<hint lang="en" value=""/>
+			</event>
+			<event name="OnLocalPowerOn" address="2" >
+				<hint lang="pl" value=""/>
+				<hint lang="en" value=""/>
+			</event>
+			<event name="OnTamperDetect" address="3" >
+				<hint lang="pl" value=""/>
+				<hint lang="en" value=""/>
+			</event> -->
+		</events>
+	</interface>
+	<objects>
+		<object maxInstances="64" name="Timer" version="1"/>
+		<object maxInstances="64" name="Calendar" version="1"/>
+		<object maxInstances="64" name="Scheduler" version="1"/>
+		<object maxInstances="0" name="PIDcontroller" version="1"/>
+		<object maxInstances="64" name="Thermostat" version="1"/>
+	</objects>
+	<modulesVersionConstraints>
+		<module type="DIN" version="421"/>
+		<module type="DOUT" version="500"/>
+		<module type="DIMM" version="500"/>
+		<module type="MODULE" version="500"/>
+	</modulesVersionConstraints>
+	<options>
+		<option name="maxIOMs" value="64"/>
+		<option name="FeatureToGetActualTimeOnClu" value="UnixTime"/>
+		<option name="MethodToSetActualTimeOnClu" value="SetDateTime"/>
+		<option name="cipher" value="true"/>
+		<option name="accept_tftp" value="true"/>
+		<option name="accept_udp" value="true"/>
+		<option name="accept_tcp" value="false"/>
+		<option name="maxObjects" value="128"/>
+		<option name="maxTfBusModules" value="48"/>
+		<option name="maxZwaveModules" value="128"/>
+	</options>
+</CLU>

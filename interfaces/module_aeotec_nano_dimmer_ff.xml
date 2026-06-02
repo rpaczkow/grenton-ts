@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="ZWAVE_AEOTEC_NANO_DIMMER" typeId="00860003006f">
+	<!--hwType=0x860003006f(575525814383), hwVer=0x1(1), fwType=0x0(0), fwApiVer=0xff(255)-->
+	<firmware typeId="0" version="ff">
+		<object class="60" count="1" name="ZWAVE_DIMMER" type="out">
+			<interface>
+				<features>
+					<feature default="0" get="true" index="0" name="Value" range="0-1" set="true" type="num">
+						<hint lang="pl" value="Aktualna wartość ściemniacza"/>
+						<hint lang="en" value="Specifies the current output value"/>
+					    <desc resKey="zwave_dimmer_value"/>
+                    </feature>
+					<feature default="0" get="true" index="1" name="MinValue" range="0-1" set="true" type="num">
+						<hint lang="pl" value="Minimalna wartość ściemniacza"/>
+						<hint lang="en" value="Minimum value which Value can adopt"/>
+					    <desc resKey="zwave_dimmer_minvalue"/>
+                    </feature>
+					<feature default="1" get="true" index="2" name="MaxValue" range="0-1" set="true" type="num">
+						<hint lang="pl" value="Maksymalna wartość ściemniacza"/>
+						<hint lang="en" value="Maximum value which Value can adopt"/>
+					    <desc resKey="zwave_dimmer_maxvalue"/>
+                    </feature>
+					<feature default="1000" get="true" index="3" name="RampTime" range="0-15000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Wartość opóźnienia przy zmianie intensywności świecenia (w ms)"/>
+						<hint lang="en" value="Delay value when changing illumination (in ms)"/>
+					    <desc resKey="zwave_dimmer_ramptime"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="0" name="SetValue" return="void">
+						<param name="Value" range="0-1" type="num"/>
+						<hint lang="pl" value="Ustawia wartość ściemniacza"/>
+						<hint lang="en" value="Sets output value"/>
+					    <desc resKey="zwave_dimmer_setvalue"/>
+                    </method>
+					<method call="set" index="1" name="SetMinValue" return="void">
+						<param name="Value" range="0-1" type="num"/>
+						<hint lang="pl" value="Ustawia minimalną wartość ściemniacza"/>
+						<hint lang="en" value="Setting the minimum value which can be adopted by an output. Attempting to set a lower value will generate an error"/>
+					    <desc resKey="zwave_dimmer_setminvalue"/>
+                    </method>
+					<method call="set" index="2" name="SetMaxValue" return="void">
+						<param name="Value" range="0-1" type="num"/>
+						<hint lang="pl" value="Ustawia maksymalną wartość ściemniacza"/>
+						<hint lang="en" value="Setting the maximum value which can be adopted by an output. Attempting to set a higher value will generate an error"/>
+					    <desc resKey="zwave_dimmer_setmaxvalue"/>
+                    </method>
+					<method call="set" index="3" name="SetRampTime" return="void">
+						<param name="RampTime" range="0-15000" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia czas narastania wartości wyjścia"/>
+						<hint lang="en" value="Determinates the time of output value increment (in ms)"/>
+					    <desc resKey="zwave_dimmer_setramptime"/>
+                    </method>
+					<method call="execute" index="0" name="Switch" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<param name="RampTime" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Przełącza stan ściemniacza na przeciwny (używając wartości MinValue i MaxValue)&#13;Time - czas, na jaki ściemniacz ma zostać przełączony (wartość 0 oznacza czas nieograniczony)"/>
+						<hint lang="en" value="Changes the output value from 0 to 1 or from 1 to 0. The first parameter is the time of change:&#13;0 - switches output to continuous mode&#13;number - switches output for a specified time by a parameter( in milliseconds)&#13;The second parameter is the ramp (time of value increments which is optional. If this parameter is not specified, the default ramp is used"/>
+					    <desc resKey="zwave_dimmer_switch"/>
+                    </method>
+					<method call="execute" index="1" name="SwitchOn" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<param name="RampTime" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Przełącza stan ściemniacza na włączony (używając wartości MaxValue)&#13;Time - czas, na jaki ściemniacz ma zostać przełączony (wartość 0 oznacza czas nieograniczony)"/>
+						<hint lang="en" value="Sets output value to 1. The first parameter is the time of switching (how long it is to be switched for). The second parameter is the ramp (time of value increments) which is optional"/>
+					    <desc resKey="zwave_dimmer_switchon"/>
+                    </method>
+					<method call="execute" index="2" name="SwitchOff" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<param name="RampTime" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Przełącza stan ściemniacza na wyłączony (używając wartości MinValue)&#13;Time - czas, na jaki ściemniacz ma zostać przełączony (wartość 0 oznacza czas nieograniczony)"/>
+						<hint lang="en" value="Sets output value to 0. The first parameter is the time of switching (how long it is to be switched for). The second parameter is the ramp (time of value increments) which is optional"/>
+					    <desc resKey="zwave_dimmer_switchoff"/>
+                    </method>
+					<method call="execute" index="3" name="Hold" return="void">
+						<param name="RampTime" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value="15000"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Rozpoczyna i przetrzymuje akcje płynnego rozjaśniania/ściemniania w kierunku przeciwnym do poprzedniego"/>
+						<hint lang="en" value="Executes the function of illuminating/ dimming"/>
+					    <desc resKey="zwave_dimmer_hold"/>
+                    </method>
+					<method call="execute" index="4" name="HoldUp" return="void">
+						<param name="RampTime" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value="15000"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Rozpoczyna i przetrzymuje akcje płynnego rozjaśniania"/>
+						<hint lang="en" value="Executes the function of illuminating"/>
+					    <desc resKey="zwave_dimmer_holdup"/>
+                    </method>
+					<method call="execute" index="5" name="HoldDown" return="void">
+						<param name="RampTime" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value="15000"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Rozpoczyna i przetrzymuje akcje płynnego ściemniania"/>
+						<hint lang="en" value="Executes the function of dimming"/>
+					    <desc resKey="zwave_dimmer_holddown"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości ściemniacza"/>
+						<hint lang="en" value="Event resulting from changing the output state"/>
+					    <desc resKey="zwave_dimmer_onchange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie stanu ściemniacza na wyłączony (wartość większa niż MinValue)"/>
+						<hint lang="en" value="Event occurring when the output value is changed from 0 to a higher value than 0"/>
+					    <desc resKey="zwave_dimmer_onswitchon"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie stanu ściemniacza na wyłączony (wartość mniejsza lub równa MinValue)"/>
+						<hint lang="en" value="Event occurring when 0 is set at the output"/>
+					    <desc resKey="zwave_dimmer_onswitchoff"/>
+                    </event>
+					<event address="3" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy wzroście wartości ściemniacza"/>
+						<hint lang="en" value="Event occurring when the set value is higher than the current value"/>
+					    <desc resKey="zwave_dimmer_onvaluerise"/>
+                    </event>
+					<event address="4" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy spadku wartości ściemniacza"/>
+						<hint lang="en" value="Event occurring when the set value is lower than the current value"/>
+					    <desc resKey="zwave_dimmer_onvaluelower"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="53" count="1" name="ZWAVE_DIN" type="in">
+			<interface>
+				<features>
+					<feature default="500" get="true" index="2" name="HoldDelay" range="100-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas po jakim po wciśnięciu i przytrzymaniu wyzwalane jest zdarzenie OnHold"/>
+						<hint lang="en" value="Time in milliseconds after which, when pressing and holding a button, the OnHold event occurs"/>
+					    <desc resKey="zwave_din_holddelay"/>
+                    </feature>
+					<feature default="100" get="true" index="3" name="HoldInterval" range="100-2000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Odstęp cykliczny w milisekundach, po jakim podczas trzymania przycisku wyzwalane są kolejne zdarzenia OnHold"/>
+						<hint lang="en" value="Cyclical interval in milliseconds after which, when pressing and holding a button, the OnHold event occurs"/>
+					    <desc resKey="zwave_din_holdinterval"/>
+                    </feature>
+					<feature get="true" index="0" name="Value" range="0-1" set="false" type="num" unit="bool">
+						<hint lang="pl" value="Zwraca stan wejścia jako 0 lub 1"/>
+						<hint lang="en" value="Returns input state as 0 or 1"/>
+					    <desc resKey="zwave_din_value"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="2" name="SetHoldDelay" return="void">
+						<param name="HoldDelay" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia wartość HoldDelay"/>
+						<hint lang="en" value="Sets HoldDelay value"/>
+					    <desc resKey="zwave_din_setholddelay"/>
+                    </method>
+					<method call="set" index="3" name="SetHoldInterval" return="void">
+						<param name="HoldInterval" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia wartość HoldInterval"/>
+						<hint lang="en" value="Sets HoldInterval value"/>
+					    <desc resKey="zwave_din_setholdinterval"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany stanu na przeciwny"/>
+						<hint lang="en" value="Occurs when a change in the input state takes place (regardless of the value)"/>
+					    <desc resKey="zwave_din_onchange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu wysokiego na wejściu"/>
+						<hint lang="en" value="Occurs when the high state is set at input"/>
+					    <desc resKey="zwave_din_onswitchon"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu niskiego na wejściu"/>
+						<hint lang="en" value="Occurs when the low state is set at input"/>
+					    <desc resKey="zwave_din_onswitchoff"/>
+                    </event>
+					<event address="3" name="OnShortPress">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na okres 500ms-2000ms"/>
+						<hint lang="en" value="Occurs after pressing the button for 500 - 2000ms"/>
+					    <desc resKey="zwave_din_onshortpress"/>
+                    </event>
+					<event address="4" name="OnLongPress">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na okres 2000ms-5000ms"/>
+						<hint lang="en" value="Occurs after pressing the button for at least 2000ms"/>
+					    <desc resKey="zwave_din_onlongpress"/>
+                    </event>
+					<event address="5" name="OnHold">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wejście jest w stanie wysokim, pierwszy raz po upłynięciu czasu HoldDelay, a następnie cyklicznie co wartość HoldInterval"/>
+						<hint lang="en" value="Occurs for the first time after HoldDelay time and then cyclically every HoldInterval value"/>
+					    <desc resKey="zwave_din_onhold"/>
+                    </event>
+					<event address="6" name="OnClick">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na czas krótszy niż 500ms"/>
+						<hint lang="en" value="Occurs after pressing the button for less than 500 ms"/>
+					    <desc resKey="zwave_din_onclick"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="64" count="1" name="ZWAVE_CONFIG" type="out">
+			<interface>
+				<features>
+					<feature default="0" get="true" index="0" name="Register" range="0-255" set="false" type="num">
+						<hint lang="pl" value="Numer rejestru (parametru) konfiguracyjnego"/>
+						<hint lang="en" value="Register (parameter) number"/>
+						<hint lang="de" value="Registernummer (Parameter)"/>
+					    <desc resKey="zwave_config_register"/>
+                    </feature>
+					<feature default="0" get="true" index="1" name="Value" set="false" type="num">
+						<hint lang="pl" value="wartość rejestru (parametru) konfiguracyjnego"/>
+						<hint lang="en" value="Register (parameter) value"/>
+						<hint lang="de" value="Register (Parameter) Wert"/>
+					    <desc resKey="zwave_config_value"/>
+                    </feature>
+					<feature default="0" get="true" index="2" name="NodeID" range="0-232" set="false" type="num">
+						<hint lang="pl" value="Numer modułu (węzła) w sieci Z-Wave"/>
+						<hint lang="en" value="Module's number (node) in the Z-Wave network"/>
+						<hint lang="de" value="Modulnummer (Knoten) im Z-Wave-Netzwerk"/>
+					    <desc resKey="zwave_config_nodeid"/>
+                    </feature>
+					<feature default="0" get="true" index="3" name="Banned" range="0-1" set="false" type="num">
+						<hint lang="pl" value="Zwraca informację o zablokowaniu komunikacji Z-Wave z modułem:&#13;0 - komunikacja z modułem nie jest zablokowana,&#13;1 - zablokowana komunikacja z modułem (moduł zbanowany)"/>
+						<hint lang="en" value="Returns information about communication with module:&#13;0 - communication with the module is not blocked,&#13;1 - blocked communication with the module (module banned)"/>
+						<hint lang="de" value="Liefert Informationen zur Kommunikation mit dem Modul:&#13;0 - Die Kommunikation mit dem Modul ist nicht blockiert,&#13;1 - Kommunikation mit dem Modul gesperrt (Modul gesperrt)"/>
+					    <desc resKey="zwave_config_banned"/>
+                    </feature>
+					<feature default="0" get="true" index="4" name="FailCount" range="0-65536" set="false" type="num">
+						<hint lang="pl" value="Liczba nieudanych prób komunikacji z modułem Z-Wave"/>
+						<hint lang="en" value="The number of failed communication attempts with the Z-Wave module"/>
+						<hint lang="de" value="Die Anzahl der fehlgeschlagenen Kommunikationsversuche mit dem Z-Wave-Modul"/>
+					    <desc resKey="zwave_config_failcount"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="execute" index="0" name="Set" return="void">
+						<param name="Register" range="0-255" type="num"/>
+						<param name="Value" type="num"/>
+						<param name="Size" range="1-4" type="num" unit="byte"/>
+						<hint lang="pl" value="Ustawia wartość danego rejestru (parametru) konfiguracyjnego"/>
+						<hint lang="en" value="Sets the value of the register (parameter)"/>
+						<hint lang="de" value="Setzt den Wert des Registers (Parameter)"/>
+					    <desc resKey="zwave_config_set"/>
+                    </method>
+					<method call="execute" index="1" name="Get" return="void">
+						<param name="Register" range="0-255" type="num"/>
+						<hint lang="pl" value="Pobiera wartość danego rejestru (parametru) konfiguracyjnego"/>
+						<hint lang="en" value="Gets the value of a given register (parameter)"/>
+						<hint lang="de" value="Ruft den Wert eines bestimmten Registers (Parameter) ab"/>
+					    <desc resKey="zwave_config_get"/>
+                    </method>
+					<method call="execute" index="2" name="SetDefault" return="void">
+						<param name="Register" range="0-255" type="num"/>
+						<hint lang="pl" value="Ustawia wartość domyślną dla danego rejestru (parametru) konfiguracyjnego"/>
+						<hint lang="en" value="Sets the default value for register (parameter)"/>
+						<hint lang="de" value="Setzt den Standardwert für Register (Parameter)"/>
+					    <desc resKey="zwave_config_setdefault"/>
+                    </method>
+					<method call="execute" index="3" name="RemoveBan" return="void">
+						<hint lang="pl" value="Zdejmuje blokadę komunikacji z modułem Z-Wave"/>
+						<hint lang="en" value="Removes the blockade of communication with the Z-Wave module"/>
+						<hint lang="de" value="Entfernt die Blockade der Kommunikation mit dem Z-Wave-Modul"/>
+					    <desc resKey="zwave_config_removeban"/>
+                    </method>
+					<method call="execute" index="4" name="ClearFailCount" return="void">
+						<hint lang="pl" value="Czyści liczbę nieudanych prób komunikacji"/>
+						<hint lang="en" value="Cleans the number of failed communication attemps"/>
+						<hint lang="de" value="Bereinigt die Anzahl der fehlgeschlagenen Kommunikationsversuche"/>
+					    <desc resKey="zwave_config_clearfailcount"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnBanned">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy urządzenie zostanie zbanowane"/>
+						<hint lang="en" value="Occurs when Z-Wave device is banned"/>
+						<hint lang="de" value="Tritt auf, wenn das Z-Wave-Gerät gesperrt ist"/>
+					    <desc resKey="zwave_config_onbanned"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

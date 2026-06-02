@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="GENERIC_ZWAVE" typeId="06">
+	<!--hwType=0x6(6), hwVer=0x1(1), fwType=0x0(0), fwApiVer=0x1(1)-->
+	<firmware typeId="00" version="01">
+		<object class="17" count="1" name="GENERIC_ZW_NODE" type="out">
+			<interface>
+				<features>
+					<feature get="true" index="0" name="RemoteVal" set="false" type="num">
+						<hint lang="pl" value="Zwraca wartość modułu Z-Wave"/>
+						<hint lang="en" value="Returns the basic value of the Z-Wave module"/>
+                        <desc resKey="generic_zw_node_remoteval"/>
+                    </feature>
+					<feature get="true" index="1" name="LocalVal" set="false" type="num">
+						<hint lang="pl" value="Zwraca żądaną wartość modułu Z-Wave"/>
+						<hint lang="en" value="Returns desired value of the Z-Wave module"/>
+                        <desc resKey="generic_zw_node_localval"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="execute" index="0" name="SwitchOn" return="void">
+						<hint lang="pl" value="Załączenie wyjścia"/>
+						<hint lang="en" value="Sets output value to 1"/>
+                        <desc resKey="generic_zw_node_switchon"/>
+                    </method>
+					<method call="execute" index="1" name="SwitchOff" return="void">
+						<hint lang="pl" value="Wyłączenie wyjście"/>
+						<hint lang="en" value="Sets output value to 0"/>
+                        <desc resKey="generic_zw_node_switchoff"/>
+                    </method>
+					<method call="execute" index="2" name="Switch" return="void">
+						<hint lang="pl" value="Zmienia stan wyjścia na przeciwny."/>
+						<hint lang="en" value="Changes the output value from 0 to 1 or from 1 to 0"/>
+                        <desc resKey="generic_zw_node_switch"/>
+                    </method>
+					<method call="execute" index="3" name="RequestState" return="void">
+						<hint lang="pl" value="Wymusza pobranie wartości modułu"/>
+						<hint lang="en" value="Forces the module value to be retrieved"/>
+                        <desc resKey="generic_zw_node_requeststate"/>
+                    </method>
+					<method call="execute" index="4" name="SetOutput" return="void">
+						<param name="Value" type="num"/>
+						<hint lang="pl" value="Ustawia stan wyjścia"/>
+						<hint lang="en" value="Sets output state"/>
+                        <desc resKey="generic_zw_node_setoutput"/>
+                    </method>
+					<method call="execute" index="5" name="SetConfigParam" return="void">
+						<param name="Parameter" range="1-255" type="num"/>
+						<param name="Value" type="num"/>
+						<param name="Length" optional="true" range="1-4" type="num">
+							<parametrized name="Default" type="num" value="1"/>
+							<parametrized name="Bytes"/>
+						</param>
+						<hint lang="pl" value="Ustawia wartość danego rejestru (parametru) konfiguracyjnego"/>
+						<hint lang="en" value="Sets the value of the register (parameter)"/>
+                        <desc resKey="generic_zw_node_setconfigparam"/>
+                    </method>
+				</methods>
+				<events>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

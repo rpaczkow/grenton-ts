@@ -1,0 +1,609 @@
+// Created from: packages/grenton-api/interfaces/object_modbus_v1.xml, object name="Modbus" version="1"
+
+import { rawExecutionBuilderFactory } from "../../../core/execution-builder"
+import { RemoteGate } from "../../../core/remote-gate"
+
+enum EventType {
+    OnChange = 0,
+    OnError = 1
+}
+
+enum PropertyType {
+    DeviceAddress = 0,
+    AccessRights = 1,
+    RegisterAddress = 2,
+    TransmisionSpeed = 3,
+    ValueType = 4,
+    BitPosition = 5,
+    BitCount = 6,
+    RefreshInterval = 8,
+    ResponseTimeout = 9,
+    Divisor = 10,
+    Endianess = 11,
+    RegisterType = 12,
+    ErrorCode = 13,
+    Value = 14,
+    RegisterValue = 15
+}
+
+enum AccessRightsType {
+    Read = 0,
+    ReadWrite = 1
+}
+
+enum TransmisionSpeedType {
+    _1200 = 1200,
+    _2400 = 2400,
+    _4800 = 4800,
+    _9600 = 9600,
+    _19200 = 19200,
+    _38400 = 38400,
+    _57600 = 57600,
+    _115200 = 115200
+}
+
+enum ValueTypeType {
+    Number = 1,
+    Float = 2,
+    Bit = 3
+}
+
+enum EndianessType {
+    NoSwap = 0,
+    SwapBytesAndWords = 1,
+    SwapBytes = 2,
+    SwapWords = 3
+}
+
+enum RegisterTypeType {
+    BitOutputsInputs = 0,
+    BinaryInputs = 1,
+    HoldingRegisters = 2,
+    InputRegisters = 3
+}
+
+declare class ModbusRaw {
+    add_event(event: EventType, callback: () => void): void;
+    get(property: PropertyType): any;
+    set(property: PropertyType, value: any): void;
+    execute(method: number, ...args: any[]): any;
+}
+
+interface IModbus {
+    /**
+     * Zdarzenie wywoływane przy zmianie stanu (niezależnie od wartości)
+     * @param callback
+     */
+    addOnChange: (callback: () => void) => void
+    /**
+     * Zdarzenie wywoływane gdy urządzenie slave zgłasza błąd
+     * @param callback
+     */
+    addOnError: (callback: () => void) => void
+    /** Adres urządzenia Modbus */
+    deviceAddress: number
+    /** Tryb pracy: 0 - odczyt 1 - odczyt/zapis */
+    accessRights: AccessRightsType
+    /** Adres obsługiwanego rejestru */
+    registerAddress: number
+    /** Prędkość transmisji */
+    transmisionSpeed: TransmisionSpeedType
+    /** Typ zmiennej: 1 - Number 2 - Float 3 - Bit */
+    valueType: ValueTypeType
+    /** Pozycja bitu (dotyczy dostępu bitowego do 16bit rejestrów - typu bit) */
+    bitPosition: number
+    /** Liczba bitów rejestru: Dla 16 bitowych rejestrów - podanie wartości > 16 spowoduje odczyt / zapis 2 rejestrów Dla rejestrów bitowych / dwustanowych - określa liczbę odczytywanych / zapisywanych rejestrów W przypadku typu bit - określa liczbę bitów 16 bitowego rejestru podlegających operacji odczytu / zapisu */
+    bitCount: number
+    /** Czas odświeżania */
+    refreshInterval: number
+    /** Czas na odpowiedź */
+    responseTimeout: number
+    /** Dzielnik */
+    divisor: number
+    /** 0 - NoSwap - Little Endian 1 - SwapBytesAndWords - BigEndian 2 - SwapBytes - bajty w słowie: BigEndian; słowa: Little Endian 3 - SwapWords - bajty w słowie: LittleEndian, słowa: Big Endian */
+    endianess: EndianessType
+    /** Typ rejestru Modbus: 0 - wyjścia / wejścia bitowe - bitowe rejestry wyjśc/wejść. Dla zapisu pojedynczego wyjścia - funkcja Modbus: 5, dla wielu wyjść - funkcja Modbus: 15 1 - wejścia dwustanowe - 'discrete inputs' - funkcja Modbus: 3 2 - rejestry pamiętające - rejestry 16 bitowe. Zapis wartości 16bit - funkcja Modbus: 6, Zapis wartości 32bit - funkcja Modbus: 16. Odczyt - funkcja Modbus: 3 3 - rejestry wejściowe - rejestry 16 bitowe - funkcja Modbus: 4 */
+    registerType: RegisterTypeType
+    /** Kod błędu: 1 – niedozwolona funkcja 2 – niedozwolony numer rejestru 3 – niedozwolona wartość danej 4 – uszkodzenie w przyłączonym urządzeniu 5 – potwierdzenie pozytywne 6 – brak gotowości 7 – potwierdzenie negatywne 8 – błąd parzystości pamięci 10 - ścieżka bramy niedostępna 11 - brak odpowiedzi urządzenia docelowego 0 - poprawny odczyt/zapis rejestru -1 - nieaktualna wartość ostatniegoodczytanego rejestru -2 - przekroczenie czasu odpowiedzi -3 - błąd ramki (problem ze zdekodowaniem odpowiedzi) -4 - nieoczekiwany rozmiar odpowiedzi -5 - nieoczekiwany kod odpowiedzi -6 - nieprawidłowy stan obiektu -7 - błąd połączenia */
+    readonly errorCode: number
+    /** Wartość odczytu / zapisu */
+    value: number
+    /** Nieprzeskalowana wartość rejestru */
+    readonly registerValue: number
+}
+
+class Modbus implements IModbus {
+    private onChangeCallbacks: Array<() => void> = [];
+    private onErrorCallbacks: Array<() => void> = [];
+
+    constructor(private raw: ModbusRaw) {
+        this.raw.add_event(EventType.OnChange, () => {
+            this.onChangeCallbacks.forEach(callback => { callback(); });
+        });
+        this.raw.add_event(EventType.OnError, () => {
+            this.onErrorCallbacks.forEach(callback => { callback(); });
+        });
+    }
+
+    /**
+     * Zdarzenie wywoływane przy zmianie stanu (niezależnie od wartości)
+     * @param callback
+     */
+    addOnChange(callback: () => void): void {
+        this.onChangeCallbacks.push(callback);
+    }
+    /**
+     * Zdarzenie wywoływane gdy urządzenie slave zgłasza błąd
+     * @param callback
+     */
+    addOnError(callback: () => void): void {
+        this.onErrorCallbacks.push(callback);
+    }
+    /**
+     * Adres urządzenia Modbus
+     * @returns {number}
+     */
+    get deviceAddress(): number {
+        return this.raw.get(PropertyType.DeviceAddress);
+    }
+    set deviceAddress(value: number) {
+        this.raw.set(PropertyType.DeviceAddress, value);
+    }
+    /**
+     * Tryb pracy: 0 - odczyt 1 - odczyt/zapis
+     * @returns {AccessRightsType}
+     */
+    get accessRights(): AccessRightsType {
+        return this.raw.get(PropertyType.AccessRights);
+    }
+    set accessRights(value: AccessRightsType) {
+        this.raw.set(PropertyType.AccessRights, value);
+    }
+    /**
+     * Adres obsługiwanego rejestru
+     * @returns {number}
+     */
+    get registerAddress(): number {
+        return this.raw.get(PropertyType.RegisterAddress);
+    }
+    set registerAddress(value: number) {
+        this.raw.set(PropertyType.RegisterAddress, value);
+    }
+    /**
+     * Prędkość transmisji
+     * @returns {TransmisionSpeedType}
+     */
+    get transmisionSpeed(): TransmisionSpeedType {
+        return this.raw.get(PropertyType.TransmisionSpeed);
+    }
+    set transmisionSpeed(value: TransmisionSpeedType) {
+        this.raw.set(PropertyType.TransmisionSpeed, value);
+    }
+    /**
+     * Typ zmiennej: 1 - Number 2 - Float 3 - Bit
+     * @returns {ValueTypeType}
+     */
+    get valueType(): ValueTypeType {
+        return this.raw.get(PropertyType.ValueType);
+    }
+    set valueType(value: ValueTypeType) {
+        this.raw.set(PropertyType.ValueType, value);
+    }
+    /**
+     * Pozycja bitu (dotyczy dostępu bitowego do 16bit rejestrów - typu bit)
+     * @returns {number}
+     */
+    get bitPosition(): number {
+        return this.raw.get(PropertyType.BitPosition);
+    }
+    set bitPosition(value: number) {
+        this.raw.set(PropertyType.BitPosition, value);
+    }
+    /**
+     * Liczba bitów rejestru: Dla 16 bitowych rejestrów - podanie wartości > 16 spowoduje odczyt / zapis 2 rejestrów Dla rejestrów bitowych / dwustanowych - określa liczbę odczytywanych / zapisywanych rejestrów W przypadku typu bit - określa liczbę bitów 16 bitowego rejestru podlegających operacji odczytu / zapisu
+     * @returns {number}
+     */
+    get bitCount(): number {
+        return this.raw.get(PropertyType.BitCount);
+    }
+    set bitCount(value: number) {
+        this.raw.set(PropertyType.BitCount, value);
+    }
+    /**
+     * Czas odświeżania
+     * @returns {number}
+     */
+    get refreshInterval(): number {
+        return this.raw.get(PropertyType.RefreshInterval);
+    }
+    set refreshInterval(value: number) {
+        this.raw.set(PropertyType.RefreshInterval, value);
+    }
+    /**
+     * Czas na odpowiedź
+     * @returns {number}
+     */
+    get responseTimeout(): number {
+        return this.raw.get(PropertyType.ResponseTimeout);
+    }
+    set responseTimeout(value: number) {
+        this.raw.set(PropertyType.ResponseTimeout, value);
+    }
+    /**
+     * Dzielnik
+     * @returns {number}
+     */
+    get divisor(): number {
+        return this.raw.get(PropertyType.Divisor);
+    }
+    set divisor(value: number) {
+        this.raw.set(PropertyType.Divisor, value);
+    }
+    /**
+     * 0 - NoSwap - Little Endian 1 - SwapBytesAndWords - BigEndian 2 - SwapBytes - bajty w słowie: BigEndian; słowa: Little Endian 3 - SwapWords - bajty w słowie: LittleEndian, słowa: Big Endian
+     * @returns {EndianessType}
+     */
+    get endianess(): EndianessType {
+        return this.raw.get(PropertyType.Endianess);
+    }
+    set endianess(value: EndianessType) {
+        this.raw.set(PropertyType.Endianess, value);
+    }
+    /**
+     * Typ rejestru Modbus: 0 - wyjścia / wejścia bitowe - bitowe rejestry wyjśc/wejść. Dla zapisu pojedynczego wyjścia - funkcja Modbus: 5, dla wielu wyjść - funkcja Modbus: 15 1 - wejścia dwustanowe - 'discrete inputs' - funkcja Modbus: 3 2 - rejestry pamiętające - rejestry 16 bitowe. Zapis wartości 16bit - funkcja Modbus: 6, Zapis wartości 32bit - funkcja Modbus: 16. Odczyt - funkcja Modbus: 3 3 - rejestry wejściowe - rejestry 16 bitowe - funkcja Modbus: 4
+     * @returns {RegisterTypeType}
+     */
+    get registerType(): RegisterTypeType {
+        return this.raw.get(PropertyType.RegisterType);
+    }
+    set registerType(value: RegisterTypeType) {
+        this.raw.set(PropertyType.RegisterType, value);
+    }
+    /**
+     * Kod błędu: 1 – niedozwolona funkcja 2 – niedozwolony numer rejestru 3 – niedozwolona wartość danej 4 – uszkodzenie w przyłączonym urządzeniu 5 – potwierdzenie pozytywne 6 – brak gotowości 7 – potwierdzenie negatywne 8 – błąd parzystości pamięci 10 - ścieżka bramy niedostępna 11 - brak odpowiedzi urządzenia docelowego 0 - poprawny odczyt/zapis rejestru -1 - nieaktualna wartość ostatniegoodczytanego rejestru -2 - przekroczenie czasu odpowiedzi -3 - błąd ramki (problem ze zdekodowaniem odpowiedzi) -4 - nieoczekiwany rozmiar odpowiedzi -5 - nieoczekiwany kod odpowiedzi -6 - nieprawidłowy stan obiektu -7 - błąd połączenia
+     * @returns {number}
+     */
+    get errorCode(): number {
+        return this.raw.get(PropertyType.ErrorCode);
+    }
+    /**
+     * Wartość odczytu / zapisu
+     * @returns {number}
+     */
+    get value(): number {
+        return this.raw.get(PropertyType.Value);
+    }
+    set value(v: number) {
+        this.raw.set(PropertyType.Value, v);
+    }
+    /**
+     * Nieprzeskalowana wartość rejestru
+     * @returns {number}
+     */
+    get registerValue(): number {
+        return this.raw.get(PropertyType.RegisterValue);
+    }
+}
+
+class ModbusRemote implements IModbus {
+    constructor(private objectName: string, private gate: RemoteGate) {
+
+    }
+
+    /**
+     * Zdarzenie wywoływane przy zmianie stanu (niezależnie od wartości)
+     * @param callback
+     */
+    addOnChange(_callback: () => void): void {
+        // Remote events are not supported
+    }
+    /**
+     * Zdarzenie wywoływane gdy urządzenie slave zgłasza błąd
+     * @param callback
+     */
+    addOnError(_callback: () => void): void {
+        // Remote events are not supported
+    }
+
+    /**
+     * Adres urządzenia Modbus
+     * @returns {number}
+     */
+    get deviceAddress(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.DeviceAddress)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+
+    set deviceAddress(value: number) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.DeviceAddress)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Tryb pracy: 0 - odczyt 1 - odczyt/zapis
+     * @returns {AccessRightsType}
+     */
+    get accessRights(): AccessRightsType {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.AccessRights)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+
+    set accessRights(value: AccessRightsType) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.AccessRights)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Adres obsługiwanego rejestru
+     * @returns {number}
+     */
+    get registerAddress(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.RegisterAddress)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+
+    set registerAddress(value: number) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.RegisterAddress)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Prędkość transmisji
+     * @returns {TransmisionSpeedType}
+     */
+    get transmisionSpeed(): TransmisionSpeedType {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.TransmisionSpeed)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+
+    set transmisionSpeed(value: TransmisionSpeedType) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.TransmisionSpeed)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Typ zmiennej: 1 - Number 2 - Float 3 - Bit
+     * @returns {ValueTypeType}
+     */
+    get valueType(): ValueTypeType {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.ValueType)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+
+    set valueType(value: ValueTypeType) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.ValueType)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Pozycja bitu (dotyczy dostępu bitowego do 16bit rejestrów - typu bit)
+     * @returns {number}
+     */
+    get bitPosition(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.BitPosition)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+
+    set bitPosition(value: number) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.BitPosition)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Liczba bitów rejestru: Dla 16 bitowych rejestrów - podanie wartości > 16 spowoduje odczyt / zapis 2 rejestrów Dla rejestrów bitowych / dwustanowych - określa liczbę odczytywanych / zapisywanych rejestrów W przypadku typu bit - określa liczbę bitów 16 bitowego rejestru podlegających operacji odczytu / zapisu
+     * @returns {number}
+     */
+    get bitCount(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.BitCount)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+
+    set bitCount(value: number) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.BitCount)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Czas odświeżania
+     * @returns {number}
+     */
+    get refreshInterval(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.RefreshInterval)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+
+    set refreshInterval(value: number) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.RefreshInterval)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Czas na odpowiedź
+     * @returns {number}
+     */
+    get responseTimeout(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.ResponseTimeout)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+
+    set responseTimeout(value: number) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.ResponseTimeout)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Dzielnik
+     * @returns {number}
+     */
+    get divisor(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.Divisor)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+
+    set divisor(value: number) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Divisor)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * 0 - NoSwap - Little Endian 1 - SwapBytesAndWords - BigEndian 2 - SwapBytes - bajty w słowie: BigEndian; słowa: Little Endian 3 - SwapWords - bajty w słowie: LittleEndian, słowa: Big Endian
+     * @returns {EndianessType}
+     */
+    get endianess(): EndianessType {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.Endianess)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+
+    set endianess(value: EndianessType) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Endianess)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Typ rejestru Modbus: 0 - wyjścia / wejścia bitowe - bitowe rejestry wyjśc/wejść. Dla zapisu pojedynczego wyjścia - funkcja Modbus: 5, dla wielu wyjść - funkcja Modbus: 15 1 - wejścia dwustanowe - 'discrete inputs' - funkcja Modbus: 3 2 - rejestry pamiętające - rejestry 16 bitowe. Zapis wartości 16bit - funkcja Modbus: 6, Zapis wartości 32bit - funkcja Modbus: 16. Odczyt - funkcja Modbus: 3 3 - rejestry wejściowe - rejestry 16 bitowe - funkcja Modbus: 4
+     * @returns {RegisterTypeType}
+     */
+    get registerType(): RegisterTypeType {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.RegisterType)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+
+    set registerType(value: RegisterTypeType) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.RegisterType)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Kod błędu: 1 – niedozwolona funkcja 2 – niedozwolony numer rejestru 3 – niedozwolona wartość danej 4 – uszkodzenie w przyłączonym urządzeniu 5 – potwierdzenie pozytywne 6 – brak gotowości 7 – potwierdzenie negatywne 8 – błąd parzystości pamięci 10 - ścieżka bramy niedostępna 11 - brak odpowiedzi urządzenia docelowego 0 - poprawny odczyt/zapis rejestru -1 - nieaktualna wartość ostatniegoodczytanego rejestru -2 - przekroczenie czasu odpowiedzi -3 - błąd ramki (problem ze zdekodowaniem odpowiedzi) -4 - nieoczekiwany rozmiar odpowiedzi -5 - nieoczekiwany kod odpowiedzi -6 - nieprawidłowy stan obiektu -7 - błąd połączenia
+     * @returns {number}
+     */
+    get errorCode(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.ErrorCode)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Wartość odczytu / zapisu
+     * @returns {number}
+     */
+    get value(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.Value)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+
+    set value(v: number) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Value)
+            .addParameter(v)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Nieprzeskalowana wartość rejestru
+     * @returns {number}
+     */
+    get registerValue(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.RegisterValue)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+}
+
+export {
+    Modbus, ModbusRaw, ModbusRemote,
+    AccessRightsType, TransmisionSpeedType, ValueTypeType, EndianessType, RegisterTypeType
+}

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- DO NOT EDIT: automatically generated file -->
+<object class="260" className="GATE" name="Sonos" version="1">
+	<features>
+		<feature index="0" name="Host" get="true" set="true" type="str" default="0.0.0.0" unit="IP">
+			<hint lang="en" value="Sonos IP Address"/>
+			<hint lang="pl" value="Adres IP Sonos"/>
+			<hint lang="de" value="Sonos-IP-Adresse"/>
+			<desc resKey="gate_sonos_host"/>
+		</feature>
+		<feature index="1" name="UpdatePeriod" get="true" set="true" type="num" range="0-10000" default="1000" unit="ms">
+			<hint lang="en" value="State update period"/>
+			<hint lang="pl" value="Okres aktualizacji stanu"/>
+			<hint lang="de" value="Zustandsaktualisierungszeitraum"/>
+			<desc resKey="gate_sonos_updateperiod"/>
+		</feature>
+		<feature index="2" name="Status" get="true" set="false" type="num" unit="-">
+			<hint lang="en" value="Communication status:&#13;  0 - no connection,&#13;  1 - connected"/>
+			<hint lang="pl" value="Stan komunikacji z głośnikiem:&#13;  0 - brak połączenia,&#13;  1 - połączono"/>
+			<hint lang="de" value="Kommunikationsstatus:&#13;  0 - keine Verbindung,&#13;  1 - verbunden"/>
+			<desc resKey="gate_sonos_status"/>
+		</feature>
+		<feature index="3" name="ErrorCode" get="true" set="false" type="num" unit="-">
+			<hint lang="en" value="Last error code:&#13;  0 - no error,&#13;  negative values - negative HTTP status codes,&#13;  positive values - UPnP error codes"/>
+			<hint lang="pl" value="Ostatni kod błędu:&#13;  0 - brak błędu,&#13;  wartości ujemne - ujemny kod odpowiedzi HTTP,&#13;  wartości dotatnie - kod błędu UPnP"/>
+			<hint lang="de" value="Letzter Fehlercode:&#13;  0 - kein Fehler,&#13;  negative Werte - negative HTTP-Statuscodes,&#13;  positive Werte - UPnP-Fehlercodes"/>
+			<desc resKey="gate_sonos_errorcode"/>
+		</feature>
+		<feature index="4" name="Volume" get="true" set="false" type="num" range="0-100" unit="%">
+			<hint lang="en" value="Volume level ranging from 0% to 100%"/>
+			<hint lang="pl" value="Głośność w zakresie od 0% do 100%"/>
+			<hint lang="de" value="Lautstärke von 0% bis 100%"/>
+			<desc resKey="gate_sonos_volume"/>
+		</feature>
+		<feature index="5" name="Mute" get="true" set="false" type="num" enum="0,1" unit="bool">
+			<enum name="OFF" value="0" resKey="gate_sonos_mute_enum_off" />
+			<enum name="ON" value="1" resKey="gate_sonos_mute_enum_on" />
+			<hint lang="en" value="Mute state:&#13;  0 - Off,&#13;  1 - On"/>
+			<hint lang="pl" value="Stan wyciszenia:&#13;  0 - Wyłączone,&#13;  1 - Włączone"/>
+			<hint lang="de" value="Stummschaltung:&#13;  0 - Aus,&#13;  1 - Aktiviert"/>
+			<desc resKey="gate_sonos_mute"/>
+		</feature>
+		<feature index="6" name="Artist" get="true" set="false" type="str" unit="-">
+			<hint lang="en" value="Artist"/>
+			<hint lang="pl" value="Nazwa autora"/>
+			<hint lang="de" value="Künstler"/>
+			<desc resKey="gate_sonos_artist"/>
+		</feature>
+		<feature index="7" name="Title" get="true" set="false" type="str" unit="-">
+			<hint lang="en" value="Title"/>
+			<hint lang="pl" value="Tytuł utworu"/>
+			<hint lang="de" value="Titel"/>
+			<desc resKey="gate_sonos_title"/>
+		</feature>
+		<feature index="8" name="State" get="true" set="false" type="num" unit="-">
+			<hint lang="en" value="Playback state:&#13;  0 - stopped,&#13;  1 - playing,&#13;  2 - paused,&#13;  3 - transitioning"/>
+			<hint lang="pl" value="Stan odtwarzania:&#13;  0 - zatrzymane,&#13;  1 - odtwarzanie,&#13;  2 - pauza,&#13;  3 - stan przejściowy"/>
+			<hint lang="de" value="Wiedergabestatus:&#13;  0 – Angehalten,&#13;  1 – Wiedergabe,&#13;  2 – Pause,&#13;  3 – Übergang"/>
+			<desc resKey="gate_sonos_state"/>
+		</feature>
+		<feature index="9" name="PlayMode" get="true" set="false" type="num" enum="0,1,2,3,4,5" unit="-">
+			<enum name="NORMAL" value="0" resKey="gate_sonos_playmode_enum_normal" />
+			<enum name="REPEAT_ALL" value="1" resKey="gate_sonos_playmode_enum_repeat_all" />
+			<enum name="REPEAT_ONE" value="2" resKey="gate_sonos_playmode_enum_repeat_one" />
+			<enum name="SHUFFLE_NOREPEAT" value="3" resKey="gate_sonos_playmode_enum_shuffle_norepeat" />
+			<enum name="SHUFFLE" value="4" resKey="gate_sonos_playmode_enum_shuffle" />
+			<enum name="SHUFFLE_REPEAT_ONE" value="5" resKey="gate_sonos_playmode_enum_shuffle_repeat_one" />
+			<hint lang="en" value="Playback mode:&#13;  0 - normal,&#13;  1 - repeat all,&#13;  2 - repeat one,&#13;  3 - shuffle, no repeat,&#13;  4 - shuffle, repeat all,&#13;  5 - shuffle, repeat one"/>
+			<hint lang="pl" value="Tryb odtwarzania:&#13;  0 - normalny,&#13;  1 - powtarzaj wszystkie,&#13;  2 - powtarzaj jeden,&#13;  3 - losowy, bez powtarzania,&#13;  4 - losowy, powtarzaj wszystkie,&#13;  5 - losowy, powtarzaj jeden"/>
+			<hint lang="de" value="Wiedergabemodus:&#13;  0 – normal,&#13;  1 – alles wiederholen,&#13;  2 – eins wiederholen,&#13;  3 – Zufallswiedergabe, keine Wiederholung,&#13;  4 – Zufallswiedergabe, alle wiederholen,&#13;  5 – Zufallswiedergabe, eine wiederholen"/>
+			<desc resKey="gate_sonos_playmode"/>
+		</feature>
+		<feature index="10" name="AlbumArt" get="true" set="false" type="str" unit="-">
+			<hint lang="en" value="Album art address"/>
+			<hint lang="pl" value="Adres okładki albumu"/>
+			<hint lang="de" value="Albumcover-Adresse"/>
+			<desc resKey="gate_sonos_albumart"/>
+		</feature>
+		<feature index="11" name="Name" get="true" set="false" type="str" unit="-">
+			<hint lang="en" value="Speaker name"/>
+			<hint lang="pl" value="Nazwa głośnika"/>
+			<hint lang="de" value="Lautsprecher Name"/>
+			<desc resKey="gate_sonos_name"/>
+		</feature>
+		<feature index="12" name="CoordinatorName" get="true" set="false" type="str" unit="-">
+			<hint lang="en" value="Group coordinator name"/>
+			<hint lang="pl" value="Nazwa koordynatora grupy"/>
+			<hint lang="de" value="Name des Gruppenkoordinators"/>
+			<desc resKey="gate_sonos_coordinatorname"/>
+		</feature>
+	</features>
+	<methods>
+		<method call="set" index="0" name="SetHost" return="void" visible="false">
+			<param name="Host" type="str" unit="IP" />
+			<hint lang="en" value="Sets the Sonos IP Address"/>
+			<hint lang="pl" value="Ustawia adres IP Sonos"/>
+			<hint lang="de" value="Legt die Sonos-IP-Adresse fest"/>
+			<desc resKey="gate_sonos_sethost"/>
+		</method>
+		<method call="set" index="1" name="SetUpdatePeriod" return="void">
+			<param name="UpdatePeriod" type="num" range="0-10000" unit="ms" />
+			<hint lang="en" value="Sets the state update period"/>
+			<hint lang="pl" value="Ustawia okres aktualizacji stanu"/>
+			<hint lang="de" value="Legt den Zustandsaktualisierungszeitraum fest"/>
+			<desc resKey="gate_sonos_setupdateperiod"/>
+		</method>
+		<method call="set" index="4" name="SetVolume" return="void">
+			<param name="Volume" type="num" range="0-100" unit="%" />
+			<hint lang="en" value="Sets the volume level, ranging from 0% to 100%"/>
+			<hint lang="pl" value="Ustawia głośność w zakresie od 0% do 100%"/>
+			<hint lang="de" value="Stellt den Lautstärkepegel ein, der von 0% bis 100% reicht"/>
+			<desc resKey="gate_sonos_setvolume"/>
+		</method>
+		<method call="set" index="5" name="SetMute" return="void">
+			<param name="Mute" type="num" enum="0,1" unit="bool">
+				<enum name="OFF" value="0" resKey="gate_sonos_mute_enum_off" />
+				<enum name="ON" value="1" resKey="gate_sonos_mute_enum_on" />
+			</param>
+			<hint lang="en" value="Sets the mute state"/>
+			<hint lang="pl" value="Ustawia stan wyciszenia"/>
+			<hint lang="de" value="Legt den Stummschaltstatus fest"/>
+			<desc resKey="gate_sonos_setmute"/>
+		</method>
+		<method call="set" index="9" name="SetPlayMode" return="void">
+			<param name="PlayMode" type="num" enum="0,1,2,3,4,5" unit="-">
+				<enum name="NORMAL" value="0" resKey="gate_sonos_playmode_enum_normal" />
+				<enum name="REPEAT_ALL" value="1" resKey="gate_sonos_playmode_enum_repeat_all" />
+				<enum name="REPEAT_ONE" value="2" resKey="gate_sonos_playmode_enum_repeat_one" />
+				<enum name="SHUFFLE_NOREPEAT" value="3" resKey="gate_sonos_playmode_enum_shuffle_norepeat" />
+				<enum name="SHUFFLE" value="4" resKey="gate_sonos_playmode_enum_shuffle" />
+				<enum name="SHUFFLE_REPEAT_ONE" value="5" resKey="gate_sonos_playmode_enum_shuffle_repeat_one" />
+			</param>
+			<hint lang="en" value="Sets the playback mode"/>
+			<hint lang="pl" value="Ustawia tryb odtwarzania"/>
+			<hint lang="de" value="Legt den Wiedergabemodus fest"/>
+			<desc resKey="gate_sonos_setplaymode"/>
+		</method>
+		<method call="execute" index="0" name="Play" return="void">
+			<hint lang="en" value="Starts playback"/>
+			<hint lang="pl" value="Rozpoczyna odtwarzanie"/>
+			<hint lang="de" value="Startet die Wiedergabe"/>
+			<desc resKey="gate_sonos_play"/>
+		</method>
+		<method call="execute" index="1" name="Pause" return="void">
+			<hint lang="en" value="Pauses playback"/>
+			<hint lang="pl" value="Wstrzymuje odtwarzanie (pauza)"/>
+			<hint lang="de" value="Unterbricht die Wiedergabe"/>
+			<desc resKey="gate_sonos_pause"/>
+		</method>
+		<method call="execute" index="2" name="Stop" return="void">
+			<hint lang="en" value="Stops playback"/>
+			<hint lang="pl" value="Zatrzymuje odtwarzanie"/>
+			<hint lang="de" value="Stoppt die Wiedergabe"/>
+			<desc resKey="gate_sonos_stop"/>
+		</method>
+		<method call="execute" index="3" name="Next" return="void">
+			<hint lang="en" value="Switches to the next track"/>
+			<hint lang="pl" value="Przełącza na następną ścieżkę"/>
+			<hint lang="de" value="Wechselt zum nächsten Titel"/>
+			<desc resKey="gate_sonos_next"/>
+		</method>
+		<method call="execute" index="4" name="Prev" return="void">
+			<hint lang="en" value="Switches to the previous track"/>
+			<hint lang="pl" value="Przełącza na poprzednią ścieżkę"/>
+			<hint lang="de" value="Wechselt zum vorherigen Titel"/>
+			<desc resKey="gate_sonos_prev"/>
+		</method>
+		<method call="execute" index="5" name="VolumeUp" return="void">
+			<param name="VolumeStep" type="num" range="0-100" unit="%" />
+			<hint lang="en" value="Increases the volume by a specified percentage"/>
+			<hint lang="pl" value="Zwiększa głośność o wartość określoną w procentach"/>
+			<hint lang="de" value="Erhöht die Lautstärke um einen bestimmten Prozentsatz"/>
+			<desc resKey="gate_sonos_volumeup"/>
+		</method>
+		<method call="execute" index="6" name="VolumeDown" return="void">
+			<param name="VolumeStep" type="num" range="0-100" unit="%" />
+			<hint lang="en" value="Decreases the volume by a specified percentage"/>
+			<hint lang="pl" value="Zmniejsza głośność o wartość określoną w procentach"/>
+			<hint lang="de" value="Verringert die Lautstärke um einen bestimmten Prozentsatz"/>
+			<desc resKey="gate_sonos_volumedown"/>
+		</method>
+		<method call="execute" index="7" name="SwitchMute" return="void">
+			<hint lang="en" value="Switches the mute state"/>
+			<hint lang="pl" value="Przełącza stan wyciszenia"/>
+			<hint lang="de" value="Schaltet den Stumm-Zustand um"/>
+			<desc resKey="gate_sonos_switchmute"/>
+		</method>
+		<method call="execute" index="8" name="SwitchPlay" return="void">
+			<hint lang="en" value="Switches the playback state between paused and playing"/>
+			<hint lang="pl" value="Przełącza stan odtwarzania pomiędzy pauzą, a odtwarzaniem"/>
+			<hint lang="de" value="Schaltet den Wiedergabestatus zwischen Pause und Wiedergabe um"/>
+			<desc resKey="gate_sonos_switchplay"/>
+		</method>
+		<method call="execute" index="9" name="LeaveGroup" return="void">
+			<hint lang="en" value="Leaves the current speaker group, if any"/>
+			<hint lang="pl" value="Usuwa głośnik z grupy, jeżeli w jakiejś się znajduje"/>
+			<hint lang="de" value="Verlässt die aktuelle Sprechergruppe, falls vorhanden"/>
+			<desc resKey="gate_sonos_leavegroup"/>
+		</method>
+		<method call="execute" index="10" name="JoinGroup" return="void">
+			<param name="CoordinatorName" type="str" unit="-" />
+			<hint lang="en" value="Joins the speaker group, specified by the group coordinator name"/>
+			<hint lang="pl" value="Dodaje głośnik do grupy, określonej przez nazwę koordynatora"/>
+			<hint lang="de" value="Tritt der Sprechergruppe bei, die durch den Namen des Gruppenkoordinators angegeben ist"/>
+			<desc resKey="gate_sonos_joingroup"/>
+		</method>
+	</methods>
+	<events>
+		<event address="0" name="OnConnected">
+			<hint lang="en" value="Event executed after successful speaker connection establishment"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po nawiązaniu połączenia z głośnikiem"/>
+			<hint lang="de" value="Ereignis, das nach erfolgreichem Lautsprecherverbindungsaufbau ausgeführt wird"/>
+			<desc resKey="gate_sonos_onconnected"/>
+		</event>
+		<event address="1" name="OnDisconnected">
+			<hint lang="en" value="Event executed after the speaker connection has been lost"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zerwaniu połączenia z głośnikiem"/>
+			<hint lang="de" value="Ereignis, das ausgeführt wird, nachdem die Lautsprecherverbindung unterbrochen wurde"/>
+			<desc resKey="gate_sonos_ondisconnected"/>
+		</event>
+		<event address="2" name="OnError">
+			<hint lang="en" value="Event executed after an error has been detected"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po wystąpieniu błędu"/>
+			<hint lang="de" value="Ereignis, das ausgeführt wird, nachdem ein Fehler erkannt wurde"/>
+			<desc resKey="gate_sonos_onerror"/>
+		</event>
+		<event address="3" name="OnChange">
+			<hint lang="en" value="Event executed after a Mute, Volume, Title, Artist, State, PlayMode, AlbumArt or CoordinatorName change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Mute, Volume, Title, Artist, State, PlayMode, AlbumArt, CoordinatorName"/>
+			<hint lang="de" value="Ereignis, das ausgeführt wird, nachdem eine Mute-, Volume-, Title-, Artist-, State-, PlayMode-, AlbumArt- oder CoordinatorName-Änderung auftritt"/>
+			<desc resKey="gate_sonos_onchange"/>
+		</event>
+		<event address="4" name="OnMuteChange">
+			<hint lang="en" value="Event executed after a Mute change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Mute"/>
+			<hint lang="de" value="Ereignis, das nach einem Mute-Wechsel ausgeführt wird"/>
+			<desc resKey="gate_sonos_onmutechange"/>
+		</event>
+		<event address="5" name="OnVolumeChange">
+			<hint lang="en" value="Event executed after a Volume change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Volume"/>
+			<hint lang="de" value="Ereignis, das ausgeführt wird, nachdem eine Lautstärkeänderung auftritt"/>
+			<desc resKey="gate_sonos_onvolumechange"/>
+		</event>
+		<event address="6" name="OnTitleChange">
+			<hint lang="en" value="Event executed after a Title change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Title"/>
+			<hint lang="de" value="Ereignis, das nach einer Titeländerung ausgeführt wird"/>
+			<desc resKey="gate_sonos_ontitlechange"/>
+		</event>
+		<event address="7" name="OnArtistChange">
+			<hint lang="en" value="Event executed after an Artist change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości Artist"/>
+			<hint lang="de" value="Ereignis, das nach einem Interpretenwechsel ausgeführt wird"/>
+			<desc resKey="gate_sonos_onartistchange"/>
+		</event>
+		<event address="8" name="OnStateChange">
+			<hint lang="en" value="Event executed after a State change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości State"/>
+			<hint lang="de" value="Ereignis, das ausgeführt wird, nachdem eine Zustandsänderung auftritt"/>
+			<desc resKey="gate_sonos_onstatechange"/>
+		</event>
+		<event address="9" name="OnPlayModeChange">
+			<hint lang="en" value="Event executed after a PlayMode change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości PlayMode"/>
+			<hint lang="de" value="Ereignis, das ausgeführt wird, nachdem ein PlayMode-Wechsel auftritt"/>
+			<desc resKey="gate_sonos_onplaymodechange"/>
+		</event>
+		<event address="10" name="OnAlbumArtChange">
+			<hint lang="en" value="Event executed after an AlbumArt change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości AlbumArt"/>
+			<hint lang="de" value="Ereignis, das ausgeführt wird, nachdem eine AlbumArt-Änderung auftritt"/>
+			<desc resKey="gate_sonos_onalbumartchange"/>
+		</event>
+		<event address="11" name="OnCoordinatorNameChange">
+			<hint lang="en" value="Event executed after a CoordinatorName change occurs"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości CoordinatorName"/>
+			<hint lang="de" value="Ereignis, das ausgeführt wird, nachdem eine CoordinatorName-Änderung auftritt"/>
+			<desc resKey="gate_sonos_oncoordinatornamechange"/>
+		</event>
+	</events>
+</object>

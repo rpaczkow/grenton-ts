@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object class="40" name="PresenceSensor" version="1">
+	<features>
+		<feature default="60" get="true" index="0" name="Timeout" range="5-31556926" set="true" type="num" unit="s">
+			<hint lang="pl" value="Czas (w sekundach) od ostatniej aktywności, po którym wartość cechy PresenceDetected zostaje ustawione na 0"/>
+			<hint lang="en" value="Time (in seconds) from last movement detection. When this time elapses PresenceDetected sets on 0"/>
+		    <desc resKey="presencesensor_timeout"/>
+        </feature>
+		<feature enum="0,1" get="true" index="1" name="State" set="true" type="num">
+			<enum name="Off" resKey="presencesensor_state_enum_off" value="0"/>
+			<enum name="On" resKey="presencesensor_state_enum_on" value="1"/>
+			<hint lang="pl" value="Aktualny stan czujnika obecności, 1 - włączony, 0 - wyłączony"/>
+			<hint lang="en" value="Current state of presence sensor, 1 - On, 0 - Off"/>
+		    <desc resKey="presencesensor_state"/>
+        </feature>
+		<feature get="true" index="2" name="PresenceDetected" set="false" type="num">
+			<hint lang="pl" value="Wartość mówiąca o wykryciu ruchu przez czujnik"/>
+			<hint lang="en" value="Movement detection state"/>
+		    <desc resKey="presencesensor_presencedetected"/>
+        </feature>
+		<feature get="true" index="3" name="TimeFromLastPresence" set="false" type="num" unit="s">
+			<hint lang="pl" value="Czas (w sekundach) od ostatniego wykrycia ruchu"/>
+			<hint lang="en" value="Time (in seconds) from the last movement detection"/>
+		    <desc resKey="presencesensor_timefromlastpresence"/>
+        </feature>
+	</features>
+	<methods>
+		<method call="execute" index="0" name="Start" return="void">
+			<hint lang="pl" value="Uruchamia czujnik obecności"/>
+			<hint lang="en" value="Start a presence sensor"/>
+		    <desc resKey="presencesensor_start"/>
+        </method>
+		<method call="execute" index="1" name="Stop" return="void">
+			<hint lang="pl" value="Zatrzymuje czujnik obecności"/>
+			<hint lang="en" value="Stop a presence sensor"/>
+		    <desc resKey="presencesensor_stop"/>
+        </method>
+		<method call="execute" index="2" name="DetectPresence" return="void">
+			<hint lang="pl" value="Metoda wywoływana podczas wykrycia obecności. Ustawia wartość cechy PresenceDetected na 1 oraz resetuje licznik TimeFromLastPresence czujnika obecności"/>
+			<hint lang="en" value="Method called while presence detection. Sets PresenceDetected value to 1 and resets TimeFromLastPresence timer"/>
+		    <desc resKey="presencesensor_detectpresence"/>
+        </method>
+		<method call="set" index="0" name="SetTimeout" return="void">
+			<param name="Timeout" type="num" unit="s"/>
+			<hint lang="pl" value="Ustawia parametr Timeout (wyrażony w sekundach)"/>
+			<hint lang="en" value="Set a Timeout parameter (in seconds)"/>
+		    <desc resKey="presencesensor_settimeout"/>
+        </method>
+		<method call="set" index="1" name="State" return="void" visible="false">
+			<param name="Timeout" type="num" unit="s"/>
+			<hint lang="pl" value="Ustawia Aktualny stan czujnika obecności, 1 - włączony, 0 - wyłączony"/>
+			<hint lang="en" value="Set Current state of presence sensor, 1 - On, 0 - Off"/>
+		    <desc resKey="presencesensor_state_1"/>
+        </method>
+	</methods>
+	<events>
+		<event address="0" name="OnStart">
+			<hint lang="pl" value="Zdarzenie wywoływane przy uruchomieniu czujnika"/>
+			<hint lang="en" value="A event called when sensor starts"/>
+		    <desc resKey="presencesensor_onstart"/>
+        </event>
+		<event address="1" name="OnStop">
+			<hint lang="pl" value="Zdarzenie wywoływane przy dezaktywacji czujnika"/>
+			<hint lang="en" value="A event called when sensor stops"/>
+		    <desc resKey="presencesensor_onstop"/>
+        </event>
+		<event address="2" name="OnPresenceDetected">
+			<hint lang="pl" value="Zdarzenie wywoływane podczas wykrycia obecności"/>
+			<hint lang="en" value="A event called if a presence detected"/>
+		    <desc resKey="presencesensor_onpresencedetected"/>
+        </event>
+		<event address="3" name="OnTimeout">
+			<hint lang="pl" value="Zdarzenie wywoływane na timeout licznika"/>
+			<hint lang="en" value="A event called when a timer timeouts"/>
+		    <desc resKey="presencesensor_ontimeout"/>
+        </event>
+	</events>
+</object>

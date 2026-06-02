@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="ZWAVE_INFIBITY_DOOR_SENSOR" typeId="025800100702">
+	<!--hwType=0x025800100702(2576981427970), hwVer=0x1(1), fwType=0x0(0), fwApiVer=0xff(255)-->
+	<firmware typeId="0" version="ff">
+		<object class="25" count="1" name="ZWAVE_BINARY_SENSOR" type="in">
+			<interface>
+				<features>
+					<feature get="true" index="0" name="Value" set="false" type="num" unit="bool">
+						<hint lang="pl" value="Zwraca wartość 1 lub 0"/>
+						<hint lang="en" value="Returns input value as 0 or 1"/>
+					    <desc resKey="zwave_binary_sensor_value"/>
+                    </feature>
+				</features>
+				<methods>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany stanu na przeciwny"/>
+						<hint lang="en" value="Occurs when a change in the input state takes place (regardless of the value)"/>
+					    <desc resKey="zwave_binary_sensor_onchange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu wysokiego na wejściu"/>
+						<hint lang="en" value="Occurs when the high state is set at input"/>
+					    <desc resKey="zwave_binary_sensor_onswitchon"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu niskiego na wejściu"/>
+						<hint lang="en" value="Occurs when the low state is set at input"/>
+					    <desc resKey="zwave_binary_sensor_onswitchoff"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="56" count="1" name="ZWAVE_TAMPER_ALARM" type="in">
+			<interface>
+				<features>
+					<feature enum="0,1" get="true" index="0" name="AlarmDetected" set="false" type="num" unit="bool">
+						<hint lang="pl" value="Stan wykrycia alarmu"/>
+						<hint lang="en" value="State after detecting an alarm"/>
+					    <desc resKey="zwave_tamper_alarm_alarmdetected"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="execute" index="0" name="ClearAlarm" return="void">
+                        <hint lang="pl" value="Anuluje aktywny alarm"/>
+						<hint lang="en" value="Cancels active alarm"/>
+                        <desc resKey="zwave_tamper_alarm_clearalarm"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnAlarmDetectedChange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie stanu wykrycia alarmu"/>
+						<hint lang="en" value="Occurs after changing the alarm state in AlarmDetected"/>
+					    <desc resKey="zwave_tamper_alarm_onchange"/>
+                    </event>
+					<event address="1" name="OnAlarmDetected">
+						<hint lang="pl" value="Zdarzenie wywoływane po wykryciu alarmu"/>
+						<hint lang="en" value="Occurs after changing AlarmDetected from 0 to 1"/>
+					    <desc resKey="zwave_tamper_alarm_onalarmdetected"/>
+                    </event>
+					<event address="2" name="OnAlarmCleared">
+						<hint lang="pl" value="Zdarzenie wywoływane po anulowaniu alarmu"/>
+						<hint lang="en" value="Occurs after changing AlarmDetected from 1 to 0"/>
+					    <desc resKey="zwave_tamper_alarm_onalarmcleared"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="58" count="2" name="ZWAVE_ANALOG_SENSOR" type="in">
+			<interface>
+				<features>
+					<feature get="true" index="0" name="Value" set="false" type="num">
+						<hint lang="pl" value="Aktualna wartość sensora"/>
+						<hint lang="en" value="Current sensor value"/>
+					    <desc resKey="zwave_analog_sensor_value"/>
+                    </feature>
+					<feature default="-99999.99" get="true" index="1" name="MinValue" set="true" type="num">
+						<hint lang="pl" value="Wartość, poniżej której generowane jest zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Value below which OnOutOfRange event is occurred"/>
+					    <desc resKey="zwave_analog_sensor_minvalue"/>
+                    </feature>
+					<feature default="99999.99" get="true" index="2" name="MaxValue" set="true" type="num">
+						<hint lang="pl" value="Wartość, powyżej której generowane jest zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Value above which OnOutOfRange event is occurred"/>
+					    <desc resKey="zwave_analog_sensor_maxvalue"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="1" name="SetMinValue" return="void">
+                        <param name="MinValue" type="num"/>
+                        <hint lang="pl" value="Ustawia dolna wartość progowa zdarzenia OnOutOfRange"/>
+						<hint lang="en" value="Sets MinValue"/>
+                        <desc resKey="zwave_analog_sensor_setminvalue"/>
+                    </method>
+					<method call="set" index="2" name="SetMaxValue" return="void">
+                        <param name="MaxValue" type="num"/>
+                        <hint lang="pl" value="Ustawia górna wartość progowa zdarzenia OnOutOfRange"/>
+						<hint lang="en" value="Sets MaxValue"/>
+                        <desc resKey="zwave_analog_sensor_setmaxvalue"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości sensora"/>
+						<hint lang="en" value="Event occurring when sensor Value changes"/>
+					    <desc resKey="zwave_analog_sensor_onchange"/>
+                    </event>
+					<event address="1" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości sensora na wyższą niż poprzednia"/>
+						<hint lang="en" value="Event occurring when the set value is higher than the current value"/>
+					    <desc resKey="zwave_analog_sensor_onvaluerise"/>
+                    </event>
+					<event address="2" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości sensora na niższą niż poprzednia"/>
+						<hint lang="en" value="Event occurring when the set value is lower than the current value"/>
+					    <desc resKey="zwave_analog_sensor_onvaluelower"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy przekroczeniu jednej z wartości progowych MinValue - MaxValue"/>
+						<hint lang="en" value="Event occurring when setting a value which is higher than the maximum value or lower than the minimum value"/>
+					    <desc resKey="zwave_analog_sensor_onoutofrange"/>
+                    </event>
+					<event address="4" name="OnInRange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy powrocie wartości do przedziału wewnątrz wartości progowych MinValue - MaxValue"/>
+						<hint lang="en" value="Event occurring when setting a value which is lower than the maximum value or higher than the minimum value"/>
+					    <desc resKey="zwave_analog_sensor_oninrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="55" count="1" name="ZWAVE_BATTERY" type="in">
+			<interface>
+				<features>
+					<feature get="true" index="0" name="BatteryLevel" set="false" type="num" unit="%">
+						<hint lang="pl" value="Poziom baterii modułu Z-Wave w procentach"/>
+						<hint lang="en" value="Z-Wave module battery level (in %)"/>
+					    <desc resKey="zwave_battery_batterylevel"/>
+                    </feature>
+					<feature default="25" get="true" index="1" name="WarningLevel" range="0-100" set="true" type="num" unit="%">
+						<hint lang="pl" value="Poziom baterii modułu Z-Wave, poniżej którego generowane są zdarzenia ostrzegawcze"/>
+						<hint lang="en" value="Z-Wave module battery level below which the warning event is occurring"/>
+					    <desc resKey="zwave_battery_warninglevel"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="1" name="SetWarningLevel" return="void">
+                        <param name="WarningLevel" type="num"/>
+                        <hint lang="pl" value="Ustawia poziom ostrzegawczy baterii modułu Z-Wave"/>
+						<hint lang="en" value="Sets Z-Wave battery level below which the warning event is occurring"/>
+                        <desc resKey="zwave_battery_setwarninglevel"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnBatteryLevelChange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości poziomu baterii"/>
+						<hint lang="en" value="Event occurring after Z-Wave module battery level change"/>
+					    <desc resKey="zwave_battery_onchange"/>
+                    </event>
+					<event address="1" name="OnLowBattery">
+						<hint lang="pl" value="Zdarzenie wywoływane po wykryciu spadku poziomu baterii poniżej poziomu ostrzegawczego"/>
+						<hint lang="en" value="Event occurring after Z-Wave module battery level drop below the WarningLevel"/>
+					    <desc resKey="zwave_battery_onlowbattery"/>
+                    </event>
+					<event address="2" name="OnBatteryGood">
+						<hint lang="pl" value="Zdarzenie wywoływane po wykryciu powrotu poziomu baterii do wartości powyżej poziomu ostrzegawczego"/>
+						<hint lang="en" value="Event occurring when the Z-Wave module battery level increase above the WarningLevel"/>
+					    <desc resKey="zwave_battery_onbatterygood"/>
+                    </event>
+					<event address="3" name="OnBatteryDischarge">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy urządzenie zgłasza rozładowanie baterii"/>
+						<hint lang="en" value="Event occurring when the Z-Wave module reports battery discharge"/>
+					    <desc resKey="zwave_battery_onbatterydischarge"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="54" count="1" name="ZWAVE_WAKEUP" type="in">
+			<interface>
+				<features>
+					<feature default="3600" get="true" index="0" name="Interval" range="20-86400" set="true" type="num" unit="s">
+						<hint lang="pl" value="Okres samoczynnego wybudzania modułu Z-Wave z trybu uśpienia w sekundach"/>
+						<hint lang="en" value="Z-Wave module awakening period from sleep mode"/>
+					    <desc resKey="zwave_wakeup_interval"/>
+                    </feature>
+					<feature get="true" index="1" name="LastWakeUp" set="false" type="str">
+						<hint lang="pl" value="Czas ostatniego wybudzenia modułu Z-Wave z trybu uśpienia"/>
+						<hint lang="en" value="Time from the last Z-Wave module awakening"/>
+					    <desc resKey="zwave_wakeup_lastwakeup"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="0" name="SetInterval" range="20-86400" return="void">
+                        <param name="Interval" type="num"/>
+                        <hint lang="pl" value="Ustawia okres samoczynnego wybudzania modułu Z-Wave z trybu uśpienia"/>
+						<hint lang="en" value="Sets Z-Wave module awakening time from sleep mode"/>
+                        <desc resKey="zwave_wakeup_setinterval"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="1" name="OnWakeUp">
+						<hint lang="pl" value="Zdarzenie wywoływane po wykryciu wybudzenia modułu Z-Wave z trybu uśpienia"/>
+						<hint lang="en" value="Event occurring after detecting Z-Wave module waking up from sleep mode"/>
+					    <desc resKey="zwave_wakeup_onwakeup"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="64" count="1" name="ZWAVE_CONFIG" type="out">
+			<interface>
+				<features>
+					<feature default="0" get="true" index="0" name="Register" range="0-255" set="false" type="num">
+						<hint lang="pl" value="Numer rejestru (parametru) konfiguracyjnego"/>
+						<hint lang="en" value="Register (parameter) number"/>
+						<hint lang="de" value="Registernummer (Parameter)"/>
+					    <desc resKey="zwave_config_register"/>
+                    </feature>
+					<feature default="0" get="true" index="1" name="Value" set="false" type="num">
+						<hint lang="pl" value="wartość rejestru (parametru) konfiguracyjnego"/>
+						<hint lang="en" value="Register (parameter) value"/>
+						<hint lang="de" value="Register (Parameter) Wert"/>
+					    <desc resKey="zwave_config_value"/>
+                    </feature>
+					<feature default="0" get="true" index="2" name="NodeID" range="0-232" set="false" type="num">
+						<hint lang="pl" value="Numer modułu (węzła) w sieci Z-Wave"/>
+						<hint lang="en" value="Module's number (node) in the Z-Wave network"/>
+						<hint lang="de" value="Modulnummer (Knoten) im Z-Wave-Netzwerk"/>
+					    <desc resKey="zwave_config_nodeid"/>
+                    </feature>
+					<feature default="0" get="true" index="3" name="Banned" range="0-1" set="false" type="num">
+						<hint lang="pl" value="Zwraca informację o zablokowaniu komunikacji Z-Wave z modułem:&#13;0 - komunikacja z modułem nie jest zablokowana,&#13;1 - zablokowana komunikacja z modułem (moduł zbanowany)"/>
+						<hint lang="en" value="Returns information about communication with module:&#13;0 - communication with the module is not blocked,&#13;1 - blocked communication with the module (module banned)"/>
+						<hint lang="de" value="Liefert Informationen zur Kommunikation mit dem Modul:&#13;0 - Die Kommunikation mit dem Modul ist nicht blockiert, &#13;1 - Kommunikation mit dem Modul gesperrt (Modul gesperrt)"/>
+					    <desc resKey="zwave_config_banned"/>
+                    </feature>
+					<feature default="0" get="true" index="4" name="FailCount" range="0-65536" set="false" type="num">
+						<hint lang="pl" value="Liczba nieudanych prób komunikacji z modułem Z-Wave"/>
+						<hint lang="en" value="The number of failed communication attempts with the Z-Wave module"/>
+						<hint lang="de" value="Die Anzahl der fehlgeschlagenen Kommunikationsversuche mit dem Z-Wave-Modul"/>
+					    <desc resKey="zwave_config_failcount"/>
+                    </feature>
+                    <feature default="0" get="true" index="5" name="Repeaters" set="false" type="num">
+						<hint lang="pl" value="Ilość urządzeń pośredniczących w komunikacji pomiędzy CLUZ a danym modułem"/>
+						<hint lang="en" value="Number of devices intermediating communication between the CLUZ and a given module"/>
+						<hint lang="de" value="Anzahl der Geräte, die die Kommunikation zwischen der CLUZ und einem bestimmten Modul vermitteln"/>
+						<desc resKey="zwave_config_repeaters"/>
+					</feature>
+					<feature default="0" get="true" index="6" name="RepeatersList" set="false" type="str">
+						<hint lang="pl" value="Lista urządzeń (NodeID) pośredniczących w komunikacji pomiędzy CLUZ a modułem"/>
+						<hint lang="en" value="List of devices (NodeID) intermediating in communication between CLUZ and the module"/>
+						<hint lang="de" value="Liste der Geräte (NodeID), die die Kommunikation zwischen CLUZ und dem Modul vermitteln"/>
+						<desc resKey="zwave_config_repeaterslist"/>
+					</feature>
+				</features>
+				<methods>
+					<method call="execute" index="0" name="Set" return="void">
+						<param name="Register" range="0-255" type="num"/>
+						<param name="Value" type="num"/>
+						<param name="Size" range="1-4" type="num" unit="byte"/>
+						<hint lang="pl" value="Ustawia wartość danego rejestru (parametru) konfiguracyjnego"/>
+						<hint lang="en" value="Sets the value of the register (parameter)"/>
+						<hint lang="de" value="Setzt den Wert des Registers (Parameter)"/>
+					    <desc resKey="zwave_config_set"/>
+                    </method>
+					<method call="execute" index="1" name="Get" return="void">
+						<param name="Register" range="0-255" type="num"/>
+						<param default="0" name="DataType" optional="true" range="0-1" type="num" unit="">
+							<parametrized name="UINT" type="num" value="0"/>
+							<parametrized name="INT" type="num" value="1"/>
+						</param>
+						<hint lang="pl" value="Pobiera wartość danego rejestru (parametru) konfiguracyjnego:&#13;0 - DataType UINT -  przychodząca odpowiedź jest bez znaku (wartość tylko dodatnia)&#13;1 - DataType INT -  przychodząca odpowiedź jest ze znakiem (dodatnia bądź ujemna)"/>
+						<hint lang="en" value="Gets the value of a given configuration register (parameter):&#13;0 - DataType UINT - the incoming response is unsigned (only positive value)&#13;1 - DataType INT - the incoming response is signed (positive or negative)"/>
+						<hint lang="de" value="Ruft den Wert eines bestimmten Konfigurationsregisters (Parameters) ab:&#13;0 - Datentyp UINT - die eingehende Antwort ist ohne Vorzeichen (nur positiver Wert)&#13;1 - Datentyp INT - die eingehende Antwort ist vorzeichenlos (positiv oder negativ)"/>
+					    <desc resKey="zwave_config_get_1"/>
+                    </method>
+					<method call="execute" index="2" name="SetDefault" return="void">
+						<param name="Register" range="0-255" type="num"/>
+						<hint lang="pl" value="Ustawia wartość domyślną dla danego rejestru (parametru) konfiguracyjnego"/>
+						<hint lang="en" value="Sets the default value for register (parameter)"/>
+						<hint lang="de" value="Setzt den Standardwert für Register (Parameter)"/>
+					    <desc resKey="zwave_config_setdefault"/>
+                    </method>
+					<method call="execute" index="3" name="RemoveBan" return="void">
+						<hint lang="pl" value="Zdejmuje blokadę komunikacji z modułem Z-Wave"/>
+						<hint lang="en" value="Removes the blockade of communication with the Z-Wave module"/>
+						<hint lang="de" value="Entfernt die Blockade der Kommunikation mit dem Z-Wave-Modul"/>
+					    <desc resKey="zwave_config_removeban"/>
+                    </method>
+					<method call="execute" index="4" name="ClearFailCount" return="void">
+						<hint lang="pl" value="Czyści liczbę nieudanych prób komunikacji"/>
+						<hint lang="en" value="Cleans the number of failed communication attempts"/>
+						<hint lang="de" value="Bereinigt die Anzahl der fehlgeschlagenen Kommunikationsversuche"/>
+					    <desc resKey="zwave_config_clearfailcount_1"/>
+                    </method>
+                    <method call="execute" index="5" name="UpdateNeighbours" return="void">
+						<hint lang="pl" value="Wywołuje akcję aktualizacji i przebudowy sieci Z-Wave (ilość modułów sąsiadujących, sposób komunikacji z CLUZ) dla danego modułu"/>
+						<hint lang="en" value="Triggers the action of updating and rebuilding the Z-Wave network (number of neighbouring modules, method of communication with CLUZ) for a given module"/>
+						<hint lang="de" value="Löst die Aktualisierung und den Neuaufbau des Z-Wave-Netzwerks (Anzahl benachbarter Module, Kommunikationsmethode mit CLUZ) für ein bestimmtes Modul aus"/>
+					    <desc resKey="zwave_config_updateneighbours"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnBanned">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy urządzenie zostanie zbanowane"/>
+						<hint lang="en" value="Occurs when Z-Wave device is banned"/>
+						<hint lang="de" value="Tritt auf, wenn das Z-Wave-Gerät gesperrt ist"/>
+					    <desc resKey="zwave_config_onbanned"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

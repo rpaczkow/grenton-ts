@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="RELAY_DIN_4" typeId="15">
+	<!--hwType=0x15(21), hwVer=0x1(1), fwType=0x2(2), fwApiVer=0x1(1)-->
+	<firmware typeId="02" version="01">
+		<object class="4" count="4" name="DOUT" type="out">
+			<interface>
+				<features>
+					<feature default="0" enum="0,1" get="true" index="0" name="Value" previousValue="true" set="true" type="num" unit="bool">
+						<enum name="Off" resKey="dout_value_enum_off" value="0"/>
+						<enum name="On" resKey="dout_value_enum_on" value="1"/>
+						<hint lang="pl" value="Zwraca stan wyjścia jako 1 lub 0"/>
+						<hint lang="en" value="Returns 1 for output set at On and 0 for output set at Off state"/>
+					    <desc resKey="dout_value"/>
+                    </feature>
+					<feature default="2" enum="0,1,2" get="true" index="3" name="VoltageType" previousValue="true" set="true" type="num" unit="">
+						<enum name="AC" resKey="dout_voltagetype_enum_ac" value="0"/>
+						<enum name="DC" resKey="dout_voltagetype_enum_dc" value="1"/>
+						<enum name="Signal" resKey="dout_voltagetype_enum_signal" value="2"/>
+						<hint lang="pl" value="Rodzaj napięcia obciążenia:&#13;0 - AC,&#13;1 - DC"/>
+						<hint lang="en" value="Load voltage type:&#13;0 - AC,&#13;1 - DC"/>
+						<hint lang="de" value="Lastspannungsart:&#13;0 - AC,&#13;1 - DC"/>
+					    <desc resKey="dout_voltagetype"/>
+                    </feature>
+					<feature default="230" get="true" index="4" name="VoltageValue" range="0-230" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość napięcia obciążenia"/>
+						<hint lang="en" value="Load voltage value"/>
+					    <desc resKey="dout_voltagevalue"/>
+                    </feature>
+					<feature default="0" get="true" index="5" name="Power" range="0-3000" set="false" type="num" unit="W">
+						<hint lang="pl" value="Zwraca moc chwilową pobieraną przez obciążenie sumarycznie na obu kanałach"/>
+						<hint lang="en" value="Returns power in watts"/>
+					    <desc resKey="dout_power"/>
+                    </feature>
+					<feature default="3000" get="true" index="7" name="Overload" range="0-3000" set="true" type="num" unit="W">
+						<hint lang="pl" value="Wartość mocy po przekroczeniu której generowane jest zdarzenie OnOverload"/>
+						<hint lang="en" value="The power value beyond which the OnOverload event is generated"/>
+					    <desc resKey="dout_overload"/>
+                    </feature>
+					<feature default="0" get="true" index="6" name="DistributedLogicGroup" range="0-10000" set="true" type="num">
+						<hint lang="pl" value="Grupa Distributed Logic - grupa broadcastowa dla rozproszonej logiki"/>
+						<hint lang="en" value="Distributed Logic group - broadcast group for distributed logic"/>
+					    <desc resKey="dout_distributedlogicgroup"/>
+                    </feature>
+					<feature default="0" enum="0,1,3" get="true" index="1" name="StatisticState" previousValue="true" set="true" type="num" unit="number"  >
+						<enum name="Off" resKey="dout_statisticstate_enum_off" value="0"/>
+						<enum name="Continuous" resKey="dout_statisticstate_enum_continuous" value="1"/>
+						<enum name="Real" resKey="dout_statisticstate_enum_real" value="3"/>
+						<hint lang="pl" value="Włącza raportowanie pomiaru do modułu statystyk:&#13;Off - wyłączony,&#13;Continuous - pomiar obciążenia w całym okresie pracy urządzenia,&#13;Real - pomiar obciążenia w całym okresie pracy urządzenia z wykorzystaniem rzeczywistego pomiaru mocy"/>
+						<hint lang="en" value="Enables measurement reporting to the statistics module:&#13;Off - turned off,&#13;Continuous - load measurement for the whole device's period operation,&#13;Real – measurement of the load during the entire operating period of the device using actual power measurement"/>
+                        <desc resKey="dout_statisticstate_2"/>
+                    </feature>
+					<feature correctValue="1" default="0" dependOn="1" get="true" index="2" name="Load" set="true" type="num" unit="W" range="0-60000" >
+						<hint lang="pl" value="Mnożnik mierzonej wartości. Dla StatisticState:&#13;Continuous - wartość zużycia w jednostce czasu"/>
+						<hint lang="en" value="The measured value multiplier. For StatisticState:&#13;Continuous - load measurement value in the unit of time"/>
+						<hint lang="de" value="Messwertfaktor. Für StatisticState: &#13;Kontinuierlich - Verbrauch pro Zeiteinheit (z. B. 1 l, 1 m3, 1 kW)"/>
+                        <desc resKey="dout_load"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="0" name="SetValue" return="void">
+						<param name="Value" type="num" unit="bool"/>
+						<hint lang="pl" value="Ustawia stan wyjścia jako 1 lub 0"/>
+						<hint lang="en" value="Sets output state to 1 or 0"/>
+					    <desc resKey="dout_setvalue"/>
+                    </method>
+					<method call="execute" index="0" name="Switch" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Zmienia stan wyjścia na przeciwny. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała"/>
+						<hint lang="en" value="Changes the output value from 0 to 1 or from 1 to 0. The first parameter is the time of change:&#13;0 - switches output to continuous mode spec&#13;number - switches output for a time specified by a parameter (in milliseconds)"/>
+					    <desc resKey="dout_switch"/>
+                    </method>
+					<method call="execute" index="1" name="SwitchOn" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Załącza wyjście. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała"/>
+						<hint lang="en" value="Sets output value to 1"/>
+					    <desc resKey="dout_switchon"/>
+                    </method>
+					<method call="execute" index="2" name="SwitchOff" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Wyłącza wyjście. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała"/>
+						<hint lang="en" value="Sets output value to 0"/>
+					    <desc resKey="dout_switchoff"/>
+                    </method>
+			<!--
+					<method name="SetVoltageType" call="set" index="3"  return="void" >
+						<param name="Voltage" type="num" unit="bool" />
+						<hint lang="pl" value="Ustawia wartość cechy VoltageType - rodzaj napięcia obciążenia" />
+						<hint lang="en" value="TODO"/>
+					</method>
+					<method name="SetVoltageValue" call="set" index="4"  return="void" >
+						<param name="Value" type="num" unit="V" />
+						<hint lang="pl" value="Ustawia wartość cechy VoltageValue - wartość napięcia obciążenia" />
+						<hint lang="en" value="TODO"/>
+					</method>
+			-->
+					<method call="set" index="7" name="SetOverload" return="void">
+						<param name="Overload" type="num" unit="W"/>
+						<hint lang="pl" value="Ustawia wartość mocy po przekroczeniu której generowane jest zdarzenie OnOverload"/>
+						<hint lang="en" value="Sets the power value beyond which the OnOverload event is generated"/>
+					    <desc resKey="dout_setoverload"/>
+                    </method>   
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany stanu na przeciwny"/>
+						<hint lang="en" value="Occurs when a change in the state takes place (regardless of the value)"/>
+					    <desc resKey="dout_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu wysokiego na wyjściu"/>
+						<hint lang="en" value="Occurs when On(1) is set at output"/>
+					    <desc resKey="dout_onswitchon"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu niskiego na wyjściu"/>
+						<hint lang="en" value="Occurs when Off(0) is set at output"/>
+					    <desc resKey="dout_onswitchoff"/>
+                    </event>
+					<event address="3" name="OnOverload">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy moc pobierana przez odbiornik przekroczy wartość Overload"/>
+						<hint lang="en" value="The event is raised when the power consumed by the receiver exceeds the Overload value"/>
+					    <desc resKey="dout_onoverload"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="12" count="1" name="PowerSupplyVoltage" type="in">
+			<interface>
+				<features>
+					<feature default="0" get="true" index="0" name="Value" range="0-24" set="false" type="num" unit="V">
+						<hint lang="pl" value="Wartość napięcia zasilania"/>
+						<hint lang="en" value="Current power supply voltage value"/>
+					    <desc resKey="powersupplyvoltage_value"/>
+                    </feature>
+					<feature default="0" divisor="1" get="true" index="1" name="Value%" range="0-1000000" set="false" type="num" unit="%">
+						<hint lang="pl" value="Wartość napięcia zasilania jako procent wartości maksymalnej (MaxValue)"/>
+						<hint lang="en" value="Current percentage input value of the maximum value (MaxValue characteristic)"/>
+					    <desc resKey="powersupplyvoltage_value_1"/>
+                    </feature>
+					<feature default="0.5" get="true" index="3" name="Sensitivity" range="0-10" set="true" type="num" unit="V">
+						<hint lang="pl" value="Czułość - minimalna zmiana wartości napięcia zasilania, która wywołuje zdarzenia OnValueChange, OnValueLower lub OnValueRise"/>
+						<hint lang="en" value="Minimum change of input state when the OnValueChange, OnValueLower or OnValueRise event is generated"/>
+					    <desc resKey="powersupplyvoltage_sensitivity"/>
+                    </feature>
+					<feature default="21" get="true" index="5" name="MinValue" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość minimalna napięcia zasilania po przekroczeniu której generowane jest zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+					    <desc resKey="powersupplyvoltage_minvalue"/>
+                    </feature>
+					<feature default="24" get="true" index="6" name="MaxValue" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość maksymalna napięcia zasilania po przekroczeniu której generowane jest zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Maximum value of the Value characteristic after exceeding which the OnOutOfRange event is generated"/>
+					    <desc resKey="powersupplyvoltage_maxvalue"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="3" name="SetSensitivity" return="void">
+						<hint lang="pl" value="Ustawia czułość pomiaru napięcia zasilania"/>
+						<hint lang="en" value="Sets input sensitivity value"/>
+						<param name="Sensitivity" range="0-10" type="num" unit="V"/>
+					    <desc resKey="powersupplyvoltage_setsensitivity"/>
+                    </method>
+					<method call="set" index="5" name="SetMinValue" return="void">
+						<hint lang="pl" value="Ustawia wartość MinValue"/>
+						<hint lang="en" value="Sets MinValue"/>
+						<param name="MinValue" type="num"/>
+					    <desc resKey="powersupplyvoltage_setminvalue"/>
+                    </method>
+					<method call="set" index="6" name="SetMaxValue" return="void">
+						<hint lang="pl" value="Ustawia wartość MaxValue"/>
+						<hint lang="en" value="Sets MaxValue"/>
+						<param name="MaxValue" type="num"/>
+					    <desc resKey="powersupplyvoltage_setmaxvalue"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+					    <desc resKey="powersupplyvoltage_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event occurs when a value lower than the value from the last reading appears at input"/>
+					    <desc resKey="powersupplyvoltage_onvaluelower"/>
+                    </event>
+					<event address="2" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event occurs when a value higher than the value from the last reading appears at input"/>
+					    <desc resKey="powersupplyvoltage_onvaluerise"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy napięcia zasilania znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding the permissible range (MinValue - MaxValue)"/>
+					    <desc resKey="powersupplyvoltage_onoutofrange"/>
+                    </event>
+					<event address="6" name="OnInRange">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wartość napięcia zasilania powróci do wyznaczonego zakresu (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurs when value returns to MinValue - MaxValue range"/>
+					    <desc resKey="powersupplyvoltage_oninrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

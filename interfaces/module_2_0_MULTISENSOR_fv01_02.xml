@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="MULTISENSOR" typeId="2d">
+	<!--hwType=0x2d(45), hwVer=0x2(2), fwType=0x2(2), fwApiVer=0x1(1)-->
+	<firmware typeId="02" version="01">
+		<object class="20" count="1" name="TEMPERATURE_SENSOR" type="in">
+			<interface>
+				<features>
+					<feature default="0.1" get="true" index="1" name="Threshold" range="0-1" set="true" type="num" unit="number">
+						<hint lang="pl" value="Wielkość histerezy (dokładność 0.1 °C) określająca czułość, przy której następuje wygenerowanie zdarzeń: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="en" value="Hysteresis size (accuracy 0.1 °C) specifying the sensitivity when the following events are generated: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="de" value="Hysterese (Genauigkeit 0,1 °C) der Empfindlichkeit, bei der folgende Ereignisse generiert werden: OnValueChange, OnValueLower, OnValueRise"/>
+                        <desc resKey="temperature_sensor_threshold"/>
+                    </feature>
+					<feature default="300" get="true" index="2" name="Sensitivity" range="100-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas (w ms), dla którego próbkowane wartości są uśredniane"/>
+						<hint lang="en" value="Time (in ms) for which the sampled values are averaged"/>
+						<hint lang="de" value="Zeit (in ms), für die abgetastete Werte gemittelt werden"/>
+                        <desc resKey="temperature_sensor_sensitivity"/>
+                    </feature>
+					<feature default="0" get="true" index="8" name="Calibration" set="true" type="num" unit="°C">
+						<hint lang="pl" value="Kalibracja temperatury w zakresie od - 10 °C do +10 °C"/>
+						<hint lang="en" value="Temperature calibration factor within -10 °C to +10° C"/>
+						<hint lang="de" value="Temperaturkalibrierungsfaktor innerhalb von -10 °C bis +10 °C"/>
+					    <desc resKey="panelsenstemp_calibration"/>
+                    </feature>						
+					<feature default="0" get="true" index="3" name="MinValue" range="0-100" set="true" type="num" unit="°C">
+						<hint lang="pl" value="Minimalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value property after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Mindestwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="temperature_sensor_minvalue"/>
+                    </feature>
+					<feature default="100" get="true" index="4" name="MaxValue" range="0-100" set="true" type="num" unit="°C">
+						<hint lang="pl" value="Maksymalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Maximum value of the Value property after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Höchstwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="temperature_sensor_maxvalue"/>
+                    </feature>
+					<feature default="0" enum="0,1" get="true" index="9" name="StatisticState" previousValue="true" set="true" type="num" unit="number"  >
+						<enum name="Off" resKey="sensor_statisticstate_enum_off" value="0"/>
+						<enum name="On" resKey="sensor_statisticstate_enum_on" value="1"/>
+						<hint lang="pl" value="Włącza raportowanie pomiaru do modułu statystyk"/>
+						<hint lang="en" value="Enables measurement reporting to the statistics module"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="sensor_statisticstate"/>
+                    </feature>
+					<feature get="true" index="0" name="Value" range="0-45" set="false" type="num" unit="°C">
+						<hint lang="pl" value="Wartość temperatury otoczenia w zakresie od 0.0 °C do 45.0 °C"/>
+						<hint lang="en" value="Ambient temperature value from 0.0 °C to 45.0 °C"/>
+						<hint lang="de" value="Eingangswert: für Temperatursensor von 0.0 °C bis 45.0 °C"/>
+                        <desc resKey="temperature_sensor_value"/>
+                    </feature>
+				</features>
+				<methods>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany wartości cechy Value"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+						<hint lang="de" value="Ereignis bei Änderung des Eingangsstatus"/>
+                        <desc resKey="temperature_sensor_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event resulting from exceeding the upper threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der oberen Hysterese-Schwelle"/>
+                        <desc resKey="temperature_sensor_onvaluerise"/>
+                    </event>
+					<event address="2" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event resulting from exceeding the lower threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der unteren Hysterese-Schwelle aufgerufen wird"/>
+                        <desc resKey="temperature_sensor_onvaluelower"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding the (MinValue - MaxValue) range"/>
+						<hint lang="de" value="Ereignis bei Überschreitung des zulässigen Bereichs"/>
+                        <desc resKey="temperature_sensor_onoutofrange"/>
+                    </event>		
+					<event address="4" name="OnInRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu powróciła do zakresu (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurs when value returns to MinValue - MaxValue range"/>
+						<hint lang="de" value="Ereignis bei der Wert in den Bereich (MinValue - MaxValue) zurückkehrt"/>
+                        <desc resKey="temperature_sensor_oninrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>		
+		<object class="42" count="1" name="LIGHT_SENSOR_LUX" type="in">
+			<interface>
+				<features>
+					<feature default="1" get="true" index="1" name="Threshold" range="0-100" set="true" type="num" unit="number">
+						<hint lang="pl" value="Wielkość histerezy (dokładność 0.1 lx) określająca czułość, przy której następuje wygenerowanie zdarzeń: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="en" value="Hysteresis size (accuracy 0.1 lx) specifying the sensitivity when the following events are generated: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="de" value="Hysterese (Genauigkeit 0,1 lx) der Empfindlichkeit, bei der folgende Ereignisse generiert werden: OnValueChange, OnValueLower, OnValueRise"/>
+                        <desc resKey="light_sensor_lux_threshold"/>
+                    </feature>
+					<feature default="500" get="true" index="2" name="Sensitivity" range="100-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas (w ms), dla którego próbkowane wartości są uśredniane"/>
+						<hint lang="en" value="Time (in ms) for which the sampled values are averaged"/>
+						<hint lang="de" value="Zeit (in ms), für die abgetastete Werte gemittelt werden"/>
+                        <desc resKey="light_sensor_lux_sensitivity"/>
+                    </feature>
+					<feature default="0" get="true" index="3" name="MinValue" range="0-15000" set="true" type="num" unit="lx">
+						<hint lang="pl" value="Minimalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value property after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Mindestwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="light_sensor_lux_minvalue"/>
+                    </feature>
+					<feature default="15000" get="true" index="4" name="MaxValue" range="0-15000" set="true" type="num" unit="lx">
+						<hint lang="pl" value="Maksymalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Maximum value of the Value property after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Höchstwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="light_sensor_lux_maxvalue"/>
+                    </feature>
+					<feature default="0" enum="0,1" get="true" index="5" name="StatisticState" previousValue="true" set="true" type="num" unit="number"  >
+						<enum name="Off" resKey="sensor_statisticstate_enum_off" value="0"/>
+						<enum name="On" resKey="sensor_statisticstate_enum_on" value="1"/>
+						<hint lang="pl" value="Włącza raportowanie pomiaru do modułu statystyk"/>
+						<hint lang="en" value="Enables measurement reporting to the statistics module"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="sensor_statisticstate"/>
+                    </feature>
+					<feature get="true" index="0" name="Value" range="0-15000" set="false" type="num" unit="lx">
+						<hint lang="pl" value="Wartość natężenia światła w zakresie od 0 do 15000 lx"/>
+						<hint lang="en" value="Light intensity value from 0 to 15000 lx"/>
+						<hint lang="de" value="Lichtintensität Wert von 0 bis 15000 lx"/>
+                        <desc resKey="light_sensor_lux_value"/>
+                    </feature>
+				</features>
+				<methods>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany wartości cechy Value"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+						<hint lang="de" value="Ereignis bei Änderung des Eingangsstatus"/>
+                        <desc resKey="light_sensor_lux_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event resulting from exceeding the upper threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der oberen Hysterese-Schwelle"/>
+                        <desc resKey="light_sensor_lux_onvaluerise"/>
+                    </event>
+					<event address="2" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event resulting from exceeding the lower threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der unteren Hysterese-Schwelle aufgerufen wird"/>
+                        <desc resKey="light_sensor_lux_onvaluelower"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding the (MinValue - MaxValue) range"/>
+						<hint lang="de" value="Ereignis bei Überschreitung des zulässigen Bereichs"/>
+                        <desc resKey="light_sensor_lux_onoutofrange"/>
+                    </event>
+					<event address="4" name="OnInRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu powróciła do zakresu (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurs when value returns to the (MinValue - MaxValue) range"/>
+						<hint lang="de" value="Ereignis bei der Wert in den Bereich (MinValue - MaxValue) zurückkehrt"/>
+                        <desc resKey="light_sensor_lux_oninrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>		
+		<object class="22" count="1" name="HUMIDITY_SENSOR" type="in">
+			<interface>
+				<features>
+					<feature default="0.1" get="true" index="1" name="Threshold" range="0-100" set="true" type="num" unit="number">
+						<hint lang="pl" value="Wielkość histerezy (dokładność 0.1 %) określająca czułość, przy której następuje wygenerowanie zdarzeń: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="en" value="Hysteresis size (accuracy 0.1 %) specifying the sensitivity when the following events are generated: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="de" value="Hysterese (Genauigkeit 0,1 %) der Empfindlichkeit, bei der folgende Ereignisse generiert werden: OnValueChange, OnValueLower, OnValueRise"/>
+                        <desc resKey="humidity_sensor_threshold"/>
+                    </feature>
+					<feature default="500" get="true" index="2" name="Sensitivity" range="100-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas (w ms), dla którego próbkowane wartości są uśredniane"/>
+						<hint lang="en" value="Time (in ms) for which the sampled values are averaged"/>
+						<hint lang="de" value="Zeit (in ms), für die abgetastete Werte gemittelt werden"/>
+                        <desc resKey="humidity_sensor_sensitivity"/>
+                    </feature>
+					<feature default="0" get="true" index="3" name="MinValue" range="0-100" set="true" type="num" unit="%">
+						<hint lang="pl" value="Minimalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value property after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Mindestwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="humidity_sensor_minvalue"/>
+                    </feature>
+					<feature default="100" get="true" index="4" name="MaxValue" range="0-100" set="true" type="num" unit="%">
+						<hint lang="pl" value="Maksymalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Maximum value of the Value property after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Höchstwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="humidity_sensor_maxvalue"/>
+                    </feature>
+					<feature default="0" enum="0,1" get="true" index="9" name="StatisticState" previousValue="true" set="true" type="num" unit="number"  >
+						<enum name="Off" resKey="sensor_statisticstate_enum_off" value="0"/>
+						<enum name="On" resKey="sensor_statisticstate_enum_on" value="1"/>
+						<hint lang="pl" value="Włącza raportowanie pomiaru do modułu statystyk"/>
+						<hint lang="en" value="Enables measurement reporting to the statistics module"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="sensor_statisticstate"/>
+                    </feature>
+					<feature get="true" index="0" name="Value" range="0-100" set="false" type="num" unit="%">
+						<hint lang="pl" value="Wartość wilgotności powietrza w zakresie od 0 do 100 %"/>
+						<hint lang="en" value="The value of air humidity from 0 to 100 %"/>
+						<hint lang="de" value="Der Wert der Luftfeuchtigkeit von 0 bis 100 %"/>
+                        <desc resKey="humidity_sensor_value"/>
+                    </feature>
+				</features>
+				<methods>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany wartości cechy Value"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+						<hint lang="de" value="Ereignis bei Änderung des Eingangsstatus"/>
+                        <desc resKey="humidity_sensor_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event resulting from exceeding the upper threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der oberen Hysterese-Schwelle"/>
+                        <desc resKey="humidity_sensor_onvaluerise"/>
+                    </event>
+					<event address="2" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event resulting from exceeding the lower threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der unteren Hysterese-Schwelle aufgerufen wird"/>
+                        <desc resKey="humidity_sensor_onvaluelower"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding the (MinValue - MaxValue) range"/>
+						<hint lang="de" value="Ereignis bei Überschreitung des zulässigen Bereichs"/>
+                        <desc resKey="humidity_sensor_onoutofrange"/>
+                    </event>		
+					<event address="4" name="OnInRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu powróciła do zakresu (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurs when value returns to the (MinValue - MaxValue) range"/>
+						<hint lang="de" value="Ereignis bei der Wert in den Bereich (MinValue - MaxValue) zurückkehrt"/>
+                        <desc resKey="humidity_sensor_oninrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="34" count="1" name="PRESSURE_SENSOR" type="in">
+			<interface>
+				<features>
+					<feature default="0.1" get="true" index="1" name="Threshold" range="0-100" set="true" type="num" unit="number">
+						<hint lang="pl" value="Wielkość histerezy (dokładność 0.1 hPa) określająca czułość, przy której następuje wygenerowanie zdarzeń: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="en" value="Hysteresis size (accuracy 0.1 hPa) specifying the sensitivity when the following events are generated: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="de" value="Hysterese (Genauigkeit 0,1 hPa) der Empfindlichkeit, bei der folgende Ereignisse generiert werden: OnValueChange, OnValueLower, OnValueRise"/>
+                        <desc resKey="pressure_sensor_threshold"/>
+                    </feature>
+					<feature default="500" get="true" index="2" name="Sensitivity" range="100-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas (w ms), dla którego próbkowane wartości są uśredniane"/>
+						<hint lang="en" value="Time (in ms) for which the sampled values are averaged"/>
+						<hint lang="de" value="Zeit (in ms), für die abgetastete Werte gemittelt werden"/>
+                        <desc resKey="pressure_sensor_sensitivity"/>
+                    </feature>
+					<feature default="300" get="true" index="3" name="MinValue" range="300-1100" set="true" type="num" unit="hPa">
+						<hint lang="pl" value="Minimalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value property after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Mindestwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="pressure_sensor_minvalue"/>
+                    </feature>
+					<feature default="1100" get="true" index="4" name="MaxValue" range="300-1100" set="true" type="num" unit="hPa">
+						<hint lang="pl" value="Maksymalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Maximum value of the Value property after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Höchstwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="pressure_sensor_maxvalue"/>
+                    </feature>
+					<feature get="true" index="0" name="Value" range="300-1100" set="false" type="num" unit="hPa">
+						<hint lang="pl" value="Wartość ciśnienia atmosferycznego od 300 do 1100 hPa"/>
+						<hint lang="en" value="The value of the atmospheric pressure from 300 to 1100 hPa"/>
+						<hint lang="de" value="Der Wert des Atmosphärendrucks von 300 bis 1100 hPa"/>
+                        <desc resKey="pressure_sensor_value"/>
+                    </feature>
+					<feature default="0" get="true" index="7" name="Altitude" range="0-5000" set="true" type="num" unit="m">
+						<hint lang="pl" value="Wysokość punktu pomiarowego w metrach nad poziomem morza"/>
+						<hint lang="en" value="Height of the measuring point in meters above sea level"/>
+						<hint lang="de" value="Höhe des Messpunktes in Metern über NN"/>
+                        <desc resKey="pressure_sensor_altitude"/>
+                    </feature>
+					<feature default="0" enum="0,1" get="true" index="9" name="StatisticState" previousValue="true" set="true" type="num" unit="number"  >
+						<enum name="Off" resKey="sensor_statisticstate_enum_off" value="0"/>
+						<enum name="On" resKey="sensor_statisticstate_enum_on" value="1"/>
+						<hint lang="pl" value="Włącza raportowanie pomiaru do modułu statystyk"/>
+						<hint lang="en" value="Enables measurement reporting to the statistics module"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="sensor_statisticstate"/>
+                    </feature>
+				</features>
+				<methods>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany wartości cechy Value"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+						<hint lang="de" value="Ereignis bei Änderung des Eingangsstatus"/>
+                        <desc resKey="pressure_sensor_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event resulting from exceeding the upper threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der oberen Hysterese-Schwelle"/>
+                        <desc resKey="pressure_sensor_onvaluerise"/>
+                    </event>
+					<event address="2" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event resulting from exceeding the lower threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der unteren Hysterese-Schwelle aufgerufen wird"/>
+                        <desc resKey="pressure_sensor_onvaluelower"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding the (MinValue - MaxValue) range"/>
+						<hint lang="de" value="Ereignis bei Überschreitung des zulässigen Bereichs"/>
+                        <desc resKey="pressure_sensor_onoutofrange"/>
+                    </event>	
+					<event address="4" name="OnInRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu powróciła do zakresu (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurs when value returns to the (MinValue - MaxValue) range"/>
+						<hint lang="de" value="Ereignis bei der Wert in den Bereich (MinValue - MaxValue) zurückkehrt"/>
+                        <desc resKey="pressure_sensor_oninrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="41" count="1" name="AIR_CO2_SENSOR" type="in">
+			<interface>
+				<features>
+					<feature default="1" get="true" index="1" name="Threshold" range="0-100" set="true" type="num" unit="number">
+						<hint lang="pl" value="Wielkość histerezy (dokładność 1 ppm) określająca czułość, przy której następuje wygenerowanie zdarzeń: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="en" value="Hysteresis size (accuracy 1 ppm) specifying the sensitivity when the following events are generated: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="de" value="Hysterese (Genauigkeit 1 ppm) der Empfindlichkeit, bei der folgende Ereignisse generiert werden: OnValueChange, OnValueLower, OnValueRise"/>
+                        <desc resKey="air_co2_sensor_threshold"/>
+                    </feature>
+					<feature default="500" get="true" index="2" name="Sensitivity" range="100-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas (w ms), dla którego próbkowane wartości są uśredniane"/>
+						<hint lang="en" value="Time (in ms) for which the sampled values are averaged"/>
+						<hint lang="de" value="Zeit (in ms), für die abgetastete Werte gemittelt werden"/>
+                        <desc resKey="air_co2_sensor_sensitivity"/>
+                    </feature>
+					<feature default="400" get="true" index="3" name="MinValue" range="400-60000" set="true" type="num" unit="ppm">
+						<hint lang="pl" value="Minimalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value property after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Mindestwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="air_co2_sensor_minvalue"/>
+                    </feature>
+					<feature default="60000" get="true" index="4" name="MaxValue" range="400-60000" set="true" type="num" unit="ppm">
+						<hint lang="pl" value="Maksymalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Maximum value of the Value property after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Höchstwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="air_co2_sensor_maxvalue"/>
+                    </feature>
+					<feature default="0" enum="0,1" get="true" index="9" name="StatisticState" previousValue="true" set="true" type="num" unit="number"  >
+						<enum name="Off" resKey="sensor_statisticstate_enum_off" value="0"/>
+						<enum name="On" resKey="sensor_statisticstate_enum_on" value="1"/>
+						<hint lang="pl" value="Włącza raportowanie pomiaru do modułu statystyk"/>
+						<hint lang="en" value="Enables measurement reporting to the statistics module"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="sensor_statisticstate"/>
+                    </feature>
+					<feature get="true" index="0" name="Value" range="400-60000" set="false" type="num" unit="ppm">
+						<hint lang="pl" value="Wartość estymowana CO2 w zakresie od 400 do 60000 ppm"/>
+						<hint lang="en" value="Estimated value of CO2 in the range from 400 to 60000 ppm"/>
+						<hint lang="de" value="Geschätzter CO2-Wert im Bereich von 400 bis 60000 ppm"/>
+                        <desc resKey="air_co2_sensor_value"/>
+                    </feature>
+				</features>
+				<methods>
+				
+					<method call="execute" index="0" name="Recalibration" return="void">
+						<param default="0" name="State" optional="true" range="0-1" type="num" unit="">
+							<parametrized name="NO" type="num" value="0"/>
+							<parametrized name="YES" type="num" value="1"/>
+						</param>
+						<hint lang="pl" value="Wymuszenie kalibracji czujnika CO2 (czas kalibracji do 12 h)"/>
+						<hint lang="en" value="Forces CO2 sensor calibration (calibration time up to 12 h)"/>
+						<hint lang="de" value="Erzwingt die Kalibrierung des CO2-Sensors (Kalibrierzeit 12 h)"/>
+					    <desc resKey="air_co2_sensor_recalibration"/>
+                    </method> 
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany wartości cechy Value"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+						<hint lang="de" value="Ereignis bei Änderung des Eingangsstatus"/>
+                        <desc resKey="air_co2_sensor_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event resulting from exceeding the upper threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der oberen Hysterese-Schwelle"/>
+                        <desc resKey="air_co2_sensor_onvaluerise"/>
+                    </event>
+					<event address="2" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event resulting from exceeding the lower threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der unteren Hysterese-Schwelle aufgerufen wird"/>
+                        <desc resKey="air_co2_sensor_onvaluelower"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding the (MinValue - MaxValue) range"/>
+						<hint lang="de" value="Ereignis bei Überschreitung des zulässigen Bereichs"/>
+                        <desc resKey="air_co2_sensor_onoutofrange"/>
+                    </event>
+					<event address="4" name="OnInRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu powróciła do zakresu (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurs when value returns to the (MinValue - MaxValue) range"/>
+						<hint lang="de" value="Ereignis bei der Wert in den Bereich (MinValue - MaxValue) zurückkehrt"/>
+                        <desc resKey="air_co2_sensor_oninrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="36" count="1" name="AIR_VOC_SENSOR" type="in">
+			<interface>
+				<features>
+					<feature default="1" get="true" index="1" name="Threshold" range="0-100" set="true" type="num" unit="number">
+						<hint lang="pl" value="Wielkość histerezy (dokładność 1 ppb) określająca czułość, przy której następuje wygenerowanie zdarzeń: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="en" value="Hysteresis size (accuracy 1 ppb) specifying the sensitivity when the following events are generated: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="de" value="Hysterese (Genauigkeit 1 ppb) der Empfindlichkeit, bei der folgende Ereignisse generiert werden: OnValueChange, OnValueLower, OnValueRise"/>
+                        <desc resKey="air_vco_sensor_threshold"/>
+                    </feature>
+					<feature default="500" get="true" index="2" name="Sensitivity" range="100-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas (w ms), dla którego próbkowane wartości są uśredniane"/>
+						<hint lang="en" value="Time (in ms) for which the sampled values are averaged"/>
+						<hint lang="de" value="Zeit (in ms), für die abgetastete Werte gemittelt werden"/>
+                        <desc resKey="air_vco_sensor_sensitivity"/>
+                    </feature>
+					<feature default="0" get="true" index="3" name="MinValue" range="0-60000" set="true" type="num" unit="%">
+						<hint lang="pl" value="Minimalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value property after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Mindestwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="air_vco_sensor_minvalue"/>
+                    </feature>
+					<feature default="60000" get="true" index="4" name="MaxValue" range="0-60000" set="true" type="num" unit="%">
+						<hint lang="pl" value="Maksymalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Maximum value of the Value property after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Höchstwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="air_vco_sensor_maxvalue"/>
+                    </feature>
+					<feature default="0" enum="0,1" get="true" index="9" name="StatisticState" previousValue="true" set="true" type="num" unit="number"  >
+						<enum name="Off" resKey="sensor_statisticstate_enum_off" value="0"/>
+						<enum name="On" resKey="sensor_statisticstate_enum_on" value="1"/>
+						<hint lang="pl" value="Włącza raportowanie pomiaru do modułu statystyk"/>
+						<hint lang="en" value="Enables measurement reporting to the statistics module"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="sensor_statisticstate"/>
+                    </feature>
+					<feature get="true" index="0" name="Value" range="0-60000" set="false" type="num" unit="ppb">
+						<hint lang="pl" value="Wartość lotnych związków organicznych (VOC) w zakresie od 0 do 60000 ppb"/>
+						<hint lang="en" value="Volatile Organic Compounds (VOC) value in the range from 0 to 60000 ppb"/>
+						<hint lang="de" value="VOC-Wert im Bereich von 0 bis 60000 ppb"/>
+                        <desc resKey="air_vco_sensor_value"/>
+                    </feature>
+				</features>
+				<methods>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany wartości cechy Value"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+						<hint lang="de" value="Ereignis bei Änderung des Eingangsstatus"/>
+                        <desc resKey="air_vco_sensor_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event resulting from exceeding the upper threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der oberen Hysterese-Schwelle"/>
+                        <desc resKey="air_vco_sensor_onvaluerise"/>
+                    </event>
+					<event address="2" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event resulting from exceeding the lower threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der unteren Hysterese-Schwelle aufgerufen wird"/>
+                        <desc resKey="air_vco_sensor_onvaluelower"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding the (MinValue..MaxValue) range"/>
+						<hint lang="de" value="Ereignis bei Überschreitung des zulässigen Bereichs"/>
+                        <desc resKey="air_vco_sensor_onoutofrange"/>
+                    </event>
+					<event address="4" name="OnInRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu powróciła do zakresu (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurs when value returns to the (MinValue - MaxValue) range"/>
+						<hint lang="de" value="Ereignis bei der Wert in den Bereich (MinValue - MaxValue) zurückkehrt"/>
+                        <desc resKey="air_vco_sensor_oninrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="37" count="1" name="SOUND_SENSOR" type="in">
+			<interface>
+				<features>
+					<feature default="0.1" get="true" index="1" name="Threshold" range="0-100" set="true" type="num" unit="number">
+						<hint lang="pl" value="Wielkość histerezy (dokładność 0.1 dB) określająca czułość, przy której następuje wygenerowanie zdarzeń: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="en" value="Hysteresis size (accuracy 0.1 dB) specifying the sensitivity when the following events are generated: OnValueChange, OnValueLower, OnValueRise"/>
+						<hint lang="de" value="Hysterese (Genauigkeit 0,1 dB) der Empfindlichkeit, bei der folgende Ereignisse generiert werden: OnValueChange, OnValueLower, OnValueRise"/>
+                        <desc resKey="sound_sensor_threshold"/>
+                    </feature>
+					<feature default="500" get="true" index="2" name="Sensitivity" range="100-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas (w ms), dla którego próbkowane wartości są uśredniane"/>
+						<hint lang="en" value="Time (in ms) for which the sampled values are averaged"/>
+						<hint lang="de" value="Zeit (in ms), für die abgetastete Werte gemittelt werden"/>
+                        <desc resKey="sound_sensor_sensitivity"/>
+                    </feature>
+					<feature default="30" get="true" index="3" name="MinValue" range="30-130" set="true" type="num" unit="dB">
+						<hint lang="pl" value="Minimalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the Value property after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Mindestwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="sound_sensor_minvalue"/>
+                    </feature>
+					<feature default="130" get="true" index="4" name="MaxValue" range="30-130" set="true" type="num" unit="dB">
+						<hint lang="pl" value="Maksymalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Maximum value of the Value property after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Höchstwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+                        <desc resKey="sound_sensor_maxvalue"/>
+                    </feature>
+					<feature default="0" enum="0,1" get="true" index="9" name="StatisticState" previousValue="true" set="true" type="num" unit="number"  >
+						<enum name="Off" resKey="sensor_statisticstate_enum_off" value="0"/>
+						<enum name="On" resKey="sensor_statisticstate_enum_on" value="1"/>
+						<hint lang="pl" value="Włącza raportowanie pomiaru do modułu statystyk"/>
+						<hint lang="en" value="Enables measurement reporting to the statistics module"/>
+						<hint lang="de" value=""/>
+                        <desc resKey="sensor_statisticstate"/>
+                    </feature>
+					<feature get="true" index="0" name="Value" range="30-130" set="false" type="num" unit="dB">
+						<hint lang="pl" value="Wartość natężenia dźwięku w zakresie od 30 do 130 dB"/>
+						<hint lang="en" value="Sound intensity from 30 to 130 dB"/>
+						<hint lang="de" value="Schallintensität von 30 bis 130 dB"/>
+                        <desc resKey="sound_sensor_value"/>
+                    </feature>
+				</features>
+				<methods>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany wartości cechy Value"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+						<hint lang="de" value="Ereignis bei Änderung des Eingangsstatus"/>
+                        <desc resKey="sound_sensor_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event resulting from exceeding the upper threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der oberen Hysterese-Schwelle"/>
+                        <desc resKey="sound_sensor_onvaluerise"/>
+                    </event>
+					<event address="2" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event resulting from exceeding the lower threshold of hysteresis"/>
+						<hint lang="de" value="Ereignis bei Überschreitung der unteren Hysterese-Schwelle aufgerufen wird"/>
+                        <desc resKey="sound_sensor_onvaluelower"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding the (MinValue - MaxValue) range"/>
+						<hint lang="de" value="Ereignis bei Überschreitung des zulässigen Bereichs"/>
+                        <desc resKey="sound_sensor_onoutofrange"/>
+                    </event>	
+					<event address="4" name="OnInRange">
+						<hint lang="pl" value="Zdarzenie wywoływane, gdy wartość na wejściu powróciła do zakresu (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurs when value returns to the (MinValue - MaxValue) range"/>
+						<hint lang="de" value="Ereignis bei der Wert in den Bereich (MinValue - MaxValue) zurückkehrt"/>
+                        <desc resKey="sound_sensor_oninrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="38" count="1" name="IR_CONTROLLER" type="in">
+			<interface>
+				<features>
+					<feature default="1" get="true" index="2" name="SavedCodes" range="0-100" set="false" type="num" unit="-">
+						<hint lang="pl" value="Liczba zapisanych kodów w pamięci Flash"/>
+						<hint lang="en" value="Number of saved codes in Flash memory"/>
+						<hint lang="de" value="Anzahl gespeicherter Codes im Flash-Speiche"/>
+					    <desc resKey="ir_controller_savedcodes"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="execute" index="0" name="SendCode" return="void">
+						<param name="CodeNumber" range="1-100" type="num"/>
+						<hint lang="pl" value="Wysyła kod IR zapisany pod indeksem CodeNumber sygnalizując fakt zieloną diodą. Dioda czerwona sygnalizuje brak zapisanego kodu"/>
+						<hint lang="en" value="Sends the IR code stored at index CodeNumber, signaling the fact with the green LED. The red LED indicates that there is no code stored "/>
+						<hint lang="de" value="Sendet den im Index CodeNumber gespeicherten IR-Code und signalisiert dies mit der grünen LED. Die rote LED zeigt an, dass kein Code gespeichert ist"/>
+					    <desc resKey="ir_controller_sendcode"/>
+                    </method>
+					<method call="execute" index="1" name="LearnCode" return="void">
+						<param name="CodeNumber" range="1-100" type="num"/>
+						<hint lang="pl" value="Wywołuje tryb uczenia kodu IR pod indeksem CodeNumber"/>
+						<hint lang="en" value="Calls the IR code learning mode at index CodeNumber"/>
+						<hint lang="de" value="Rufen Sie den IR-Code-Lernmodus im Codenummernindex auf"/>
+					    <desc resKey="ir_controller_learncode"/>
+                    </method> 
+					<method call="execute" index="3" name="EraseCode" return="void">
+						<param name="CodeNumber" range="1-100" type="num"/>
+						<hint lang="pl" value="Kasuje kod IR zapisany pod indeksem CodeNumber"/>
+						<hint lang="en" value="Erases the IR code stored at index CodeNumber"/>
+						<hint lang="de" value="Löscht den unter der Indexcodenummer gespeicherten IR-Code"/>
+					    <desc resKey="ir_controller_erasecode"/>
+                    </method> 					
+					<method call="execute" index="2" name="EraseFlash" return="void">
+						<param default="0" name="State" optional="true" range="0-1" type="num" unit="">
+							<parametrized name="NO" type="num" value="0"/>
+							<parametrized name="YES" type="num" value="1"/>
+						</param>
+						<hint lang="pl" value="Kasowanie wszystkich kodów IR zapisanych w pamięci Flash"/>
+						<hint lang="en" value="Erasing all of the IR codes stored in Flash memory"/>
+						<hint lang="de" value="Löschen aller im Flash-Speicher gespeicherten IR-Codes"/>
+					    <desc resKey="ir_controller_eraseflash"/>
+                    </method> 
+				</methods>	
+				<events>
+					<event address="0" name="OnIrSend">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie wysłania kodu IR"/>
+						<hint lang="en" value="Event occurring when the IR code send takes place"/>
+						<hint lang="de" value="Ereignis bei das Senden des IR-Codes stattfindet"/>
+					    <desc resKey="ir_controller_onirsend"/>
+                    </event>
+					<event address="1" name="OnLearningStatusChange">
+                        <hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany statusu trybu uczenia kodu IR"/>
+                        <hint lang="en" value="Event occurring when a change in the learning status takes place"/>
+						<hint lang="de" value="Ereignis bei einer Änderung des Lernstatus auftritt"/>
+                        <desc resKey="ir_controller_onlearningstatuschange"/>
+                    </event>
+                    <event address="2" name="OnLearningOK">
+                        <hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany statusu trybu uczenia kodu IR na &quot;OK&quot;"/>
+						<hint lang="en" value="Event occurring when the IR code learning status changes to &quot;OK&quot;"/>
+						<hint lang="de" value="Ereignis bei der Lernstatus des IR-Codes auf &quot;OK&quot; sich ändert"/>
+                        <desc resKey="ir_controller_onlearningok"/>
+                    </event>
+                    <event address="3" name="OnLearning">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany statusu trybu uczenia kodu IR na &quot;Learning&quot;"/>
+                        <hint lang="en" value="Event occurring when the IR code learning status changes to &quot;Learning&quot;"/>
+						<hint lang="de" value="Ereignis bei der Lernstatus des IR-Codes auf &quot;Learning&quot; sich ändert"/>
+                        <desc resKey="ir_controller_onlearning"/>
+                    </event>
+                    <event address="4" name="OnLearningFail">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany statusu trybu uczenia kodu IR na &quot;Learning Fail&quot;"/>
+                        <hint lang="en" value="Event occurring when the IR code learning status changes to &quot;Learning Fail&quot;"/>
+						<hint lang="de" value="Ereignis bei der Lernstatus des IR-Codes auf &quot;Fail&quot; sich ändert"/>
+                        <desc resKey="ir_controller_onlearningfail"/>
+                    </event>
+				</events>	
+			</interface>
+		</object>
+	<object class="12" count="1" name="POWER_SUPPLY_VOLTAGE" type="in">
+			<interface>
+				<features>
+					<feature default="0" get="true" index="0" name="Value" range="0-36" set="false" type="num" unit="V">
+						<hint lang="pl" value="Wartość napięcia zasilania"/>
+						<hint lang="en" value="Current power supply voltage value"/>
+						<hint lang="de" value="Aktueller Wert der Versorgungsspannung"/>
+					    <desc resKey="powersupplyvoltage_value"/>
+                    </feature>
+					<feature default="0" divisor="1" get="true" index="1" name="Value%" range="0-1000000" set="false" type="num" unit="%">
+						<hint lang="pl" value="Wartość napięcia zasilania jako procent wartości maksymalnej (MaxValue)"/>
+						<hint lang="en" value="Current power supply voltage value as a percentage of the maximum value (MaxValue property)"/>
+						<hint lang="de" value="Aktueller Wert der Versorgungsspannung in Prozent des Maximalwerts (Eigenschaft MaxValue)"/>
+					    <desc resKey="powersupplyvoltage_value_1"/>
+                    </feature>
+					<feature default="0.5" get="true" index="3" name="Sensitivity" range="0-10" set="true" type="num" unit="V">
+						<hint lang="pl" value="Czułość - minimalna zmiana wartości napięcia zasilania, która wywołuje zdarzenia OnValueChange, OnValueLower lub OnValueRise"/>
+						<hint lang="en" value="Minimum value change of the power supply voltage that generates OnValueChange, OnValueLower or OnValueRise events"/>
+						<hint lang="de" value="Minimale Wertänderung der Versorgungsspannung, die OnValueChange-, OnValueLower- oder OnValueRise-Ereignisse erzeugt"/>
+					    <desc resKey="powersupplyvoltage_sensitivity"/>
+                    </feature>
+					<feature default="21" get="true" index="5" name="MinValue" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość minimalna napięcia zasilania po przekroczeniu której generowane jest zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Minimum value of the power supply voltage after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Minimalwert der Versorgungsspannung, nach dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+					    <desc resKey="powersupplyvoltage_minvalue"/>
+                    </feature>
+					<feature default="24" get="true" index="6" name="MaxValue" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość maksymalna napięcia zasilania po przekroczeniu której generowane jest zdarzenie OnOutOfRange"/>
+						<hint lang="en" value="Maximum value of the power supply voltage after exceeding which the OnOutOfRange event is generated"/>
+						<hint lang="de" value="Maximalwert der Versorgungsspannung, nach dessen Überschreitung das Ereignis OnOutOfRange generiert wird"/>
+					    <desc resKey="powersupplyvoltage_maxvalue"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="3" name="SetSensitivity" return="void">
+						<hint lang="pl" value="Ustawia czułość pomiaru napięcia zasilania"/>
+						<hint lang="en" value="Sets the sensitivity of measuring the power supply voltage"/>
+						<hint lang="de" value="Legt die Empfindlichkeit der Messung der Versorgungsspannung fest"/>
+						<param name="Sensitivity" range="0-10" type="num" unit="V"/>
+					    <desc resKey="powersupplyvoltage_setsensitivity"/>
+                    </method>
+					<method call="set" index="5" name="SetMinValue" return="void">
+						<hint lang="pl" value="Ustawia wartość cechy MinValue"/>
+						<hint lang="en" value="Sets the MinValue property"/>
+						<hint lang="de" value="Legt die MinValue-Eigenschaft fest"/>
+						<param name="MinValue" type="num"/>
+					    <desc resKey="powersupplyvoltage_setminvalue"/>
+                    </method>
+					<method call="set" index="6" name="SetMaxValue" return="void">
+						<hint lang="pl" value="Ustawia wartość MaxValue"/>
+						<hint lang="en" value="Sets the MaxValue property"/>
+						<hint lang="de" value="Legt die MaxValue-Eigenschaft fest"/>
+						<param name="MaxValue" type="num"/>
+					    <desc resKey="powersupplyvoltage_setmaxvalue"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania"/>
+						<hint lang="en" value="Event occurs when the value of the power supply voltage changes"/>
+						<hint lang="de" value="Ereignis tritt ein, wenn sich der Wert der Versorgungsspannung ändert"/>
+					    <desc resKey="powersupplyvoltage_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnValueLower">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event occurs when a value of the power supply voltage lower than the value from the last reading appears at input"/>
+						<hint lang="de" value="Ereignis tritt ein, wenn am Eingang ein Wert der Versorgungsspannung kleiner als der Wert aus der letzten Messung erscheint"/>
+					    <desc resKey="powersupplyvoltage_onvaluelower"/>
+                    </event>
+					<event address="2" name="OnValueRise">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości napięcia zasilania na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event occurs when a value of the power supply voltage higher than the value from the last reading appears at input"/>
+						<hint lang="de" value="Ereignis tritt ein, wenn am Eingang ein Wert der Versorgungsspannung größer als der Wert aus der letzten Messung erscheint"/>
+					    <desc resKey="powersupplyvoltage_onvaluerise"/>
+                    </event>
+					<event address="3" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy napięcie zasilania znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurs when the value of the power supply voltage exceeding the permissible the (MinValue - MaxValue) range"/>
+						<hint lang="de" value="Ereignis tritt ein, wenn der Wert der Versorgungsspannung den zulässigen Bereich (MinValue - MaxValue) überschreitet"/>
+					    <desc resKey="powersupplyvoltage_onoutofrange_1"/>
+                    </event>
+					<event address="6" name="OnInRange">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wartość napięcia zasilania powróci do wyznaczonego zakresu (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurs when the value of the power supply voltage returns to the (MinValue - MaxValue) range"/>
+						<hint lang="de" value="Ereignis bei der Wert in den Bereich (MinValue - MaxValue) zurückkehrt"/>
+					    <desc resKey="powersupplyvoltage_oninrange"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

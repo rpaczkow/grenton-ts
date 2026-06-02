@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="LEDRGBmodule" typeId="04">
+	<!--hwType=0x4(4), hwVer=0x1(1), fwType=0x0(0), fwApiVer=0x5(5)-->
+	<firmware typeId="00" version="05">
+		<object class="9" count="1" name="LEDRGB" type="out">
+			<interface>
+				<features>
+					<feature get="true" index="0" name="Value" range="0-1" set="false" type="num" unit="number">
+						<hint lang="pl" value="Wartość jasności (zakres 0-1)"/>
+						<hint lang="en" value="Brightness value (range: 0-1)"/>
+						<hint lang="de" value="Helligkeitswert (Bereich 0 - 1)"/>
+                        <desc resKey="ledrgb_value_1"/>
+                    </feature>
+					<feature get="true" index="1" name="Hue" range="0-360" set="false" type="num" unit="number">
+						<hint lang="pl" value="Wartość koloru barwy według modelu HSV (0-360)"/>
+						<hint lang="en" value="Colour hue value as per the HSV model (0-360)"/>
+						<hint lang="de" value="Farbwert nach HSV (0 - 360)"/>
+                        <desc resKey="ledrgb_hue"/>
+                    </feature>
+					<feature get="true" index="2" name="Saturation" range="0-1" set="false" type="num" unit="number">
+						<hint lang="pl" value="Wartość nasycenia barwy (0-1)"/>
+						<hint lang="en" value="Colour saturation value (0-1)"/>
+						<hint lang="de" value="Sättigungswert (0-1)"/>
+                        <desc resKey="ledrgb_saturation_1"/>
+                    </feature>
+					<feature get="true" index="3" name="RValue" range="0-255" set="false" type="num" unit="number">
+						<hint lang="pl" value="Wartość składowej R(0-255) - kolor czerwony"/>
+						<hint lang="en" value="R component value (0-255) - Red"/>
+						<hint lang="de" value="Komponentenwert R (0 - 255) – Rot"/>
+                        <desc resKey="ledrgb_rvalue"/>
+                    </feature>
+					<feature get="true" index="5" name="BValue" range="0-255" set="false" type="num" unit="number">
+						<hint lang="pl" value="Wartość składowej B(0-255) - kolor niebieski"/>
+						<hint lang="en" value="B component value (0-255) - Blue"/>
+						<hint lang="de" value="Komponentenwert G (0 - 255) – Grün"/>
+                        <desc resKey="ledrgb_bvalue"/>
+                    </feature>
+					<feature get="true" index="4" name="GValue" range="0-255" set="false" type="num" unit="number">
+						<hint lang="pl" value="Wartość składowej G(0-255) - kolor zielony"/>
+						<hint lang="en" value="G component value (0-255) - Green"/>
+						<hint lang="de" value="Komponentenwert B (0 - 255) – Blau"/>
+                        <desc resKey="ledrgb_gvalue"/>
+                    </feature>
+					<feature get="true" index="6" name="RGB" range="" set="false" type="str" unit="HEX">
+						<hint lang="pl" value="Wartość koloru wg modelu RGB #RRGGBB (podawana w HEX)"/>
+						<hint lang="en" value="Colour value as per the RGB model #RRGGBB (specified in HEX)"/>
+						<hint lang="de" value="Farbwert nach „#RRGGBB” (als HEX angegeben)"/>
+                        <desc resKey="ledrgb_rgb"/>
+                    </feature>
+					<feature default="0" get="true" index="7" name="RampTime" range="0-15000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Wartość czasu narastania wartości barwy oraz jasności"/>
+						<hint lang="en" value="Time value of increment of colour and brightness (in ms)"/>
+						<hint lang="de" value="Rampenwert Farbe und Helligkeit (ms)"/>
+                        <desc resKey="ledrgb_ramptime"/>
+                    </feature>
+					<feature default="1" get="true" index="8" name="MaxValue" range="0-1" set="true" type="num" unit="number">
+						<hint lang="pl" value="Maksymalna wartość jaka może przyjąć Value. Próba ustawienia wartości większej zwraca błąd"/>
+						<hint lang="en" value="Maximum value which Value can adopt. Attempting to set a higher value will generate an error"/>
+						<hint lang="de" value="öchstwert, der von Value angenommen werden kann. Ein höherer Wert generiert eine Fehlermeldung"/>
+                        <desc resKey="ledrgb_maxvalue"/>
+                    </feature>
+					<feature default="0" get="true" index="9" name="MinValue" range="0-1" set="true" type="num" unit="number">
+						<hint lang="pl" value="Minimalna wartość jaka może przyjąć Value. Próba ustawienia wartości mniejszej zwraca błąd"/>
+						<hint lang="en" value="Minimum value which Value can adopt. Attempting to set a lower value will generate an error"/>
+						<hint lang="de" value="Mindestwert, der von Value angenommen werden kann. Ein niedrigerer Wert generiert eine Fehlermeldung"/>
+                        <desc resKey="ledrgb_minvalue"/>
+                    </feature>
+					<feature default="10000" get="true" index="10" name="RCorrection" range="0-10000" set="true" type="num" unit="number">
+						<hint lang="pl" value="Korekcja bieli dla kanału R, domyślnie 10000"/>
+						<hint lang="en" value="White correction - channel R (0-10,000), default 10,000"/>
+						<hint lang="de" value="Weißkorrektur – R-Kanal (0 - 10000), Standardwert 10000"/>
+                        <desc resKey="ledrgb_rcorrection"/>
+                    </feature>
+					<feature default="8333" get="true" index="11" name="GCorrection" range="0-10000" set="true" type="num" unit="number">
+						<hint lang="pl" value="Korekcja bieli dla kanału G, domyślnie 8333"/>
+						<hint lang="en" value="White correction - G channel (0-10,000), default 8,333"/>
+						<hint lang="de" value="Weißkorrektur – G-Kanal (0 - 10000), Standardwert 8333"/>
+                        <desc resKey="ledrgb_gcorrection"/>
+                    </feature>
+					<feature default="8333" get="true" index="12" name="BCorrection" range="0-10000" set="true" type="num" unit="number">
+						<hint lang="pl" value="Korekcja bieli dla kanału B, domyślnie 8333"/>
+						<hint lang="en" value="White correction - B channel (0-10,000), default 8,333"/>
+						<hint lang="de" value="Weißkorrektur – B-Kanal (0 - 10000), Standardwert 8333"/>
+                        <desc resKey="ledrgb_bcorrection"/>
+                    </feature>
+					<feature default="0" enum="0,1" get="true" index="13" name="StatisticState" previousValue="true" set="true" type="num" unit="number"  >
+						<enum name="Off" resKey="ledrgb_statisticstate_enum_off" value="0"/>
+						<enum name="Continuous" resKey="ledrgb_statisticstate_enum_continuous" value="1"/>
+						<hint lang="pl" value="Włącza raportowanie pomiaru do modułu statystyk:&#13;Off - wyłączony,&#13;Continuous - pomiar obciążenia w całym okresie pracy urządzenia"/>
+						<hint lang="en" value="Enables measurement reporting to the statistics module:&#13;Off - turned off,&#13;Continuous - load measurement for the whole device's period operation"/>
+						<hint lang="de" value="Art der Messung: &#13;Off - ausgeschaltet, &#13;Continuous - Belastungsmessung während der gesamten Arbeitszeit des Geräts"/>
+                        <desc resKey="ledrgb_statisticstate_1"/>
+                    </feature>
+					<feature correctValue="1" default="0" dependOn="13" get="true" index="14" name="Load" set="true" type="num" unit="W" range="0-60000" >
+						<hint lang="pl" value="Mnożnik mierzonej wartości. Dla StatisticState:&#13;Continuous - wartość zużycia w jednostce czasu"/>
+						<hint lang="en" value="The measured value multiplier. For StatisticState:&#13;Continuous - load measurement value in the unit of time"/>
+						<hint lang="de" value="Messwertfaktor. Für StatisticState: &#13;Kontinuierlich - Verbrauch pro Zeiteinheit (z. B. 1 l, 1 m3, 1 kW)"/>
+                        <desc resKey="ledrgb_load_1"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="execute" index="0" name="SetValue" return="void">
+						<param name="Value" range="0-1" type="num" unit="number"/>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value=""/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Ustawia wartość wyjścia (0-1)"/>
+						<hint lang="en" value="Sets output value (0-1)"/>
+						<hint lang="de" value="Bestimmt den Ausgangswert (0 - 1)"/>
+                        <desc resKey="ledrgb_setvalue_1"/>
+                    </method>
+					<method call="execute" index="1" name="SetHue" return="void">
+						<param name="Value" range="0-360" type="num" unit="number"/>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value=""/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Ustawia wartość barwy (0-360)"/>
+						<hint lang="en" value="Sets hue value (0-360)"/>
+						<hint lang="de" value="Bestimmt den Farbwert (0 - 360)"/>
+                        <desc resKey="ledrgb_sethue"/>
+                    </method>
+					<method call="execute" index="2" name="SetSaturation" return="void">
+						<param name="Value" range="0-1" type="num" unit="number"/>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value=""/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Ustawia wartość nasycenia (0-1)"/>
+						<hint lang="en" value="Sets saturation value (0-1)"/>
+						<hint lang="de" value="Bestimmt den Sättigungswert (0 - 1)"/>
+                        <desc resKey="ledrgb_setsaturation_1"/>
+                    </method>
+					<method call="execute" index="3" name="SetRvalue" return="void">
+						<param name="Value" range="0-255" type="num" unit="number"/>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value=""/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Ustawia wartość składowej R(0-255) - kolor czerwony"/>
+						<hint lang="en" value="Sets R component value (0-255)"/>
+						<hint lang="de" value="Bestimmt die Komponente R (0 - 255)"/>
+                        <desc resKey="ledrgb_setrvalue"/>
+                    </method>
+					<method call="execute" index="4" name="SetGvalue" return="void">
+						<param name="Value" range="0-255" type="num" unit="number"/>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value=""/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Ustawia wartość składowej G(0-255) - kolor zielony"/>
+						<hint lang="en" value="Sets G component value (0-255)"/>
+						<hint lang="de" value="Bestimmt die Komponente G (0 - 255)"/>
+                        <desc resKey="ledrgb_setgvalue"/>
+                    </method>
+					<method call="execute" index="5" name="SetBvalue" return="void">
+						<param name="Value" range="0-255" type="num" unit="number"/>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value=""/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Ustawia wartość składowej B(0-255) - kolor niebieski"/>
+						<hint lang="en" value="Sets B component value (0-255)"/>
+						<hint lang="de" value="Bestimmt die Komponente B (0 - 255)"/>
+                        <desc resKey="ledrgb_setbvalue"/>
+                    </method>
+					<method call="execute" index="6" name="SetRGBvalue" return="void">
+						<param default="#ffffff" name="Value" range="" type="str" unit="HEX"/>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value=""/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Ustawia wartość RGB za pomocą ciągu znaków #RRGGBB"/>
+						<hint lang="en" value="Sets RGB value using the #RRGGBB string"/>
+						<hint lang="de" value="Bestimmt den RGB-Wert mit der Zeichenfolge „#RRGGBB”"/>
+                        <desc resKey="ledrgb_setrgbvalue"/>
+                    </method>
+					<method call="execute" index="7" name="HoldValue" return="void">
+						<param name="Ramp" optional="true" type="num" unit="ms"/>
+						<hint lang="pl" value="Realizacja funkcji rozjaśniania/ściemniania"/>
+						<hint lang="en" value="Executes illumination/ dimming function"/>
+						<hint lang="de" value="Ausführung der Dimmfunktion (heller / dunkler)"/>
+                        <desc resKey="ledrgb_holdvalue"/>
+                    </method>
+					<method call="execute" index="8" name="HoldHue" return="void">
+						<param name="Ramp" optional="true" type="num" unit="ms"/>
+						<hint lang="pl" value="Realizacja funkcji płynnej zmiany barwy"/>
+						<hint lang="en" value="Executes smooth hue transition"/>
+						<hint lang="de" value="Ausführung des stufenlosen Farbwechsels"/>
+                        <desc resKey="ledrgb_holdhue"/>
+                    </method>
+					<method call="execute" index="9" name="SwitchOn" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value=""/>
+							<parametrized name="Time"/>						
+						</param>
+						<hint lang="pl" value="Ustawia wartość wyjścia na MaxValue"/>
+						<hint lang="en" value="Sets output value to MaxValue"/>
+						<hint lang="de" value="Setzt den Ausgangswert auf MaxValue"/>
+                        <desc resKey="ledrgb_switchon"/>
+                    </method>
+					<method call="execute" index="10" name="SwitchOff" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value=""/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Ustawia wartość wyjścia na MinValue"/>
+						<hint lang="en" value="Sets output value to MinValue"/>
+						<hint lang="de" value="Setzt den Ausgangswert auf MinValue"/>
+                        <desc resKey="ledrgb_switchoff_1"/>
+                    </method>
+					<method call="execute" index="11" name="Switch" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value=""/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Zmienia stan wyjścia na przeciwny. Pierwszy parametr to czas zmiany: 0 włącza wyjście na stałe, num na czas określony w parametrze. Drugi parametr to rampa jest opcjonalny, jeśli nie zostanie zdefiniowany przyjmowana jest wartość domyślna."/>
+						<hint lang="en" value="Changes the output value from 0 to 1 or from 1 to 0. The first parameter is the time of change:&#13;0 - switches output to continuous mode spec&#13;number - switches output for a time specified by a parameter (in milliseconds)&#13;The second parameter is the ramp (time of value increments) which is optional. If this parameter is not specified, the default ramp is used"/>
+						<hint lang="de" value="Wechselt den Ausgangswert von 0 auf 1 oder von 1 auf 0. Der erste Parameter ist die Wechselzeit: &#13;0 – schaltet den Ausgang für eine unbestimmte Zeit ein; &#13;num – schaltet den Ausgang für eine mit Parametern bestimmte Zeit (in Millisekunden) ein. Der zweite Parameter ist optional und es ist die Rampe (Anstiegszeit). Wird er nicht vorgegeben, nimmt er den Standardwert an."/>
+                        <desc resKey="ledrgb_switch_1"/>
+                    </method>
+					<method call="set" index="7" name="SetRampTime" return="void">
+						<param name="RampTime" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia czas narastania wartości barwy i jasności"/>
+						<hint lang="en" value="Sets value of increment of colour and input (in ms)"/>
+						<hint lang="de" value="Bestimmt die Rampenzeit des Farb- und Eingangswerts (ms)"/>
+                        <desc resKey="ledrgb_setramptime"/>
+                    </method>
+					<method call="set" index="8" name="SetMax" return="void">
+						<param name="Value" type="num"/>
+						<hint lang="pl" value="Ustawia maksymalną wartość dla Value"/>
+						<hint lang="en" value="Sets maximum value for Value"/>
+						<hint lang="de" value="Bestimmt den Wert von MaxValue"/>
+                        <desc resKey="ledrgb_setmax"/>
+                    </method>
+					<method call="set" index="9" name="SetMin" return="void">
+						<param name="Value" type="num"/>
+						<hint lang="pl" value="Ustawia minimalną wartość dla Value"/>
+						<hint lang="en" value="Sets minimum value for Value"/>
+						<hint lang="de" value="Bestimmt den Wert von MinValue"/>
+                        <desc resKey="ledrgb_setmin"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnChange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie stanu wyjścia"/>
+						<hint lang="en" value="Event occurring when changing the output state"/>
+						<hint lang="de" value="Ereignis bei Änderung des Ausgangsstatus"/>
+                        <desc resKey="ledrgb_onchange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany stanu wyjścia ze stanu=0 na stan&gt;0"/>
+						<hint lang="en" value="Event occurring when the output state is changed from 0 to greater than 0"/>
+						<hint lang="de" value="Wird aufgerufen, sobald der Ausgang vom Zustand = 0 auf Zustand &gt; 0 gewechselt ist"/>
+                        <desc resKey="ledrgb_onswitchon_1"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia 0 na wyjściu"/>
+						<hint lang="en" value="Event occurring when 0 is set at the output"/>
+						<hint lang="de" value="Wird aufgerufen, sobald der Ausgang auf „0” gesetzt worden ist"/>
+                        <desc resKey="ledrgb_onswitchoff_1"/>
+                    </event>
+					<event address="3" name="OnRaiseValueSet"> 
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event occurring when the set value is higher than the current value"/>
+						<hint lang="de" value="Wird aufgerufen, falls der eingestellte Wert höher ist als der aktuelle"/>
+                        <desc resKey="ledrgb_onraisevalueset"/>
+                    </event>
+					<event address="4" name="OnLowerValueSet">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event occurring when the set value is lower than the current value"/>
+						<hint lang="de" value="Wird aufgerufen, falls der eingestellte Wert niedriger ist als der aktuelle"/>
+                        <desc resKey="ledrgb_onlowervalueset"/>
+                    </event>
+					<event address="5" name="OnOutOfRange">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia na wyjściu wartości spoza wyznaczonego zakresu (Min - Max)"/>
+						<hint lang="en" value="Event occurring when setting  a value which is higher than the maximum value or lower than the minimum value"/>
+						<hint lang="de" value="Wird aufgerufen, falls der eingestellte Wert höher als der Höchstwert oder niedriger als der Mindestwert ist"/>
+                        <desc resKey="ledrgb_onoutofrange_1"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

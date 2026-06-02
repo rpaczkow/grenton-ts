@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object class="47" name="Statistics" version="1">
+	<features>
+		<feature default="0" get="true" index="0" name="Value" previousValue="true" set="false" type="num" unit="number">
+			<hint lang="pl" value="Wartość pomiarowa obliczana i wysyłana jako statystyka do serwera co pełne 15 minut.\n Dla pomiarów 'Media' – ustaw wartość w zakresie od 0.0 do 1.0 (zużycie energii zostanie obliczone automatycznie na podstawie cechy Load).\nDla pomiarów 'Sensor', 'Battery Level', 'Voltage', 'Power', 'Reactive Power' i 'Other Average Value' – ustaw aktualną wartość (wartość średnia zostanie obliczona automatycznie).\nDla pomiarów 'Energy' – ustaw aktualną całkowitą wartość energii w watogodzinach (różnica zostanie obliczona automatycznie)."/>
+			<hint lang="en" value="The measurement value is calculated and sent as a statistic to the server every full 15 minutes.\nFor 'Media' measurement – set the value within the range of 0.0 to 1.0 (the energy consumption will be automatically calculated based on the Load value).\nFor 'Sensor', 'Battery Level', 'Voltage', 'Power', 'Reactive Power' and 'Other Average Value' measurements – set the current value (the average value will be calculated automatically).\nFor 'Energy' measurements – set the current total energy value in watt-hours (the difference will be calculated automatically)."/>
+			<desc resKey="statistic_value"/>
+		</feature>
+		<feature default="0" enum="0,1,4,5,6,7,8,9" get="true" index="1" name="StatisticState" previousValue="true" set="true" type="num" unit="number">
+			<enum name="Off" resKey="statistic_state_enum_off" value="0"/>
+			<enum name="Media" resKey="statistic_state_enum_continous" value="1"/>
+			<enum name="Sensor" resKey="statistic_state_enum_sensor" value="4"/>
+			<enum name="Grid" resKey="statistic_state_enum_grid" value="5"/>
+			<enum name="Energy Production" resKey="statistic_state_enum_production" value="6"/>
+			<enum name="Energy Storage" resKey="statistic_state_enum_battery" value="7"/>
+			<enum name="Charger" resKey="statistic_state_enum_charger" value="8"/>
+			<enum name="Other (Average value)" resKey="statistic_state_enum_other" value="9"/>
+			<hint lang="pl" value="Włącza raportowanie pomiaru do modułu statystyk oraz definiuje kategorię pomiaru.\n\nUwaga!\nRaz wysłana statystyka pozostaje w historii statystyk na serwerze.\nMożliwe jest manualne usunięcie statystyk z poziomu panelu konta w chmurze.\n\nOff - Statystyki nie są wysyłane do chmury.\"/>
+			<hint lang="en" value="Enables measurement reporting to the statistics module and defines the measurement category.\n\nWarning!\nOnce a statistic is sent, it remains in the statistics history on the server.\nIt is possible to manually delete statistics from the cloud account panel.\n\nOff - Statistics are not sent to the cloud."/>
+			<desc resKey="statistic_state"/>
+		</feature>
+		<feature correctValue="1" default="0" dependOn="1" get="true" index="2" name="Load" set="true" type="num" unit="W" range="0-60000">
+			<hint lang="pl" value="Wartość obciążenia w watach."/>
+			<hint lang="en" value="The load value in watts."/>
+			<desc resKey="statistic_load"/>
+		</feature>
+		<feature correctValue="4" default="-1" dependOn="1" enum="0,1,2,3,4,5,6,18" get="true" index="4" name="StatisticTypeSensor" set="true" type="num" unit="number">
+			<enum name="Temperature" resKey="statistic_type_enum_temperature" value="0"/>
+			<enum name="Humidity" resKey="statistic_type_enum_humidity" value="1"/>
+			<enum name="Lux" resKey="statistic_type_enum_lux" value="2"/>
+			<enum name="Pressure" resKey="statistic_type_enum_pressure" value="3"/>
+			<enum name="CO2" resKey="statistic_type_enum_co2" value="4"/>
+			<enum name="VOC" resKey="statistic_type_enum_voc" value="5"/>
+			<enum name="Sound" resKey="statistic_type_enum_sound" value="6"/>
+			<enum name="Average Value" resKey="statistic_type_enum_average_value" value="18"/>
+			<hint lang="pl" value="Statystyki są wysyłane na podstawie obliczenia wartości średniej dla ustawionej wartości cechy Value w okresie 15 minut."/>
+			<hint lang="en" value="Statistics are sent based on the calculation of the average value of the Value feature over a 15-minute period."/>
+			<desc resKey="statistic_type_sensor"/>
+		</feature>
+		<feature correctValue="5" default="-1" dependOn="1" enum="20,11,8,7,9" get="true" index="5" name="StatisticTypeGrid" set="true" type="num" unit="number">
+			<enum name="Energy Consumption" resKey="statistic_type_enum_energy" value="20"/>
+			<enum name="Energy Export" resKey="statistic_type_enum_energy_export" value="11"/>
+			<enum name="Voltage" resKey="statistic_type_enum_voltage" value="8"/>
+			<enum name="Power" resKey="statistic_type_enum_power" value="7"/>
+			<enum name="Reactive Power" resKey="statistic_type_enum_reactive_power" value="9"/>
+			<hint lang="pl" value="Dla pomiaru energii statystyki są wysyłane na podstawie zliczania różnicy w wartości cechy Value w okresie 15 minut. Cechę Value należy aktualizować o całkowitą wartość energii w watogodzinach. Dla pozostałych typów pomiaru zliczana jest wartość średnia w okresie 15 minut."/>
+			<hint lang="en" value="For energy measurement, statistics are sent based on the difference in the Value feature over a 15-minute period. The Value feature should be updated with the total energy value in watt-hours. For other measurement types, the average value over a 15-minute period is calculated."/>
+			<desc resKey="statistic_type_grid"/>
+		</feature>
+		<feature correctValue="5" default="0" dependOn="1" enum="0,1,2,3" get="true" index="6" name="StatisticSubtypeGrid" set="true" type="num" unit="number">
+			<enum name="General" resKey="statistic_subtype_enum_general" value="0"/>
+			<enum name="Phase 1" resKey="statistic_subtype_enum_phase_1" value="1"/>
+			<enum name="Phase 2" resKey="statistic_subtype_enum_phase_2" value="2"/>
+			<enum name="Phase 3" resKey="statistic_subtype_enum_phase_3" value="3"/>
+			<hint lang="pl" value="Podkategoria pomiaru. Może być to pomiar ogólny lub konkretna faza L1, L2 lub L3."/>
+			<hint lang="en" value="Measurement subcategory. It can be a general measurement or a specific phase: L1, L2, or L3."/>
+			<desc resKey="statistic_subtype_grid"/>
+		</feature>
+		<feature correctValue="6" default="-1" dependOn="1" get="true" enum="12,7,9" index="7" name="StatisticTypeEnergyProduction" set="true" type="num" unit="number">
+			<enum name="Energy Production" resKey="statistic_type_enum_energy_production" value="12"/>
+			<enum name="Power" resKey="statistic_type_enum_power" value="7"/>
+			<enum name="Reactive Power" resKey="statistic_type_enum_reactive_power" value="9"/>
+			<hint lang="pl" value="Dla pomiaru energii statystyki są wysyłane na podstawie zliczania różnicy w wartości cechy Value w okresie 15 minut. Cechę Value należy aktualizować o całkowitą wartość energii w watogodzinach. Dla pozostałych typów pomiaru zliczana jest wartość średnia w okresie 15 minut."/>
+			<hint lang="en" value="For energy measurement, statistics are sent based on the difference in the Value feature over a 15-minute period. The Value feature should be updated with the total energy value in watt-hours. For other measurement types, the average value over a 15-minute period is calculated."/>
+			<desc resKey="statistic_type_energyproduction"/>
+		</feature>
+		<feature correctValue="7" default="-1" dependOn="1" enum="15,13,14" get="true" index="8" name="StatisticTypeEnergyStorage" set="true" type="num" unit="number">
+			<enum name="Battery Level" resKey="statistic_type_enum_battery_level" value="15"/>
+			<enum name="Energy Charging" resKey="statistic_type_enum_energy_charging" value="13"/>
+			<enum name="Energy Discharging" resKey="statistic_type_enum_energy_discharging" value="14"/>
+			<hint lang="pl" value="Dla pomiaru poziomu naładowania zliczana jest wartość średnia w okresie 15 minut. Dla pomiaru energii ładowania i rozładowywania statystyki są wysyłane na podstawie zliczania różnicy w wartości cechy Value w okresie 15 minut. Cechę Value należy aktualizować o całkowitą wartość energii w watogodzinach."/>
+			<hint lang="en" value="For charge level measurement, the average value over a 15-minute period is calculated. For charging and discharging energy measurement, statistics are sent based on the difference in the Value feature over a 15-minute period. The Value feature should be updated with the total energy value in watt-hours."/>
+			<desc resKey="statistic_type_energystorage"/>
+		</feature>
+		<feature correctValue="8" default="-1" dependOn="1" enum="13,7" get="true" index="9" name="StatisticTypeCharger" set="true" type="num" unit="number">
+			<enum name="Energy Charging" resKey="statistic_type_enum_energy_charging" value="13"/>
+			<enum name="Power" resKey="statistic_type_enum_power" value="7"/>
+			<hint lang="pl" value="Dla pomiaru energii statystyki są wysyłane na podstawie zliczania różnicy w wartości cechy Value w okresie 15 minut. Cechę Value należy aktualizować o całkowitą wartość energii bieżącej sesji ładowania w watogodzinach. Dla pozostałych typów pomiaru zliczana jest wartość średnia w okresie 15 minut."/>
+			<hint lang="en" value="For energy measurement, statistics are sent based on the difference in the Value feature over a 15-minute period. The Value feature should be updated with the total energy value of the current charging session in watt-hours. For other measurement types, the average value over a 15-minute period is calculated."/>
+			<desc resKey="statistic_type_charger"/>
+		</feature>
+	</features>
+	<methods>
+		<method call="set" index="0" name="SetValue" return="void">
+			<param name="Value" type="num" unit="number"/>
+			<hint lang="pl" value="Ustawia wartość cechy Value."/>
+			<hint lang="en" value="Sets the Value feature."/>
+			<desc resKey="statistic_setvalue"/>
+		</method>
+		<method call="set" index="1" name="SetStatisticState" return="void" visible="false">
+			<param name="Value" type="num" unit="number"/>
+			<hint lang="pl" value=""/>
+			<hint lang="en" value=""/>
+			<desc resKey="statistic_setvalue"/>
+		</method>
+		<method call="set" index="2" name="SetLoad" return="void" visible="false">
+			<param name="Value" type="num" unit="number"/>
+			<hint lang="pl" value=""/>
+			<hint lang="en" value=""/>
+			<desc resKey="statistic_setvalue"/>
+		</method>
+		<method call="set" index="4" name="SetStatisticTypeSensor" return="void" visible="false">
+			<param name="Value" type="num" unit="number"/>
+			<hint lang="pl" value=""/>
+			<hint lang="en" value=""/>
+			<desc resKey="statistic_setvalue"/>
+		</method>
+		<method call="set" index="5" name="SetStatisticTypeGrid" return="void" visible="false">
+			<param name="Value" type="num" unit="number"/>
+			<hint lang="pl" value=""/>
+			<hint lang="en" value=""/>
+			<desc resKey="statistic_setvalue"/>
+		</method>
+		<method call="set" index="6" name="SetStatisticSubtypeGrid" return="void" visible="false">
+			<param name="Value" type="num" unit="number"/>
+			<hint lang="pl" value=""/>
+			<hint lang="en" value=""/>
+			<desc resKey="statistic_setvalue"/>
+		</method>
+		<method call="set" index="7" name="SetStatisticTypeEnergyProduction" return="void" visible="false">
+			<param name="Value" type="num" unit="number"/>
+			<hint lang="pl" value=""/>
+			<hint lang="en" value=""/>
+			<desc resKey="statistic_setvalue"/>
+		</method>
+		<method call="set" index="8" name="SetStatisticTypeEnergyStorage" return="void" visible="false">
+			<param name="Value" type="num" unit="number"/>
+			<hint lang="pl" value=""/>
+			<hint lang="en" value=""/>
+			<desc resKey="statistic_setvalue"/>
+		</method>
+		<method call="set" index="9" name="SetStatisticTypeCharger" return="void" visible="false">
+			<param name="Value" type="num" unit="number"/>
+			<hint lang="pl" value=""/>
+			<hint lang="en" value=""/>
+			<desc resKey="statistic_setvalue"/>
+		</method>
+	</methods>
+	<events>
+		<event address="0" name="OnValueChange">
+			<hint lang="pl" value="Zdarzenie wywoływane po zmianie wartości cechy Value."/>
+			<hint lang="en" value="Event occurs after the Value feature changes."/>
+			<desc resKey="statistic_onvaluechange"/>
+		</event>
+	</events>
+</object>

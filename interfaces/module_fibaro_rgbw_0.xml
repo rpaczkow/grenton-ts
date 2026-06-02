@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="ZWAVE_FIBARO_RGBW_CONTROLLER" typeId="010f09001000">
+	<!--hwType=0x10f09001000(1164087136256), hwVer=0x1(1), fwType=0x0(0), fwApiVer=0x0(0)-->
+	<firmware typeId="0" version="0">
+		<object class="62" count="1" name="ZWAVE_RGBW_LED" type="out">
+			<interface>
+				<features>
+					<feature default="0" get="true" index="0" name="Red" range="0-255" set="true" type="num">
+						<hint lang="pl" value="Wartość składowej R(0-255) - kolor czerwony"/>
+						<hint lang="en" value="R component value (0-255) - Red"/>
+					    <desc resKey="zwave_rgbw_led_red"/>
+                    </feature>
+					<feature default="0" get="true" index="1" name="Green" range="0-255" set="true" type="num">
+						<hint lang="pl" value="Wartość składowej G(0-255) - kolor zielony"/>
+						<hint lang="en" value="G component value (0-255) - Green"/>
+					    <desc resKey="zwave_rgbw_led_green"/>
+                    </feature>
+					<feature default="0" get="true" index="2" name="Blue" range="0-255" set="true" type="num">
+						<hint lang="pl" value="Wartość składowej B(0-255) - kolor niebieski"/>
+						<hint lang="en" value="B component value (0-255) - Blue"/>
+					    <desc resKey="zwave_rgbw_led_blue"/>
+                    </feature>
+					<feature default="0" get="true" index="3" name="White" range="0-255" set="true" type="num">
+						<hint lang="pl" value="Wartość składowej W(0-255) - kolor biały"/>
+						<hint lang="en" value="W component value (0-255) - White"/>
+					    <desc resKey="zwave_rgbw_led_white"/>
+                    </feature>
+					<feature default="1000" get="true" index="8" name="RampTime" range="0-15000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas narastania/opadania zmiany wartości modułu w milisekundach"/>
+						<hint lang="en" value="Time value of increment of colour and brightness (in ms)"/>
+					    <desc resKey="zwave_rgbw_led_ramptime"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="0" name="SetRed" return="void">
+						<param name="Value" range="0-255" type="num"/>
+						<hint lang="pl" value="Ustawia wartość składowej R(0-255) - kolor czerwony"/>
+						<hint lang="en" value="Sets R component value (0-255)"/>
+					    <desc resKey="zwave_rgbw_led_setred"/>
+                    </method>
+					<method call="set" index="1" name="SetGreen" return="void">
+						<param name="Value" range="0-255" type="num"/>
+						<hint lang="pl" value="Ustawia wartość składowej G(0-255) - kolor zielony"/>
+						<hint lang="en" value="Sets G component value (0-255)"/>
+					    <desc resKey="zwave_rgbw_led_setgreen"/>
+                    </method>
+					<method call="set" index="2" name="SetBlue" return="void">
+						<param name="Value" range="0-255" type="num"/>
+						<hint lang="pl" value="Ustawia wartość składowej B(0-255) - kolor niebieski"/>
+						<hint lang="en" value="Sets B component value (0-255)"/>
+					    <desc resKey="zwave_rgbw_led_setblue"/>
+                    </method>
+					<method call="set" index="3" name="SetWhite" return="void">
+						<param name="Value" range="0-255" type="num"/>
+						<hint lang="pl" value="Ustawia wartość składowej W(0-255) - kolor biały"/>
+						<hint lang="en" value="Sets W component value (0-255)"/>
+					    <desc resKey="zwave_rgbw_led_setwhite"/>
+                    </method>
+					<method call="set" index="8" name="SetRampTime" return="void">
+						<param name="RampTime" range="0-15000" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia czas narastania/opadania zmiany wartości modułu"/>
+						<hint lang="en" value="Sets value of increment of colour and input (in ms)"/>
+					    <desc resKey="zwave_rgbw_led_setramptime"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnChange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości ściemniacza"/>
+						<hint lang="en" value="Event occurring when changing the dimmer value"/>
+					    <desc resKey="zwave_rgbw_led_onchange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie stanu ściemniacza na wyłączony (wartość większa niż MinValue)"/>
+						<hint lang="en" value="Event occurring when the dimmer value is changed from 0 to greater than MinValue"/>
+					    <desc resKey="zwave_rgbw_led_onswitchon"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie stanu ściemniacza na wyłączony (wartość mniejsza lub równa MinValue)"/>
+						<hint lang="en" value="Event occurring when dimmer value is set as less or equal MinValue"/>
+					    <desc resKey="zwave_rgbw_led_onswitchoff"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

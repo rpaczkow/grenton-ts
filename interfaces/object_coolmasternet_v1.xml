@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- DO NOT EDIT: automatically generated file -->
+<object class="250" className="GATE" name="CoolMasterNet" version="1">
+	<features>
+		<feature index="0" name="SN" get="true" set="true" type="str" unit="-">
+			<hint lang="en" value="CoolMasterNet unit serial number"/>
+			<hint lang="pl" value="Numer seryjny jednostki CoolMasterNet"/>
+			<hint lang="de" value="Seriennummer des CoolMasterNet-Geräts"/>
+			<desc resKey="gate_coolmasternet_sn"/>
+		</feature>
+		<feature index="1" name="Host" get="true" set="true" type="str" default="0.0.0.0:10103" unit="-">
+			<hint lang="en" value="CoolMasterNet unit address in http://host:port form"/>
+			<hint lang="pl" value="Adres jednostki CoolMasterNet w formie http://host:port"/>
+			<hint lang="de" value="Adresse der CoolMasterNet-Einheit im Format http://host:port"/>
+			<desc resKey="gate_coolmasternet_host"/>
+		</feature>
+		<feature index="2" name="UpdatePeriod" get="true" set="true" type="num" range="0-10000" default="1000" unit="ms">
+			<hint lang="en" value="State update period"/>
+			<hint lang="pl" value="Okres aktualizacji stanu"/>
+			<hint lang="de" value="Statusaktualisierungszeitraum"/>
+			<desc resKey="gate_coolmasternet_updateperiod"/>
+		</feature>
+		<feature index="3" name="Status" get="true" set="false" type="num" unit="-">
+			<hint lang="en" value="Connection status:&#13;  0 - no connection,&#13;  1 - connected"/>
+			<hint lang="pl" value="Stan połączenia:&#13;  0 - brak połączenia,&#13;  1 - połączono"/>
+			<hint lang="de" value="Verbindungsstatus:&#13;  0 - keine Verbindung,&#13;  1 - verbunden"/>
+			<desc resKey="gate_coolmasternet_status"/>
+		</feature>
+		<feature index="4" name="ErrorCode" get="true" set="false" type="num" unit="-">
+			<hint lang="en" value="CoolMasterNet last error code:&#13;  0 - no error,&#13;  1 - TCP connection error or HTTP error code"/>
+			<hint lang="pl" value="Ostatni kod błędu CoolMasterNet:&#13;  0 - brak błędu,&#13;  1 - błąd nawiązywania połączenia TCP, lub kod błędu HTTP"/>
+			<hint lang="de" value="Letzter CoolMasterNet-Fehlercode:&#13;  0 - kein Fehler,&#13;  1 - TCP-Verbindungsfehler oder HTTP-Fehlercode"/>
+			<desc resKey="gate_coolmasternet_errorcode"/>
+		</feature>
+	</features>
+	<methods>
+		<method call="set" index="0" name="SetSN" return="void" visible="false">
+			<param name="SN" type="str" unit="-" />
+			<hint lang="en" value="Sets the CoolMasterNet unit serial number"/>
+			<hint lang="pl" value="Ustawia numer seryjny jednostki CoolMasterNet"/>
+			<hint lang="de" value="Legt die Seriennummer der CoolMasterNet-Einheit fest"/>
+			<desc resKey="gate_coolmasternet_setsn"/>
+		</method>
+		<method call="set" index="1" name="SetHost" return="void" visible="false">
+			<param name="Host" type="str" unit="-" />
+			<hint lang="en" value="Sets the CoolMasterNet unit address in http://host:port form"/>
+			<hint lang="pl" value="Ustawia adres jednostki CoolMasterNet w formie http://host:port"/>
+			<hint lang="de" value="Legt die Adresse der CoolMasterNet-Einheit in der Form http://host:port fest"/>
+			<desc resKey="gate_coolmasternet_sethost"/>
+		</method>
+		<method call="set" index="2" name="SetUpdatePeriod" return="void">
+			<param name="UpdatePeriod" type="num" range="0-10000" unit="ms" />
+			<hint lang="en" value="Sets the state update period"/>
+			<hint lang="pl" value="Ustawia okres aktualizacji stanu"/>
+			<hint lang="de" value="Legt den Zustandsaktualisierungszeitraum fest"/>
+			<desc resKey="gate_coolmasternet_setupdateperiod"/>
+		</method>
+		<method call="execute" index="0" name="TurnAllOn" return="void">
+			<hint lang="en" value="Turns on all the HVAC units"/>
+			<hint lang="pl" value="Włącza wszystkie klimatyzatory"/>
+			<hint lang="de" value="Schaltet alle HVAC-Einheiten ein"/>
+			<desc resKey="gate_coolmasternet_turnallon"/>
+		</method>
+		<method call="execute" index="1" name="TurnAllOff" return="void">
+			<hint lang="en" value="Turns off all the HVAC units"/>
+			<hint lang="pl" value="Wyłącza wszystkie klimatyzatory"/>
+			<hint lang="de" value="Schaltet alle HVAC-Einheiten aus"/>
+			<desc resKey="gate_coolmasternet_turnalloff"/>
+		</method>
+		<method call="execute" index="2" name="Command1" return="void" visible="false">
+			<param name="Command" type="str" unit="-" />
+			<hint lang="en" value="Runs REST v1 command"/>
+			<hint lang="pl" value="Wykonuje komendę REST v1"/>
+			<hint lang="de" value="Führt den REST v1-Befehl aus"/>
+			<desc resKey="gate_coolmasternet_command1"/>
+		</method>
+		<method call="execute" index="3" name="Command2" return="void" visible="false">
+			<param name="Command" type="str" unit="-" />
+			<hint lang="en" value="Runs REST v2 command"/>
+			<hint lang="pl" value="Wykonuje komendę REST v2"/>
+			<hint lang="de" value="Führt den REST v2-Befehl aus"/>
+			<desc resKey="gate_coolmasternet_command2"/>
+		</method>
+	</methods>
+	<events>
+		<event address="0" name="OnConnected">
+			<hint lang="en" value="Event occurring after successfull CoolMasterNet connection establishment"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po nawiązaniu połączenia z jednostką"/>
+			<hint lang="de" value="Ereignis, das nach erfolgreichem CoolMasterNet-Verbindungsaufbau eintritt"/>
+			<desc resKey="gate_coolmasternet_onconnected"/>
+		</event>
+		<event address="1" name="OnDisconnected">
+			<hint lang="en" value="Event occurring after the CoolMasterNet connection has been lost"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po zerwaniu połączenia z jednostką"/>
+			<hint lang="de" value="Ereignis, das auftritt, nachdem die CoolMasterNet-Verbindung unterbrochen wurde"/>
+			<desc resKey="gate_coolmasternet_ondisconnected"/>
+		</event>
+		<event address="2" name="OnError">
+			<hint lang="en" value="Event occurring after an error has been detected"/>
+			<hint lang="pl" value="Zdarzenie wywoływane po wystąpieniu błędu"/>
+			<hint lang="de" value="Ereignis, das eintritt, nachdem ein Fehler erkannt wurde"/>
+			<desc resKey="gate_coolmasternet_onerror"/>
+		</event>
+	</events>
+</object>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CLU className="GATE" firmwareType="00030000" firmwareVersion="00000000" hardwareType="ffffffff" hardwareVersion="ffffffff" typeName="CLU_GATE_MODBUS">
+	<!--hwType=0xffffffff(4294967295), hwVer=0x1(1), fwType=0x30000(196608), fwApiVer=0x0(0)-->
+	<interface>
+		<features>
+			<feature get="true" index="0" name="Uptime" set="false" type="num" unit="s">
+				<hint lang="pl" value="Czas pracy urządzenia od ostatniego resetu (w sekundach)"/>
+				<hint lang="en" value="Time of device operation since last reset (in seconds)"/>
+				<hint lang="de" value="Arbeitszeit des Geräts seit dem letzten Reset (in Sekunden)"/>
+                <desc resKey="clu_uptime"/>
+            </feature>
+			<feature get="true" index="13" name="UnixTime" set="false" type="num" unit="s">
+				<hint lang="pl" value="Zwraca aktualny uniksowy znacznik czasu"/>
+				<hint lang="en" value="Returns the current Unix time"/>
+				<hint lang="de" value="Aktueller Unix-Timestamp"/>
+                <desc resKey="clu_unixtime"/>
+            </feature>
+			<feature get="true" index="17" name="FirmwareVersion" set="false" type="str">
+				<hint lang="pl" value="Wersja oprogramowania Gate"/>
+				<hint lang="en" value="Gate firmware version"/>
+				<hint lang="de" value="Softwareversion Gate"/>
+                <desc resKey="clu_firmwareversion"/>
+            </feature>
+			<feature default="10000" get="true" index="1" name="ClientReportInterval" range="1000-10000" set="true" type="num" unit="ms">
+				<hint lang="pl" value="Okres raportowania o zmianach cech"/>
+				<hint lang="en" value="Characteristics change report period"/>
+				<hint lang="de" value="Zeitspanne, in der über Eigenschaftsänderungen berichtet wird"/>
+                <desc resKey="clu_clientreportinterval"/>
+            </feature>
+		</features>	
+		<methods>
+			<method call="execute" index="2" name="SetDateTime" return="void">
+				<param name="UnixTimestamp" type="timestamp"/>
+				<hint lang="pl" value="Ustawia datę i czas"/>
+				<hint lang="en" value="Sets date and time"/>
+				<hint lang="de" value="Stellt Datum und Zeit ein"/>
+                <desc resKey="clu_setdatetime"/>
+            </method>
+			<method call="set" index="1" name="SetClientReportInterval" return="void">
+				<param default="0" name="ClientReportInterval" range="0-10000" type="num" unit="ms"/>
+				<hint lang="pl" value="Ustawia okres raportowania o zmianach cech"/>
+				<hint lang="en" value="Sets the characteristics change report period"/>
+				<hint lang="de" value="Bestimmt die Zeitspanne, in der über Eigenschaftsänderungen berichtet wird"/>
+                <desc resKey="clu_setclientreportinterval"/>
+            </method>	
+		</methods>
+		<events>
+			<event address="0" name="OnInit">
+				<hint lang="pl" value="Zdarzenie wywoływane jednorazowo w momencie inicjalizacji urządzenia"/>
+				<hint lang="en" value="Event occurring once during device initialization"/>
+				<hint lang="de" value="Ereignis, das einmalig aufgerufen wird, sobald das Gerät aktiviert wird"/>
+                <desc resKey="clu_oninit"/>
+            </event>
+		</events>
+	</interface>
+	<objects>
+		<object maxInstances="-1" name="Modbus" version="1"/>
+	</objects>
+	<modulesVersionConstraints>
+	</modulesVersionConstraints>
+	<options>
+		<option name="maxIOMs" value="64"/>
+		<option name="FeatureToGetActualTimeOnClu" value="UnixTime"/>
+		<option name="MethodToSetActualTimeOnClu" value="SetDateTime"/>
+		<option name="cipher" value="true"/>
+		<option name="accept_tftp" value="true"/>
+		<option name="accept_udp" value="true"/>
+		<option name="accept_tcp" value="false"/>
+		<option name="accept_wifi" value="false"/>
+		<option name="maxObjects" value="128"/>
+		<option name="maxTfBusModules" value="48"/>
+		<option name="maxZwaveModules" value="128"/>
+	</options>
+</CLU>

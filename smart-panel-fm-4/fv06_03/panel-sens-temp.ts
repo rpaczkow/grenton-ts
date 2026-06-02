@@ -1,0 +1,297 @@
+// Created from: packages/grenton-api/interfaces/module_SMART_PANEL_FM_4_fv06_03.xml, object name="PANELSENSTEMP" version="06.03"
+
+import { rawExecutionBuilderFactory } from "../../core/execution-builder"
+import { RemoteGate } from "../../core/remote-gate"
+
+enum EventType {
+    OnValueChange = 0,
+    OnValueRise = 1,
+    OnValueLower = 2,
+    OnOutOfRange = 3,
+}
+
+enum PropertyType {
+    Value = 0,
+    Threshold = 1,
+    Sensitivity = 2,
+    MinValue = 3,
+    MaxValue = 4,
+    Calibration = 6,
+    StatisticState = 9,
+}
+
+enum StatisticState {
+    Off = 0,
+    On = 1,
+}
+
+declare class PanelSensTempRaw {
+    add_event(event: EventType, callback: () => void): void;
+    get(property: PropertyType): any;
+    set(property: PropertyType, value: any): void;
+}
+
+interface IPanelSensTemp {
+    /**
+     * Zdarzenie wywoływane w przypadku zmiany wartości cechy Value
+     * @param callback
+     */
+    addOnValueChange: (callback: () => void) => void
+    /**
+     * Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)
+     * @param callback
+     */
+    addOnValueRise: (callback: () => void) => void
+    /**
+     * Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)
+     * @param callback
+     */
+    addOnValueLower: (callback: () => void) => void
+    /**
+     * Zdarzenie wywoływane, gdy wartość na wejściu znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)
+     * @param callback
+     */
+    addOnOutOfRange: (callback: () => void) => void
+    /** Wartość wejścia czujnika temperatury w zakresie od 0.0 do 45.0 (°C) */
+    readonly value: number
+    /** Wielkość histerezy (dokładność 0.1°C) określająca czułość, przy której następuje wygenerowanie zdarzeń: OnValueChange, OnValueLower, OnValueRise */
+    threshold: number
+    /** Okres (w ms), w którym próbkowane wartości są uśredniane */
+    sensitivity: number
+    /** Kalibracja temperatury w zakresie od -10°C do +10°C */
+    calibration: number
+    /** Minimalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange */
+    minValue: number
+    /** Maksymalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange */
+    maxValue: number
+    /** Włącza raportowanie pomiaru do modułu statystyk */
+    statisticState: StatisticState
+}
+
+class PanelSensTempRemote implements IPanelSensTemp {
+    constructor(private objectName: string, private gate: RemoteGate) {
+    }
+
+    addOnValueChange(_callback: () => void): void {
+        // Remote events are not supported
+    }
+    addOnValueRise(_callback: () => void): void {
+        // Remote events are not supported
+    }
+    addOnValueLower(_callback: () => void): void {
+        // Remote events are not supported
+    }
+    addOnOutOfRange(_callback: () => void): void {
+        // Remote events are not supported
+    }
+
+    /** Wartość wejścia czujnika temperatury w zakresie od 0.0 do 45.0 (°C) */
+    get value(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.Value)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+
+    /** Wielkość histerezy (dokładność 0.1°C) określająca czułość, przy której następuje wygenerowanie zdarzeń: OnValueChange, OnValueLower, OnValueRise */
+    get threshold(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.Threshold)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+    set threshold(value: number) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Threshold)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Okres (w ms), w którym próbkowane wartości są uśredniane */
+    get sensitivity(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.Sensitivity)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+    set sensitivity(value: number) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Sensitivity)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Kalibracja temperatury w zakresie od -10°C do +10°C */
+    get calibration(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.Calibration)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+    set calibration(value: number) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Calibration)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Minimalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange */
+    get minValue(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.MinValue)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+    set minValue(value: number) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.MinValue)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Maksymalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange */
+    get maxValue(): number {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.MaxValue)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+    set maxValue(value: number) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.MaxValue)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Włącza raportowanie pomiaru do modułu statystyk */
+    get statisticState(): StatisticState {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .get()
+            .addParameter(PropertyType.StatisticState)
+            .build();
+        return this.gate.runScript(cmd!);
+    }
+    set statisticState(value: StatisticState) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.StatisticState)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+}
+
+class PanelSensTemp implements IPanelSensTemp {
+    private onValueChangeCallbacks: Array<() => void> = [];
+    private onValueRiseCallbacks: Array<() => void> = [];
+    private onValueLowerCallbacks: Array<() => void> = [];
+    private onOutOfRangeCallbacks: Array<() => void> = [];
+
+    constructor(private raw: PanelSensTempRaw) {
+        this.raw.add_event(EventType.OnValueChange, () => {
+            this.onValueChangeCallbacks.forEach(callback => { callback(); });
+        });
+        this.raw.add_event(EventType.OnValueRise, () => {
+            this.onValueRiseCallbacks.forEach(callback => { callback(); });
+        });
+        this.raw.add_event(EventType.OnValueLower, () => {
+            this.onValueLowerCallbacks.forEach(callback => { callback(); });
+        });
+        this.raw.add_event(EventType.OnOutOfRange, () => {
+            this.onOutOfRangeCallbacks.forEach(callback => { callback(); });
+        });
+    }
+
+    /**
+     * Zdarzenie wywoływane w przypadku zmiany wartości cechy Value
+     * @param callback
+     */
+    addOnValueChange(callback: () => void): void {
+        this.onValueChangeCallbacks.push(callback);
+    }
+    /**
+     * Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)
+     * @param callback
+     */
+    addOnValueRise(callback: () => void): void {
+        this.onValueRiseCallbacks.push(callback);
+    }
+    /**
+     * Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)
+     * @param callback
+     */
+    addOnValueLower(callback: () => void): void {
+        this.onValueLowerCallbacks.push(callback);
+    }
+    /**
+     * Zdarzenie wywoływane, gdy wartość na wejściu znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)
+     * @param callback
+     */
+    addOnOutOfRange(callback: () => void): void {
+        this.onOutOfRangeCallbacks.push(callback);
+    }
+    /** Wartość wejścia czujnika temperatury w zakresie od 0.0 do 45.0 (°C) */
+    get value(): number {
+        return this.raw.get(PropertyType.Value);
+    }
+    /** Wielkość histerezy (dokładność 0.1°C) określająca czułość, przy której następuje wygenerowanie zdarzeń: OnValueChange, OnValueLower, OnValueRise */
+    get threshold(): number {
+        return this.raw.get(PropertyType.Threshold);
+    }
+    set threshold(value: number) {
+        this.raw.set(PropertyType.Threshold, value);
+    }
+    /** Okres (w ms), w którym próbkowane wartości są uśredniane */
+    get sensitivity(): number {
+        return this.raw.get(PropertyType.Sensitivity);
+    }
+    set sensitivity(value: number) {
+        this.raw.set(PropertyType.Sensitivity, value);
+    }
+    /** Kalibracja temperatury w zakresie od -10°C do +10°C */
+    get calibration(): number {
+        return this.raw.get(PropertyType.Calibration);
+    }
+    set calibration(value: number) {
+        this.raw.set(PropertyType.Calibration, value);
+    }
+    /** Minimalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange */
+    get minValue(): number {
+        return this.raw.get(PropertyType.MinValue);
+    }
+    set minValue(value: number) {
+        this.raw.set(PropertyType.MinValue, value);
+    }
+    /** Maksymalna wartość cechy Value, której przekroczenie wywołuje zdarzenie OnOutOfRange */
+    get maxValue(): number {
+        return this.raw.get(PropertyType.MaxValue);
+    }
+    set maxValue(value: number) {
+        this.raw.set(PropertyType.MaxValue, value);
+    }
+    /** Włącza raportowanie pomiaru do modułu statystyk */
+    get statisticState(): StatisticState {
+        return this.raw.get(PropertyType.StatisticState);
+    }
+    set statisticState(value: StatisticState) {
+        this.raw.set(PropertyType.StatisticState, value);
+    }
+}
+
+export { PanelSensTemp, PanelSensTempRaw, PanelSensTempRemote, StatisticState }

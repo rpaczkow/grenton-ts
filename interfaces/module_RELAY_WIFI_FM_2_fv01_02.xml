@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="RELAY_WIFI_FM_2" typeId="23">
+	<!--hwType=0x23(35), hwVer=0x1(1), fwType=0x2(2), fwApiVer=0x1(1)-->
+	<firmware typeId="02" version="01">
+		<object class="4" count="2" name="DOUT" type="out">		
+			<interface>
+				<features>
+					<feature default="0" enum="0,1" get="true" index="0" name="Value" set="true" type="num" unit="bool">
+						<enum name="Off" resKey="dout_value_enum_off" value="0"/>
+						<enum name="On" resKey="dout_value_enum_on" value="1"/>
+						<hint lang="pl" value="Zwraca stan wyjścia jako 1 lub 0"/>
+						<hint lang="en" value="Returns 1 for output set at On and 0 for output set at Off state"/>
+						<hint lang="de" value="Gibt 1 zurück, falls der Ausgang auf „On” bzw. 0, falls der Ausgang auf „Off” steht"/>
+					    <desc resKey="dout_value"/>
+                    </feature>
+					<feature default="0" get="true" index="15" name="DeclaredLoad" range="0-1000" set="true" type="num" unit="[W]">
+						<hint lang="pl" value="Deklarowana moc, która kopiowana jest do cechy Load gdy wyjście jest załączone"/>
+						<hint lang="en" value="Declared Power Consumption. It is copied to the Load property when the output is On"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dout_declaredload"/>
+                    </feature>
+					<feature get="true" index="8" name="Load" set="false" type="num" unit="[W]">
+					    <hint lang="pl" value="Rzeczywisty pobór mocy obciążenia"/>
+						<hint lang="en" value="Actual load power consumption"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dout_load_1"/>
+                    </feature>
+					<feature get="true" index="11" name="PowerOnTime" set="false" type="num" unit="[s]">
+						<hint lang="pl" value="Sumaryczny czas załączenia wyjścia liczony od uruchomienia urządzenia lub wywołania metody ResetPowerStatistics"/>
+						<hint lang="en" value="Total time of the output On state since power up or ResetPowerStatistics() call"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dout_powerontime"/>
+                    </feature>
+					<feature get="true" index="12" name="PowerConsumption" set="false" type="num" unit="[kWh]">
+						<hint lang="pl" value="Sumaryczny pobór energii liczony od uruchomienia urządzenia lub wywołania metody ResetPowerStatistics"/>
+						<hint lang="en" value="Total power consumption since power up or ResetPowerStatistics() call"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dout_powerconsumption"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="0" name="SetValue" return="void">
+						<param name="Value" type="num" unit="bool"/>
+						<hint lang="pl" value="Ustawia stan wyjścia jako 1 lub 0"/>
+						<hint lang="en" value="Sets output state to 1 or 0"/>
+						<hint lang="de" value="Setzt den Ausgangsstatus auf 1 oder 0"/>
+					    <desc resKey="dout_setvalue"/>
+                    </method>
+					<method call="execute" index="0" name="Switch" return="void">
+						<hint lang="pl" value="Zmienia stan wyjścia na przeciwny"/>
+						<hint lang="en" value="Changes the output value to opposite state"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dout_switch_2"/>
+                    </method>
+					<method call="execute" index="1" name="SwitchOn" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Załącza wyjście. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała"/>
+						<hint lang="en" value="Sets output value to 1. The first parameter is the time of change:&#13;0 - switches output to continuous mode spec&#13;number - switches output for a time specified by a parameter (in milliseconds)"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dout_switchon_1"/>
+                    </method>
+					<method call="execute" index="2" name="SwitchOff" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Wyłącza wyjście. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała"/>
+						<hint lang="en" value="Sets output value to 0. The first parameter is the time of change:&#13;0 - switches output to continuous mode spec&#13;number - switches output for a time specified by a parameter (in milliseconds)"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dout_switchoff_1"/>
+                    </method>
+					<method call="execute" index="3" name="ResetPowerStatistics" return="void">
+						<hint lang="pl" value="Resetuje statystyki pomiaru mocy"/>
+						<hint lang="en" value="Resets power measurement statistics"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dout_resetpowerstatistics"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany stanu na przeciwny"/>
+						<hint lang="en" value="Occurs when a change in the state takes place (regardless of the value)"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dout_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu wysokiego na wyjściu"/>
+						<hint lang="en" value="Occurs when On(1) is set at output"/>
+						<hint lang="de" value="Wird aufgerufen, sobald der Ausgang auf „On” gesetzt wird"/>
+					    <desc resKey="dout_onswitchon"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu niskiego na wyjściu"/>
+						<hint lang="en" value="Occurs when Off(0) is set at output"/>
+						<hint lang="de" value="Wird aufgerufen, sobald der Ausgang auf „Off” gesetzt wird"/>
+					    <desc resKey="dout_onswitchoff"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	    <object class="3" count="2" name="DIN" type="in">
+			<interface>
+				<features>
+					<feature default="60" get="true" index="1" name="Inertion" range="20-500" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Określa stałą czasową wejścia. Skok wartości co 20ms"/>
+						<hint lang="en" value="Specifies the entry time constant. The value step is 20ms"/>
+						<hiny lang="de" value=""/>
+					    <desc resKey="din_inertion_1"/>
+                    </feature>
+					<feature default="500" get="true" index="2" name="HoldDelay" range="100-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas po jakim po wciśnięciu i przytrzymaniu wyzwalane jest zdarzenie OnHold"/>
+						<hint lang="en" value="Time in milliseconds after which, when pressing and holding a button, the OnHold event occurs"/>
+						<hint lang="de" value="Zeit in Millisekunden, die verlaufen muss, bevor das Ereignis OnHold generiert wird, nachdem die Taste betätigt und gedrückt gehalten worden ist"/>
+					    <desc resKey="din_holddelay"/>
+                    </feature>
+					<feature default="200" get="true" index="3" name="HoldInterval" range="100-2000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Odstęp cykliczny w milisekundach, po jakim podczas trzymania przycisku wyzwalane są kolejne zdarzenia OnHold"/>
+						<hint lang="en" value="Cyclical interval in milliseconds after which, when pressing and holding a button, the OnHold event occurs"/>
+						<hint lang="de" value="Zyklisches Zeitintervall in Millisekunden, das verlaufen muss, bevor das Ereignis OnHold generiert wird, während die Taste betätigt und gedrückt gehalten wird"/>
+					    <desc resKey="din_holdinterval"/>
+                    </feature>
+					<feature get="true" index="0" name="Value" range="0-1" set="false" type="num" unit="bool">
+						<hint lang="pl" value="Zwraca stan wejścia jako 0 lub 1"/>
+						<hint lang="en" value="Returns input state as 0 or 1"/>
+						<hint lang="de" value="Gibt den Eingangsstatus als 0 oder 1 zurück"/>
+					    <desc resKey="din_value"/>
+                    </feature>
+					<feature get="true" index="4" name="Coupling" range="0-120" set="false" type="num" unit="%">
+						<hint lang="pl" value="Zwraca procentową wartość sprzężenia między przewodami:&#13;0% - brak sprzężenia, gdy wejście wyłączone,&#13;1%-30% - małe sprzężenie pomiędzy przewodami, gdy wejście wyłączone,&#13;31%-90% - duże sprzężenie pomiędzy przewodami mogące powodować błędy (za długie przewody), gdy wejście wyłączone,&#13;91-110% - wejście fizycznie załączone"/>
+						<hint lang="en" value="Returns the percentage of coupling between wires:&#13;0% - no coupling when input physically OFF,&#13;1%-30% - little coupling between wires when input physically OFF,&#13;31%-90% - significant coupling between wires causes false state when input physically OFF,&#13;91%-100% - input physically ON"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="din_coupling"/>
+                    </feature>					
+				</features>
+				<methods>
+					<method call="set" index="1" name="SetInertion" return="void">
+						<param name="Inertion" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia czas inercji wejścia"/>
+						<hint lang="en" value="Sets the input inertia time"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="din_setinertion_1"/>
+                    </method>
+					<method call="set" index="2" name="SetHoldDelay" return="void">
+						<param name="HoldDelay" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia wartość HoldDelay"/>
+						<hint lang="en" value="Sets HoldDelay value"/>
+						<hint lang="de" value="Bestimmt den Wert von HoldDelay"/>
+					    <desc resKey="din_setholddelay"/>
+                    </method>
+					<method call="set" index="3" name="SetHoldInterval" return="void">
+						<param name="HoldInterval" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia wartość HoldInterval"/>
+						<hint lang="en" value="Sets HoldInterval value"/>
+						<hint lang="de" value="Bestimmt den Wert von HoldInterval"/>
+					    <desc resKey="din_setholdinterval"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany stanu na przeciwny"/>
+						<hint lang="en" value="Occurs when a change in the input state takes place (regardless of the value)"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="din_onvaluechange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu wysokiego na wejściu"/>
+						<hint lang="en" value="Occurs when the high state is set at input"/>
+						<hint lang="de" value="Wird aufgerufen, sobald ein Hochzustand am Eingang ansteht"/>
+					    <desc resKey="din_onswitchon"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu niskiego na wejściu"/>
+						<hint lang="en" value="Occurs when the low state is set at input"/>
+						<hint lang="de" value="Wird aufgerufen, sobald ein Niedrigzustand am Eingang ansteht"/>
+					    <desc resKey="din_onswitchoff"/>
+                    </event>
+					<event address="3" name="OnShortPress">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na okres 500ms-2000ms"/>
+						<hint lang="en" value="Occurs after pressing the button for 500 - 2000ms"/>
+						<hint lang="de" value="Wird aufgerufen, nachdem die Taste 500 ms - 2000 ms lang gedrückt gehalten worden ist"/>
+					    <desc resKey="din_onshortpress"/>
+                    </event>
+					<event address="4" name="OnLongPress">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na okres 2000ms-5000ms"/>
+						<hint lang="en" value="Occurs after pressing the button for at least 2000ms"/>
+						<hint lang="de" value="Wird aufgerufen, nachdem die Taste zwei Sekunden lang gedrückt gehalten worden ist"/>
+					    <desc resKey="din_onlongpress"/>
+                    </event>
+					<event address="5" name="OnHold">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wejście jest w stanie wysokim, pierwszy raz po upłynięciu czasu HoldDelay, a następnie cyklicznie co wartość HoldInterval"/>
+						<hint lang="en" value="Occurs for the first time after HoldDelay time and then cyclically every HoldInterval value"/>
+						<hint lang="de" value="Wird zum ersten Mal aufgerufen, sobald die Zeit von HoldDelay abgelaufen ist und danach zyklisch in den mit HoldInterval vorgegebenen Zeitabständen"/>
+					    <desc resKey="din_onhold"/>
+                    </event>
+					<event address="6" name="OnClick">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na czas krótszy niż 500ms"/>
+						<hint lang="en" value="Occurs after pressing the button for less than 500 ms"/>
+						<hint lang="de" value="Wird aufgerufen, nachdem die Taste kürzer als 500 ms gedrückt gehalten worden ist"/>
+					    <desc resKey="din_onclick"/>
+                    </event>
+				</events>
+			</interface>
+	    </object>
+	</firmware>
+</module>

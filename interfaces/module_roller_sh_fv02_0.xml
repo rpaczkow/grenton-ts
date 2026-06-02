@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="ROLLER_SH" typeId="07">
+	<!--hwType=0x7(7), hwVer=0x1(1), fwType=0x0(0), fwApiVer=0x2(2)-->
+	<firmware typeId="00" version="02"> <!-- Wersja Z-Wave -->
+		<object class="3" count="2" name="DIN" type="in">
+			<interface>
+				<features>
+					<feature default="0" get="true" index="1" name="Intertion" range="0-2000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Minimalny czas jaki musi minąć między naciśnięciami przycisku aby było ono zinterpretowane jako nowe naciśnięcie"/>
+						<hint lang="en" value="Input inertia (in ms)"/>
+						<hint lang="de" value="Mindestintervall in Millisekunden, das zwischen einzelnen Tastenbetätigungen verlaufen muss, damit jede Folgebetätigung als Neubetätigung interpretiert werden kann"/>
+                        <desc resKey="din_intertion"/>
+                    </feature>
+					<feature default="500" get="true" index="2" name="HoldDelay" range="0-5000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas po jakim po wciśnięciu i przytrzymaniu wyzwalane jest zdarzenie OnHold"/>
+						<hint lang="en" value="Time in milliseconds after which, when pressing and holding a button, the OnHold event occurs"/>
+						<hint lang="de" value="Zeit in Millisekunden, die verlaufen muss, bevor das Ereignis OnHold generiert wird, nachdem die Taste betätigt und gedrückt gehalten worden ist"/>
+                        <desc resKey="din_holddelay"/>
+                    </feature>
+					<feature default="50" get="true" index="3" name="HoldInterval" range="0-2000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Odstęp cykliczny w milisekundach, po jakim podczas trzymania przycisku wyzwalane są kolejne zdarzenia OnHold"/>
+						<hint lang="en" value="Cyclical interval in milliseconds after which, when pressing and holding a button, the OnHold event occurs"/>
+						<hint lang="de" value="Zyklisches Zeitintervall in Millisekunden, das verlaufen muss, bevor das Ereignis OnHold generiert wird, während die Taste betätigt und gedrückt gehalten wird"/>
+                        <desc resKey="din_holdinterval"/>
+                    </feature>
+					<feature get="true" index="0" name="Value" range="0-1" set="false" type="num" unit="bool">
+						<hint lang="pl" value="Zwraca stan wejścia jako 0 lub 1"/>
+						<hint lang="en" value="Returns input state as 0 or 1"/>
+						<hint lang="de" value="Gibt den Eingangsstatus als 0 oder 1 zurück"/>
+                        <desc resKey="din_value"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="1" name="SetInertion" return="void">
+						<param name="Inertion" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia czas inercji wejścia"/>
+						<hint lang="en" value="Sets Inertion value"/>
+						<hint lang="de" value="Bestimmt den Wert von Inertion"/>
+                        <desc resKey="din_setinertion_2"/>
+                    </method>
+					<method call="set" index="2" name="SetHoldDelay" return="void">
+						<param name="HoldDelay" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia wartość HoldDelay"/>
+						<hint lang="en" value="Sets HoldDelay value"/>
+						<hint lang="de" value="Bestimmt den Wert von HoldDelay"/>
+                        <desc resKey="din_setholddelay"/>
+                    </method>
+					<method call="set" index="3" name="SetHoldInterval" return="void">
+						<param name="HoldInterval" type="num" unit="ms"/>
+						<hint lang="pl" value="Ustawia wartość HoldInterval"/>
+						<hint lang="en" value="Sets HoldInterval value"/>
+						<hint lang="de" value="Bestimmt den Wert von HoldInterval"/>
+                        <desc resKey="din_setholdinterval"/>
+                    </method>
+					<!--method name="LinkModule" call="execute" return="void"
+						index="0">
+						<param name="zdarzenie DIN" type="num" range="0-2" />
+						<param name="numer seryjny modulu DOUT" type="str" />
+						<param name="wyjscie modulu DOUT" type="num" />
+						<param name="metoda DOUT" type="num" range="0-2" />
+						<hint lang="pl" value="Metoda linkuje zdarzenie na DINie z metoda na DOUT (z pominieciem CLU)"/>
+					</method>
+					<method name="DeleteLink" call="execute" return="void"
+						index="1">
+						<param name="zdarzenie DIN" type="num" range="0-2" />
+						<hint lang="pl" value="Kasuje link pomiedzy zdarzeniem na DIN a metoda na DOUT"/>
+					</method-->
+				</methods>
+				<events>
+					<event address="0" name="OnChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w przypadku zmiany stanu na przeciwny"/>
+						<hint lang="en" value="Occurs when a change in the input state takes place (regardless of the value)"/>
+						<hint lang="de" value="Wird aufgerufen, falls eine Änderung des Eingangsstatus erfolgt (unabhängig vom Wert)"/>
+                        <desc resKey="din_onchange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu wysokiego na wejściu"/>
+						<hint lang="en" value="Occurs when the high state is set at input"/>
+						<hint lang="de" value="Wird aufgerufen, sobald ein Hochzustand am Eingang ansteht"/>
+                        <desc resKey="din_onswitchon"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie ustawienia stanu niskiego na wejściu"/>
+						<hint lang="en" value="Occurs when the low state is set at input"/>
+						<hint lang="de" value="Wird aufgerufen, sobald ein Niedrigzustand am Eingang ansteht"/>
+                        <desc resKey="din_onswitchoff"/>
+                    </event>
+					<event address="3" name="OnShortPress">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na okres 500ms-2000ms"/>
+						<hint lang="en" value="Occurs after pressing the button for 500 - 2000ms"/>
+						<hint lang="de" value="Wird aufgerufen, nachdem die Taste 500 ms - 2000 ms lang gedrückt gehalten worden ist"/>
+                        <desc resKey="din_onshortpress"/>
+                    </event>
+					<event address="4" name="OnLongPress">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na okres 2000ms-5000ms"/>
+						<hint lang="en" value="Occurs after pressing the button for at least 2000ms"/>
+						<hint lang="de" value="Wird aufgerufen, nachdem die Taste zwei Sekunden lang gedrückt gehalten worden ist"/>
+                        <desc resKey="din_onlongpress"/>
+                    </event>
+					<event address="5" name="OnHold">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wejście jest w stanie wysokim, pierwszy raz po upłynięciu czasu HoldDelay, a następnie cyklicznie co wartość HoldInterval"/>
+						<hint lang="en" value="Occurs for the first time after HoldDelay time and then cyclically every HoldInterval value"/>
+						<hint lang="de" value="Wird zum ersten Mal aufgerufen, sobald die Zeit von HoldDelay abgelaufen ist und danach zyklisch in den mit HoldInterval vorgegebenen Zeitabständen"/>
+                        <desc resKey="din_onhold"/>
+                    </event>
+					<event address="6" name="OnClick">
+						<hint lang="pl" value="Zdarzenie wywoływane po naciśnięciu przycisku na czas krótszy niż 500ms"/>
+						<hint lang="en" value="Occurs after pressing the button for less than 500 ms"/>
+						<hint lang="de" value="Wird aufgerufen, nachdem die Taste kürzer als 500 ms gedrückt gehalten worden ist"/>
+                        <desc resKey="din_onclick"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="11" count="1" name="ROLLER_SH" type="out">
+			<interface>
+				<features>
+					<feature get="true" index="0" name="M0" set="false" type="confirmation" unit="bool">
+						<hint lang="pl" value="Stan przekaźnika M0"/>
+						<hint lang="en" value="State of M0 relay (moving upwards)"/>
+						<hint lang="de" value="Zustand des Relais M0"/>
+                        <desc resKey="roller_sh_m0"/>
+                    </feature>
+					<feature get="true" index="1" name="M1" set="false" type="confirmation" unit="bool">
+						<hint lang="pl" value="Stan przekaźnika M1"/>
+						<hint lang="en" value="State of M1 relay (moving downwards)"/>
+						<hint lang="de" value="Zustand des Relais M1"/>
+                        <desc resKey="roller_sh_m1"/>
+                    </feature>
+					<feature enum="0,1,2" get="true" index="2" name="State" set="false" type="num" unit="-">
+						<enum name="Stop" resKey="roller_sh_state_enum_stop" value="0"/>
+						<enum name="Up" resKey="roller_sh_state_enum_up" value="1"/>
+						<enum name="Down" resKey="roller_sh_state_enum_down" value="2"/>
+						<hint lang="pl" value="Stan wyjścia:&#13;0 - stoi, &#13;1 - ruch w górę, &#13;2 - ruch w dół"/>
+						<hint lang="en" value="Output state&#13;0 - output inactive&#13;1 - output active"/>
+						<hint lang="de" value="Ausgangsstatus. &#13;0 - keine Bewegung, &#13;1 - Bewegung nach unten, 2 - Bewegung nach oben"/>
+                        <desc resKey="roller_sh_state"/>
+                    </feature>
+					<feature default="30000" get="true" index="3" name="MaxTime" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Domyślna wartość parametru Time, jeśli wpisano 0"/>
+						<hint lang="en" value="Default Time parameter value. 0 if not specified"/>
+						<hint lang="de" value="Maximale Rollladen-Fahrzeit"/>
+                        <desc resKey="roller_sh_maxtime"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="execute" index="0" name="Up" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="UseMaxTime" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Roleta do góry. Parametr Time to czas przez jaki roleta ma się otwierać. num - czas otwierania, 0 - czas otwierania równy MaxTime"/>
+						<hint lang="en" value="Roller shutter up or STOP if moving. Parameter Time:&#13;number - output is active for specified timer&#13;0 - output is active for the time specified in MaxTime"/>
+						<hint lang="de" value="Rollladen nach oben oder Stopp, falls in Bewegung. Der Parameter Time bestimmt die Zeit, während der der Rollladen auffahren soll: &#13;0 - Auffahrzeit gleich MaxTime &#13;num - Auffahrzeit"/>
+                        <desc resKey="roller_sh_up"/>
+                    </method>
+					<method call="execute" index="1" name="Down" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="UseMaxTime" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Roleta w dół. Parametr Time to czas przez jaki roleta ma się zamykać. num - czas zamykania, 0 - czas zamykania równy MaxTime"/>
+						<hint lang="en" value="Roller shutter down or STOP if moving. Parameter Time:&#13;number - output is active for specified timer&#13;0 - output is active for the time specified in MaxTime"/>
+						<hint lang="de" value="Rollladen nach unten oder Stopp, falls in Bewegung. Der Parameter Time bestimmt die Zeit, während der der Rollladen abfahren soll: &#13;0 - Abfahrzeit gleich MaxTime &#13;num - Abfahrzeit"/>
+                        <desc resKey="roller_sh_down"/>
+                    </method>
+					<method call="execute" index="2" name="Start" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="UseMaxTime" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="pl" value="Roleta do góry jeśli poprzednio ruch w dół, roleta w dół jeśli poprzednio ruch w górę. Parametr Time to czas przez jaki roleta ma być w ruchu. num - czas jazdy rolety, 0 - czas jazdy równy MaxTime"/>
+						<hint lang="en" value="Roller shutter up if the preceding motion was down or roller shutter down if the preceding motion was up"/>
+						<hint lang="de" value="Rollladen nach oben, falls vorher nach unten oder Rollladen nach unten, falls vorher nach oben. Parameter Time: &#13;0 - Fahrzeit gleich MaxTime &#13;num - Fahrzeit"/>
+                        <desc resKey="roller_sh_start"/>
+                    </method>
+					<method call="execute" index="3" name="Stop" return="void">
+						<hint lang="pl" value="Stop jeśli roleta jest w ruchu"/>
+						<hint lang="en" value="STOP if moving"/>
+						<hint lang="de" value="Stopp, falls in Bewegung"/>
+                        <desc resKey="roller_sh_stop"/>
+                    </method>
+					<method call="execute" index="4" name="Hold" return="void">
+						<hint lang="pl" value="Hold z odwracaniem kierunku"/>
+						<hint lang="en" value="Hold with direction change"/>
+						<hint lang="de" value="Hold mit Richtungswechsel"/>
+                        <desc resKey="roller_sh_hold"/>
+                    </method>
+					<method call="execute" index="5" name="HoldUp" return="void">
+						<hint lang="pl" value="Hold zawsze w górę"/>
+						<hint lang="en" value="Hold always up"/>
+						<hint lang="de" value="Hold stets nach oben"/>
+                        <desc resKey="roller_sh_holdup"/>
+                    </method>
+					<method call="execute" index="6" name="HoldDown" return="void">
+						<hint lang="pl" value="Hold zawsze w dół"/>
+						<hint lang="en" value="Hold always down"/>
+						<hint lang="de" value="Hold stets nach unten"/>
+                        <desc resKey="roller_sh_holddown"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnChange">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany stanu wyjścia"/>
+						<hint lang="en" value="Result from a change in the state of any of the outputs"/>
+						<hint lang="de" value="Ereignis, das bei Statusänderung eines jeden Ausgangs aufgerufen"/>
+                        <desc resKey="roller_sh_onchange"/>
+                    </event>
+					<event address="1" name="OnUp">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany stanu ze Stop na Up"/>
+						<hint lang="en" value="Occurs when changing the Stop state to the Up state"/>
+						<hint lang="de" value="Wird bei Statusänderung von Stopp auf Up aufegrufen"/>
+                        <desc resKey="roller_sh_onup"/>
+                    </event>
+					<event address="2" name="OnDown">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie zmiany stanu ze Stop na Down"/>
+						<hint lang="en" value="Occurs when changing the Stop state to the Down state"/>
+						<hint lang="de" value="Wird bei Statusänderung von Stopp auf Down aufegrufen"/>
+                        <desc resKey="roller_sh_ondown"/>
+                    </event>
+					<event address="3" name="OnStart">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie wywołania komendy Start"/>
+						<hint lang="en" value="Occurs when Start is requested"/>
+						<hint lang="de" value="Wird bei Aufrufen von Start aufgerufen"/>
+                        <desc resKey="roller_sh_onstart"/>
+                    </event>
+					<event address="4" name="OnStop">
+						<hint lang="pl" value="Zdarzenie wywoływane w momencie wywołania komendy Stop"/>
+						<hint lang="en" value="Occurs when Stop is requested"/>
+						<hint lang="de" value="Wird bei Aufrufen von Stopp aufgerufen"/>
+                        <desc resKey="roller_sh_onstop"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

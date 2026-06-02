@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CLU className="GATE" firmwareType="00040000" firmwareVersion="00000000" hardwareType="ffffffff" hardwareVersion="ffffffff" typeName="CLU_GATE_ALARM">
+	<!--hwType=0xffffffff(4294967295), hwVer=0x1(1), fwType=0x40000(262144), fwApiVer=0x0(0)-->
+	<interface>
+		<features>
+			<feature get="true" index="0" name="Uptime" set="false" type="num" unit="s">
+				<hint lang="pl" value="Czas pracy urządzenia od ostatniego resetu (w sekundach)"/>
+				<hint lang="en" value="Time of device operation since last reset (in seconds)"/>
+				<hint lang="de" value="Arbeitszeit des Geräts seit dem letzten Reset (in Sekunden)"/>
+                <desc resKey="clu_uptime"/>
+            </feature>
+			<feature get="true" index="13" name="UnixTime" set="false" type="num" unit="s">
+				<hint lang="pl" value="Zwraca aktualny uniksowy znacznik czasu"/>
+				<hint lang="en" value="Returns the current Unix time"/>
+				<hint lang="de" value="Aktueller Unix-Timestamp"/>
+                <desc resKey="clu_unixtime"/>
+            </feature>
+			<feature get="true" index="17" name="FirmwareVersion" set="false" type="str">
+				<hint lang="pl" value="Wersja oprogramowania Gate"/>
+				<hint lang="en" value="Gate software version"/>
+				<hint lang="de" value="Softwareversion Gate"/>
+                <desc resKey="clu_firmwareversion_1"/>
+            </feature>
+			<feature default="10000" get="true" index="1" name="ClientReportInterval" range="1000-10000" set="true" type="num" unit="ms">
+				<hint lang="pl" value="Okres raportowania o zmianach cech"/>
+				<hint lang="en" value="Characteristics change report period"/>
+				<hint lang="de" value="Zeitspanne, in der über Eigenschaftsänderungen berichtet wird"/>
+                <desc resKey="clu_clientreportinterval"/>
+            </feature>
+			<feature default="1000" get="true" index="7" name="UpdateTime" range="1000-24000" set="true" type="num" unit="ms">
+				<hint lang="pl" value="Czas, co jaki stan centralki jest uaktualniany"/>
+				<hint lang="en" value="Satel state update period"/>
+				<hint lang="de" value="Zeitinterwall , in dem der Status der Zentraleinheit aktualisiert wird"/>
+                <desc resKey="clu_updatetime"/>
+            </feature>
+			<feature enum="0,1" get="true" index="6" name="State" set="false" type="num" unit="bool">
+				<enum name="Disconnected" resKey="clu_state_enum_disconnected" value="0"/>
+				<enum name="Connected" resKey="clu_state_enum_connected" value="1"/>
+				<hint lang="pl" value="Stan centralki:&#13;0 - brak połączenia z centralką&#13;1 - połączono z centralką"/>
+				<hint lang="en" value="Status der Zentraleinheit"/>
+				<hint lang="en" value="Status der Zentraleinheit"/>
+                <desc resKey="clu_state_1"/>
+            </feature>				
+			<feature default="0.0.0.0" get="true" index="2" name="SatelIP" set="true" type="str" unit="string">
+				<hint lang="pl" value="Adres IP modułu ETHM (Satel)"/>
+				<hint lang="en" value="ETHM Satel module IP address"/>
+				<hint lang="de" value="IP-Adress des ETHM-Moduls (Satel)"/>
+                <desc resKey="clu_satelip"/>
+            </feature>
+			<feature default="7094" get="true" index="3" name="SatelPort" range="1-65535" set="true" type="num">
+				<hint lang="pl" value="Port modułu ETHM (Satel)"/>
+				<hint lang="en" value="ETHM Satel module port"/>
+				<hint lang="de" value="Port des ETHM-Moduls (Satel)"/>
+                <desc resKey="clu_satelport"/>
+            </feature>
+			<feature default="1111" get="true" index="5" name="AdminPassword" set="true" type="str" unit="string">
+				<hint lang="pl" value="Hasło administratora Satel"/>
+				<hint lang="en" value="Administrator Satel password"/>
+				<hint lang="de" value="Passwort des Satel-Administrators"/>
+                <desc resKey="clu_adminpassword"/>
+            </feature>
+			<feature default="0" enum="0,1" get="true" index="9" name="EncryptionEnabled" set="true" type="num" unit="bool">
+				<enum name="False" resKey="clu_encryptionenabled_enum_false" value="0"/>
+				<enum name="True" resKey="clu_encryptionenabled_enum_true" value="1"/>
+				<hint lang="pl" value="Szyfrowanie:&#13;True - załączone&#13;False - wyłączone"/>
+				<hint lang="en" value="Encrypting:&#13;True - active&#13;False - inactive"/>
+				<hint lang="de" value="Verchlüsselung"/>
+                <desc resKey="clu_encryptionenabled"/>
+            </feature>
+			<feature default="satel" get="true" index="8" name="EncryptionKey" set="true" type="str" unit="string">
+				<hint lang="pl" value="Klucz szyfrowania Satel"/>
+				<hint lang="en" value="Satel encrypting key"/>
+				<hint lang="de" value="Satel-Verschlüsselungskey"/>
+                <desc resKey="clu_encryptionkey"/>
+            </feature>
+		</features>	
+		<methods>
+			<method call="execute" index="2" name="SetDateTime" return="void">
+				<param name="UnixTimestamp" type="timestamp"/>
+				<hint lang="pl" value="Ustawia datę i czas"/>
+				<hint lang="en" value="Sets date and time"/>
+				<hint lang="de" value="Stellt Datum und Zeit ein"/>
+                <desc resKey="clu_setdatetime"/>
+            </method>
+			<method call="set" index="1" name="SetClientReportInterval" return="void">
+				<param default="0" name="ClientReportInterval" range="1000-10000" type="num" unit="ms"/>
+				<hint lang="pl" value="Ustawia okres raportowania o zmianach cech"/>
+				<hint lang="en" value="Sets the characteristics change report period"/>
+				<hint lang="de" value="Bestimmt die Zeitspanne, in der über Eigenschaftsänderungen berichtet wird"/>
+                <desc resKey="clu_setclientreportinterval"/>
+            </method>
+			<method call="set" index="7" name="SetUpdateTime" range="1000-24000" return="void">
+				<param name="Time" type="num" unit="ms"/>
+				<hint lang="pl" value="Ustawia wartość parametru UpdateTime"/>
+				<hint lang="en" value="Sets the Satel state update period - UpdateTime"/>
+				<hint lang="de" value="Bestimmt das Zeitinterwall, in dem der Status der Zentraleinheit aktualisiert wird"/>
+                <desc resKey="clu_setupdatetime"/>
+            </method>
+			<method call="set" index="2" name="SetSatelIP" return="void" unit="string">
+				<param name="IP" type="num"/>
+				<hint lang="pl" value="Ustawia adres IP modułu ETHM (Satel)"/>
+				<hint lang="en" value="Sets the ETHM Satel module IP address"/>
+				<hint lang="de" value="Definiert die IP-Adresse des ETHM-Moduls (Satel)"/>
+                <desc resKey="clu_setsatelip"/>
+            </method>
+			<method call="set" index="3" name="SetSatelPort" return="void" unit="string">
+				<param name="Port" type="num"/>
+				<hint lang="pl" value="Ustawia port modułu ETHM (Satel)"/>
+				<hint lang="en" value="Sets the ETHM Satel module port"/>
+				<hint lang="de" value="Bestimmt den Port des ETHM-Moduls (Satel)"/>
+                <desc resKey="clu_setsatelport"/>
+            </method>
+			<method call="set" index="5" name="SetAdminPassword" return="void" unit="string">
+				<param name="Password" type="str"/>
+				<hint lang="pl" value="Ustawia hasło Administratora"/>
+				<hint lang="en" value="Sets the administrator password"/>
+				<hint lang="de" value="Definiert das Administrator-Passwort"/>
+                <desc resKey="clu_setadminpassword"/>
+            </method>
+			<method call="set" index="9" name="SetEncryptionEnabled" return="void" unit="bool">
+				<param name="Enabled" type="num"/>
+				<hint lang="pl" value="Załącza / wyłącza szyfrowanie"/>
+				<hint lang="en" value="Enables or disables encrypting"/>
+				<hint lang="de" value="Aktiviert/Deaktiviert die Verschlüsselung"/>
+                <desc resKey="clu_setencryptionenabled"/>
+            </method>
+			<method call="set" index="8" name="SetEncryptionKey" return="void" unit="string">
+				<param name="Key" type="str"/>
+				<hint lang="pl" value="Ustawia klucz szyfrowania"/>
+				<hint lang="en" value="Sets the Satel encrypting key"/>
+				<hint lang="de" value="Bestimmt den Satel-Verschlüsselungskez"/>
+                <desc resKey="clu_setencryptionkey"/>
+            </method>
+		</methods>
+		<events>
+			<event address="0" name="OnInit">
+				<hint lang="pl" value="Zdarzenie wywoływane jednorazowo w momencie inicjalizacji urządzenia"/>
+				<hint lang="en" value="Event occurring once during device initialization"/>
+				<hint lang="de" value="Ereignis, das einmalig aufgerufen wird, sobald das Gerät aktiviert wird"/>
+                <desc resKey="clu_oninit"/>
+            </event>
+		</events>
+	</interface>
+	<objects>
+		<object maxInstances="-1" name="Zone" version="1"/>
+		<object maxInstances="-1" name="Input" version="1"/>
+		<object maxInstances="-1" name="Output" version="1"/>
+	</objects>
+	<modulesVersionConstraints>
+	</modulesVersionConstraints>
+	<options>
+		<option name="maxIOMs" value="64"/>
+		<option name="FeatureToGetActualTimeOnClu" value="UnixTime"/>
+		<option name="MethodToSetActualTimeOnClu" value="SetDateTime"/>
+		<option name="cipher" value="true"/>
+		<option name="accept_tftp" value="true"/>
+		<option name="accept_udp" value="true"/>
+		<option name="accept_tcp" value="false"/>
+		<option name="accept_wifi" value="false"/>
+		<option name="maxObjects" value="128"/>
+		<option name="maxTfBusModules" value="48"/>
+		<option name="maxZwaveModules" value="128"/>
+	</options>
+</CLU>

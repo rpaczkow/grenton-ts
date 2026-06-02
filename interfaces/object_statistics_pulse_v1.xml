@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object class="48" name="StatisticsPulse" version="1">
+	<features>
+		<feature default="0" get="true" index="10" name="Value" previousValue="true" set="false" type="num" unit="number">
+			<hint lang="pl" value="Wartość pomiarowa obliczana i wysyłana jako statystyka do serwera co pełne 15 minut.\nUżyj metody TriggerPulse aby dodać kolejną wartość do pomiaru. Dla pomiarów 'Media' – do licznika zostanie dodana wartość cechy Load.\nPo wysłaniu wartości na serwer, licznik jest resetowany."/>
+			<hint lang="en" value="The measurement value is calculated and sent as a statistic to the server every full 15 minutes.\nUse the TriggerPulse method to add another value to the measurement. For 'Media' measurement – the Load feature value will be added to the counter.\nAfter sending the value to the server, the counter is reset."/>
+			<desc resKey="statistic_pulse_value"/>
+		</feature>
+		<feature default="0" enum="0,2,10" get="true" index="1" name="StatisticState" previousValue="true" set="true" type="num" unit="number">
+			<enum name="Off" resKey="statistic_state_enum_off" value="0"/>
+			<enum name="Media" resKey="statistic_state_enum_pulse" value="2"/>
+			<enum name="Other (Counter)" resKey="statistic_state_enum_other_counter" value="10"/>
+			<hint lang="pl" value="Włącza raportowanie pomiaru do modułu statystyk oraz definiuje kategorię pomiaru.\n\nUwaga!\nRaz wysłana statystyka pozostaje w historii statystyk na serwerze.\nMożliwe jest manualne usunięcie statystyk z poziomu panelu konta w chmurze.\n\nOff - Statystyki nie są wysyłane do chmury."/>
+			<hint lang="en" value="Enables measurement reporting to the statistics module and defines the measurement category.\n\nWarning!\nOnce a statistic is sent, it remains in the statistics history on the server.\nIt is possible to manually delete statistics from the cloud account panel.\n\nOff - Statistics are not sent to the cloud."/>
+			<desc resKey="statistic_state_pulse"/>
+		</feature>
+		<feature correctValue="2" default="0" dependOn="1" get="true" index="2" name="Load" set="true" type="num" unit="W, m³" range="0-60000">
+			<hint lang="pl" value="Wartość na impuls w watach lub metrach sześciennych."/>
+			<hint lang="en" value="The value per pulse in watts or cubic meters."/>
+			<desc resKey="statistic_load_pulse"/>
+		</feature>
+		<feature correctValue="2" default="-1" dependOn="1" enum="10,16,17" get="true" index="3" name="StatisticTypePulse" set="true" type="num" unit="number">
+			<enum name="Energy" resKey="statistic_type_enum_energy_pulse" value="10"/>
+			<enum name="Water" resKey="statistic_type_enum_water" value="16"/>
+			<enum name="Gas" resKey="statistic_type_enum_gas" value="17"/>
+			<hint lang="pl" value="Statystyki są wysyłane na podstawie zliczania impulsów za pomocą metody TriggerPulse, oraz zadeklarowanej wartości dla jednego impulsu wyrażonej w watach lub m\u00B3. Wartość Value przedstawia aktualną wartość do wysłania na serwer."/>
+			<hint lang="en" value="Statistics are sent based on pulse counting using the TriggerPulse method, and the declared value for one pulse expressed in watts or m\u00B3. The Value represents the current value to be sent to the server."/>
+			<desc resKey="statistic_type_media_pulse"/>
+		</feature>
+	</features>
+	<methods>
+		<method call="set" index="10" name="SetValue" return="void" visible="false">
+			<param name="Value" type="num" unit="number"/>
+			<hint lang="pl" value="Ustawia wartość cechy Value."/>
+			<hint lang="en" value="Sets the Value feature."/>
+			<desc resKey="statistic_setvalue"/>
+		</method>
+		<method call="execute" index="0" name="TriggerPulse" return="void">
+			<hint lang="pl" value="Wyzwala impuls dla pomiaru typu Pulse, lub dla licznika impulsów."/>
+			<hint lang="en" value="Triggers a pulse for a Pulse measurement type or for a pulse counter."/>
+			<desc resKey="statistic_triggerpulse"/>
+		</method>
+		<method call="set" index="1" name="SetStatisticState" return="void" visible="false">
+			<param name="Value" type="num" unit="number"/>
+			<hint lang="pl" value=""/>
+			<hint lang="en" value=""/>
+			<desc resKey="statistic_setvalue"/>
+		</method>
+		<method call="set" index="2" name="SetLoad" return="void" visible="false">
+			<param name="Value" type="num" unit="number"/>
+			<hint lang="pl" value=""/>
+			<hint lang="en" value=""/>
+			<desc resKey="statistic_setvalue"/>
+		</method>
+		<method call="set" index="3" name="SetStatisticTypePulse" return="void" visible="false">
+			<param name="Value" type="num" unit="number"/>
+			<hint lang="pl" value=""/>
+			<hint lang="en" value=""/>
+			<desc resKey="statistic_setvalue"/>
+		</method>
+	</methods>
+	<events>
+		<event address="1" name="OnPulseTriggered">
+			<hint lang="pl" value="Zdarzenie wywoływane po wyzwoleniu impulsu."/>
+			<hint lang="en" value="Event occurs after a pulse is triggered."/>
+			<desc resKey="statistic_onpulsetriggered"/>
+		</event>
+	</events>
+</object>

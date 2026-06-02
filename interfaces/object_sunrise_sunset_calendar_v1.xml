@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<object class="39" name="SunriseSunsetCalendar" version="1">
+	<features>
+		<feature default="0" get="true" index="0" name="Longitude" set="true" type="num">
+			<hint lang="pl" value="Długość geograficzna w stopniach dziesiętnych (DD), zakres -180 do 180"/>
+			<hint lang="en" value="Longitude in decimal degrees (DD), range -180 to 180"/>
+		    <desc resKey="sunrisesunsetcalendar_longitude"/>
+        </feature>
+		<feature default="0" get="true" index="1" name="Latitude" set="true" type="num">
+			<hint lang="pl" value="Szerokość geograficzna w stopniach dziesiętnych (DD), zakres -90 do 90"/>
+			<hint lang="en" value="Latitude in decimal degrees (DD), range -90 to 90"/>
+		    <desc resKey="sunrisesunsetcalendar_latitude"/>
+        </feature>
+		<feature enum="1,0" get="true" index="2" name="State" set="true" type="num">
+			<enum name="Off" resKey="sunrisesunsetcalendar_state_enum_off" value="0"/>
+			<enum name="On" resKey="sunrisesunsetcalendar_state_enum_on" value="1"/>
+			<hint lang="pl" value="Aktualny stan kalendarza wschodów i zachodów słońca"/>
+			<hint lang="en" value="Current state of sunrise and sunset calendar"/>
+		    <desc resKey="sunrisesunsetcalendar_state"/>
+        </feature>
+		<feature get="true" index="3" name="SunriseUTC" set="false" type="str">
+			<hint lang="pl" value="Czas wschodu słońca dla ustawionej lokalizacji w UTC (± 5 minut)&#13;N\A - Brak możliwości wyliczenia wschodu słońca"/>
+			<hint lang="en" value="UTC sunrise time for a selected location (± 5 minutes)&#13;N\A - Unable to calculate sunrise time"/>
+		    <desc resKey="sunrisesunsetcalendar_sunriseutc"/>
+        </feature>
+		<feature get="true" index="4" name="SunsetUTC" set="false" type="str">
+			<hint lang="pl" value="Czas zachodu słońca dla ustawionej lokalizacji w UTC (± 5 minut)&#13;N\A - Brak możliwości wyliczenia zachodu słońca"/>
+			<hint lang="en" value="UTC sunset time for a selected location (± 5 minutes)&#13;N\A - Unable to calculate sunset time"/>
+		    <desc resKey="sunrisesunsetcalendar_sunsetutc"/>
+        </feature>
+		<feature get="true" index="5" name="SunriseLocal" set="false" type="str">
+			<hint lang="pl" value="Lokalny czas wschodu słońca dla ustawionej lokalizacji (± 5 minut)&#13;N\A - Brak możliwości wyliczenia wschodu słońca dla ustawionej lokalizacji"/>
+			<hint lang="en" value="Sunrise local time for a selected location (± 5 minutes)&#13;N\A - Unable to calculate sunrise time for a selected location"/>
+		    <desc resKey="sunrisesunsetcalendar_sunriselocal"/>
+        </feature>
+		<feature get="true" index="6" name="SunsetLocal" set="false" type="str">
+			<hint lang="pl" value="Lokalny czas zachodu słońca dla ustawionej lokalizacji (± 5 minut)&#13;N\A - Brak możliwości wyliczenia zachodu słońca dla ustawionej lokalizacji"/>
+			<hint lang="en" value="Sunset local time for a selected location (± 5 minutes)&#13;N\A - Unable to calculate sunset time for a selected location"/>
+		    <desc resKey="sunrisesunsetcalendar_sunsetlocal"/>
+        </feature>
+	</features>
+	<methods>
+		<method call="execute" index="0" name="Start" return="void">
+			<hint lang="pl" value="Uruchamia kalendarz wschodów i zachodów słońca"/>
+			<hint lang="en" value="Start sunrise and sunset calendar"/>
+		    <desc resKey="sunrisesunsetcalendar_start"/>
+        </method>
+		<method call="execute" index="1" name="Stop" return="void">
+			<hint lang="pl" value="Zatrzymuje kalendarz wschodów i zachodów słońca"/>
+			<hint lang="en" value="Stop sunrise and sunset calendar"/>
+		    <desc resKey="sunrisesunsetcalendar_stop"/>
+        </method>
+		<method call="set" index="0" name="SetLongitude" return="void">
+			<param name="Longitude" type="num"/>
+			<hint lang="pl" value="Ustawia długość geograficzną w stopniach dziesiętnych (DD), zakres -180 do 180"/>
+			<hint lang="en" value="Set a longitude in decimal degrees (DD), range -180 to 180"/>
+		    <desc resKey="sunrisesunsetcalendar_setlongitude"/>
+        </method>
+		<method call="set" index="1" name="SetLatitude" return="void">
+			<param name="Latitude" type="num"/>
+			<hint lang="pl" value="Ustawia szerokość geograficzną w stopniach dziesiętnych (DD), zakres -90 do 90"/>
+			<hint lang="en" value="Set a latitude in decimal degrees (DD), range -90 to 90"/>
+		    <desc resKey="sunrisesunsetcalendar_setlatitude"/>
+        </method>
+		<method call="set" index="2" name="State" return="void" visible="false">
+			<param name="Timeout" type="num" unit="s"/>
+			<hint lang="pl" value="Aktualny stan kalendarza wschodów i zachodów słońca, 1 - włączony, 0 - wyłączony"/>
+			<hint lang="en" value="Current state of sunrise and sunset calendar, 1 - On, 0 - Off"/>
+		    <desc resKey="sunrisesunsetcalendar_state_1"/>
+        </method>
+	</methods>
+	<events>
+		<event address="0" name="OnStart">
+			<hint lang="pl" value="Zdarzenie wywoływane przy uruchomieniu kalendarza"/>
+			<hint lang="en" value="A event called when calendar starts"/>
+		    <desc resKey="sunrisesunsetcalendar_onstart"/>
+        </event>
+		<event address="1" name="OnStop">
+			<hint lang="pl" value="Zdarzenie wywoływane przy dezaktywacji kalendarza"/>
+			<hint lang="en" value="A event called when calendar stops"/>
+		    <desc resKey="sunrisesunsetcalendar_onstop"/>
+        </event>
+		<event address="2" name="OnSunrise">
+			<hint lang="pl" value="Zdarzenie wywoływane podczas wschodu słońca"/>
+			<hint lang="en" value="A event called when the sun rises"/>
+		    <desc resKey="sunrisesunsetcalendar_onsunrise"/>
+        </event>
+		<event address="3" name="OnSunset">
+			<hint lang="pl" value="Zdarzenie wywoływane podczas zachodu słońca"/>
+			<hint lang="en" value="A event called when the sun sets"/>
+		    <desc resKey="sunrisesunsetcalendar_onsunset"/>
+        </event>
+		<event address="4" name="OnSunriseSunsetChange">
+			<hint lang="pl" value="Zdarzenie wywoływane podczas wschodu lub zachodu słońca"/>
+			<hint lang="en" value="A event called when the sun rises or sets"/>
+		    <desc resKey="sunrisesunsetcalendar_onsunrisesunsetchange"/>
+        </event>
+	</events>
+</object>

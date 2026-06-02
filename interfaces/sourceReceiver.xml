@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<SourceReceiver>
+	<srcv id="11" name="Switch" resKey="src_rcv_switch" type="DIN"/>
+	<srcv id="11" name="Switch" resKey="src_rcv_switch" type="ZWAVE_DIN"/>
+	<srcv id="11" name="Switch" resKey="src_rcv_switch" type="BUTTON"/>
+	<srcv id="11" name="Switch" resKey="src_rcv_switch" type="PANEL_BUTTON"/>
+	<srcv id="11" name="Switch" resKey="src_rcv_switch" type="PANEL"/>
+	<srcv id="11" name="Switch" resKey="src_rcv_switch" type="PANEL_PAGE"/>
+	<srcv id="101" name="Lamp" resKey="src_rcv_lamp" type="DOUT"/>
+	<srcv id="101" name="Lamp" resKey="src_rcv_lamp" type="ZWAVE_DOUT"/>
+	<srcv id="101" name="Lamp" resKey="src_rcv_lamp" type="DIMM"/>
+	<srcv id="101" name="Lamp" resKey="src_rcv_lamp" type="ZWAVE_DIMMER"/>
+	<srcv id="101" name="Lamp" resKey="src_rcv_lamp" type="DALI_GEAR"/>
+	<srcv id="101" name="Lamp" resKey="src_rcv_lamp" type="DALI_GEAR_DT8"/>
+	<srcv id="101" name="Lamp" resKey="src_rcv_lamp" type="LEDRGB"/>
+	<srcv id="101" name="Lamp" resKey="src_rcv_lamp" type="LEDRGBW"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="DIN"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="ZWAVE_DIN"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="AnalogIN"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="ONEW_SENSOR"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="PANELSENSTEMP"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="PANELSENSLIGHT"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="PANELSENSHUM"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="TEMPERATURE_SENSOR"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="LIGHT_SENSOR"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="LIGHT_SENSOR_LUX"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="HUMIDITY_SENSOR"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="PRESSURE_SENSOR"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="AIR_CO2_SENSOR"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="AIR_VCO_SENSOR"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="AIR_VOC_SENSOR"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="SOUND_SENSOR"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="IR_CONTROLLER"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="ZWAVE_ANALOG_SENSOR"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="ZWAVE_BINARY_SENSOR"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="BINARY_SENSOR"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="ZWAVE_TAMPER_ALARM"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="ZWAVE_THERMOSTAT"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="ZWAVE_WAKEUP"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="PANEL"/>
+	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="ZWAVE_WEATHER"/>
+	<srcv id="103" name="Door" resKey="src_rcv_door" type="DIN"/>
+	<srcv id="103" name="Door" resKey="src_rcv_door" type="ZWAVE_DIN"/>
+	<srcv id="103" name="Door" resKey="src_rcv_door" type="ZWAVE_BINARY_SENSOR"/>
+	<srcv id="103" name="Door" resKey="src_rcv_door" type="BINARY_SENSOR"/>
+	<srcv id="103" name="Door" resKey="src_rcv_door" type="DOUT"/>
+	<srcv id="103" name="Door" resKey="src_rcv_door" type="ZWAVE_DOUT"/>
+	<srcv id="104" name="Wicket gate" resKey="src_rcv_wicketgate" type="DIN"/>
+	<srcv id="104" name="Wicket gate" resKey="src_rcv_wicketgate" type="ZWAVE_DIN"/>
+	<srcv id="104" name="Wicket gate" resKey="src_rcv_wicketgate" type="ZWAVE_BINARY_SENSOR"/>
+	<srcv id="104" name="Wicket gate" resKey="src_rcv_wicketgate" type="BINARY_SENSOR"/>
+	<srcv id="104" name="Wicket gate" resKey="src_rcv_wicketgate" type="DOUT"/>
+	<srcv id="104" name="Wicket gate" resKey="src_rcv_wicketgate" type="ZWAVE_DOUT"/>
+	<srcv id="105" name="Window" resKey="src_rcv_window" type="DIN"/>
+	<srcv id="105" name="Window" resKey="src_rcv_window" type="ZWAVE_DIN"/>
+	<srcv id="105" name="Window" resKey="src_rcv_window" type="ZWAVE_BINARY_SENSOR"/>
+	<srcv id="105" name="Window" resKey="src_rcv_window" type="BINARY_SENSOR"/>
+	<srcv id="105" name="Window" resKey="src_rcv_window" type="DOUT"/>
+	<srcv id="105" name="Window" resKey="src_rcv_window" type="ZWAVE_DOUT"/>
+	<srcv id="105" name="Window" resKey="src_rcv_window" type="ROLLER_SH"/>
+	<srcv id="105" name="Window" resKey="src_rcv_window" type="ROLLER_SHUTTER"/>
+	<srcv id="105" name="Window" resKey="src_rcv_window" type="ZWAVE_ROLLER_SHUTTER"/>
+	<srcv id="105" name="Window" resKey="src_rcv_window" type="ZWAVE_FAKRO"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="AnalogIN"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="ZWAVE_ANALOG_SENSOR"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="ONEW_SENSOR"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="PANELSENSTEMP"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="PANELSENSLIGHT"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="PANELSENSHUM"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="ZWAVE_WEATHER"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="TEMPERATURE_SENSOR"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="LIGHT_SENSOR"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="LIGHT_SENSOR_LUX"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="HUMIDITY_SENSOR"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="PRESSURE_SENSOR"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="AIR_CO2_SENSOR"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="AIR_VCO_SENSOR"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="AIR_VOC_SENSOR"/>
+	<srcv id="106" name="Weather" resKey="src_rcv_weather" type="SOUND_SENSOR"/>
+	<srcv id="202" name="Sconce" resKey="src_rcv_sconce" type="DOUT"/>
+	<srcv id="202" name="Sconce" resKey="src_rcv_sconce" type="ZWAVE_DOUT"/>
+	<srcv id="202" name="Sconce" resKey="src_rcv_sconce" type="DIMM"/>
+	<srcv id="202" name="Sconce" resKey="src_rcv_sconce" type="DALI_GEAR"/>
+	<srcv id="202" name="Sconce" resKey="src_rcv_sconce" type="DALI_GEAR_DT8"/>
+	<srcv id="202" name="Sconce" resKey="src_rcv_sconce" type="ZWAVE_DIMMER"/>
+	<srcv id="202" name="Sconce" resKey="src_rcv_sconce" type="LEDRGB"/>
+	<srcv id="202" name="Sconce" resKey="src_rcv_sconce" type="LEDRGBW"/>
+	<srcv id="202" name="Sconce" resKey="src_rcv_sconce" type="ZWAVE_RGBW_LED"/>
+	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="DOUT"/>
+	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="ZWAVE_DOUT"/>
+	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="DIMM"/>
+	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="DALI_GEAR"/>
+	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="DALI_GEAR_DT8"/>
+	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="ZWAVE_DIMMER"/>
+	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="LEDRGB"/>
+	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="LEDRGBW"/>
+	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="ZWAVE_RGBW_LED"/>
+	<srcv id="24" name="Knob" resKey="src_rcv_knob" type="DIMM"/>
+	<srcv id="24" name="Knob" resKey="src_rcv_knob" type="DALI_GEAR"/>
+	<srcv id="24" name="Knob" resKey="src_rcv_knob" type="DALI_GEAR_DT8"/>
+	<srcv id="24" name="Knob" resKey="src_rcv_knob" type="ZWAVE_DIMMER"/>
+	<srcv id="24" name="Knob" resKey="src_rcv_knob" type="LEDRGB"/>
+	<srcv id="24" name="Knob" resKey="src_rcv_knob" type="LEDRGBW"/>
+	<srcv id="24" name="Knob" resKey="src_rcv_knob" type="ZWAVE_RGBW_LED"/>
+	<srcv id="24" name="Knob" resKey="src_rcv_knob" type="AnalogOUT"/>
+	<srcv id="25" name="Socket" resKey="src_rcv_socket" type="DOUT"/>
+	<srcv id="25" name="Socket" resKey="src_rcv_socket" type="ZWAVE_DOUT"/>
+	<srcv id="26" name="TV" resKey="src_rcv_tv" type="DOUT"/>
+	<srcv id="26" name="TV" resKey="src_rcv_tv" type="ZWAVE_DOUT"/>
+	<srcv id="26" name="TV" resKey="src_rcv_tv" type="IR_CONTROLLER"/>
+	<srcv id="27" name="Valve" resKey="src_rcv_valve" type="DOUT"/>
+	<srcv id="27" name="Valve" resKey="src_rcv_valve" type="ZWAVE_DOUT"/>
+	<srcv id="27" name="Valve" resKey="src_rcv_valve" type="AnalogOUT"/>
+	<srcv id="27" name="Valve" resKey="src_rcv_valve" type="ZWAVE_THERMOSTAT"/>
+	<srcv id="301" name="Button/Switch" resKey="src_rcv_buttonswitch" type="DIN"/>
+	<srcv id="301" name="Button/Switch" resKey="src_rcv_buttonswitch" type="ZWAVE_DIN"/>
+	<srcv id="301" name="Button/Switch" resKey="src_rcv_buttonswitch" type="BUTTON"/>
+	<srcv id="301" name="Button/Switch" resKey="src_rcv_buttonswitch" type="PANEL_BUTTON"/>
+	<srcv id="301" name="Button/Switch" resKey="src_rcv_buttonswitch" type="PANEL"/>
+	<srcv id="301" name="Button/Switch" resKey="src_rcv_buttonswitch" type="PANEL_PAGE"/>
+	<srcv id="311" name="Thermometer" resKey="src_rcv_thermometer" type="AnalogIN"/>
+	<srcv id="311" name="Thermometer" resKey="src_rcv_thermometer" type="ZWAVE_ANALOG_SENSOR"/>
+	<srcv id="311" name="Thermometer" resKey="src_rcv_thermometer" type="ONEW_SENSOR"/>
+	<srcv id="311" name="Thermometer" resKey="src_rcv_thermometer" type="PANELSENSTEMP"/>
+	<srcv id="311" name="Thermometer" resKey="src_rcv_thermometer" type="ZWAVE_ANALOG_SENSOR"/>
+	<srcv id="311" name="Thermometer" resKey="src_rcv_thermometer" type="ZWAVE_THERMOSTAT"/>
+	<srcv id="311" name="Thermometer" resKey="src_rcv_thermometer" type="ZWAVE_WEATHER"/>
+	<srcv id="311" name="Thermometer" resKey="src_rcv_thermometer" type="TEMPERATURE_SENSOR"/>
+	<srcv id="311" name="Thermometer" resKey="src_rcv_thermometer" type="PANEL_PAGE"/>
+	<srcv id="312" name="Speaker" resKey="src_rcv_speaker" type="DOUT"/>
+	<srcv id="312" name="Speaker" resKey="src_rcv_speaker" type="ZWAVE_DOUT"/>
+	<srcv id="312" name="Speaker" resKey="src_rcv_speaker" type="IR_CONTROLLER"/>
+	<srcv id="312" name="Speaker" resKey="src_rcv_speaker" type="SOUND_SENSOR"/>
+	<srcv id="312" name="Speaker" resKey="src_rcv_speaker" type="GSM"/>
+	<srcv id="313" name="Garage door" resKey="src_rcv_garagedoor" type="DIN"/>
+	<srcv id="313" name="Garage door" resKey="src_rcv_garagedoor" type="ZWAVE_DIN"/>
+	<srcv id="313" name="Garage door" resKey="src_rcv_garagedoor" type="DOUT"/>
+	<srcv id="313" name="Garage door" resKey="src_rcv_garagedoor" type="ZWAVE_DOUT"/>
+	<srcv id="313" name="Garage door" resKey="src_rcv_garagedoor" type="ROLLER_SH"/>
+	<srcv id="313" name="Garage door" resKey="src_rcv_garagedoor" type="ROLLER_SHUTTER"/>
+	<srcv id="313" name="Garage door" resKey="src_rcv_garagedoor" type="ZWAVE_ROLLER_SHUTTER"/>
+	<srcv id="313" name="Garage door" resKey="src_rcv_garagedoor" type="ZWAVE_FAKRO"/>
+	<srcv id="314" name="Gate" resKey="src_rcv_gate" type="DIN"/>
+	<srcv id="314" name="Gate" resKey="src_rcv_gate" type="ZWAVE_DIN"/>
+	<srcv id="314" name="Gate" resKey="src_rcv_gate" type="ZWAVE_BINARY_SENSOR"/>
+	<srcv id="314" name="Gate" resKey="src_rcv_gate" type="BINARY_SENSOR"/>
+	<srcv id="314" name="Gate" resKey="src_rcv_gate" type="DOUT"/>
+	<srcv id="314" name="Gate" resKey="src_rcv_gate" type="ZWAVE_DOUT"/>
+	<srcv id="314" name="Gate" resKey="src_rcv_gate" type="ROLLER_SH"/>
+	<srcv id="314" name="Gate" resKey="src_rcv_gate" type="ROLLER_SHUTTER"/>
+	<srcv id="314" name="Gate" resKey="src_rcv_gate" type="ZWAVE_ROLLER_SHUTTER"/>
+	<srcv id="314" name="Gate" resKey="src_rcv_gate" type="ZWAVE_FAKRO"/>
+	<srcv id="315" name="Heater" resKey="src_rcv_heater" type="DOUT"/>
+	<srcv id="315" name="Heater" resKey="src_rcv_heater" type="ZWAVE_DOUT"/>
+	<srcv id="315" name="Heater" resKey="src_rcv_heater" type="ZWAVE_THERMOSTAT"/>
+	<srcv id="316" name="Awning" resKey="src_rcv_awning" type="ROLLER_SH"/>
+	<srcv id="316" name="Awning" resKey="src_rcv_awning" type="ROLLER_SHUTTER"/>
+	<srcv id="316" name="Awning" resKey="src_rcv_awning" type="ZWAVE_ROLLER_SHUTTER"/>
+	<srcv id="316" name="Awning" resKey="src_rcv_awning" type="ZWAVE_FAKRO"/>
+	<srcv id="317" name="Window shade" resKey="src_rcv_windowshade" type="ROLLER_SH"/>
+	<srcv id="317" name="Window shade" resKey="src_rcv_windowshade" type="ROLLER_SHUTTER"/>
+	<srcv id="317" name="Window shade" resKey="src_rcv_windowshade" type="ZWAVE_ROLLER_SHUTTER"/>
+	<srcv id="317" name="Window shade" resKey="src_rcv_windowshade" type="ZWAVE_FAKRO"/>
+	<srcv id="318" name="Fan" resKey="src_rcv_fan" type="DOUT"/>
+	<srcv id="318" name="Fan" resKey="src_rcv_fan" type="ZWAVE_DOUT"/>
+	<srcv id="318" name="Fan" resKey="src_rcv_fan" type="IR_CONTROLLER"/>
+	<srcv id="319" name="Shutter" resKey="src_rcv_shutter" type="ROLLER_SH"/>
+	<srcv id="319" name="Shutter" resKey="src_rcv_shutter" type="ROLLER_SHUTTER"/>
+	<srcv id="319" name="Shutter" resKey="src_rcv_shutter" type="ZWAVE_ROLLER_SHUTTER"/>
+	<srcv id="319" name="Shutter" resKey="src_rcv_shutter" type="ZWAVE_FAKRO"/>
+	<srcv id="401" name="Led" resKey="src_rcv_led" type="DOUT"/>
+	<srcv id="401" name="Led" resKey="src_rcv_led" type="ZWAVE_DOUT"/>
+	<srcv id="401" name="Led" resKey="src_rcv_led" type="DIMM"/>
+	<srcv id="401" name="Led" resKey="src_rcv_led" type="ZWAVE_DIMMER"/>
+	<srcv id="401" name="Led" resKey="src_rcv_led" type="DALI_GEAR"/>
+	<srcv id="401" name="Led" resKey="src_rcv_led" type="DALI_GEAR_DT8"/>
+	<srcv id="401" name="Led" resKey="src_rcv_led" type="LEDRGB"/>
+	<srcv id="401" name="Led" resKey="src_rcv_led" type="LEDRGBW"/>
+	<srcv id="401" name="Led" resKey="src_rcv_led" type="ZWAVE_RGBW_LED"/>
+</SourceReceiver>

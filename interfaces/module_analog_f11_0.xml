@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="ANALOGModule" typeId="08">
+	<!--hwType=0x8(8), hwVer=0x1(1), fwType=0x0(0), fwApiVer=0x11(17)-->
+	<firmware typeId="00" version="11">
+		<object class="13" count="4" name="AnalogOUT" type="out">
+			<interface>
+				<features>
+					<feature default="0" get="true" index="0" name="Value" range="0-10" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość wyjścia"/>
+						<hint lang="en" value="Current output value"/>
+						<hint lang="de" value="Istwert Ausgang (0,0 - 10,0 V)"/>
+                        <desc resKey="analogout_value"/>
+                    </feature>
+					<feature default="0" get="true" index="1" name="ScaledValue" range="0-100000" set="true" type="num" unit="-">
+						<hint lang="pl" value="Przeskalowana wartość wyjścia"/>
+						<hint lang="en" value="Current value multiplied by scalar"/>
+						<hint lang="de" value="Istwert Ausgang multipliziert mit Skalar"/>
+                        <desc resKey="analogout_scaledvalue"/>
+                    </feature>
+					<feature default="1" get="true" index="2" name="Scale" range="0-10000" set="true" type="num" unit="-">
+						<hint lang="pl" value="Skala"/>
+						<hint lang="en" value="Output value scalar"/>
+						<hint lang="de" value="Werteskalar Ausgang"/>
+                        <desc resKey="analogout_scale"/>
+                    </feature>
+					<feature default="500" get="true" index="3" name="Ramp" range="0-15000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Czas narastania"/>
+						<hint lang="en" value="Output value scalar"/>
+						<hint lang="de" value="Rampenzeit Ausgangswert (ms)"/>
+                        <desc resKey="analogout_ramp"/>
+                    </feature>
+					<feature default="0" get="true" index="4" name="MinValue" range="0-10" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość minimalna po przekroczeniu której generowane jest zdarzenie OnOutRange"/>
+						<hint lang="en" value="Minimum value which Value can adopt. Attempting to set a lower value will generate an error. Range: 0.0 - 10.0"/>
+						<hint lang="de" value="Mindestwert von Value. Ein niedrigerer Wert generiert eine Fehlermeldung. Bereich 0,0 - 10,0 V"/>
+                        <desc resKey="analogout_minvalue"/>
+                    </feature>
+					<feature default="10" get="true" index="5" name="MaxValue" range="0-10" set="true" type="num" unit="V">
+						<hint lang="pl" value="Wartość maksymalna po przekroczeniu której generowane jest zdarzenie OnOutRange"/>
+						<hint lang="en" value="Maximum value which Value can adopt. Attempting to set a higher value will generate an error. Range: 0.0 - 10.0"/>
+						<hint lang="de" value="Höchstwert von Value. Ein höherer Wert generiert eine Fehlermeldung. Bereich 0,0 - 10,0 V"/>
+                        <desc resKey="analogout_maxvalue"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="0" name="SetValue" return="void">
+						<param name="Value" range="0-10" type="num"/>
+						<hint lang="pl" value="Ustawia wartość wyjścia (0.0-10.0V)"/>
+						<hint lang="en" value="Sets output value (0.0 - 10.0V)"/>
+						<hint lang="de" value="Bestimmt den Ausgangswert (0,0 – 10,0 V)"/>
+                        <desc resKey="analogout_setvalue"/>
+                    </method>
+					<method call="set" index="1" name="SetScaledValue" return="void">
+						<hint lang="pl" value="Ustawia wartość po przeskalowaniu"/>
+						<hint lang="en" value="Sets output value taking into account the scalar"/>
+						<param name="ScaledValue" type="num"/>
+						<hint lang="de" value="Bestimmt den Ausgangswert unter Berücksichtigung des Skalars"/>
+                        <desc resKey="analogout_setscaledvalue"/>
+                    </method>
+					<method call="set" index="2" name="SetScale" return="void">
+						<hint lang="pl" value="Ustawia skalę"/>
+						<hint lang="en" value="Sets scalar value"/>
+						<param name="Scale" type="num"/>
+						<hint lang="de" value="Bestimmt den Werteskalar"/>
+                        <desc resKey="analogout_setscale"/>
+                    </method>
+					<method call="set" index="3" name="SetRamp" return="void">
+						<hint lang="pl" value="Ustawia czas narastania"/>
+						<hint lang="en" value="Sets increments for output value"/>
+						<param name="Ramp" type="num"/>
+						<hint lang="de" value="Bestimmt die Rampenzeit des Ausgangswerts"/>
+                        <desc resKey="analogout_setramp"/>
+                    </method>
+					<method call="set" index="4" name="SetMin" return="void">
+						<hint lang="pl" value="Ustawia wartość minimalną"/>
+						<hint lang="en" value="Sets MinValue"/>
+						<param name="MinValue" range="0-10" type="num"/>
+						<hint lang="de" value="Bestimmt den Wert von MinValue"/>
+                        <desc resKey="analogout_setmin"/>
+                    </method>
+					<method call="set" index="5" name="SetMax" return="void">
+						<hint lang="pl" value="Ustawia wartość maksymalną"/>
+						<hint lang="en" value="Sets MaxValue"/>
+						<param name="MaxValue" range="0-10" type="num"/>
+						<hint lang="de" value="Bestimmt den Wert von MaxValue"/>
+                        <desc resKey="analogout_setmax"/>
+                    </method>
+					<method call="execute" index="6" name="Hold" return="void">
+						<hint lang="pl" value="Zmniejsza lub zwiększa wartość wyjścia z użyciem rampy podanej w parametrze. Jeśli parametr rampy nie zostanie podany, używa rampy domyślnej"/>
+						<hint lang="en" value="Reduces or increases the output value using a ramp specified in the parameter. If the ramp parameter is not specified, the default ramp is used"/>
+						<param name="Ramp" type="num"/>
+						<hint lang="de" value="Reduziert oder erhöht den Ausgangswert unter Berücksichtigung eines vorgegebenen Rampenparameters.Wird kein Rampenparameter vorgegeben, so wird die Standardrampe verwendet"/>
+                        <desc resKey="analogout_hold"/>
+                    </method>
+					<method call="execute" index="7" name="Switch" return="void">
+						<hint lang="pl" value="Przełącza stan wyjścia na przeciwny (MinValue - MaxValue)"/>
+						<hint lang="en" value="Switches output state to an opposite state. If time &gt;0, after a specified period it restores the previous state. The second parameter (ramp) is optional"/>
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<hint lang="pl" value="Czas narastania"/>
+							<parametrized name="Default" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="de" value="Schaltet den Ausgangsstatus in den Gegenstatus um. Falls die Zeit &gt; 0,  wird nach einer bestimmten Zeit zum vorherigen Status zurückgekehrt. Der zweite Parameter (Rampe) ist optional"/>
+                        <desc resKey="analogout_switch_1"/>
+                    </method>
+					<method call="execute" index="8" name="SwitchOn" return="void">
+						<hint lang="pl" value="Ustawia na wyjściu wartość MaxValue"/>
+						<hint lang="en" value="Sets output value to 10.0 (MaxValue). The first parameter is the time of switching(how long it is to be switched for). The second parameter (ramp) is optional"/>
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="de" value="Setzt den Ausgangswert auf MaxValue (Standardwert 10,0 V). Der erste Parameter ist die Umschaltzeit (auf wie viel soll umgeschaltet werden). Der zweite Parameter (Rampe) ist optional"/>
+                        <desc resKey="analogout_switchon"/>
+                    </method>
+					<method call="execute" index="9" name="SwitchOff" return="void">
+						<hint lang="pl" value="Ustawia na wyjściu wartość MinValue"/>
+						<hint lang="en" value="Sets output value to 0.0 (MinValue). The first parameter is the time of switching(how long it is to be switched for). The second parameter (ramp) is optional"/>
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<hint lang="de" value="Setzt den Ausgangswert auf MinValue (Standardwert 0,0 V). Der erste Parameter ist die Umschaltzeit (auf wie viel soll umgeschaltet werden). Der zweite Parameter (Rampe) ist optional"/>
+                        <desc resKey="analogout_switchoff"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnChangeValue">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości wyjścia"/>
+						<hint lang="en" value="Event from changing the output value (when SetValue is requested)"/>
+						<hint lang="de" value="Ereignis bei Änderung des Ausgangswerts (falls SetValue aufgerufen wird)"/>
+                        <desc resKey="analogout_onchangevalue"/>
+                    </event>
+					<event address="1" name="OnLowerValue">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event occurring when the set value is lower than the previous value"/>
+						<hint lang="de" value="Ereignis, das aufgerufen wird, falls der eingegebene Wert niedriger ist als der vorherige"/>
+                        <desc resKey="analogout_onlowervalue"/>
+                    </event>
+					<event address="2" name="OnRiseValue">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event occurring when the set value is higher than the previous value"/>
+						<hint lang="de" value="Ereignis, das aufgerufen wird, falls der eingegebene Wert höher ist als der vorherige"/>
+                        <desc resKey="analogout_onrisevalue"/>
+                    </event>
+					<event address="3" name="OnOutRange">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wartość na wyjściu znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event occurring with an attempt to exceed the permissible range (MinValue - MaxValue). The set value is cut down to this range"/>
+						<hint lang="de" value="Ereignis, das aufgerufen wird, falls der zulässige Bereich überschritten wird (MinValue .. MaxValue). Der eingegebene Wert wird an diesen Bereich angepasst"/>
+                        <desc resKey="analogout_onoutrange"/>
+                    </event>
+					<event address="4" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wyjście osiągnie wartość MaxValue"/>
+						<hint lang="en" value="Event occurring when 10.0 (MaxValue) is set at output"/>
+						<hint lang="de" value="Ereignis, das aufgerufen wird, falls der Wert von MaxValue (Standardwert 10,0 V) am Ausgang eingestellt wird"/>
+                        <desc resKey="analogout_onswitchon_1"/>
+                    </event>
+					<event address="5" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wyjście osiągnie wartość MinValue"/>
+						<hint lang="en" value="Event occurring when 0.0 (MinValue) is set at output"/>
+						<hint lang="de" value="Ereignis, das aufgerufen wird, falls der Wert von MinValue (Standardwert 0,0 V) am Ausgang eingestellt wird"/>
+                        <desc resKey="analogout_onswitchoff_1"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+		<object class="12" count="4" name="AnalogIN" type="in">
+			<interface>
+				<features>
+					<feature default="0" get="true" index="0" name="Value" range="0-10" set="false" type="num" unit="V">
+						<hint lang="pl" value="Wartość wejścia po przeskalowaniu"/>
+						<hint lang="en" value="Current output value taking into account the scalar"/>
+						<hint lang="de" value="Istwert Eingang unter Berücksichtigung des Skalars"/>
+                        <desc resKey="analogin_value_2"/>
+                    </feature>
+					<feature default="0" divisor="1" get="true" index="1" name="Value%" range="0-1000000" set="false" type="num" unit="%">
+						<hint lang="pl" value="Wartość wejścia po przeskalowaniu jako procent wartości maksymalnej (MaxValue)"/>
+						<hint lang="en" value="Current percentage input value of the maximum value (MaxValue characteristic)"/>
+						<hint lang="de" value="Istwert Eingang als Prozentwert des Höchstwerts (Eigenschaft MaxValue)"/>
+                        <desc resKey="analogin_value_3"/>
+                    </feature>
+					<feature default="1" get="true" index="2" name="Scale" range="0-10000" set="true" type="num" unit="-">
+						<hint lang="pl" value="Parametr przez jaki mnożona jest wartość odczytana na wejściu"/>
+						<hint lang="en" value="Input scalar - parameter which is used for multiplying the unput value during reading"/>
+						<hint lang="de" value="Eingangsskalar - Parameter, mir dem Eingangswerte beim Lesen multipliziert werden"/>
+                        <desc resKey="analogin_scale_1"/>
+                    </feature>
+					<feature default="0" get="true" index="3" name="Sensitivity" range="0-10" set="true" type="num" unit="V">
+						<hint lang="pl" value="Czułość - minimalna zmiana wartości na wejściu która wywołuje zdarzenia OnChangeValue, OnLowerValue lub OnRaiseValue"/>
+						<hint lang="en" value="Minimum change of input state when the OnChangeValue, OnLowerValue or OnRiseValue event is generated"/>
+						<hint lang="de" value="Empfindlichkeit – minimale Statusänderung des Eingangs, bei der Ereignisse wie OnChangeValue, OnLowerValue oder OnRiseValue generiert werden"/>
+                        <desc resKey="analogin_sensitivity_1"/>
+                    </feature>
+					<feature default="0" get="true" index="4" name="Inertia" range="0-15000" set="true" type="num" unit="ms">
+						<hint lang="pl" value="Wartość inercji wejścia"/>
+						<hint lang="en" value="Input inertia value"/>
+						<hint lang="de" value="Wert der Eingangsträgheit"/>
+                        <desc resKey="analogin_inertia"/>
+                    </feature>
+					<feature default="0" get="true" index="5" name="MinValue" set="true" type="num" unit="scaled">
+						<hint lang="pl" value="Wartość minimalna po przekroczeniu której generowane jest zdarzenie OnOutRange"/>
+						<hint lang="en" value="Minimum value of the Value characteristic after exceeding which the OnOutRange event is generated"/>
+						<hint lang="de" value="Mindestwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutRange generiert wird"/>
+                        <desc resKey="analogin_minvalue_1"/>
+                    </feature>
+					<feature default="10" get="true" index="6" name="MaxValue" set="true" type="num" unit="scaled">
+						<hint lang="pl" value="Wartość maksymalna po przekroczeniu której generowane jest zdarzenie OnOutRange"/>
+						<hint lang="en" value="Maximum value of the Value characteristic after exceeding which the OnOutRange event is generated"/>
+						<hint lang="de" value="Höchstwert der Eigenschaft Value, bei dessen Überschreitung das Ereignis OnOutRange generiert wird"/>
+                        <desc resKey="analogin_maxvalue_1"/>
+                    </feature>
+				</features>
+				<methods>
+					<method call="set" index="2" name="SetScale" return="void">
+						<hint lang="pl" value="Ustawia skalę"/>
+						<hint lang="en" value="Sets scalar value (float)"/>
+						<param name="Scale" type="num"/>
+						<hint lang="de" value="Bestimmt den Werteskalar (float)"/>
+                        <desc resKey="analogin_setscale"/>
+                    </method>
+					<method call="set" index="3" name="SetSensitivity" return="void">
+						<hint lang="pl" value="Ustawia wartość czułości wejścia"/>
+						<hint lang="en" value="Sets input sensitivity value"/>
+						<param name="Sensitivity" range="0-10" type="num" unit="V"/>
+						<hint lang="de" value="Bestimmt die Eingangsempfindlichkeit"/>
+                        <desc resKey="analogin_setsensitivity"/>
+                    </method>
+					<method call="set" index="4" name="SetInertia" return="void">
+						<hint lang="pl" value="Ustawia wartość inercji wejścia"/>
+						<hint lang="en" value="Sets input inertia value"/>
+						<param name="Inertia" type="num"/>
+						<hint lang="de" value="Bestimmt die Eingangsträgheit"/>
+                        <desc resKey="analogin_setinertia"/>
+                    </method>
+					<method call="set" index="5" name="SetMin" return="void">
+						<hint lang="pl" value="Ustawia wartość MinValue"/>
+						<hint lang="en" value="Sets MinValue"/>
+						<param name="MinValue" type="num"/>
+						<hint lang="de" value="Bestimmt den Wert von MinValue"/>
+                        <desc resKey="analogin_setmin"/>
+                    </method>
+					<method call="set" index="6" name="SetMax" return="void">
+						<hint lang="pl" value="Ustawia wartość MaxValue"/>
+						<hint lang="en" value="Sets MaxValue"/>
+						<param name="MaxValue" type="num"/>
+						<hint lang="de" value="Bestimmt den Wert von MaxValue"/>
+                        <desc resKey="analogin_setmax"/>
+                    </method>
+				</methods>
+				<events>
+					<event address="0" name="OnChangeValue">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości wyjścia"/>
+						<hint lang="en" value="Event resulting from changing input state"/>
+						<hint lang="de" value="Ereignis bei Änderung des Eingangsstatus"/>
+                        <desc resKey="analogin_onchangevalue"/>
+                    </event>
+					<event address="1" name="OnLowerValue">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na niższą (zbocze opadające)"/>
+						<hint lang="en" value="Event occurs when a value lower than the value from the last reading appears at input"/>
+						<hint lang="de" value="Ereignis, das generiert wird, falls ein niedrigerer Wert am Eingang gelesen wird als vorher"/>
+                        <desc resKey="analogin_onlowervalue"/>
+                    </event>
+					<event address="2" name="OnRiseValue">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości na wyższą (zbocze narastające)"/>
+						<hint lang="en" value="Event occurs when a value higher than the value from the last reading appears at input"/>
+						<hint lang="de" value="Ereignis, das generiert wird, falls ein höherer Wert am Eingang gelesen wird als vorher"/>
+                        <desc resKey="analogin_onrisevalue"/>
+                    </event>
+					<event address="3" name="OnOutRange">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wartość na wyjściu znajduje się poza wyznaczonym zakresem (MinValue - MaxValue)"/>
+						<hint lang="en" value="Event resulting from exceeding the permissible range (MinValue - MaxValue)"/>
+						<hint lang="de" value="Ereignis bei Überschreitung des zulässigen Bereichs (MinValue .. MaxValue)"/>
+                        <desc resKey="analogin_onoutrange"/>
+                    </event>
+					<event address="4" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wyjście osiągnie wartość MaxValue"/>
+						<hint lang="en" value="Event occurs when the input value reaches 100% (MaxValue)"/>
+						<hint lang="de" value="Ereignis, das aufgerufen wird, falls der Eingangswert MaxValue erreicht"/>
+                        <desc resKey="analogin_onswitchon"/>
+                    </event>
+					<event address="5" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane gdy wyjście osiągnie wartość MinValue"/>
+						<hint lang="en" value="Event occurs when the input value reaches 0% (MinValue)"/>
+						<hint lang="de" value="Ereignis, das aufgerufen wird, falls der Eingangswert MinValue erreicht"/>
+                        <desc resKey="analogin_onswitchoff"/>
+                    </event>
+				</events>
+			</interface>
+		</object>
+	</firmware>
+</module>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module name="DALI_GEAR" typeId="28">
+	<!--hwType=0x28(40), hwVer=0x1(1), fwType=0x9(9), fwApiVer=0x2(2)-->
+	<firmware typeId="09" version="02">
+		<object class="32" count="1" name="DALI_GEAR" type="out">		
+				<interface>
+					<features>
+						<feature default="" get="true" index="1" name="Address" range="0-63" set="false" type="num" unit="-">
+							<hint lang="pl" value="Adres statecznika"/>
+							<hint lang="en" value="Ballast address"/>
+							<hint lang="de" value="Vorschaltgerätadresse"/>
+						    <desc resKey="dali_gear_address"/>
+                    </feature>	
+						<feature default="0" get="true" index="0" name="Group" range="0-51" set="true" type="str" unit="-">
+							<hint lang="pl" value="Numery grup do których należy statecznik, kolejne grupy z zakresu 1-16 podawane po przecinku. &#13;0 - brak przynależności do grupy"/>
+							<hint lang="en" value="Ballast group numbers, subsequent groups from the 1-16 range are given after the decimal point. &#13;0 - no belonging to any group"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_group"/>
+                    </feature>
+						<feature default="" get="true" index="2" name="DAPCValue" range="0-254" set="false" type="num" unit="-">
+							<hint lang="pl" value="Wartość z jaką świeci oprawa"/>
+							<hint lang="en" value="The value of the power with which the luminaire shines"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_dapcvalue"/>
+                    </feature>						
+					</features> 
+					<methods>
+						<method call="execute" index="0" name="Identify" return="void">
+							<hint lang="pl" value="Włącza oprawę na 2 sekundy"/>
+							<hint lang="en" value="Turns on the luminaire for 2 seconds"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_identify"/>
+                    </method>
+						<method call="execute" index="1" name="SetDAPCValue" return="void">
+							<param name="Value" range="0-254" type="num" unit=""/>
+							<param name="RampTime" range="0-15" type="num" unit="">
+								<parametrized name="DefaultRamp" value="0"/>
+								<parametrized name="Ramp"/>
+							</param>
+							<hint lang="pl" value="Ustawia wartość z jaką świeci oprawa. &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+							<hint lang="en" value="Sets the value of the power with which the luminaire shines.  &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_setdapcvalue"/>
+                    </method>
+						<method call="execute" index="2" name="Switch" return="void">
+							<param name="RampTime" range="0-15" type="num" unit="">
+								<parametrized name="DefaultRamp" value="0"/>
+								<parametrized name="Ramp"/>
+							</param>
+							<hint lang="pl" value="Zmienia stan oprawy na przeciwny (0 / 254). &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+							<hint lang="en" value="Changes the luminaire state to the opposite (0 / 254).  &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_switch"/>
+                    </method>
+						<method call="execute" index="3" name="SwitchOn" return="void">
+							<param name="RampTime" range="0-15" type="num" unit="">
+								<parametrized name="DefaultRamp" value="0"/>
+								<parametrized name="Ramp"/>
+							</param>
+							<hint lang="pl" value="Włącza oprawę. &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+							<hint lang="en" value="Turns on the luminaire. &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_switchon"/>
+                    </method>
+						<method call="execute" index="4" name="SwitchOff" return="void">
+							<param name="RampTime" range="0-15" type="num" unit="">
+								<parametrized name="DefaultRamp" value="0"/>
+								<parametrized name="Ramp"/>
+							</param>
+							<hint lang="pl" value="Wyłącza oprawę. &#13;Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s]"/>
+							<hint lang="en" value="Turns off the luminaire. &#13;RampTime parameter set on a logarithmic scale 0.8 - 90 [s]"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_switchoff"/>
+                    </method>
+						<method call="execute" index="5" name="Hold" return="void">
+							<param name="RampTime" range="0-10000" type="num" unit="ms"/>
+							<hint lang="pl" value="Realizuje funkcję rozjaśniania / ściemniania oprawy"/>
+							<hint lang="en" value="Executes the function of illuminating / dimming the luminaire"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_hold"/>
+                    </method>	
+						<method call="execute" index="6" name="HoldUp" return="void">
+							<param name="RampTime" range="0-10000" type="num" unit="ms"/>
+							<hint lang="pl" value="Realizuje funkcję rozjaśniania oprawy"/>
+							<hint lang="en" value="Executes the function of illuminating the luminaire"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_holdup"/>
+                    </method>
+						<method call="execute" index="7" name="HoldDown" return="void">
+							<param name="RampTime" range="0-10000" type="num" unit="ms"/>
+							<hint lang="pl" value="Realizuje funkcję ściemniania oprawy"/>
+							<hint lang="en" value="Executes the function of dimming the luminaire"/>
+							<hint lang="de" value=""/>
+						    <desc resKey="dali_gear_holddown"/>
+                    </method>
+					</methods>
+					<events>
+					<event address="0" name="OnDAPCValueChange">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości DAPCValue"/>
+						<hint lang="en" value="Event occurring when changing the DAPCValue"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_gear_ondapcvaluechange"/>
+                    </event>
+					<event address="1" name="OnSwitchOn">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości DAPCValue z 0 na wartość większą"/>
+						<hint lang="en" value="Event occurring when the DAPCValue value is changed from 0 to the greater value"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_gear_onswitchon"/>
+                    </event>
+					<event address="2" name="OnSwitchOff">
+						<hint lang="pl" value="Zdarzenie wywoływane przy zmianie wartości DAPCValue na 0"/>
+						<hint lang="en" value="Event occurring when the DAPCValue value is changed to 0"/>
+						<hint lang="de" value=""/>
+					    <desc resKey="dali_gear_onswitchoff"/>
+                    </event>
+					</events>
+				</interface>
+		</object>	
+	</firmware>
+</module>
