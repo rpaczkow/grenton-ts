@@ -1,4 +1,4 @@
-# grenton-ts-api
+# grenton-ts
 
 TypeScript API library for [Grenton](https://grenton.com) smart home hardware modules. Provides type-safe wrappers around the low-level Grenton hardware interfaces, making it easier to interact with Grenton devices in TypeScript projects.
 

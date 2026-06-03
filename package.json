@@ -7,10 +7,10 @@
     "typescript": "^5.9.3"
   },
   "files": [ "dist", "LICENSE", "README.md" ],
-  "name": "grenton-ts-api",
+  "name": "grenton-ts",
   "version": "1.0.0",
   "main": "index.ts",
-  "author": "Rajmund Paczkowski",
+  "author": "Rajmund Paczkowski <rajmund.paczkowski@gmail.com>",
   "license": "MIT",
   "description": "TypeScript API library providing type-safe wrappers for Grenton smart home hardware modules"
 }
