@@ -43,7 +43,7 @@ const shutter = new RollerShutter(rawRollerShutter);
 
 // Events
 shutter.addOnPositionChange(() => {
-    console.log('Position:', shutter.position);
+    logInfo('Position:', shutter.position);
 });
 
 // Methods
@@ -71,6 +71,17 @@ shutter.moveUp(5000);
 shutter.setPosition(75);
 ```
 
+
+## Getting Started
+
+If you want to start your own Grenton project in TypeScript, begin with the template repository:
+
+```bash
+git clone https://github.com/rpaczkow/grenton-ts-template
+```
+
+That template is already configured to reference the published package built from this repository:
+- `https://github.com/rpaczkow/grenton-ts`
 
 ## Build
 

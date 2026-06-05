@@ -1,6 +1,6 @@
 // Script: toggles a light every time a switch is clicked.
 
-import * as dIn from "../../digital-in-din/fv02_01/din"
+import * as dIn from "../../digital-in-din/fv01_02/din"
 import * as dOut from "../../io-module-din-8/fv02_02/dout"
 
 

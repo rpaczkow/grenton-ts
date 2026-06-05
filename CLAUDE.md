@@ -15,7 +15,10 @@ This is a TypeScript API library for Grenton smart home hardware modules. The co
 
 ### Directory Structure
 
-Each hardware module has its own directory named after the device type (e.g., `roller-shutter-din-3`, `digital-in-din`, `analog-din`). Inside each module directory, subfolders use the naming convention `fwtype-XX-fwapiver-YY` or `fvXX_YY` to version the firmware type and API version.
+- Each hardware module has its own directory taken from <module /> node and @name attribute.
+- Inside each module directory, subfolders use the naming convention `fvXX_YY`.
+- All GATE class (@className="GATE") files go to gate folder
+- All non GATE class files go to clu folder
 
 ### Core Pattern
 
@@ -34,7 +37,7 @@ All device wrappers follow the same architectural pattern:
    - Registers single handlers on raw interface that dispatch to all registered callbacks
    - Exposes typed methods and properties using enums
    - Contains comments in Polish. Comments are taken from text-resources folder.
-   - For evenry <feature /> in <features /> node generate wrapper property
+   - For every <feature /> in <features /> node generate wrapper property
       - when attribute set="true" generate property setter.
       - when attributes get="true" generate property getter.
       - when attributes set="true" and get="false" generate property getter and setter.
@@ -57,7 +60,3 @@ Enum values are numeric IDs that map to the firmware API.
 
 - `core/remote-gate.ts`: `RemoteGate` class for executing scripts on remote CLUs
 - `core/execution-builder.ts`: Builder pattern for constructing remote execution command strings
-
-### Foders
-- All GATE class files go to gate folder
-- All non GATE class files go to clu folder

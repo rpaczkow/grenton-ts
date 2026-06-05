@@ -1,6 +1,6 @@
 // Script: switches on light when presence sensor is triggered.
 
-import * as dIn from "../../digital-in-din/fv02_01/din"
+import * as dIn from "../../digital-in-din/fv01_02/din"
 import * as dOut from "../../io-module-din-8/fv02_02/dout"
 import * as pre from "../../clu/presence-sensor/v2/presence-sensor"
 
