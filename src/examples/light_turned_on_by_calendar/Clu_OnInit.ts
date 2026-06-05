@@ -1,8 +1,8 @@
 // Script: switches on light at 22:00 and switches it off at 06:00 every day.
 
-import * as dOut from "../../io-module-din-8/fv02_02/dout"
-import * as cal from "../../clu/calendar/v1/calendar"
-import { CluZWave2, CluZWave2Raw } from "../../clu/clu-zwave-2/fv515_03/clu-zwave-2"
+import * as dOut from "../../module_2_0_IO_MODULE_DIN_8_fv02_02/dout"
+import * as cal from "../../object_calendar_v1/calendar"
+import { CluZWave2, CluZWave2Raw } from "../../clu_ZWAVE_2_ft00000003_fv203_ht00000013_hv00000001/clu-zwave-2"
 
 
 declare const DOU3948: dOut.DOutRaw; //Light circuit Object Id

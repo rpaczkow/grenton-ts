@@ -15,7 +15,15 @@ This is a TypeScript API library for Grenton smart home hardware modules. The co
 
 ### Directory Structure
 
-Each hardware module has its own directory named after the device type (e.g., `roller-shutter-din-3`, `digital-in-din`, `analog-din`). Inside each module directory, subfolders use the naming convention `fwtype-XX-fwapiver-YY` or `fvXX_YY` to version the firmware type and API version.
+Each XML interface file maps to its own subfolder directly under `src/`, named after the XML filename without the `.xml` extension. This guarantees no collisions even when different XML files define objects with the same name.
+
+Examples:
+- `src/interfaces/module_dimm_fv10_0.xml` → `src/module_dimm_fv10_0/`
+- `src/interfaces/module_2_0_DIMMER_MOSFET_DIN_fv01_02.xml` → `src/module_2_0_DIMMER_MOSFET_DIN_fv01_02/`
+- `src/interfaces/object_http_request_v1.xml` → `src/object_http_request_v1/`
+- `src/interfaces/clu_GATE_HTTP_ft00000003_fv00000578_ht00000012_hv00000002.xml` → `src/clu_GATE_HTTP_ft00000003_fv00000578_ht00000012_hv00000002/`
+
+Imports from these subfolders reference core utilities with a single `../` prefix (e.g., `"../core/execution-builder"`).
 
 ### Core Pattern
 
@@ -58,6 +66,3 @@ Enum values are numeric IDs that map to the firmware API.
 - `core/remote-gate.ts`: `RemoteGate` class for executing scripts on remote CLUs
 - `core/execution-builder.ts`: Builder pattern for constructing remote execution command strings
 
-### Foders
-- All GATE class files go to gate folder
-- All non GATE class files go to clu folder

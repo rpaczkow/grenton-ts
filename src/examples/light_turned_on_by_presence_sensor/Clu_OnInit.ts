@@ -1,8 +1,8 @@
 // Script: switches on light when presence sensor is triggered.
 
-import * as dIn from "../../digital-in-din/fv02_01/din"
-import * as dOut from "../../io-module-din-8/fv02_02/dout"
-import * as pre from "../../clu/presence-sensor/v2/presence-sensor"
+import * as dIn from "../../module_2_0_DIGITAL_IN_DIN_fv01_02/din"
+import * as dOut from "../../module_2_0_IO_MODULE_DIN_8_fv02_02/dout"
+import * as pre from "../../object_presence_sensor_v2/presence-sensor"
 
 
 declare const DIN4819: dIn.DInRaw; //Presence sensor contact Object Id
