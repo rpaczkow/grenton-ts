@@ -45,7 +45,7 @@ interface IZwaveDin {
     /** Zdarzenie wywoływane po naciśnięciu przycisku na czas krótszy niż 500ms */
     addOnClick: (callback: () => void) => void
     /** Zwraca stan wejścia jako 0 lub 1 */
-    readonly value: number
+    readonly value: boolean
     /** Minimalny czas jaki musi minąć między naciśnięciami przycisku aby było ono zinterpretowane jako nowe naciśnięcie */
     inertion: number
     /** Czas po jakim po wciśnięciu i przytrzymaniu wyzwalane jest zdarzenie OnHold */
@@ -96,7 +96,7 @@ class ZwaveDin implements IZwaveDin {
     addOnClick(callback: () => void): void { this.onClickCallbacks.push(callback); }
 
     /** Zwraca stan wejścia jako 0 lub 1 */
-    get value(): number { return this.raw.get(PropertyType.Value); }
+    get value(): boolean { return this.raw.get(PropertyType.Value) === 1; }
     /** Minimalny czas jaki musi minąć między naciśnięciami przycisku */
     get inertion(): number { return this.raw.get(PropertyType.Inertion); }
     set inertion(val: number) { this.raw.set(PropertyType.Inertion, val); }
@@ -119,9 +119,9 @@ class ZwaveDinRemote implements IZwaveDin {
     addOnHold(_callback: () => void): void { /* Remote events are not supported */ }
     addOnClick(_callback: () => void): void { /* Remote events are not supported */ }
 
-    get value(): number {
+    get value(): boolean {
         const cmd = rawExecutionBuilderFactory(this.objectName).get().addParameter(PropertyType.Value).build();
-        return this.gate.runScript(cmd!);
+        return this.gate.runScript(cmd!) === 1;
     }
     get inertion(): number {
         const cmd = rawExecutionBuilderFactory(this.objectName).get().addParameter(PropertyType.Inertion).build();

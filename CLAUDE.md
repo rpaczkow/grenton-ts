@@ -41,7 +41,7 @@ All device wrappers follow the same architectural pattern:
       - when attribute set="true" generate property setter.
       - when attributes get="true" generate property getter.
       - when attributes set="true" and get="false" generate property getter and setter.
-      - when unit="bool", type="num", range="0-1" wrapper property check if raw object returns 0 or 1 and convert it to bool.
+      - when unit="bool", type="num", range="0-1" check if raw object returns 0 or 1 and convert it to bool.
 
    - For every <method/> in <methods /> node generate wrapper methods that run raw method. Raw method to run is defined in "call" attribute
    - For every <event/> in <events /> node generate event. Event name is in name attribute.

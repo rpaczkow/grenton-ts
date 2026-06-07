@@ -42,7 +42,7 @@ interface IDin {
     /** Zdarzenie wywoływane gdy wejście jest w stanie wysokim, pierwszy raz po upłynięciu czasu HoldDelay, a następnie cyklicznie co wartość HoldInterval */
     addOnHold: (callback: () => void) => void
     /** Zwraca stan wejścia jako 0 lub 1 */
-    readonly value: number
+    readonly value: boolean
     /** Minimalny czas jaki musi minąć między naciśnięciami przycisku aby było ono zinterpretowane jako nowe naciśnięcie */
     threshold: number
     /** Czas po jakim po wciśnięciu i przytrzymaniu wyzwalane jest zdarzenie OnHold */
@@ -87,7 +87,7 @@ class Din implements IDin {
     addOnLongPress(callback: () => void): void { this.onLongPressCallbacks.push(callback); }
     addOnHold(callback: () => void): void { this.onHoldCallbacks.push(callback); }
 
-    get value(): number { return this.raw.get(PropertyType.Value); }
+    get value(): boolean { return this.raw.get(PropertyType.Value) === 1; }
     get threshold(): number { return this.raw.get(PropertyType.Threshold); }
     set threshold(val: number) { this.raw.set(PropertyType.Threshold, val); }
     get holdDelay(): number { return this.raw.get(PropertyType.HoldDelay); }
@@ -106,9 +106,9 @@ class DinRemote implements IDin {
     addOnLongPress(_callback: () => void): void { /* Remote events are not supported */ }
     addOnHold(_callback: () => void): void { /* Remote events are not supported */ }
 
-    get value(): number {
+    get value(): boolean {
         const cmd = rawExecutionBuilderFactory(this.objectName).get().addParameter(PropertyType.Value).build();
-        return this.gate.runScript(cmd!);
+        return this.gate.runScript(cmd!) === 1;
     }
     get threshold(): number {
         const cmd = rawExecutionBuilderFactory(this.objectName).get().addParameter(PropertyType.Threshold).build();

@@ -53,7 +53,7 @@ interface IDin {
     /** Zdarzenie wywoływane po naciśnięciu przycisku na czas krótszy niż 500ms */
     addOnClick: (callback: () => void) => void
     /** Zwraca stan wejścia jako 0 lub 1 */
-    readonly value: number
+    readonly value: boolean
     /** Minimalny czas jaki musi minąć między naciśnięciami przycisku aby było ono zinterpretowane jako nowe naciśnięcie */
     intertion: number
     /** Czas po jakim po wciśnięciu i przytrzymaniu wyzwalane jest zdarzenie OnHold */
@@ -107,7 +107,7 @@ class Din implements IDin {
     addOnHold(callback: () => void): void { this.onHoldCallbacks.push(callback); }
     addOnClick(callback: () => void): void { this.onClickCallbacks.push(callback); }
 
-    get value(): number { return this.raw.get(PropertyType.Value); }
+    get value(): boolean { return this.raw.get(PropertyType.Value) === 1; }
     get intertion(): number { return this.raw.get(PropertyType.Intertion); }
     set intertion(val: number) { this.raw.set(PropertyType.Intertion, val); }
     get holdDelay(): number { return this.raw.get(PropertyType.HoldDelay); }
@@ -131,9 +131,9 @@ class DinRemote implements IDin {
     addOnHold(_callback: () => void): void { /* Remote events are not supported */ }
     addOnClick(_callback: () => void): void { /* Remote events are not supported */ }
 
-    get value(): number {
+    get value(): boolean {
         const cmd = rawExecutionBuilderFactory(this.objectName).get().addParameter(PropertyType.Value).build();
-        return this.gate.runScript(cmd!);
+        return this.gate.runScript(cmd!) === 1;
     }
     get intertion(): number {
         const cmd = rawExecutionBuilderFactory(this.objectName).get().addParameter(PropertyType.Intertion).build();
