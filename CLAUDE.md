@@ -31,6 +31,7 @@ here ended generate objects for clus
    - file with TS wrappers is named clu-zwave-2.ts
    - additionally create TS classes in src/clu-zwave-2/<version> folders for /clu/objects nodes. Find proper object_*.xml file, match by /clu/objects/object/@name and /clu/objects/object/@version
    - apply same rules for all clu_ZWAVE_ft*.xml (TS classes for these go to src/clu-zwave/<version>, including the /clu/objects co-location rule above)
+- Don't generate TS wrappers for clu_ft*.xml files.
 
 
 
