@@ -172,6 +172,28 @@ interface IThermostat {
     readonly controlOutValue: number
     /** Zwraca wartość temperatury na czujniku */
     readonly currentTemp: number
+    /** Ustawienie tygodniowego harmonogramu */
+    setData: (data: string) => void
+    /** Ustawia minimalną wartość zakresu wbudowanego harmonogramu */
+    setMin: (min: number) => void
+    /** Ustawia maksymalną wartość zakresu wbudowanego harmonogramu */
+    setMax: (max: number) => void
+    /** Ustawia powiązanie termostatu z czujnikiem temperatury */
+    setSource: (source: any) => void
+    /** Ustawia powiązanie termostatu z wyjściem sterującym */
+    setControl: (control: any) => void
+    /** Ustawia wartość ręcznie zadanej temperatury */
+    setPointValue: (pointValue: number) => void
+    /** Ustawia wartość temperatury dla trybu wakacyjnego */
+    setHolidayModeValue: (holidayModeValue: number) => void
+    /** Ustawia wartość histerezy */
+    setHysteresis: (hysteresis: number) => void
+    /**
+     * Ustawia kierunek pracy:
+     * Normal - tryb normalny (grzanie)
+     * Reverse - tryb odwrotny (chłodzenie)
+     */
+    setControlDirection: (controlDirection: ControlDirectionType) => void
 }
 
 class Thermostat implements IThermostat {
@@ -434,6 +456,46 @@ class Thermostat implements IThermostat {
     }
     set control(value: any) {
         this.raw.set(PropertyType.Control, value);
+    }
+    /** Ustawienie tygodniowego harmonogramu */
+    setData(data: string): void {
+        this.raw.set(PropertyType.Data, data);
+    }
+    /** Ustawia minimalną wartość zakresu wbudowanego harmonogramu */
+    setMin(min: number): void {
+        this.raw.set(PropertyType.Min, min);
+    }
+    /** Ustawia maksymalną wartość zakresu wbudowanego harmonogramu */
+    setMax(max: number): void {
+        this.raw.set(PropertyType.Max, max);
+    }
+    /** Ustawia powiązanie termostatu z czujnikiem temperatury */
+    setSource(source: any): void {
+        this.raw.set(PropertyType.Source, source);
+    }
+    /** Ustawia powiązanie termostatu z wyjściem sterującym */
+    setControl(control: any): void {
+        this.raw.set(PropertyType.Control, control);
+    }
+    /** Ustawia wartość ręcznie zadanej temperatury */
+    setPointValue(pointValue: number): void {
+        this.raw.set(PropertyType.PointValue, pointValue);
+    }
+    /** Ustawia wartość temperatury dla trybu wakacyjnego */
+    setHolidayModeValue(holidayModeValue: number): void {
+        this.raw.set(PropertyType.HolidayModeValue, holidayModeValue);
+    }
+    /** Ustawia wartość histerezy */
+    setHysteresis(hysteresis: number): void {
+        this.raw.set(PropertyType.Hysteresis, hysteresis);
+    }
+    /**
+     * Ustawia kierunek pracy:
+     * Normal - tryb normalny (grzanie)
+     * Reverse - tryb odwrotny (chłodzenie)
+     */
+    setControlDirection(controlDirection: ControlDirectionType): void {
+        this.raw.set(PropertyType.ControlDirection, controlDirection);
     }
 }
 
@@ -851,6 +913,100 @@ class ThermostatRemote implements IThermostat {
             .set()
             .addParameter(PropertyType.Control)
             .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawienie tygodniowego harmonogramu */
+    setData(data: string): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Data)
+            .addParameter(data)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia minimalną wartość zakresu wbudowanego harmonogramu */
+    setMin(min: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Min)
+            .addParameter(min)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia maksymalną wartość zakresu wbudowanego harmonogramu */
+    setMax(max: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Max)
+            .addParameter(max)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia powiązanie termostatu z czujnikiem temperatury */
+    setSource(source: any): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Source)
+            .addParameter(source)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia powiązanie termostatu z wyjściem sterującym */
+    setControl(control: any): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Control)
+            .addParameter(control)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia wartość ręcznie zadanej temperatury */
+    setPointValue(pointValue: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.PointValue)
+            .addParameter(pointValue)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia wartość temperatury dla trybu wakacyjnego */
+    setHolidayModeValue(holidayModeValue: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.HolidayModeValue)
+            .addParameter(holidayModeValue)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia wartość histerezy */
+    setHysteresis(hysteresis: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Hysteresis)
+            .addParameter(hysteresis)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Ustawia kierunek pracy:
+     * Normal - tryb normalny (grzanie)
+     * Reverse - tryb odwrotny (chłodzenie)
+     */
+    setControlDirection(controlDirection: ControlDirectionType): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.ControlDirection)
+            .addParameter(controlDirection)
             .build();
         this.gate.runScript(cmd!);
     }

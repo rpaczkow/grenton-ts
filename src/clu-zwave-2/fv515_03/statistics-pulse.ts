@@ -53,6 +53,11 @@ interface IStatisticsPulse {
     load: number
     /** Statystyki są wysyłane na podstawie zliczania impulsów za pomocą metody TriggerPulse, oraz zadeklarowanej wartości dla jednego impulsu wyrażonej w watach lub m³. Wartość Value przedtsaiwa aktualną wartość do wysłania na serwer. */
     statisticTypePulse: StatisticTypePulseType
+    /** Ustawia wartość cechy Value. */
+    setValue: (value: number) => void
+    setStatisticState: (value: StatisticStateType) => void
+    setLoad: (value: number) => void
+    setStatisticTypePulse: (value: StatisticTypePulseType) => void
 }
 
 class StatisticsPulse implements IStatisticsPulse {
@@ -110,6 +115,19 @@ class StatisticsPulse implements IStatisticsPulse {
         return this.raw.get(PropertyType.StatisticTypePulse);
     }
     set statisticTypePulse(value: StatisticTypePulseType) {
+        this.raw.set(PropertyType.StatisticTypePulse, value);
+    }
+    /** Ustawia wartość cechy Value. */
+    setValue(value: number): void {
+        this.raw.set(PropertyType.Value, value);
+    }
+    setStatisticState(value: StatisticStateType): void {
+        this.raw.set(PropertyType.StatisticState, value);
+    }
+    setLoad(value: number): void {
+        this.raw.set(PropertyType.Load, value);
+    }
+    setStatisticTypePulse(value: StatisticTypePulseType): void {
         this.raw.set(PropertyType.StatisticTypePulse, value);
     }
 }
@@ -203,6 +221,43 @@ class StatisticsPulseRemote implements IStatisticsPulse {
     }
 
     set statisticTypePulse(value: StatisticTypePulseType) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.StatisticTypePulse)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia wartość cechy Value. */
+    setValue(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Value)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    setStatisticState(value: StatisticStateType): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.StatisticState)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    setLoad(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Load)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    setStatisticTypePulse(value: StatisticTypePulseType): void {
         const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
             .set()
             .addParameter(PropertyType.StatisticTypePulse)

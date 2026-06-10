@@ -94,6 +94,12 @@ interface IZwaveLedrgb {
     readonly greenValue: number
     /** Wartość składowej B(0-255) - kolor niebieski */
     readonly blueValue: number
+    /** Ustawia czas narastania wartości barwy i jasności */
+    setRampTime: (value: number) => void
+    /** Ustawia maksymalną wartość dla Value */
+    setMaxValue: (value: number) => void
+    /** Ustawia minimalną wartość dla Value */
+    setMinValue: (value: number) => void
     /** Ustawia wartość wyjścia według modelu HSV (zakres 0.00-1.00) */
     setValue: (value: number, ramp?: number) => void
     /** Ustawia wartość barwy (0-360) */
@@ -180,6 +186,9 @@ class ZwaveLedrgb implements IZwaveLedrgb {
     get greenValue(): number { return this.raw.get(PropertyType.GreenValue); }
     get blueValue(): number { return this.raw.get(PropertyType.BlueValue); }
 
+    setRampTime(value: number): void { this.raw.set(PropertyType.RampTime, value); }
+    setMaxValue(value: number): void { this.raw.set(PropertyType.MaxValue, value); }
+    setMinValue(value: number): void { this.raw.set(PropertyType.MinValue, value); }
     setValue(value: number, ramp: number = 500): void { this.raw.execute(MethodType.SetValue, value, ramp); }
     setHue(value: number, ramp: number = 500): void { this.raw.execute(MethodType.SetHue, value, ramp); }
     setSaturation(value: number, ramp: number = 500): void { this.raw.execute(MethodType.SetSaturation, value, ramp); }
@@ -285,6 +294,18 @@ class ZwaveLedrgbRemote implements IZwaveLedrgb {
         return this.gate.runScript(cmd!);
     }
 
+    setRampTime(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.RampTime).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMaxValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MaxValue).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMinValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MinValue).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
     setValue(value: number, ramp: number = 500): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SetValue).addParameter(value).addParameter(ramp).build();
         this.gate.runScript(cmd!);

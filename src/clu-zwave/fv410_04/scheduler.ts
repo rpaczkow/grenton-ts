@@ -56,14 +56,29 @@ interface IScheduler {
     stop: () => void
     /** Ciąg znaków definiujący harmonogram zmian wartości */
     data: string
+    /**
+     * Ustawienie tygodniowego harmonogramu
+     * @param {string} data
+     */
+    setData: (data: string) => void
     /** Stan działania harmonogramu: 1 - harmonogram aktywny, 0 - harmonogram nieaktywny */
     readonly state: StateType
     /** Wartość wyjściowa zmieniana co 15 minut zgodnie z harmonogramem */
     readonly value: number
     /** Minimalna wartość dla ustawienia zakresu wartości interfejsu graficznego */
     min: number
+    /**
+     * Ustawienie minimalnej wartości dla zakresu wartości interfejsu graficznego
+     * @param {number} min
+     */
+    setMin: (min: number) => void
     /** Maksymalna wartość dla ustawienia zakresu wartości interfejsu graficznego */
     max: number
+    /**
+     * Ustawienie maksymalnej wartości dla zakresu wartości interfejsu graficznego
+     * @param {number} max
+     */
+    setMax: (max: number) => void
 }
 
 class Scheduler implements IScheduler {
@@ -131,6 +146,13 @@ class Scheduler implements IScheduler {
         this.raw.set(PropertyType.Data, value);
     }
     /**
+     * Ustawienie tygodniowego harmonogramu
+     * @param {string} data
+     */
+    setData(data: string): void {
+        this.raw.set(PropertyType.Data, data);
+    }
+    /**
      * Stan działania harmonogramu: 1 - harmonogram aktywny, 0 - harmonogram nieaktywny
      * @returns {StateType}
      */
@@ -155,6 +177,13 @@ class Scheduler implements IScheduler {
         this.raw.set(PropertyType.Min, value);
     }
     /**
+     * Ustawienie minimalnej wartości dla zakresu wartości interfejsu graficznego
+     * @param {number} min
+     */
+    setMin(min: number): void {
+        this.raw.set(PropertyType.Min, min);
+    }
+    /**
      * Maksymalna wartość dla ustawienia zakresu wartości interfejsu graficznego
      * @returns {number}
      */
@@ -163,6 +192,13 @@ class Scheduler implements IScheduler {
     }
     set max(value: number) {
         this.raw.set(PropertyType.Max, value);
+    }
+    /**
+     * Ustawienie maksymalnej wartości dla zakresu wartości interfejsu graficznego
+     * @param {number} max
+     */
+    setMax(max: number): void {
+        this.raw.set(PropertyType.Max, max);
     }
 }
 
@@ -233,6 +269,19 @@ class SchedulerRemote implements IScheduler {
     }
 
     /**
+     * Ustawienie tygodniowego harmonogramu
+     * @param {string} data
+     */
+    setData(data: string): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Data)
+            .addParameter(data)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
      * Stan działania harmonogramu: 1 - harmonogram aktywny, 0 - harmonogram nieaktywny
      * @returns {StateType}
      */
@@ -278,6 +327,19 @@ class SchedulerRemote implements IScheduler {
     }
 
     /**
+     * Ustawienie minimalnej wartości dla zakresu wartości interfejsu graficznego
+     * @param {number} min
+     */
+    setMin(min: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Min)
+            .addParameter(min)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
      * Maksymalna wartość dla ustawienia zakresu wartości interfejsu graficznego
      * @returns {number}
      */
@@ -294,6 +356,19 @@ class SchedulerRemote implements IScheduler {
             .set()
             .addParameter(PropertyType.Max)
             .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Ustawienie maksymalnej wartości dla zakresu wartości interfejsu graficznego
+     * @param {number} max
+     */
+    setMax(max: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Max)
+            .addParameter(max)
             .build();
         this.gate.runScript(cmd!);
     }

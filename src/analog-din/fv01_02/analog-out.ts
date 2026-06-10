@@ -100,8 +100,18 @@ interface IAnalogOut {
     setRamp: (ramp: number) => void
     /** Wartość minimalna po przekroczeniu której generowane jest zdarzenie OnOutRange */
     minValue: number
+    /**
+     * Ustawia wartość minimalną
+     * @param {number} minValue
+     */
+    setMinValue: (minValue: number) => void
     /** Wartość maksymalna po przekroczeniu której generowane jest zdarzenie OnOutRange */
     maxValue: number
+    /**
+     * Ustawia wartość maksymalną
+     * @param {number} maxValue
+     */
+    setMaxValue: (maxValue: number) => void
     /**
      * Zmniejsza lub zwiększa wartość wyjścia z użyciem rampy podanej w parametrze. Jeśli parametr rampy nie zostanie podany, używa rampy domyślnej
      * @param {number} ramp
@@ -213,11 +223,17 @@ class AnalogOut implements IAnalogOut {
     set minValue(value: number) {
         this.raw.set(PropertyType.MinValue, value);
     }
+    setMinValue(minValue: number): void {
+        this.raw.set(PropertyType.MinValue, minValue);
+    }
     get maxValue(): number {
         return this.raw.get(PropertyType.MaxValue);
     }
     set maxValue(value: number) {
         this.raw.set(PropertyType.MaxValue, value);
+    }
+    setMaxValue(maxValue: number): void {
+        this.raw.set(PropertyType.MaxValue, maxValue);
     }
     holdValue(ramp: number): void {
         this.raw.execute(MethodType.HoldValue, ramp);
@@ -355,6 +371,14 @@ class AnalogOutRemote implements IAnalogOut {
             .build();
         this.gate.runScript(cmd!);
     }
+    setMinValue(minValue: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.MinValue)
+            .addParameter(minValue)
+            .build();
+        this.gate.runScript(cmd!);
+    }
     get maxValue(): number {
         const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
             .get()
@@ -367,6 +391,14 @@ class AnalogOutRemote implements IAnalogOut {
             .set()
             .addParameter(PropertyType.MaxValue)
             .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    setMaxValue(maxValue: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.MaxValue)
+            .addParameter(maxValue)
             .build();
         this.gate.runScript(cmd!);
     }

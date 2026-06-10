@@ -28,6 +28,8 @@ interface IZwaveWakeup {
     interval: number
     /** Czas ostatniego wybudzenia modułu Z-Wave z trybu uśpienia */
     readonly lastWakeUp: string
+    /** Ustawia okres samoczynnego wybudzania modułu Z-Wave z trybu uśpienia */
+    setInterval: (interval: number) => void
 }
 
 class ZwaveWakeup implements IZwaveWakeup {
@@ -44,6 +46,8 @@ class ZwaveWakeup implements IZwaveWakeup {
     get interval(): number { return this.raw.get(PropertyType.Interval); }
     set interval(val: number) { this.raw.set(PropertyType.Interval, val); }
     get lastWakeUp(): string { return this.raw.get(PropertyType.LastWakeUp); }
+
+    setInterval(interval: number): void { this.raw.set(PropertyType.Interval, interval); }
 }
 
 class ZwaveWakeupRemote implements IZwaveWakeup {
@@ -62,6 +66,11 @@ class ZwaveWakeupRemote implements IZwaveWakeup {
     get lastWakeUp(): string {
         const cmd = rawExecutionBuilderFactory(this.objectName).get().addParameter(PropertyType.LastWakeUp).build();
         return this.gate.runScript(cmd!);
+    }
+
+    setInterval(interval: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Interval).addParameter(interval).build();
+        this.gate.runScript(cmd!);
     }
 }
 

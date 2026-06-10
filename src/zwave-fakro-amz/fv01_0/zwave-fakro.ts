@@ -59,6 +59,8 @@ interface IZwaveFakro {
     stop: () => void
     /** Markiza do góry jeśli poprzednio ruch w dół, markiza w dół jeśli poprzednio ruch w górę */
     start: () => void
+    /** Ustawia wartość procentową, gdzie 100% - markiza otwarta */
+    setPercent: (value: number) => void
 }
 
 class ZwaveFakro implements IZwaveFakro {
@@ -100,6 +102,8 @@ class ZwaveFakro implements IZwaveFakro {
     down(): void { this.raw.execute(MethodType.Down); }
     stop(): void { this.raw.execute(MethodType.Stop); }
     start(): void { this.raw.execute(MethodType.Start); }
+
+    setPercent(value: number): void { this.raw.set(PropertyType.Percent, value); }
 }
 
 class ZwaveFakroRemote implements IZwaveFakro {
@@ -138,6 +142,11 @@ class ZwaveFakroRemote implements IZwaveFakro {
     }
     start(): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.Start).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setPercent(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Percent).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 }

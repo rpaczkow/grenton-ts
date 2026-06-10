@@ -146,26 +146,71 @@ interface IThermostat {
      * @param {ModeType} value
      */
     setMode: (value: ModeType) => void
+    /**
+     * Ustawia powiązanie termostatu z czujnikiem temperatury
+     * @param {any} source
+     */
+    setSource: (source: any) => void
+    /**
+     * Ustawia powiązanie termostatu z wyjściem sterującym
+     * @param {any} control
+     */
+    setControl: (control: any) => void
     /** Typ wyjścia: -1 - autodetekcja 0 - cyfrowe 1 - analogowe */
     readonly outputType: OutputTypeType
     /** Wartość ręcznie zadanej temperatury */
     pointValue: number
+    /**
+     * Ustawia wartość ręcznie zadanej temperatury
+     * @param {number} pointValue
+     */
+    setPointValue: (pointValue: number) => void
     /** Wartość temperatury dla trybu wakacyjnego */
     holidayModeValue: number
+    /**
+     * Ustawia wartość temperatury dla trybu wakacyjnego
+     * @param {number} holidayModeValue
+     */
+    setHolidayModeValue: (holidayModeValue: number) => void
     /** Wielkość histerezy */
     hysteresis: number
+    /**
+     * Ustawia wartość histerezy
+     * @param {number} hysteresis
+     */
+    setHysteresis: (hysteresis: number) => void
     /** Stan pracy: 1 - aktywny, 0 - zatrzymany */
     readonly state: StateType
     /** Kierunek pracy: 0 - tryb normalny (grzanie) 1 - tryb odwrotny (chłodzenie) */
     controlDirection: ControlDirectionType
+    /**
+     * Ustawia kierunek pracy: Normal - tryb normalny (grzanie) Reverse - tryb odwrotny (chłodzenie)
+     * @param {ControlDirectionType} controlDirection
+     */
+    setControlDirection: (controlDirection: ControlDirectionType) => void
     /** Tryb pracy: 0 - tryb ręczny (użycie PointValue) 1 - tryb wakacyjny (użycie HolidayModeValue) 2 - tryb automatyczny (użycie wartości z Harmonogramu - AutoMode) 3 - tryb podgrzewania (użycie wartości HeatUp) */
     readonly mode: ModeType
     /** Wartość cechy Data */
     data: string
+    /**
+     * Ustawienie tygodniowego harmonogramu
+     * @param {string} data
+     */
+    setData: (data: string) => void
     /** Dolna wartość zakresu wbudowanego harmonogramu */
     min: number
+    /**
+     * Ustawia minimalną wartość zakresu wbudowanego harmonogramu
+     * @param {number} min
+     */
+    setMin: (min: number) => void
     /** Górna wartość zakresu wbudowanego harmonogramu */
     max: number
+    /**
+     * Ustawia maksymalną wartość zakresu wbudowanego harmonogramu
+     * @param {number} max
+     */
+    setMax: (max: number) => void
     /** Zwraca aktualną wartość docelowej temperatury, w odróżnieniu od SetPoint uwzględnia status AutoMode i HolidayMode */
     readonly targetTemp: number
     /** Wartość przypisywana do wyjścia sterującego ogrzewaniem */
@@ -318,6 +363,20 @@ class Thermostat implements IThermostat {
         this.raw.set(PropertyType.Mode, value);
     }
     /**
+     * Ustawia powiązanie termostatu z czujnikiem temperatury
+     * @param {any} source
+     */
+    setSource(source: any): void {
+        this.raw.set(PropertyType.Source, source);
+    }
+    /**
+     * Ustawia powiązanie termostatu z wyjściem sterującym
+     * @param {any} control
+     */
+    setControl(control: any): void {
+        this.raw.set(PropertyType.Control, control);
+    }
+    /**
      * Typ wyjścia: -1 - autodetekcja 0 - cyfrowe 1 - analogowe
      * @returns {OutputTypeType}
      */
@@ -335,6 +394,13 @@ class Thermostat implements IThermostat {
         this.raw.set(PropertyType.PointValue, value);
     }
     /**
+     * Ustawia wartość ręcznie zadanej temperatury
+     * @param {number} pointValue
+     */
+    setPointValue(pointValue: number): void {
+        this.raw.set(PropertyType.PointValue, pointValue);
+    }
+    /**
      * Wartość temperatury dla trybu wakacyjnego
      * @returns {number}
      */
@@ -345,6 +411,13 @@ class Thermostat implements IThermostat {
         this.raw.set(PropertyType.HolidayModeValue, value);
     }
     /**
+     * Ustawia wartość temperatury dla trybu wakacyjnego
+     * @param {number} holidayModeValue
+     */
+    setHolidayModeValue(holidayModeValue: number): void {
+        this.raw.set(PropertyType.HolidayModeValue, holidayModeValue);
+    }
+    /**
      * Wielkość histerezy
      * @returns {number}
      */
@@ -353,6 +426,13 @@ class Thermostat implements IThermostat {
     }
     set hysteresis(value: number) {
         this.raw.set(PropertyType.Hysteresis, value);
+    }
+    /**
+     * Ustawia wartość histerezy
+     * @param {number} hysteresis
+     */
+    setHysteresis(hysteresis: number): void {
+        this.raw.set(PropertyType.Hysteresis, hysteresis);
     }
     /**
      * Stan pracy: 1 - aktywny, 0 - zatrzymany
@@ -372,6 +452,13 @@ class Thermostat implements IThermostat {
         this.raw.set(PropertyType.ControlDirection, value);
     }
     /**
+     * Ustawia kierunek pracy: Normal - tryb normalny (grzanie) Reverse - tryb odwrotny (chłodzenie)
+     * @param {ControlDirectionType} controlDirection
+     */
+    setControlDirection(controlDirection: ControlDirectionType): void {
+        this.raw.set(PropertyType.ControlDirection, controlDirection);
+    }
+    /**
      * Tryb pracy: 0 - tryb ręczny (użycie PointValue) 1 - tryb wakacyjny (użycie HolidayModeValue) 2 - tryb automatyczny (użycie wartości z Harmonogramu - AutoMode) 3 - tryb podgrzewania (użycie wartości HeatUp)
      * @returns {ModeType}
      */
@@ -389,6 +476,13 @@ class Thermostat implements IThermostat {
         this.raw.set(PropertyType.Data, value);
     }
     /**
+     * Ustawienie tygodniowego harmonogramu
+     * @param {string} data
+     */
+    setData(data: string): void {
+        this.raw.set(PropertyType.Data, data);
+    }
+    /**
      * Dolna wartość zakresu wbudowanego harmonogramu
      * @returns {number}
      */
@@ -399,6 +493,13 @@ class Thermostat implements IThermostat {
         this.raw.set(PropertyType.Min, value);
     }
     /**
+     * Ustawia minimalną wartość zakresu wbudowanego harmonogramu
+     * @param {number} min
+     */
+    setMin(min: number): void {
+        this.raw.set(PropertyType.Min, min);
+    }
+    /**
      * Górna wartość zakresu wbudowanego harmonogramu
      * @returns {number}
      */
@@ -407,6 +508,13 @@ class Thermostat implements IThermostat {
     }
     set max(value: number) {
         this.raw.set(PropertyType.Max, value);
+    }
+    /**
+     * Ustawia maksymalną wartość zakresu wbudowanego harmonogramu
+     * @param {number} max
+     */
+    setMax(max: number): void {
+        this.raw.set(PropertyType.Max, max);
     }
     /**
      * Zwraca aktualną wartość docelowej temperatury, w odróżnieniu od SetPoint uwzględnia status AutoMode i HolidayMode
@@ -619,6 +727,32 @@ class ThermostatRemote implements IThermostat {
     }
 
     /**
+     * Ustawia powiązanie termostatu z czujnikiem temperatury
+     * @param {any} source
+     */
+    setSource(source: any): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Source)
+            .addParameter(source)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Ustawia powiązanie termostatu z wyjściem sterującym
+     * @param {any} control
+     */
+    setControl(control: any): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Control)
+            .addParameter(control)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
      * Typ wyjścia: -1 - autodetekcja 0 - cyfrowe 1 - analogowe
      * @returns {OutputTypeType}
      */
@@ -652,6 +786,19 @@ class ThermostatRemote implements IThermostat {
     }
 
     /**
+     * Ustawia wartość ręcznie zadanej temperatury
+     * @param {number} pointValue
+     */
+    setPointValue(pointValue: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.PointValue)
+            .addParameter(pointValue)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
      * Wartość temperatury dla trybu wakacyjnego
      * @returns {number}
      */
@@ -673,6 +820,19 @@ class ThermostatRemote implements IThermostat {
     }
 
     /**
+     * Ustawia wartość temperatury dla trybu wakacyjnego
+     * @param {number} holidayModeValue
+     */
+    setHolidayModeValue(holidayModeValue: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.HolidayModeValue)
+            .addParameter(holidayModeValue)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
      * Wielkość histerezy
      * @returns {number}
      */
@@ -689,6 +849,19 @@ class ThermostatRemote implements IThermostat {
             .set()
             .addParameter(PropertyType.Hysteresis)
             .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Ustawia wartość histerezy
+     * @param {number} hysteresis
+     */
+    setHysteresis(hysteresis: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Hysteresis)
+            .addParameter(hysteresis)
             .build();
         this.gate.runScript(cmd!);
     }
@@ -727,6 +900,19 @@ class ThermostatRemote implements IThermostat {
     }
 
     /**
+     * Ustawia kierunek pracy: Normal - tryb normalny (grzanie) Reverse - tryb odwrotny (chłodzenie)
+     * @param {ControlDirectionType} controlDirection
+     */
+    setControlDirection(controlDirection: ControlDirectionType): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.ControlDirection)
+            .addParameter(controlDirection)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
      * Tryb pracy: 0 - tryb ręczny (użycie PointValue) 1 - tryb wakacyjny (użycie HolidayModeValue) 2 - tryb automatyczny (użycie wartości z Harmonogramu - AutoMode) 3 - tryb podgrzewania (użycie wartości HeatUp)
      * @returns {ModeType}
      */
@@ -760,6 +946,19 @@ class ThermostatRemote implements IThermostat {
     }
 
     /**
+     * Ustawienie tygodniowego harmonogramu
+     * @param {string} data
+     */
+    setData(data: string): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Data)
+            .addParameter(data)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
      * Dolna wartość zakresu wbudowanego harmonogramu
      * @returns {number}
      */
@@ -781,6 +980,19 @@ class ThermostatRemote implements IThermostat {
     }
 
     /**
+     * Ustawia minimalną wartość zakresu wbudowanego harmonogramu
+     * @param {number} min
+     */
+    setMin(min: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Min)
+            .addParameter(min)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
      * Górna wartość zakresu wbudowanego harmonogramu
      * @returns {number}
      */
@@ -797,6 +1009,19 @@ class ThermostatRemote implements IThermostat {
             .set()
             .addParameter(PropertyType.Max)
             .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Ustawia maksymalną wartość zakresu wbudowanego harmonogramu
+     * @param {number} max
+     */
+    setMax(max: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Max)
+            .addParameter(max)
             .build();
         this.gate.runScript(cmd!);
     }

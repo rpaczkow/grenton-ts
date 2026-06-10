@@ -64,6 +64,8 @@ interface ICalendar {
     cancelNext: (count?: number) => void
     /** Reguła kalendarza w formacie CRON lub ERROR w przypadku wprowadzenia błędnej reguły */
     rule: string
+    /** Ustawienie Reguły kalendarza */
+    setRule: (value: string) => void
     /** Czas w minutach od ostatniego spełnienia warunku reguły */
     readonly sinceLastRun: number
     /** Czas w minutach do następnego wywołania akcji kalendarza */
@@ -155,6 +157,10 @@ class Calendar implements ICalendar {
         return this.raw.get(PropertyType.Rule);
     }
     set rule(value: string) {
+        this.raw.set(PropertyType.Rule, value);
+    }
+    /** Ustawienie Reguły kalendarza */
+    setRule(value: string): void {
         this.raw.set(PropertyType.Rule, value);
     }
     /**
@@ -258,6 +264,16 @@ class CalendarRemote implements ICalendar {
     }
 
     set rule(value: string) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Rule)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawienie Reguły kalendarza */
+    setRule(value: string): void {
         const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
             .set()
             .addParameter(PropertyType.Rule)

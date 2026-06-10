@@ -121,6 +121,14 @@ interface ISunriseSunsetCalendar {
     start(): void
     /** Zatrzymuje kalendarz wschodów i zachodów słońca */
     stop(): void
+    /** Ustawia długość geograficzną w stopniach dziesiętnych (DD), zakres -180 do 180 */
+    setLongitude: (value: number) => void
+    /** Ustawia szerokość geograficzną w stopniach dziesiętnych (DD), zakres -90 do 90 */
+    setLatitude: (value: number) => void
+    /** Ustawia przesunięcie zdarzenia OnSunrise, wartość cechy SunriseOffset, zakres -1439 do 1439 */
+    setSunriseOffset: (value: number) => void
+    /** Ustawia przesunięcie zdarzenia OnSunset, wartość cechy SunsetOffset, zakres -1439 do 1439 */
+    setSunsetOffset: (value: number) => void
 }
 
 class SunriseSunsetCalendar implements ISunriseSunsetCalendar {
@@ -339,6 +347,22 @@ class SunriseSunsetCalendar implements ISunriseSunsetCalendar {
     /** Zatrzymuje kalendarz wschodów i zachodów słońca */
     stop(): void {
         this.raw.execute(MethodType.Stop);
+    }
+    /** Ustawia długość geograficzną w stopniach dziesiętnych (DD), zakres -180 do 180 */
+    setLongitude(value: number): void {
+        this.raw.set(PropertyType.Longitude, value);
+    }
+    /** Ustawia szerokość geograficzną w stopniach dziesiętnych (DD), zakres -90 do 90 */
+    setLatitude(value: number): void {
+        this.raw.set(PropertyType.Latitude, value);
+    }
+    /** Ustawia przesunięcie zdarzenia OnSunrise, wartość cechy SunriseOffset, zakres -1439 do 1439 */
+    setSunriseOffset(value: number): void {
+        this.raw.set(PropertyType.SunriseOffset, value);
+    }
+    /** Ustawia przesunięcie zdarzenia OnSunset, wartość cechy SunsetOffset, zakres -1439 do 1439 */
+    setSunsetOffset(value: number): void {
+        this.raw.set(PropertyType.SunsetOffset, value);
     }
 }
 
@@ -648,6 +672,46 @@ class SunriseSunsetCalendarRemote implements ISunriseSunsetCalendar {
         const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
             .execute()
             .addParameter(MethodType.Stop)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia długość geograficzną w stopniach dziesiętnych (DD), zakres -180 do 180 */
+    setLongitude(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Longitude)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia szerokość geograficzną w stopniach dziesiętnych (DD), zakres -90 do 90 */
+    setLatitude(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Latitude)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia przesunięcie zdarzenia OnSunrise, wartość cechy SunriseOffset, zakres -1439 do 1439 */
+    setSunriseOffset(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.SunriseOffset)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia przesunięcie zdarzenia OnSunset, wartość cechy SunsetOffset, zakres -1439 do 1439 */
+    setSunsetOffset(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.SunsetOffset)
+            .addParameter(value)
             .build();
         this.gate.runScript(cmd!);
     }

@@ -55,6 +55,12 @@ interface IDIn {
     holdInterval: number
     /** Zwraca procentową wartość sprzężenia między przewodami:\n0% - brak sprzężenia, gdy wejście wyłączone,\n1%-30% - małe sprzężenie pomiędzy przewodami, gdy wejście wyłączone,\n31%-90% - duże sprzężenie pomiędzy przewodami mogące powodować błędy (za długie przewody), gdy wejście wyłączone,\n91-110% - wejście fizycznie załączone */
     readonly coupling: number
+    /** Ustawia czas inercji wejścia */
+    setInertion: (value: number) => void
+    /** Ustawia wartość HoldDelay */
+    setHoldDelay: (value: number) => void
+    /** Ustawia wartość HoldInterval */
+    setHoldInterval: (value: number) => void
 }
 
 class DIn implements IDIn {
@@ -106,6 +112,10 @@ class DIn implements IDIn {
     get holdInterval(): number { return this.raw.get(PropertyType.HoldInterval); }
     set holdInterval(val: number) { this.raw.set(PropertyType.HoldInterval, val); }
     get coupling(): number { return this.raw.get(PropertyType.Coupling); }
+
+    setInertion(value: number): void { this.raw.set(PropertyType.Inertion, value); }
+    setHoldDelay(value: number): void { this.raw.set(PropertyType.HoldDelay, value); }
+    setHoldInterval(value: number): void { this.raw.set(PropertyType.HoldInterval, value); }
 }
 
 class DInRemote implements IDIn {
@@ -150,6 +160,19 @@ class DInRemote implements IDIn {
     get coupling(): number {
         const cmd = rawExecutionBuilderFactory(this.objectName).get().addParameter(PropertyType.Coupling).build();
         return this.gate.runScript(cmd!);
+    }
+
+    setInertion(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Inertion).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setHoldDelay(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.HoldDelay).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setHoldInterval(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.HoldInterval).addParameter(value).build();
+        this.gate.runScript(cmd!);
     }
 }
 

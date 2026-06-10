@@ -53,6 +53,14 @@ interface IZwaveDimmer {
     maxValue: number
     /** Wartość opóźnienia przy zmianie intensywności świecenia (w ms) */
     rampTime: number
+    /** Ustawia wartość ściemniacza */
+    setValue: (value: number) => void
+    /** Ustawia minimalną wartość ściemniacza */
+    setMinValue: (value: number) => void
+    /** Ustawia maksymalną wartość ściemniacza */
+    setMaxValue: (value: number) => void
+    /** Ustawia czas narastania wartości wyjścia */
+    setRampTime: (value: number) => void
     /** Przełącza stan ściemniacza na przeciwny (używając wartości MinValue i MaxValue) */
     switch: (time: number, rampTime?: number) => void
     /** Przełącza stan ściemniacza na włączony (używając wartości MaxValue) */
@@ -106,6 +114,11 @@ class ZwaveDimmer implements IZwaveDimmer {
     set maxValue(val: number) { this.raw.set(PropertyType.MaxValue, val); }
     get rampTime(): number { return this.raw.get(PropertyType.RampTime); }
     set rampTime(val: number) { this.raw.set(PropertyType.RampTime, val); }
+
+    setValue(value: number): void { this.raw.set(PropertyType.Value, value); }
+    setMinValue(value: number): void { this.raw.set(PropertyType.MinValue, value); }
+    setMaxValue(value: number): void { this.raw.set(PropertyType.MaxValue, value); }
+    setRampTime(value: number): void { this.raw.set(PropertyType.RampTime, value); }
 
     switch(time: number, rampTime: number = 0): void {
         this.raw.execute(MethodType.Switch, time, rampTime);
@@ -166,6 +179,23 @@ class ZwaveDimmerRemote implements IZwaveDimmer {
     }
     set rampTime(val: number) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.RampTime).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Value).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMinValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MinValue).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMaxValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MaxValue).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setRampTime(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.RampTime).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 

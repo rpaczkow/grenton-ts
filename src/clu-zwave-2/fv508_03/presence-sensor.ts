@@ -88,6 +88,8 @@ interface IPresenceSensor {
     setLocked: (locked: LockedType) => void
     /** Czas (w sekundach) od ostatniej aktywności, po którym wartość cechy PresenceDetected zostaje ustawione na 0 */
     timeout: number
+    /** Ustawia parametr Timeout (wyrażony w sekundach) */
+    setTimeout: (value: number) => void
     /** Ustawia Aktualny stan czujnika obecności, 1 - włączony, 0 - wyłączony */
     state: StateType
     /** Wartość mówiąca o wykryciu ruchu przez czujnik */
@@ -96,10 +98,14 @@ interface IPresenceSensor {
     readonly timeFromLastPresence: number
     /** Czas ignorowania DetectPresence po zmianie Locked On->Off */
     detectionDelay: number
+    /** Ustawia parametr DetectionDelay (wyrażony w sekundach) */
+    setDetectionDelay: (value: number) => void
     /** Stan zablokowania obecności. 0 - reagowanie na DetectPresence. 1 - podtrzymanie PresenceDetected jako 1. */
     readonly locked: LockedType
     /** Tryb działania obiektu w zależności od typu używanego czujnika ruchu: 0 - impulsowy, 1 - stanowy. */
     mode: ModeType
+    /** Ustawia parametr Mode */
+    setMode: (value: ModeType) => void
 }
 
 class PresenceSensor implements IPresenceSensor {
@@ -199,6 +205,10 @@ class PresenceSensor implements IPresenceSensor {
     set timeout(value: number) {
         this.raw.set(PropertyType.Timeout, value);
     }
+    /** Ustawia parametr Timeout (wyrażony w sekundach) */
+    setTimeout(value: number): void {
+        this.raw.set(PropertyType.Timeout, value);
+    }
     /**
      * Ustawia Aktualny stan czujnika obecności, 1 - włączony, 0 - wyłączony
      * @returns {StateType}
@@ -233,6 +243,10 @@ class PresenceSensor implements IPresenceSensor {
     set detectionDelay(value: number) {
         this.raw.set(PropertyType.DetectionDelay, value);
     }
+    /** Ustawia parametr DetectionDelay (wyrażony w sekundach) */
+    setDetectionDelay(value: number): void {
+        this.raw.set(PropertyType.DetectionDelay, value);
+    }
     /**
      * Stan zablokowania obecności. 0 - reagowanie na DetectPresence. 1 - podtrzymanie PresenceDetected jako 1.
      * @returns {LockedType}
@@ -248,6 +262,10 @@ class PresenceSensor implements IPresenceSensor {
         return this.raw.get(PropertyType.Mode);
     }
     set mode(value: ModeType) {
+        this.raw.set(PropertyType.Mode, value);
+    }
+    /** Ustawia parametr Mode */
+    setMode(value: ModeType): void {
         this.raw.set(PropertyType.Mode, value);
     }
 }
@@ -365,6 +383,16 @@ class PresenceSensorRemote implements IPresenceSensor {
         this.gate.runScript(cmd!);
     }
 
+    /** Ustawia parametr Timeout (wyrażony w sekundach) */
+    setTimeout(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Timeout)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
     /**
      * Ustawia Aktualny stan czujnika obecności, 1 - włączony, 0 - wyłączony
      * @returns {StateType}
@@ -431,6 +459,16 @@ class PresenceSensorRemote implements IPresenceSensor {
         this.gate.runScript(cmd!);
     }
 
+    /** Ustawia parametr DetectionDelay (wyrażony w sekundach) */
+    setDetectionDelay(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.DetectionDelay)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
     /**
      * Stan zablokowania obecności. 0 - reagowanie na DetectPresence. 1 - podtrzymanie PresenceDetected jako 1.
      * @returns {LockedType}
@@ -456,6 +494,16 @@ class PresenceSensorRemote implements IPresenceSensor {
     }
 
     set mode(value: ModeType) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Mode)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia parametr Mode */
+    setMode(value: ModeType): void {
         const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
             .set()
             .addParameter(PropertyType.Mode)

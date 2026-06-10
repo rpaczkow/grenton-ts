@@ -64,6 +64,11 @@ interface IPresenceSensor {
     detectPresence: () => void
     /** Czas (w sekundach) od ostatniej aktywności, po którym wartość cechy PresenceDetected zostaje ustawione na 0 */
     timeout: number
+    /**
+     * Ustawia parametr Timeout (wyrażony w sekundach)
+     * @param {number} timeout
+     */
+    setTimeout: (timeout: number) => void
     /** Ustawia Aktualny stan czujnika obecności, 1 - włączony, 0 - wyłączony */
     state: StateType
     /** Wartość mówiąca o wykryciu ruchu przez czujnik */
@@ -153,6 +158,13 @@ class PresenceSensor implements IPresenceSensor {
     }
     set timeout(value: number) {
         this.raw.set(PropertyType.Timeout, value);
+    }
+    /**
+     * Ustawia parametr Timeout (wyrażony w sekundach)
+     * @param {number} timeout
+     */
+    setTimeout(timeout: number): void {
+        this.raw.set(PropertyType.Timeout, timeout);
     }
     /**
      * Ustawia Aktualny stan czujnika obecności, 1 - włączony, 0 - wyłączony
@@ -258,6 +270,19 @@ class PresenceSensorRemote implements IPresenceSensor {
             .set()
             .addParameter(PropertyType.Timeout)
             .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Ustawia parametr Timeout (wyrażony w sekundach)
+     * @param {number} timeout
+     */
+    setTimeout(timeout: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Timeout)
+            .addParameter(timeout)
             .build();
         this.gate.runScript(cmd!);
     }

@@ -49,6 +49,12 @@ interface IDin {
     holdDelay: number
     /** Odstęp cykliczny w milisekundach, po jakim podczas trzymania przycisku wyzwalane są kolejne zdarzenia OnHold */
     holdInterval: number
+    /** Ustawia czas progu zadziałania wejścia */
+    setThreshold: (value: number) => void
+    /** Ustawia wartość HoldDelay */
+    setHoldDelay: (value: number) => void
+    /** Ustawia wartość HoldInterval */
+    setHoldInterval: (value: number) => void
 }
 
 class Din implements IDin {
@@ -94,6 +100,10 @@ class Din implements IDin {
     set holdDelay(val: number) { this.raw.set(PropertyType.HoldDelay, val); }
     get holdInterval(): number { return this.raw.get(PropertyType.HoldInterval); }
     set holdInterval(val: number) { this.raw.set(PropertyType.HoldInterval, val); }
+
+    setThreshold(value: number): void { this.raw.set(PropertyType.Threshold, value); }
+    setHoldDelay(value: number): void { this.raw.set(PropertyType.HoldDelay, value); }
+    setHoldInterval(value: number): void { this.raw.set(PropertyType.HoldInterval, value); }
 }
 
 class DinRemote implements IDin {
@@ -132,6 +142,19 @@ class DinRemote implements IDin {
     }
     set holdInterval(val: number) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.HoldInterval).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setThreshold(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Threshold).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setHoldDelay(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.HoldDelay).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setHoldInterval(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.HoldInterval).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 }

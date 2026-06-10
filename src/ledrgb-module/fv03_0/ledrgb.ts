@@ -124,6 +124,12 @@ interface ILedrgb {
     switchOff: (time: number, ramp?: number) => void
     /** Zmienia stan wyjścia na przeciwny. Pierwszy parametr to czas zmiany: 0 włącza wyjście na stałe, num na czas określony w parametrze. Drugi parametr to rampa jest opcjonalny, jeśli nie zostanie zdefiniowany przyjmowana jest wartość domyślna. */
     switch: (time: number, ramp?: number) => void
+    /** Ustawia czas narastania wartości barwy i jasności */
+    setRampTime: (rampTime: number) => void
+    /** Ustawia maksymalną wartość dla Value */
+    setMax: (value: number) => void
+    /** Ustawia minimalną wartość dla Value */
+    setMin: (value: number) => void
 }
 
 class Ledrgb implements ILedrgb {
@@ -198,6 +204,10 @@ class Ledrgb implements ILedrgb {
     switchOn(time: number, ramp: number = 0): void { this.raw.execute(MethodType.SwitchOn, time, ramp); }
     switchOff(time: number, ramp: number = 0): void { this.raw.execute(MethodType.SwitchOff, time, ramp); }
     switch(time: number, ramp: number = 0): void { this.raw.execute(MethodType.Switch, time, ramp); }
+
+    setRampTime(rampTime: number): void { this.raw.set(PropertyType.RampTime, rampTime); }
+    setMax(value: number): void { this.raw.set(PropertyType.MaxValue, value); }
+    setMin(value: number): void { this.raw.set(PropertyType.MinValue, value); }
 }
 
 class LedrgbRemote implements ILedrgb {
@@ -349,6 +359,19 @@ class LedrgbRemote implements ILedrgb {
     }
     switch(time: number, ramp: number = 0): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.Switch).addParameter(time).addParameter(ramp).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setRampTime(rampTime: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.RampTime).addParameter(rampTime).build();
+        this.gate.runScript(cmd!);
+    }
+    setMax(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MaxValue).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMin(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MinValue).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 }

@@ -53,6 +53,12 @@ interface IPush {
     readonly lastSendTime: string
     /** Interwał pomiędzy kolejnymi notyfikacjami */
     interval: number
+    /** Dodaje tekst do bufora wyjściowego (skrzynki nadawczej) */
+    setMessage: (text: string) => void
+    /** Dodaje tekst do tytułu */
+    setTitle: (text: string) => void
+    /** Ustawia interwał pomiędzy kolejnymi notyfikacjami */
+    setInterval: (value: number) => void
 }
 
 class Push implements IPush {
@@ -129,6 +135,18 @@ class Push implements IPush {
         return this.raw.get(PropertyType.Interval);
     }
     set interval(value: number) {
+        this.raw.set(PropertyType.Interval, value);
+    }
+    /** Dodaje tekst do bufora wyjściowego (skrzynki nadawczej) */
+    setMessage(text: string): void {
+        this.raw.set(PropertyType.Message, text);
+    }
+    /** Dodaje tekst do tytułu */
+    setTitle(text: string): void {
+        this.raw.set(PropertyType.Title, text);
+    }
+    /** Ustawia interwał pomiędzy kolejnymi notyfikacjami */
+    setInterval(value: number): void {
         this.raw.set(PropertyType.Interval, value);
     }
 }
@@ -247,6 +265,36 @@ class PushRemote implements IPush {
     }
 
     set interval(value: number) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Interval)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Dodaje tekst do bufora wyjściowego (skrzynki nadawczej) */
+    setMessage(text: string): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Message)
+            .addParameter(text)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Dodaje tekst do tytułu */
+    setTitle(text: string): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Title)
+            .addParameter(text)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia interwał pomiędzy kolejnymi notyfikacjami */
+    setInterval(value: number): void {
         const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
             .set()
             .addParameter(PropertyType.Interval)

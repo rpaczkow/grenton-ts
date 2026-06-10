@@ -66,8 +66,18 @@ interface ISunriseSunsetCalendar {
     addOnSunriseSunsetChange: (callback: () => void) => void
     /** Długość geograficzna w stopniach dziesiętnych (DD), zakres -180 do 180 */
     longitude: number
+    /**
+     * Ustawia długość geograficzną w stopniach dziesiętnych (DD), zakres -180 do 180
+     * @param {number} longitude
+     */
+    setLongitude: (longitude: number) => void
     /** Szerokość geograficzna w stopniach dziesiętnych (DD), zakres -90 do 90 */
     latitude: number
+    /**
+     * Ustawia szerokość geograficzną w stopniach dziesiętnych (DD), zakres -90 do 90
+     * @param {number} latitude
+     */
+    setLatitude: (latitude: number) => void
     /** Aktualny stan kalendarza wschodów i zachodów słońca, 1 - włączony, 0 - wyłączony */
     state: StateType
     /** Czas wschodu słońca dla ustawionej lokalizacji w UTC (± 5 minut) N\A - Brak możliwości wyliczenia wschodu słońca */
@@ -155,6 +165,13 @@ class SunriseSunsetCalendar implements ISunriseSunsetCalendar {
         this.raw.set(PropertyType.Longitude, value);
     }
     /**
+     * Ustawia długość geograficzną w stopniach dziesiętnych (DD), zakres -180 do 180
+     * @param {number} longitude
+     */
+    setLongitude(longitude: number): void {
+        this.raw.set(PropertyType.Longitude, longitude);
+    }
+    /**
      * Szerokość geograficzna w stopniach dziesiętnych (DD), zakres -90 do 90
      * @returns {number}
      */
@@ -163,6 +180,13 @@ class SunriseSunsetCalendar implements ISunriseSunsetCalendar {
     }
     set latitude(value: number) {
         this.raw.set(PropertyType.Latitude, value);
+    }
+    /**
+     * Ustawia szerokość geograficzną w stopniach dziesiętnych (DD), zakres -90 do 90
+     * @param {number} latitude
+     */
+    setLatitude(latitude: number): void {
+        this.raw.set(PropertyType.Latitude, latitude);
     }
     /**
      * Aktualny stan kalendarza wschodów i zachodów słońca, 1 - włączony, 0 - wyłączony
@@ -275,6 +299,19 @@ class SunriseSunsetCalendarRemote implements ISunriseSunsetCalendar {
     }
 
     /**
+     * Ustawia długość geograficzną w stopniach dziesiętnych (DD), zakres -180 do 180
+     * @param {number} longitude
+     */
+    setLongitude(longitude: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Longitude)
+            .addParameter(longitude)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
      * Szerokość geograficzna w stopniach dziesiętnych (DD), zakres -90 do 90
      * @returns {number}
      */
@@ -291,6 +328,19 @@ class SunriseSunsetCalendarRemote implements ISunriseSunsetCalendar {
             .set()
             .addParameter(PropertyType.Latitude)
             .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Ustawia szerokość geograficzną w stopniach dziesiętnych (DD), zakres -90 do 90
+     * @param {number} latitude
+     */
+    setLatitude(latitude: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Latitude)
+            .addParameter(latitude)
             .build();
         this.gate.runScript(cmd!);
     }

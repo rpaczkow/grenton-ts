@@ -42,6 +42,10 @@ interface IZwaveThermostat {
     pointValue: number
     /** Stan blokady klawiszy:\n0 - Off\n2 - On */
     protectionState: ProtectionStateType
+    /** Ustawia wartość zadanej temperatury w trybie automatycznym */
+    setPointValue: (value: number) => void
+    /** Ustawia stan blokady klawiszy:\n0 - Off\n2 - On */
+    setProtectionState: (value: ProtectionStateType) => void
 }
 
 class ZwaveThermostat implements IZwaveThermostat {
@@ -74,6 +78,9 @@ class ZwaveThermostat implements IZwaveThermostat {
     set pointValue(val: number) { this.raw.set(PropertyType.PointValue, val); }
     get protectionState(): ProtectionStateType { return this.raw.get(PropertyType.ProtectionState); }
     set protectionState(val: ProtectionStateType) { this.raw.set(PropertyType.ProtectionState, val); }
+
+    setPointValue(value: number): void { this.raw.set(PropertyType.PointValue, value); }
+    setProtectionState(value: ProtectionStateType): void { this.raw.set(PropertyType.ProtectionState, value); }
 }
 
 class ZwaveThermostatRemote implements IZwaveThermostat {
@@ -98,6 +105,15 @@ class ZwaveThermostatRemote implements IZwaveThermostat {
     }
     set protectionState(val: ProtectionStateType) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.ProtectionState).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setPointValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.PointValue).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setProtectionState(value: ProtectionStateType): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.ProtectionState).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 }

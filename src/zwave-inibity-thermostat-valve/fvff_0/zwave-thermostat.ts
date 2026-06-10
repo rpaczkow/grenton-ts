@@ -77,6 +77,12 @@ interface IZwaveThermostat {
     closeValve: () => void
     /** Pobiera aktualne dane z termostatu */
     getData: () => void
+    /** Ustawia tryb pracy termostatu\n0 - automatyczny\n1 - ręczny\n2 - off */
+    setMode: (value: ModeType) => void
+    /** Ustawia wartość zadanej temperatury w trybie automatycznym */
+    setPointValue: (value: number) => void
+    /** Ustawia stopień otwarcia zaworu w trybie ręcznym */
+    setValvePosition: (value: number) => void
 }
 
 class ZwaveThermostat implements IZwaveThermostat {
@@ -146,6 +152,10 @@ class ZwaveThermostat implements IZwaveThermostat {
     openValve(): void { this.raw.execute(MethodType.OpenValve); }
     closeValve(): void { this.raw.execute(MethodType.CloseValve); }
     getData(): void { this.raw.execute(MethodType.GetData); }
+
+    setMode(value: ModeType): void { this.raw.set(PropertyType.Mode, value); }
+    setPointValue(value: number): void { this.raw.set(PropertyType.PointValue, value); }
+    setValvePosition(value: number): void { this.raw.set(PropertyType.ValvePosition, value); }
 }
 
 class ZwaveThermostatRemote implements IZwaveThermostat {
@@ -201,6 +211,19 @@ class ZwaveThermostatRemote implements IZwaveThermostat {
     }
     getData(): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.GetData).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setMode(value: ModeType): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Mode).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setPointValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.PointValue).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setValvePosition(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.ValvePosition).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 }

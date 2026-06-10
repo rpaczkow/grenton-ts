@@ -63,6 +63,12 @@ interface IButton {
     holdDelay: number
     /** Odstęp cykliczny w milisekundach, po jakim podczas trzymania przycisku wyzwalane są kolejne zdarzenia OnHold */
     holdInterval: number
+    /** Ustawia wartość HoldDelay */
+    setHoldDelay: (value: number) => void
+    /** Ustawia wartość HoldInterval */
+    setHoldInterval: (value: number) => void
+    /** Ustawia tryb działania przycisku (0 - monostabilny, 1 - bistabilny, 2 - zablokowany). W trybie zablokowanym diody świecą na czerwono ciągłym światłem. */
+    setMode: (value: ModeType) => void
     /** Powoduje miganie zielonej diody na przycisku przez 2 sekundy (częstotliwość 500ms) */
     showOK: () => void
     /** Powoduje miganie czerwonej diody na przycisku przez 2 sekundy (częstotliwość 500ms) */
@@ -122,6 +128,10 @@ class Button implements IButton {
     get holdInterval(): number { return this.raw.get(PropertyType.HoldInterval); }
     set holdInterval(val: number) { this.raw.set(PropertyType.HoldInterval, val); }
 
+    setHoldDelay(value: number): void { this.raw.set(PropertyType.HoldDelay, value); }
+    setHoldInterval(value: number): void { this.raw.set(PropertyType.HoldInterval, value); }
+    setMode(value: ModeType): void { this.raw.set(PropertyType.Mode, value); }
+
     showOK(): void { this.raw.execute(MethodType.ShowOK); }
     showError(): void { this.raw.execute(MethodType.ShowError); }
     ledSwitchOn(): void { this.raw.execute(MethodType.LedSwitchOn); }
@@ -165,6 +175,19 @@ class ButtonRemote implements IButton {
     }
     set holdInterval(val: number) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.HoldInterval).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setHoldDelay(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.HoldDelay).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setHoldInterval(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.HoldInterval).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMode(value: ModeType): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Mode).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 

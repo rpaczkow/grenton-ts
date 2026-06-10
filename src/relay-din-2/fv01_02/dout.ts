@@ -83,6 +83,10 @@ interface IDOut {
     switchOff: (time?: number) => void
     /** Ustawia wartość mocy po przekroczeniu której generowane jest zdarzenie OnOverload */
     setOverload: (overload: number) => void
+    /** Ustawia wartość cechy VoltageType - rodzaj napięcia obciążenia */
+    setVoltageType: (voltage: VoltageType) => void
+    /** Ustawia wartość cechy VoltageValue - wartość napięcia obciążenia */
+    setVoltageValue: (value: number) => void
 }
 
 class DOut implements IDOut {
@@ -132,6 +136,8 @@ class DOut implements IDOut {
     switchOn(time: number = 0): void { this.raw.execute(MethodType.SwitchOn, time); }
     switchOff(time: number = 0): void { this.raw.execute(MethodType.SwitchOff, time); }
     setOverload(overload: number): void { this.raw.set(PropertyType.Overload, overload); }
+    setVoltageType(voltage: VoltageType): void { this.raw.set(PropertyType.VoltageType, voltage); }
+    setVoltageValue(value: number): void { this.raw.set(PropertyType.VoltageValue, value); }
 }
 
 class DOutRemote implements IDOut {
@@ -221,6 +227,14 @@ class DOutRemote implements IDOut {
     }
     setOverload(overload: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Overload).addParameter(overload).build();
+        this.gate.runScript(cmd!);
+    }
+    setVoltageType(voltage: VoltageType): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.VoltageType).addParameter(voltage).build();
+        this.gate.runScript(cmd!);
+    }
+    setVoltageValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.VoltageValue).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 }

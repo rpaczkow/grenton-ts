@@ -47,6 +47,8 @@ interface IDout {
     addOnSwitchOff: (callback: () => void) => void
     /** Zwraca stan wyjścia jako 1 lub 0 */
     value: ValueType
+    /** Ustawia stan wyjścia jako 1 lub 0 */
+    setValue: (value: ValueType) => void
     /** Włącza raportowanie pomiaru do modułu statystyk:\nOff - wyłączony,\nContinuous - pomiar obciążenia w całym okresie pracy urządzenia */
     statisticState: StatisticStateType
     /** Mnożnik mierzonej wartości. Dla StatisticState:\nContinuous - wartość zużycia w jednostce czasu */
@@ -87,6 +89,8 @@ class Dout implements IDout {
     get load(): number { return this.raw.get(PropertyType.Load); }
     set load(val: number) { this.raw.set(PropertyType.Load, val); }
 
+    setValue(value: ValueType): void { this.raw.set(PropertyType.Value, value); }
+
     switch(time: number = 0): void { this.raw.execute(MethodType.Switch, time); }
     switchOn(time: number = 0): void { this.raw.execute(MethodType.SwitchOn, time); }
     switchOff(time: number = 0): void { this.raw.execute(MethodType.SwitchOff, time); }
@@ -121,6 +125,11 @@ class DoutRemote implements IDout {
     }
     set load(val: number) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Load).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setValue(value: ValueType): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Value).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 

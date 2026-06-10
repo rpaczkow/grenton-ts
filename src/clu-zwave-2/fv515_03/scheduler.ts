@@ -64,6 +64,12 @@ interface IScheduler {
     min: number
     /** Maksymalna wartość dla ustawienia zakresu wartości interfejsu graficznego */
     max: number
+    /** Ustawienie tygodniowego harmonogramu */
+    setData: (data: string) => void
+    /** Ustawienie minimalnej wartości dla zakresu wartości interfejsu graficznego */
+    setMin: (min: number) => void
+    /** Ustawienie maksymalnej wartości dla zakresu wartości interfejsu graficznego */
+    setMax: (max: number) => void
 }
 
 class Scheduler implements IScheduler {
@@ -163,6 +169,18 @@ class Scheduler implements IScheduler {
     }
     set max(value: number) {
         this.raw.set(PropertyType.Max, value);
+    }
+    /** Ustawienie tygodniowego harmonogramu */
+    setData(data: string): void {
+        this.raw.set(PropertyType.Data, data);
+    }
+    /** Ustawienie minimalnej wartości dla zakresu wartości interfejsu graficznego */
+    setMin(min: number): void {
+        this.raw.set(PropertyType.Min, min);
+    }
+    /** Ustawienie maksymalnej wartości dla zakresu wartości interfejsu graficznego */
+    setMax(max: number): void {
+        this.raw.set(PropertyType.Max, max);
     }
 }
 
@@ -294,6 +312,36 @@ class SchedulerRemote implements IScheduler {
             .set()
             .addParameter(PropertyType.Max)
             .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawienie tygodniowego harmonogramu */
+    setData(data: string): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Data)
+            .addParameter(data)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawienie minimalnej wartości dla zakresu wartości interfejsu graficznego */
+    setMin(min: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Min)
+            .addParameter(min)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawienie maksymalnej wartości dla zakresu wartości interfejsu graficznego */
+    setMax(max: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Max)
+            .addParameter(max)
             .build();
         this.gate.runScript(cmd!);
     }

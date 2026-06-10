@@ -40,6 +40,8 @@ interface IDout {
     addOnSwitchOff: (callback: () => void) => void
     /** Zwraca stan wyjścia jako 1 lub 0 */
     value: ValueType
+    /** Ustawia stan wyjścia jako 1 lub 0 */
+    setValue: (value: ValueType) => void
     /** Zmienia stan wyjścia na przeciwny. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała */
     switch: (time?: number) => void
     /** Załącza wyjście. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała */
@@ -72,6 +74,8 @@ class Dout implements IDout {
     get value(): ValueType { return this.raw.get(PropertyType.Value); }
     set value(val: ValueType) { this.raw.set(PropertyType.Value, val); }
 
+    setValue(value: ValueType): void { this.raw.set(PropertyType.Value, value); }
+
     switch(time: number = 0): void { this.raw.execute(MethodType.Switch, time); }
     switchOn(time: number = 0): void { this.raw.execute(MethodType.SwitchOn, time); }
     switchOff(time: number = 0): void { this.raw.execute(MethodType.SwitchOff, time); }
@@ -90,6 +94,11 @@ class DoutRemote implements IDout {
     }
     set value(val: ValueType) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Value).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setValue(value: ValueType): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Value).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 

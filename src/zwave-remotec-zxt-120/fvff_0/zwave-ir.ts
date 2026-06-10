@@ -63,6 +63,12 @@ interface IZwaveIr {
     readonly learningStatus: number
     /** Wielokierunkowa transmisja sygnału IR:\n0 - Disable (wyłączona),\n255 - Enable (załączona) */
     surroundIrControl: SurroundIrControlType
+    /** Ustawia numer urządzenia AC z wewnętrznej biblioteki kodów IR */
+    setAcDeviceNumber: (acDeviceNumber: number) => void
+    /** Ustawia moc zewnętrznego nadajnika podczerwieni */
+    setEmitterPower: (emitterPower: EmitterPowerType) => void
+    /** Ustawia wielokierunkowość sygnału IR */
+    setSurroundIrControl: (surroundIrControl: SurroundIrControlType) => void
 }
 
 class ZwaveIr implements IZwaveIr {
@@ -106,6 +112,10 @@ class ZwaveIr implements IZwaveIr {
     get learningStatus(): number { return this.raw.get(PropertyType.LearningStatus); }
     get surroundIrControl(): SurroundIrControlType { return this.raw.get(PropertyType.SurroundIrControl); }
     set surroundIrControl(val: SurroundIrControlType) { this.raw.set(PropertyType.SurroundIrControl, val); }
+
+    setAcDeviceNumber(acDeviceNumber: number): void { this.raw.set(PropertyType.AcDeviceNumber, acDeviceNumber); }
+    setEmitterPower(emitterPower: EmitterPowerType): void { this.raw.set(PropertyType.EmitterPower, emitterPower); }
+    setSurroundIrControl(surroundIrControl: SurroundIrControlType): void { this.raw.set(PropertyType.SurroundIrControl, surroundIrControl); }
 }
 
 class ZwaveIrRemote implements IZwaveIr {
@@ -152,6 +162,19 @@ class ZwaveIrRemote implements IZwaveIr {
     }
     set surroundIrControl(val: SurroundIrControlType) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.SurroundIrControl).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setAcDeviceNumber(acDeviceNumber: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.AcDeviceNumber).addParameter(acDeviceNumber).build();
+        this.gate.runScript(cmd!);
+    }
+    setEmitterPower(emitterPower: EmitterPowerType): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.EmitterPower).addParameter(emitterPower).build();
+        this.gate.runScript(cmd!);
+    }
+    setSurroundIrControl(surroundIrControl: SurroundIrControlType): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.SurroundIrControl).addParameter(surroundIrControl).build();
         this.gate.runScript(cmd!);
     }
 }

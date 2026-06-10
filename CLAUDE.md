@@ -51,13 +51,16 @@ All device wrappers follow the same architectural pattern:
    - Registers single handlers on raw interface that dispatch to all registered callbacks
    - Exposes typed methods and properties using enums
    - Contains comments in Polish. Comments are taken from text-resources folder.
-   - For every <feature /> in <features /> node generate wrapper property
+   - For every //features/feature node generate wrapper property
       - when attribute set="true" generate property setter.
       - when attributes get="true" generate property getter.
       - when attributes set="true" and get="false" generate property getter and setter.
       - when unit="bool", type="num", range="0-1" check if raw object returns 0 or 1 and convert it to bool.
-
-   - For every <method/> in <methods /> node generate wrapper methods that run raw method. Raw method to run is defined in "call" attribute
+   - For every //methods/method node generate a wrapper method, regardless of its "call" attribute:
+      - call="execute": method calls `raw.execute(MethodType.X, ...args)` (Remote: `.execute().addParameter(MethodType.X)...`)
+      - call="set": method calls `raw.set(PropertyType.X, value)` (Remote: `.set().addParameter(PropertyType.X).addParameter(value)...`). This is generated IN ADDITION TO the corresponding feature property setter (//features/feature with set="true") - the two are not mutually exclusive, even though they wrap the same underlying call.
+      - call="get": method calls `raw.get(PropertyType.X)` (Remote: `.get().addParameter(PropertyType.X)...`), in addition to the corresponding feature property getter.
+      - Method name is the camelCase form of the method's "name" attribute (e.g. SetValue -> setValue).
    - For every <event/> in <events /> node generate event. Event name is in name attribute.
 
 3. **Remote Variant** (`*Remote` classes): For cross-gate communication via `RemoteGate`, uses `rawExecutionBuilderFactory` to build command strings. Remote events are not supported.

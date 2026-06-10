@@ -56,6 +56,8 @@ interface IDOut {
     readonly powerOnTime: number
     /** Sumaryczny pobór energii liczony od uruchomienia urządzenia lub wywołania metody ResetPowerStatistics */
     readonly powerConsumption: number
+    /** Ustawia stan wyjścia jako 1 lub 0 */
+    setValue: (value: boolean) => void
 }
 
 class DOut implements IDOut {
@@ -91,6 +93,8 @@ class DOut implements IDOut {
     get load(): number { return this.raw.get(PropertyType.Load); }
     get powerOnTime(): number { return this.raw.get(PropertyType.PowerOnTime); }
     get powerConsumption(): number { return this.raw.get(PropertyType.PowerConsumption); }
+
+    setValue(value: boolean): void { this.raw.set(PropertyType.Value, value ? 1 : 0); }
 }
 
 class DOutRemote implements IDOut {
@@ -144,6 +148,11 @@ class DOutRemote implements IDOut {
     get powerConsumption(): number {
         const cmd = rawExecutionBuilderFactory(this.objectName).get().addParameter(PropertyType.PowerConsumption).build();
         return this.gate.runScript(cmd!);
+    }
+
+    setValue(value: boolean): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Value).addParameter(value ? 1 : 0).build();
+        this.gate.runScript(cmd!);
     }
 }
 

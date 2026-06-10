@@ -37,6 +37,8 @@ interface IZwaveBattery {
     readonly batteryLevel: number
     /** Poziom baterii modułu Z-Wave, poniżej którego generowane są zdarzenia ostrzegawcze */
     warningLevel: number
+    /** Ustawia poziom ostrzegawczy baterii modułu Z-Wave */
+    setWarningLevel: (value: number) => void
 }
 
 class ZwaveBattery implements IZwaveBattery {
@@ -68,6 +70,8 @@ class ZwaveBattery implements IZwaveBattery {
     get batteryLevel(): number { return this.raw.get(PropertyType.BatteryLevel); }
     get warningLevel(): number { return this.raw.get(PropertyType.WarningLevel); }
     set warningLevel(val: number) { this.raw.set(PropertyType.WarningLevel, val); }
+
+    setWarningLevel(value: number): void { this.raw.set(PropertyType.WarningLevel, value); }
 }
 
 class ZwaveBatteryRemote implements IZwaveBattery {
@@ -88,6 +92,11 @@ class ZwaveBatteryRemote implements IZwaveBattery {
     }
     set warningLevel(val: number) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.WarningLevel).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setWarningLevel(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.WarningLevel).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 }

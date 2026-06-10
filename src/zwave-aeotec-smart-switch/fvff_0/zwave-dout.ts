@@ -46,6 +46,8 @@ interface IZwaveDout {
     switchOn: (time?: number) => void
     /** Wyłącza wyjście. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała */
     switchOff: (time?: number) => void
+    /** Ustawia stan wyjścia jako 1 lub 0 */
+    setValue: (value: ValueType) => void
 }
 
 class ZwaveDout implements IZwaveDout {
@@ -75,6 +77,8 @@ class ZwaveDout implements IZwaveDout {
     switch(time: number = 0): void { this.raw.execute(MethodType.Switch, time); }
     switchOn(time: number = 0): void { this.raw.execute(MethodType.SwitchOn, time); }
     switchOff(time: number = 0): void { this.raw.execute(MethodType.SwitchOff, time); }
+
+    setValue(value: ValueType): void { this.raw.set(PropertyType.Value, value); }
 }
 
 class ZwaveDoutRemote implements IZwaveDout {
@@ -103,6 +107,11 @@ class ZwaveDoutRemote implements IZwaveDout {
     }
     switchOff(time: number = 0): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SwitchOff).addParameter(time).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setValue(value: ValueType): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Value).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 }

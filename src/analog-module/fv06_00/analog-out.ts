@@ -60,6 +60,18 @@ interface IAnalogOut {
     minValue: number
     /** Wartość maksymalna po przekroczeniu której generowane jest zdarzenie OnOutRange */
     maxValue: number
+    /** Ustawia wartość wyjścia (0.0-10.0V) */
+    setValue: (value: number) => void
+    /** Ustawia wartość po przeskalowaniu */
+    setScaledValue: (value: number) => void
+    /** Ustawia skalę */
+    setScale: (value: number) => void
+    /** Ustawia czas narastania */
+    setRamp: (value: number) => void
+    /** Ustawia wartość minimalną */
+    setMin: (value: number) => void
+    /** Ustawia wartość maksymalną */
+    setMax: (value: number) => void
     /** Zmniejsza lub zwiększa wartość wyjścia z użyciem rampy podanej w parametrze. Jeśli parametr rampy nie zostanie podany, używa rampy domyślnej */
     hold: (ramp: number) => void
     /** Przełącza stan wyjścia na przeciwny (MinValue - MaxValue) */
@@ -118,6 +130,13 @@ class AnalogOut implements IAnalogOut {
     set minValue(val: number) { this.raw.set(PropertyType.MinValue, val); }
     get maxValue(): number { return this.raw.get(PropertyType.MaxValue); }
     set maxValue(val: number) { this.raw.set(PropertyType.MaxValue, val); }
+
+    setValue(value: number): void { this.raw.set(PropertyType.Value, value); }
+    setScaledValue(value: number): void { this.raw.set(PropertyType.ScaledValue, value); }
+    setScale(value: number): void { this.raw.set(PropertyType.Scale, value); }
+    setRamp(value: number): void { this.raw.set(PropertyType.Ramp, value); }
+    setMin(value: number): void { this.raw.set(PropertyType.MinValue, value); }
+    setMax(value: number): void { this.raw.set(PropertyType.MaxValue, value); }
 
     hold(ramp: number): void {
         this.raw.execute(MethodType.Hold, ramp);
@@ -189,6 +208,31 @@ class AnalogOutRemote implements IAnalogOut {
     }
     set maxValue(val: number) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MaxValue).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Value).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setScaledValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.ScaledValue).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setScale(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Scale).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setRamp(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Ramp).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMin(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MinValue).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMax(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MaxValue).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 

@@ -44,6 +44,14 @@ interface IDimm {
     min: number
     /** Maksymalna wartość jaka może przyjąć Value, próba ustawienia wartości większej zwraca błąd */
     max: number
+    /** Ustawia wartość wyjścia (0 lub 1) */
+    setValue: (value: number) => void
+    /** Ustawia czas narastania wartości wyjścia */
+    setRamp: (value: number) => void
+    /** Ustawienie minimalnej wartości jaka może przyjąć wyjście */
+    setMin: (value: number) => void
+    /** Ustawienie maksymalnej wartości jaka może przyjąć wyjście */
+    setMax: (value: number) => void
     /** Zmienia wartość wyjścia na przeciwny (0/1) */
     switch: (time: number, ramp?: number) => void
     /** Ustawienie wartości wyjścia na 1 */
@@ -81,6 +89,11 @@ class Dimm implements IDimm {
     set min(val: number) { this.raw.set(PropertyType.Min, val); }
     get max(): number { return this.raw.get(PropertyType.Max); }
     set max(val: number) { this.raw.set(PropertyType.Max, val); }
+
+    setValue(value: number): void { this.raw.set(PropertyType.Value, value); }
+    setRamp(value: number): void { this.raw.set(PropertyType.Ramp, value); }
+    setMin(value: number): void { this.raw.set(PropertyType.Min, value); }
+    setMax(value: number): void { this.raw.set(PropertyType.Max, value); }
 
     switch(time: number, ramp: number = 500): void {
         this.raw.execute(MethodType.Switch, time, ramp);
@@ -130,6 +143,23 @@ class DimmRemote implements IDimm {
     }
     set max(val: number) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Max).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Value).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setRamp(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Ramp).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMin(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Min).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMax(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Max).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 

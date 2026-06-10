@@ -114,6 +114,14 @@ interface IDOut {
     readonly powerConsumption: number
     /** Zwraca stan wyjścia:\n[0]POWER_OFF - wyjście wyłączone,\n[1]POWER_ON - wyjście załączone,\n[2]LOADED - wartość cechy Load w przedziale (LoadThreshold..Overload),\n[3]OVERLOADED - wartość cechy Load powyżej wartości cechy Overload,\n[4]ANTIBURN_OFF - wyjście wyłączone po przekroczeniu dopuszczalnych poziomów prądu */
     readonly state: StateType
+    /** Ustawia stan wyjścia jako 1 lub 0 */
+    setValue: (value: boolean) => void
+    /** Ustawia wartość cechy Overload */
+    setOverload: (value: number) => void
+    /** Ustawia wartość cechy OverloadTime */
+    setOverloadTime: (value: number) => void
+    /** Ustawia wartość cechy LoadThreshold */
+    setLoadThreshold: (value: number) => void
 }
 
 class DOut implements IDOut {
@@ -192,6 +200,11 @@ class DOut implements IDOut {
     get powerOnTime(): number { return this.raw.get(PropertyType.PowerOnTime); }
     get powerConsumption(): number { return this.raw.get(PropertyType.PowerConsumption); }
     get state(): StateType { return this.raw.get(PropertyType.State); }
+
+    setValue(value: boolean): void { this.raw.set(PropertyType.Value, value ? 1 : 0); }
+    setOverload(value: number): void { this.raw.set(PropertyType.Overload, value); }
+    setOverloadTime(value: number): void { this.raw.set(PropertyType.OverloadTime, value); }
+    setLoadThreshold(value: number): void { this.raw.set(PropertyType.LoadThreshold, value); }
 }
 
 class DOutRemote implements IDOut {
@@ -303,6 +316,23 @@ class DOutRemote implements IDOut {
     get state(): StateType {
         const cmd = rawExecutionBuilderFactory(this.objectName).get().addParameter(PropertyType.State).build();
         return this.gate.runScript(cmd!);
+    }
+
+    setValue(value: boolean): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Value).addParameter(value ? 1 : 0).build();
+        this.gate.runScript(cmd!);
+    }
+    setOverload(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Overload).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setOverloadTime(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.OverloadTime).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setLoadThreshold(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.LoadThreshold).addParameter(value).build();
+        this.gate.runScript(cmd!);
     }
 }
 

@@ -51,6 +51,8 @@ interface IZwaveDout {
     statisticState: StatisticStateType
     /** Mnożnik mierzonej wartości. Dla StatisticState:\nContinuous - wartość zużycia w jednostce czasu */
     load: number
+    /** Ustawia stan wyjścia jako 1 lub 0 */
+    setValue: (value: ValueType) => void
     /** Zmienia stan wyjścia na przeciwny. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała */
     switch: (time?: number) => void
     /** Załącza wyjście. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała */
@@ -87,6 +89,8 @@ class ZwaveDout implements IZwaveDout {
     get load(): number { return this.raw.get(PropertyType.Load); }
     set load(val: number) { this.raw.set(PropertyType.Load, val); }
 
+    setValue(value: ValueType): void { this.raw.set(PropertyType.Value, value); }
+
     switch(time: number = 0): void { this.raw.execute(MethodType.Switch, time); }
     switchOn(time: number = 0): void { this.raw.execute(MethodType.SwitchOn, time); }
     switchOff(time: number = 0): void { this.raw.execute(MethodType.SwitchOff, time); }
@@ -121,6 +125,11 @@ class ZwaveDoutRemote implements IZwaveDout {
     }
     set load(val: number) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Load).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setValue(value: ValueType): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Value).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 

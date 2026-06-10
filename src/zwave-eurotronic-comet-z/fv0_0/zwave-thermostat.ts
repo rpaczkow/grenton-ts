@@ -63,6 +63,12 @@ interface IZwaveThermostat {
     pointValue: number
     /** Stopień otwarcia zaworu termostatu\n0% - zawór całkowicie zamknięty\n100% - zawór całkowicie otwarty */
     valvePosition: number
+    /** Ustawia tryb pracy termostatu\n0 - automatyczny\n1 - ręczny */
+    setMode: (value: ModeType) => void
+    /** Ustawia wartość zadanej temperatury w trybie automatycznym */
+    setPointValue: (value: number) => void
+    /** Ustawia stopień otwarcia zaworu w trybie ręcznym */
+    setValvePosition: (value: number) => void
     /** Przełącza termostat w tryb ręczny i otwiera całkowicie zawór */
     openValve: () => void
     /** Przełącza termostat w tryb ręczny i zamyka całkowicie zawór */
@@ -123,6 +129,10 @@ class ZwaveThermostat implements IZwaveThermostat {
     get valvePosition(): number { return this.raw.get(PropertyType.ValvePosition); }
     set valvePosition(val: number) { this.raw.set(PropertyType.ValvePosition, val); }
 
+    setMode(value: ModeType): void { this.raw.set(PropertyType.Mode, value); }
+    setPointValue(value: number): void { this.raw.set(PropertyType.PointValue, value); }
+    setValvePosition(value: number): void { this.raw.set(PropertyType.ValvePosition, value); }
+
     openValve(): void { this.raw.execute(MethodType.OpenValve); }
     closeValve(): void { this.raw.execute(MethodType.CloseValve); }
 }
@@ -165,6 +175,19 @@ class ZwaveThermostatRemote implements IZwaveThermostat {
     }
     set valvePosition(val: number) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.ValvePosition).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setMode(value: ModeType): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Mode).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setPointValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.PointValue).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setValvePosition(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.ValvePosition).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 

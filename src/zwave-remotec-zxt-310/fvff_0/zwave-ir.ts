@@ -78,6 +78,16 @@ interface IZwaveIr {
     readonly libraryVersion: number
     /** Status uczenia kodu IR:\n0 - kanał IR bezczynny,\n1 - uczenie zakończone powodzeniem,\n2 - trwa procedura uczenia,\n3 - osiągnięto maksymalną ilość kodów dla danego Endpointa,\n4 - uczenie zakończone niepowodzeniem */
     readonly learningStatus: number
+    /** Ustawia przekierowanie wyjściowego portu IR */
+    setPortRouting: (portRouting: number) => void
+    /** Ustawia numer wyjściowego AV z wewnętrznej biblioteki kodów IR */
+    setAvDeviceNumber: (avDeviceNumber: number) => void
+    /** Ustawia moc zewnętrznego nadajnika podczerwieni */
+    setEmitterPower: (emitterPower: EmitterPowerType) => void
+    /** Ustawia tryb transmisji IR */
+    setTransmissionMode: (transmissionMode: TransmissionModeType) => void
+    /** Ustawia numer kontrolowanego endpointu */
+    setEndpointNumber: (endpointNumber: number) => void
 }
 
 class ZwaveIr implements IZwaveIr {
@@ -132,6 +142,12 @@ class ZwaveIr implements IZwaveIr {
     get firmwareVersion(): number { return this.raw.get(PropertyType.FirmwareVersion); }
     get libraryVersion(): number { return this.raw.get(PropertyType.LibraryVersion); }
     get learningStatus(): number { return this.raw.get(PropertyType.LearningStatus); }
+
+    setPortRouting(portRouting: number): void { this.raw.set(PropertyType.PortRouting, portRouting); }
+    setAvDeviceNumber(avDeviceNumber: number): void { this.raw.set(PropertyType.AvDeviceNumber, avDeviceNumber); }
+    setEmitterPower(emitterPower: EmitterPowerType): void { this.raw.set(PropertyType.EmitterPower, emitterPower); }
+    setTransmissionMode(transmissionMode: TransmissionModeType): void { this.raw.set(PropertyType.TransmissionMode, transmissionMode); }
+    setEndpointNumber(endpointNumber: number): void { this.raw.set(PropertyType.EndpointNumber, endpointNumber); }
 }
 
 class ZwaveIrRemote implements IZwaveIr {
@@ -204,6 +220,27 @@ class ZwaveIrRemote implements IZwaveIr {
     get learningStatus(): number {
         const cmd = rawExecutionBuilderFactory(this.objectName).get().addParameter(PropertyType.LearningStatus).build();
         return this.gate.runScript(cmd!);
+    }
+
+    setPortRouting(portRouting: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.PortRouting).addParameter(portRouting).build();
+        this.gate.runScript(cmd!);
+    }
+    setAvDeviceNumber(avDeviceNumber: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.AvDeviceNumber).addParameter(avDeviceNumber).build();
+        this.gate.runScript(cmd!);
+    }
+    setEmitterPower(emitterPower: EmitterPowerType): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.EmitterPower).addParameter(emitterPower).build();
+        this.gate.runScript(cmd!);
+    }
+    setTransmissionMode(transmissionMode: TransmissionModeType): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.TransmissionMode).addParameter(transmissionMode).build();
+        this.gate.runScript(cmd!);
+    }
+    setEndpointNumber(endpointNumber: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.EndpointNumber).addParameter(endpointNumber).build();
+        this.gate.runScript(cmd!);
     }
 }
 

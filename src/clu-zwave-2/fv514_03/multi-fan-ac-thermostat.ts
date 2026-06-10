@@ -159,6 +159,44 @@ interface IMultiFanACThermostat {
      * @param {ModeType} value
      */
     setMode: (value: ModeType) => void
+    /** Ustawienie tygodniowego harmonogramu */
+    setData: (value: string) => void
+    /** Ustawia minimalną wartość zakresu wbudowanego harmonogramu */
+    setMin: (value: number) => void
+    /** Ustawia maksymalną wartość zakresu wbudowanego harmonogramu */
+    setMax: (value: number) => void
+    /** Ustawia powiązanie termostatu z czujnikiem temperatury */
+    setSource: (value: any) => void
+    /** Ustawia powiązanie termostatu z wyjściem elementu sterującego */
+    setControl: (value: any) => void
+    /** Ustawia powiązanie termostatu z wyjściem wentylatora */
+    setFanLowControl: (value: any) => void
+    /** Ustawia powiązanie termostatu z wyjściem wentylatora */
+    setFanMediumControl: (value: any) => void
+    /** Ustawia powiązanie termostatu z wyjściem wentylatora */
+    setFanHighControl: (value: any) => void
+    /** Ustawia wartość ręcznie zadanej temperatury */
+    setPointValue: (value: number) => void
+    /** Ustawia wartość temperatury dla trybu wakacyjnego */
+    setHolidayModeValue: (value: number) => void
+    /** Ustawia wartość histerezy */
+    setHysteresis: (value: number) => void
+    /** Ustawia kierunek pracy */
+    setControlDirection: (value: ControlDirectionType) => void
+    /** Ustawia tryb pracy wentylatora */
+    setFanMode: (value: FanModeType) => void
+    /** Ustawia opóźnienie włączenia lub wyłączenia wyjścia elementu sterującego w stosunku do wyjścia wentylatora */
+    setControlSwitchDelay: (value: number) => void
+    /** Ustawia czas, przez który wyjście sterujące nie może zostać załączone po wyłączeniu (funkcja ochrony sprężarki) */
+    setProtectionDelayOn: (value: number) => void
+    /** Ustawia czas, przez który wyjście sterujące nie może zostać wyłączone po załączeniu (funkcja ochrony sprężarki) */
+    setProtectionDelayOff: (value: number) => void
+    /** Określa różnicę pomiędzy temperaturą źródłową a docelową dla załączenia drugiego stopnia wentylatora */
+    setMediumFanSpeedDelta: (value: number) => void
+    /** Określa różnicę pomiędzy temperaturą źródłową a docelową dla załączenia trzeciego stopnia wentylatora */
+    setHighFanSpeedDelta: (value: number) => void
+    /** Ustawia wartość histerezy dla zmiany prędkości wentylatora */
+    setFanSpeedHysteresis: (value: number) => void
     /** Typ wyjścia: -1 - autodetekcja 0 - cyfrowe 1 - analogowe */
     readonly outputType: OutputTypeType
     /** Wartość ręcznie zadanej temperatury */
@@ -345,6 +383,82 @@ class MultiFanACThermostat implements IMultiFanACThermostat {
      */
     setMode(value: ModeType): void {
         this.raw.set(PropertyType.Mode, value);
+    }
+    /** Ustawienie tygodniowego harmonogramu */
+    setData(value: string): void {
+        this.raw.set(PropertyType.Data, value);
+    }
+    /** Ustawia minimalną wartość zakresu wbudowanego harmonogramu */
+    setMin(value: number): void {
+        this.raw.set(PropertyType.Min, value);
+    }
+    /** Ustawia maksymalną wartość zakresu wbudowanego harmonogramu */
+    setMax(value: number): void {
+        this.raw.set(PropertyType.Max, value);
+    }
+    /** Ustawia powiązanie termostatu z czujnikiem temperatury */
+    setSource(value: any): void {
+        this.raw.set(PropertyType.Source, value);
+    }
+    /** Ustawia powiązanie termostatu z wyjściem elementu sterującego */
+    setControl(value: any): void {
+        this.raw.set(PropertyType.Control, value);
+    }
+    /** Ustawia powiązanie termostatu z wyjściem wentylatora */
+    setFanLowControl(value: any): void {
+        this.raw.set(PropertyType.FanLowControl, value);
+    }
+    /** Ustawia powiązanie termostatu z wyjściem wentylatora */
+    setFanMediumControl(value: any): void {
+        this.raw.set(PropertyType.FanMediumControl, value);
+    }
+    /** Ustawia powiązanie termostatu z wyjściem wentylatora */
+    setFanHighControl(value: any): void {
+        this.raw.set(PropertyType.FanHighControl, value);
+    }
+    /** Ustawia wartość ręcznie zadanej temperatury */
+    setPointValue(value: number): void {
+        this.raw.set(PropertyType.PointValue, value);
+    }
+    /** Ustawia wartość temperatury dla trybu wakacyjnego */
+    setHolidayModeValue(value: number): void {
+        this.raw.set(PropertyType.HolidayModeValue, value);
+    }
+    /** Ustawia wartość histerezy */
+    setHysteresis(value: number): void {
+        this.raw.set(PropertyType.Hysteresis, value);
+    }
+    /** Ustawia kierunek pracy */
+    setControlDirection(value: ControlDirectionType): void {
+        this.raw.set(PropertyType.ControlDirection, value);
+    }
+    /** Ustawia tryb pracy wentylatora */
+    setFanMode(value: FanModeType): void {
+        this.raw.set(PropertyType.FanMode, value);
+    }
+    /** Ustawia opóźnienie włączenia lub wyłączenia wyjścia elementu sterującego w stosunku do wyjścia wentylatora */
+    setControlSwitchDelay(value: number): void {
+        this.raw.set(PropertyType.ControlSwitchDelay, value);
+    }
+    /** Ustawia czas, przez który wyjście sterujące nie może zostać załączone po wyłączeniu (funkcja ochrony sprężarki) */
+    setProtectionDelayOn(value: number): void {
+        this.raw.set(PropertyType.ProtectionDelayOn, value);
+    }
+    /** Ustawia czas, przez który wyjście sterujące nie może zostać wyłączone po załączeniu (funkcja ochrony sprężarki) */
+    setProtectionDelayOff(value: number): void {
+        this.raw.set(PropertyType.ProtectionDelayOff, value);
+    }
+    /** Określa różnicę pomiędzy temperaturą źródłową a docelową dla załączenia drugiego stopnia wentylatora */
+    setMediumFanSpeedDelta(value: number): void {
+        this.raw.set(PropertyType.MediumFanSpeedDelta, value);
+    }
+    /** Określa różnicę pomiędzy temperaturą źródłową a docelową dla załączenia trzeciego stopnia wentylatora */
+    setHighFanSpeedDelta(value: number): void {
+        this.raw.set(PropertyType.HighFanSpeedDelta, value);
+    }
+    /** Ustawia wartość histerezy dla zmiany prędkości wentylatora */
+    setFanSpeedHysteresis(value: number): void {
+        this.raw.set(PropertyType.FanSpeedHysteresis, value);
     }
     /**
      * Typ wyjścia: -1 - autodetekcja 0 - cyfrowe 1 - analogowe
@@ -728,6 +842,177 @@ class MultiFanACThermostatRemote implements IMultiFanACThermostat {
         const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
             .set()
             .addParameter(PropertyType.Mode)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawienie tygodniowego harmonogramu */
+    setData(value: string): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Data)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia minimalną wartość zakresu wbudowanego harmonogramu */
+    setMin(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Min)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia maksymalną wartość zakresu wbudowanego harmonogramu */
+    setMax(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Max)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia powiązanie termostatu z czujnikiem temperatury */
+    setSource(value: any): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Source)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia powiązanie termostatu z wyjściem elementu sterującego */
+    setControl(value: any): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Control)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia powiązanie termostatu z wyjściem wentylatora */
+    setFanLowControl(value: any): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.FanLowControl)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia powiązanie termostatu z wyjściem wentylatora */
+    setFanMediumControl(value: any): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.FanMediumControl)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia powiązanie termostatu z wyjściem wentylatora */
+    setFanHighControl(value: any): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.FanHighControl)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia wartość ręcznie zadanej temperatury */
+    setPointValue(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.PointValue)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia wartość temperatury dla trybu wakacyjnego */
+    setHolidayModeValue(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.HolidayModeValue)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia wartość histerezy */
+    setHysteresis(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Hysteresis)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia kierunek pracy */
+    setControlDirection(value: ControlDirectionType): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.ControlDirection)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia tryb pracy wentylatora */
+    setFanMode(value: FanModeType): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.FanMode)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia opóźnienie włączenia lub wyłączenia wyjścia elementu sterującego w stosunku do wyjścia wentylatora */
+    setControlSwitchDelay(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.ControlSwitchDelay)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia czas, przez który wyjście sterujące nie może zostać załączone po wyłączeniu (funkcja ochrony sprężarki) */
+    setProtectionDelayOn(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.ProtectionDelayOn)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia czas, przez który wyjście sterujące nie może zostać wyłączone po załączeniu (funkcja ochrony sprężarki) */
+    setProtectionDelayOff(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.ProtectionDelayOff)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Określa różnicę pomiędzy temperaturą źródłową a docelową dla załączenia drugiego stopnia wentylatora */
+    setMediumFanSpeedDelta(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.MediumFanSpeedDelta)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Określa różnicę pomiędzy temperaturą źródłową a docelową dla załączenia trzeciego stopnia wentylatora */
+    setHighFanSpeedDelta(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.HighFanSpeedDelta)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia wartość histerezy dla zmiany prędkości wentylatora */
+    setFanSpeedHysteresis(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.FanSpeedHysteresis)
             .addParameter(value)
             .build();
         this.gate.runScript(cmd!);

@@ -70,6 +70,8 @@ interface ICalendar {
     readonly toNextRun: number
     /** Stan działania kalendarza: 1 - kalendarz aktywny, 0 - kalendarz nieaktywny */
     readonly state: StateType
+    /** Ustawienie Reguły kalendarza */
+    setRule: (value: string) => void
 }
 
 class Calendar implements ICalendar {
@@ -177,6 +179,11 @@ class Calendar implements ICalendar {
      */
     get state(): StateType {
         return this.raw.get(PropertyType.State);
+    }
+
+    /** Ustawienie Reguły kalendarza */
+    setRule(value: string): void {
+        this.raw.set(PropertyType.Rule, value);
     }
 }
 
@@ -300,6 +307,16 @@ class CalendarRemote implements ICalendar {
             .addParameter(PropertyType.State)
             .build();
         return this.gate.runScript(cmd!);
+    }
+
+    /** Ustawienie Reguły kalendarza */
+    setRule(value: string): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Rule)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
     }
 }
 

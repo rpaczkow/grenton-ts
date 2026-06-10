@@ -104,6 +104,24 @@ interface IStatistics {
     statisticTypeEnergyStorage: StatisticTypeEnergyStorageType
     /** Dla pomiaru energii statystyki są wysyłane na podstawie zliczania różnicy w wartości cechy Value w okresie 15 minut. Cechę Value należy aktualizować o całkowitą wartość energii bieżącej sesji ładowania w watogodzinach. Dla pozostałych typów pomiaru zliczana jest wartość średnia w okresie 15 minut. */
     statisticTypeCharger: StatisticTypeChargerType
+    /** Ustawia wartość cechy Value. */
+    setValue: (value: number) => void
+    /** Ustawia wartość cechy StatisticState. */
+    setStatisticState: (value: StatisticStateType) => void
+    /** Ustawia wartość cechy Load. */
+    setLoad: (value: number) => void
+    /** Ustawia wartość cechy StatisticTypeSensor. */
+    setStatisticTypeSensor: (value: StatisticTypeSensorType) => void
+    /** Ustawia wartość cechy StatisticTypeGrid. */
+    setStatisticTypeGrid: (value: StatisticTypeGridType) => void
+    /** Ustawia wartość cechy StatisticSubtypeGrid. */
+    setStatisticSubtypeGrid: (value: StatisticSubtypeGridType) => void
+    /** Ustawia wartość cechy StatisticTypeEnergyProduction. */
+    setStatisticTypeEnergyProduction: (value: StatisticTypeEnergyProductionType) => void
+    /** Ustawia wartość cechy StatisticTypeEnergyStorage. */
+    setStatisticTypeEnergyStorage: (value: StatisticTypeEnergyStorageType) => void
+    /** Ustawia wartość cechy StatisticTypeCharger. */
+    setStatisticTypeCharger: (value: StatisticTypeChargerType) => void
 }
 
 class Statistics implements IStatistics {
@@ -207,6 +225,61 @@ class Statistics implements IStatistics {
         return this.raw.get(PropertyType.StatisticTypeCharger);
     }
     set statisticTypeCharger(value: StatisticTypeChargerType) {
+        this.raw.set(PropertyType.StatisticTypeCharger, value);
+    }
+
+    /**
+     * Ustawia wartość cechy Value.
+     */
+    setValue(value: number): void {
+        this.raw.set(PropertyType.Value, value);
+    }
+    /**
+     * Ustawia wartość cechy StatisticState.
+     */
+    setStatisticState(value: StatisticStateType): void {
+        this.raw.set(PropertyType.StatisticState, value);
+    }
+    /**
+     * Ustawia wartość cechy Load.
+     */
+    setLoad(value: number): void {
+        this.raw.set(PropertyType.Load, value);
+    }
+    /**
+     * Ustawia wartość cechy StatisticTypeSensor.
+     */
+    setStatisticTypeSensor(value: StatisticTypeSensorType): void {
+        this.raw.set(PropertyType.StatisticTypeSensor, value);
+    }
+    /**
+     * Ustawia wartość cechy StatisticTypeGrid.
+     */
+    setStatisticTypeGrid(value: StatisticTypeGridType): void {
+        this.raw.set(PropertyType.StatisticTypeGrid, value);
+    }
+    /**
+     * Ustawia wartość cechy StatisticSubtypeGrid.
+     */
+    setStatisticSubtypeGrid(value: StatisticSubtypeGridType): void {
+        this.raw.set(PropertyType.StatisticSubtypeGrid, value);
+    }
+    /**
+     * Ustawia wartość cechy StatisticTypeEnergyProduction.
+     */
+    setStatisticTypeEnergyProduction(value: StatisticTypeEnergyProductionType): void {
+        this.raw.set(PropertyType.StatisticTypeEnergyProduction, value);
+    }
+    /**
+     * Ustawia wartość cechy StatisticTypeEnergyStorage.
+     */
+    setStatisticTypeEnergyStorage(value: StatisticTypeEnergyStorageType): void {
+        this.raw.set(PropertyType.StatisticTypeEnergyStorage, value);
+    }
+    /**
+     * Ustawia wartość cechy StatisticTypeCharger.
+     */
+    setStatisticTypeCharger(value: StatisticTypeChargerType): void {
         this.raw.set(PropertyType.StatisticTypeCharger, value);
     }
 }
@@ -396,6 +469,106 @@ class StatisticsRemote implements IStatistics {
     }
 
     set statisticTypeCharger(value: StatisticTypeChargerType) {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.StatisticTypeCharger)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /**
+     * Ustawia wartość cechy Value.
+     */
+    setValue(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Value)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /**
+     * Ustawia wartość cechy StatisticState.
+     */
+    setStatisticState(value: StatisticStateType): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.StatisticState)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /**
+     * Ustawia wartość cechy Load.
+     */
+    setLoad(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Load)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /**
+     * Ustawia wartość cechy StatisticTypeSensor.
+     */
+    setStatisticTypeSensor(value: StatisticTypeSensorType): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.StatisticTypeSensor)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /**
+     * Ustawia wartość cechy StatisticTypeGrid.
+     */
+    setStatisticTypeGrid(value: StatisticTypeGridType): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.StatisticTypeGrid)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /**
+     * Ustawia wartość cechy StatisticSubtypeGrid.
+     */
+    setStatisticSubtypeGrid(value: StatisticSubtypeGridType): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.StatisticSubtypeGrid)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /**
+     * Ustawia wartość cechy StatisticTypeEnergyProduction.
+     */
+    setStatisticTypeEnergyProduction(value: StatisticTypeEnergyProductionType): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.StatisticTypeEnergyProduction)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /**
+     * Ustawia wartość cechy StatisticTypeEnergyStorage.
+     */
+    setStatisticTypeEnergyStorage(value: StatisticTypeEnergyStorageType): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.StatisticTypeEnergyStorage)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /**
+     * Ustawia wartość cechy StatisticTypeCharger.
+     */
+    setStatisticTypeCharger(value: StatisticTypeChargerType): void {
         const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
             .set()
             .addParameter(PropertyType.StatisticTypeCharger)

@@ -34,6 +34,8 @@ interface IZwavePowerMeter {
     readonly value: number
     /** Poziom mocy, powyżej którego generowane są zdarzenia ostrzegawcze */
     warningLevel: number
+    /** Ustawia ostrzegawczy poziom mocy pobieranej przez urządzenie */
+    setWarningLevel: (value: number) => void
 }
 
 class ZwavePowerMeter implements IZwavePowerMeter {
@@ -60,6 +62,8 @@ class ZwavePowerMeter implements IZwavePowerMeter {
     get value(): number { return this.raw.get(PropertyType.Value); }
     get warningLevel(): number { return this.raw.get(PropertyType.WarningLevel); }
     set warningLevel(val: number) { this.raw.set(PropertyType.WarningLevel, val); }
+
+    setWarningLevel(value: number): void { this.raw.set(PropertyType.WarningLevel, value); }
 }
 
 class ZwavePowerMeterRemote implements IZwavePowerMeter {
@@ -79,6 +83,11 @@ class ZwavePowerMeterRemote implements IZwavePowerMeter {
     }
     set warningLevel(val: number) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.WarningLevel).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setWarningLevel(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.WarningLevel).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 }

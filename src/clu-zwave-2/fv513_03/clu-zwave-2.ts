@@ -42,6 +42,7 @@ enum PropertyType {
     MaxBusVoltage = 29,
     MinBusVoltage = 30,
     TelnetLogLevel = 31,
+    TelnetLogLevelDev = 32,
     ZWaveRouting = 33,
 }
 

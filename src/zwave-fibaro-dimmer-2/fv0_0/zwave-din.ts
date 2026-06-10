@@ -49,6 +49,10 @@ interface IZwaveDin {
     holdDelay: number
     /** Odstęp cykliczny w milisekundach, po jakim podczas trzymania przycisku wyzwalane są kolejne zdarzenia OnHold */
     holdInterval: number
+    /** Ustawia wartość HoldDelay */
+    setHoldDelay: (value: number) => void
+    /** Ustawia wartość HoldInterval */
+    setHoldInterval: (value: number) => void
 }
 
 class ZwaveDin implements IZwaveDin {
@@ -97,6 +101,9 @@ class ZwaveDin implements IZwaveDin {
     set holdDelay(val: number) { this.raw.set(PropertyType.HoldDelay, val); }
     get holdInterval(): number { return this.raw.get(PropertyType.HoldInterval); }
     set holdInterval(val: number) { this.raw.set(PropertyType.HoldInterval, val); }
+
+    setHoldDelay(value: number): void { this.raw.set(PropertyType.HoldDelay, value); }
+    setHoldInterval(value: number): void { this.raw.set(PropertyType.HoldInterval, value); }
 }
 
 class ZwaveDinRemote implements IZwaveDin {
@@ -128,6 +135,15 @@ class ZwaveDinRemote implements IZwaveDin {
     }
     set holdInterval(val: number) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.HoldInterval).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setHoldDelay(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.HoldDelay).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setHoldInterval(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.HoldInterval).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 }

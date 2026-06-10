@@ -64,6 +64,10 @@ interface IDin {
     load: number
     /** Grupa Distributed Logic - grupa broadcastowa dla rozproszonej logiki */
     distributedLogicGroup: number
+    /** Ustawia wartość HoldDelay */
+    setHoldDelay: (value: number) => void
+    /** Ustawia wartość HoldInterval */
+    setHoldInterval: (value: number) => void
 }
 
 class Din implements IDin {
@@ -118,6 +122,9 @@ class Din implements IDin {
     set load(val: number) { this.raw.set(PropertyType.Load, val); }
     get distributedLogicGroup(): number { return this.raw.get(PropertyType.DistributedLogicGroup); }
     set distributedLogicGroup(val: number) { this.raw.set(PropertyType.DistributedLogicGroup, val); }
+
+    setHoldDelay(value: number): void { this.raw.set(PropertyType.HoldDelay, value); }
+    setHoldInterval(value: number): void { this.raw.set(PropertyType.HoldInterval, value); }
 }
 
 class DinRemote implements IDin {
@@ -173,6 +180,15 @@ class DinRemote implements IDin {
     }
     set distributedLogicGroup(val: number) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.DistributedLogicGroup).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setHoldDelay(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.HoldDelay).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setHoldInterval(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.HoldInterval).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 }

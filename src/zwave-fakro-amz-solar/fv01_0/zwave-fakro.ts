@@ -82,6 +82,16 @@ interface IZwaveFakro {
     stop: () => void
     /** Markiza do góry jeśli poprzednio ruch w dół, markiza w dół jeśli poprzednio ruch w górę */
     start: () => void
+    /** Ustawia wartość procentową, gdzie 100% - markiza otwarta */
+    setPercent: (percent: number) => void
+    /** Ustawia tryb:\n0 - Manual,\n1 - Semiauto,\n2 - Auto */
+    setMode: (mode: ModeType) => void
+    /** Ustawia tryb sezonowy:\n0 - Lato,\n1 - Zima */
+    setSeasonMode: (seasonMode: SeasonModeType) => void
+    /** Ustawia czas otwarcia */
+    setOpeningTime: (openingTime: number) => void
+    /** Ustawia czułość poziomu nasłonecznienia */
+    setSensitivity: (sensitivity: number) => void
 }
 
 class ZwaveFakro implements IZwaveFakro {
@@ -131,6 +141,12 @@ class ZwaveFakro implements IZwaveFakro {
     down(): void { this.raw.execute(MethodType.Down); }
     stop(): void { this.raw.execute(MethodType.Stop); }
     start(): void { this.raw.execute(MethodType.Start); }
+
+    setPercent(percent: number): void { this.raw.set(PropertyType.Percent, percent); }
+    setMode(mode: ModeType): void { this.raw.set(PropertyType.Mode, mode); }
+    setSeasonMode(seasonMode: SeasonModeType): void { this.raw.set(PropertyType.SeasonMode, seasonMode); }
+    setOpeningTime(openingTime: number): void { this.raw.set(PropertyType.OpeningTime, openingTime); }
+    setSensitivity(sensitivity: number): void { this.raw.set(PropertyType.Sensitivity, sensitivity); }
 }
 
 class ZwaveFakroRemote implements IZwaveFakro {
@@ -201,6 +217,27 @@ class ZwaveFakroRemote implements IZwaveFakro {
     }
     start(): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.Start).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setPercent(percent: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Percent).addParameter(percent).build();
+        this.gate.runScript(cmd!);
+    }
+    setMode(mode: ModeType): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Mode).addParameter(mode).build();
+        this.gate.runScript(cmd!);
+    }
+    setSeasonMode(seasonMode: SeasonModeType): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.SeasonMode).addParameter(seasonMode).build();
+        this.gate.runScript(cmd!);
+    }
+    setOpeningTime(openingTime: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.OpeningTime).addParameter(openingTime).build();
+        this.gate.runScript(cmd!);
+    }
+    setSensitivity(sensitivity: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Sensitivity).addParameter(sensitivity).build();
         this.gate.runScript(cmd!);
     }
 }

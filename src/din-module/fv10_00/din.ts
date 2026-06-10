@@ -64,6 +64,12 @@ interface IDin {
     statisticState: StatisticStateType
     /** Mnożnik mierzonej wartości. Dla StatisticState:\nContinuous - wartość zużycia w jednostce czasu,\nImpulsowy - wartość zużycia dla jednego impulsu (np. 1l, 1m^3, 1kW) */
     load: number
+    /** Ustawia czas inercji wejścia */
+    setInertion: (value: number) => void
+    /** Ustawia wartość HoldDelay */
+    setHoldDelay: (value: number) => void
+    /** Ustawia wartość HoldInterval */
+    setHoldInterval: (value: number) => void
 }
 
 class Din implements IDin {
@@ -118,6 +124,10 @@ class Din implements IDin {
     set statisticState(val: StatisticStateType) { this.raw.set(PropertyType.StatisticState, val); }
     get load(): number { return this.raw.get(PropertyType.Load); }
     set load(val: number) { this.raw.set(PropertyType.Load, val); }
+
+    setInertion(value: number): void { this.raw.set(PropertyType.Intertion, value); }
+    setHoldDelay(value: number): void { this.raw.set(PropertyType.HoldDelay, value); }
+    setHoldInterval(value: number): void { this.raw.set(PropertyType.HoldInterval, value); }
 }
 
 class DinRemote implements IDin {
@@ -173,6 +183,19 @@ class DinRemote implements IDin {
     }
     set load(val: number) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Load).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setInertion(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Intertion).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setHoldDelay(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.HoldDelay).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setHoldInterval(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.HoldInterval).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 }

@@ -58,6 +58,16 @@ interface IAnalogIn {
     minValue: number
     /** Wartość maksymalna po przekroczeniu której generowane jest zdarzenie OnOutRange */
     maxValue: number
+    /** Ustawia skalę */
+    setScale: (value: number) => void
+    /** Ustawia wartość czułości wejścia */
+    setSensitivity: (value: number) => void
+    /** Ustawia wartość inercji wejścia */
+    setInertia: (value: number) => void
+    /** Ustawia wartość MinValue */
+    setMin: (value: number) => void
+    /** Ustawia wartość MaxValue */
+    setMax: (value: number) => void
 }
 
 class AnalogIn implements IAnalogIn {
@@ -108,6 +118,12 @@ class AnalogIn implements IAnalogIn {
     set minValue(val: number) { this.raw.set(PropertyType.MinValue, val); }
     get maxValue(): number { return this.raw.get(PropertyType.MaxValue); }
     set maxValue(val: number) { this.raw.set(PropertyType.MaxValue, val); }
+
+    setScale(value: number): void { this.raw.set(PropertyType.Scale, value); }
+    setSensitivity(value: number): void { this.raw.set(PropertyType.Sensitivity, value); }
+    setInertia(value: number): void { this.raw.set(PropertyType.Inertia, value); }
+    setMin(value: number): void { this.raw.set(PropertyType.MinValue, value); }
+    setMax(value: number): void { this.raw.set(PropertyType.MaxValue, value); }
 }
 
 class AnalogInRemote implements IAnalogIn {
@@ -166,6 +182,27 @@ class AnalogInRemote implements IAnalogIn {
     }
     set maxValue(val: number) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MaxValue).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setScale(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Scale).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setSensitivity(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Sensitivity).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setInertia(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Inertia).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMin(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MinValue).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMax(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MaxValue).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 }

@@ -73,6 +73,12 @@ interface IZwaveLed {
     statisticState: StatisticStateType
     /** Mnożnik mierzonej wartości. Dla StatisticState:\nContinuous - wartość zużycia w jednostce czasu */
     load: number
+    /** Ustawia czas narastania wartości jasności */
+    setRampTime: (value: number) => void
+    /** Ustawia maksymalną wartość dla Value */
+    setMaxValue: (value: number) => void
+    /** Ustawia minimalną wartość dla Value */
+    setMinValue: (value: number) => void
     /** Ustawia wartość wyjścia (zakres 0-255) */
     setValue: (value: number, ramp?: number) => void
     /** Ustawia wartość wyjścia na MaxValue */
@@ -141,6 +147,9 @@ class ZwaveLed implements IZwaveLed {
     get load(): number { return this.raw.get(PropertyType.Load); }
     set load(val: number) { this.raw.set(PropertyType.Load, val); }
 
+    setRampTime(value: number): void { this.raw.set(PropertyType.RampTime, value); }
+    setMaxValue(value: number): void { this.raw.set(PropertyType.MaxValue, value); }
+    setMinValue(value: number): void { this.raw.set(PropertyType.MinValue, value); }
     setValue(value: number, ramp: number = 500): void { this.raw.execute(MethodType.SetValue, value, ramp); }
     switchOn(time: number, ramp: number = 500): void { this.raw.execute(MethodType.SwitchOn, time, ramp); }
     switchOff(time: number, ramp: number = 500): void { this.raw.execute(MethodType.SwitchOff, time, ramp); }
@@ -209,6 +218,18 @@ class ZwaveLedRemote implements IZwaveLed {
         this.gate.runScript(cmd!);
     }
 
+    setRampTime(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.RampTime).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMaxValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MaxValue).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMinValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MinValue).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
     setValue(value: number, ramp: number = 500): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SetValue).addParameter(value).addParameter(ramp).build();
         this.gate.runScript(cmd!);

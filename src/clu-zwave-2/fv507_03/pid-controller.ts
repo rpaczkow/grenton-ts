@@ -103,6 +103,24 @@ interface IPIDcontroller {
     readonly a: number
     /** Parametr b w algorytmie Kaczmarza */
     readonly b: number
+    /** Ustawia wartość wzmocnienia członu proporcjonalnego regulatora PID */
+    setKp: (value: number) => void
+    /** Ustawia wartość wzmocnienia członu całkującego regulatora PID */
+    setKi: (value: number) => void
+    /** Ustawia wartość wzmocnienia członu różniczkującego regulatora PID */
+    setKd: (value: number) => void
+    /** Ustawia czas przełączania */
+    setSwitchTime: (value: number) => void
+    /** Ustawia parametr alpha w algorytmie Kaczmarza (zabezpieczenie przed zerowaniem mianownika) */
+    setAlpha: (value: number) => void
+    /** Ustawia parametr gamma w algorytmie Kaczmarza (dynamika zmian oszacowania a i b) */
+    setGamma: (value: number) => void
+    /** Ustawia tryb pracy regulatora: ręczny PID lub automatyczny algorytm Kaczmarza */
+    setMode: (value: ModeType) => void
+    /** Ustawia parametr a w algorytmie Kaczmarza */
+    setA: (value: number) => void
+    /** Ustawia parametr b w algorytmie Kaczmarza */
+    setB: (value: number) => void
 }
 
 class PIDcontroller implements IPIDcontroller {
@@ -275,6 +293,43 @@ class PIDcontroller implements IPIDcontroller {
      */
     get b(): number {
         return this.raw.get(PropertyType.B);
+    }
+
+    /** Ustawia wartość wzmocnienia członu proporcjonalnego regulatora PID */
+    setKp(value: number): void {
+        this.raw.set(PropertyType.Kp, value);
+    }
+    /** Ustawia wartość wzmocnienia członu całkującego regulatora PID */
+    setKi(value: number): void {
+        this.raw.set(PropertyType.Ki, value);
+    }
+    /** Ustawia wartość wzmocnienia członu różniczkującego regulatora PID */
+    setKd(value: number): void {
+        this.raw.set(PropertyType.Kd, value);
+    }
+    /** Ustawia czas przełączania */
+    setSwitchTime(value: number): void {
+        this.raw.set(PropertyType.SwitchTime, value);
+    }
+    /** Ustawia parametr alpha w algorytmie Kaczmarza (zabezpieczenie przed zerowaniem mianownika) */
+    setAlpha(value: number): void {
+        this.raw.set(PropertyType.Alpha, value);
+    }
+    /** Ustawia parametr gamma w algorytmie Kaczmarza (dynamika zmian oszacowania a i b) */
+    setGamma(value: number): void {
+        this.raw.set(PropertyType.Gamma, value);
+    }
+    /** Ustawia tryb pracy regulatora: ręczny PID lub automatyczny algorytm Kaczmarza */
+    setMode(value: ModeType): void {
+        this.raw.set(PropertyType.Mode, value);
+    }
+    /** Ustawia parametr a w algorytmie Kaczmarza */
+    setA(value: number): void {
+        this.raw.set(PropertyType.A, value);
+    }
+    /** Ustawia parametr b w algorytmie Kaczmarza */
+    setB(value: number): void {
+        this.raw.set(PropertyType.B, value);
     }
 }
 
@@ -528,6 +583,88 @@ class PIDcontrollerRemote implements IPIDcontroller {
             .addParameter(PropertyType.B)
             .build();
         return this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia wartość wzmocnienia członu proporcjonalnego regulatora PID */
+    setKp(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Kp)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia wartość wzmocnienia członu całkującego regulatora PID */
+    setKi(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Ki)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia wartość wzmocnienia członu różniczkującego regulatora PID */
+    setKd(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Kd)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia czas przełączania */
+    setSwitchTime(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.SwitchTime)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia parametr alpha w algorytmie Kaczmarza (zabezpieczenie przed zerowaniem mianownika) */
+    setAlpha(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Alpha)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia parametr gamma w algorytmie Kaczmarza (dynamika zmian oszacowania a i b) */
+    setGamma(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Gamma)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia tryb pracy regulatora: ręczny PID lub automatyczny algorytm Kaczmarza */
+    setMode(value: ModeType): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Mode)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia parametr a w algorytmie Kaczmarza */
+    setA(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.A)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+    /** Ustawia parametr b w algorytmie Kaczmarza */
+    setB(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.B)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
     }
 }
 

@@ -100,6 +100,12 @@ interface IPresenceSensor {
     readonly locked: LockedType
     /** Tryb działania obiektu w zależności od typu używanego czujnika ruchu: 0 - impulsowy, 1 - stanowy. */
     mode: ModeType
+    /** Ustawia parametr Timeout (wyrażony w sekundach) */
+    setTimeout: (timeout: number) => void
+    /** Ustawia parametr DetectionDelay (wyrażony w sekundach) */
+    setDetectionDelay: (detectionDelay: number) => void
+    /** Ustawia parametr Mode */
+    setMode: (mode: ModeType) => void
 }
 
 class PresenceSensor implements IPresenceSensor {
@@ -249,6 +255,18 @@ class PresenceSensor implements IPresenceSensor {
     }
     set mode(value: ModeType) {
         this.raw.set(PropertyType.Mode, value);
+    }
+    /** Ustawia parametr Timeout (wyrażony w sekundach) */
+    setTimeout(timeout: number): void {
+        this.raw.set(PropertyType.Timeout, timeout);
+    }
+    /** Ustawia parametr DetectionDelay (wyrażony w sekundach) */
+    setDetectionDelay(detectionDelay: number): void {
+        this.raw.set(PropertyType.DetectionDelay, detectionDelay);
+    }
+    /** Ustawia parametr Mode */
+    setMode(mode: ModeType): void {
+        this.raw.set(PropertyType.Mode, mode);
     }
 }
 
@@ -460,6 +478,36 @@ class PresenceSensorRemote implements IPresenceSensor {
             .set()
             .addParameter(PropertyType.Mode)
             .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia parametr Timeout (wyrażony w sekundach) */
+    setTimeout(timeout: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Timeout)
+            .addParameter(timeout)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia parametr DetectionDelay (wyrażony w sekundach) */
+    setDetectionDelay(detectionDelay: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.DetectionDelay)
+            .addParameter(detectionDelay)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia parametr Mode */
+    setMode(mode: ModeType): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Mode)
+            .addParameter(mode)
             .build();
         this.gate.runScript(cmd!);
     }

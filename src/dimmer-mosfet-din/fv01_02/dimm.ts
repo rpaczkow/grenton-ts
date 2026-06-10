@@ -71,6 +71,16 @@ interface IDimm {
     startLevel: number
     /** Grupa Distributed Logic - grupa broadcastowa dla rozproszonej logiki */
     distributedLogicGroup: number
+    /** Ustawia wartość wyjścia (0.0 - 1.0) */
+    setValue: (value: number) => void
+    /** Ustawia czas rozjaśniania lub ściemniania wyjścia (w ms) */
+    setRampTime: (value: number) => void
+    /** Ustawia minimalną wartość, którą może przyjąć wyjście. Zakres: 0.0 - 1.0 */
+    setMinValue: (value: number) => void
+    /** Ustawia maksymalną wartość, którą może przyjąć wyjście. Zakres: 0.0 - 1.0 */
+    setMaxValue: (value: number) => void
+    /** Ustawia wartość progu załączenia (zakres 0.0 - 1.0) */
+    setStartLevel: (value: number) => void
     /** Realizuje funkcję rozjaśniania/ściemniania wyjścia z użyciem Rampy podanej w parametrze */
     holdValue: (ramp?: number) => void
     /** Zmienia wartość wyjścia na przeciwny (MinValue - MaxValue) */
@@ -133,6 +143,12 @@ class Dimm implements IDimm {
     set startLevel(val: number) { this.raw.set(PropertyType.StartLevel, val); }
     get distributedLogicGroup(): number { return this.raw.get(PropertyType.DistributedLogicGroup); }
     set distributedLogicGroup(val: number) { this.raw.set(PropertyType.DistributedLogicGroup, val); }
+
+    setValue(value: number): void { this.raw.set(PropertyType.Value, value); }
+    setRampTime(value: number): void { this.raw.set(PropertyType.RampTime, value); }
+    setMinValue(value: number): void { this.raw.set(PropertyType.MinValue, value); }
+    setMaxValue(value: number): void { this.raw.set(PropertyType.MaxValue, value); }
+    setStartLevel(value: number): void { this.raw.set(PropertyType.StartLevel, value); }
 
     holdValue(ramp: number = 500): void {
         this.raw.execute(MethodType.HoldValue, ramp);
@@ -220,6 +236,27 @@ class DimmRemote implements IDimm {
     }
     set distributedLogicGroup(val: number) {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.DistributedLogicGroup).addParameter(val).build();
+        this.gate.runScript(cmd!);
+    }
+
+    setValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.Value).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setRampTime(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.RampTime).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMinValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MinValue).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setMaxValue(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MaxValue).addParameter(value).build();
+        this.gate.runScript(cmd!);
+    }
+    setStartLevel(value: number): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.StartLevel).addParameter(value).build();
         this.gate.runScript(cmd!);
     }
 

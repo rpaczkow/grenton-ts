@@ -82,6 +82,10 @@ interface ISunriseSunsetCalendar {
     start(): void
     /** Zatrzymuje kalendarz wschodów i zachodów słońca */
     stop(): void
+    /** Ustawia długość geograficzną w stopniach dziesiętnych (DD), zakres -180 do 180 */
+    setLongitude: (value: number) => void
+    /** Ustawia szerokość geograficzną w stopniach dziesiętnych (DD), zakres -90 do 90 */
+    setLatitude: (value: number) => void
 }
 
 class SunriseSunsetCalendar implements ISunriseSunsetCalendar {
@@ -209,6 +213,14 @@ class SunriseSunsetCalendar implements ISunriseSunsetCalendar {
     /** Zatrzymuje kalendarz wschodów i zachodów słońca */
     stop(): void {
         this.raw.execute(MethodType.Stop);
+    }
+    /** Ustawia długość geograficzną w stopniach dziesiętnych (DD), zakres -180 do 180 */
+    setLongitude(value: number): void {
+        this.raw.set(PropertyType.Longitude, value);
+    }
+    /** Ustawia szerokość geograficzną w stopniach dziesiętnych (DD), zakres -90 do 90 */
+    setLatitude(value: number): void {
+        this.raw.set(PropertyType.Latitude, value);
     }
 }
 
@@ -378,6 +390,26 @@ class SunriseSunsetCalendarRemote implements ISunriseSunsetCalendar {
         const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
             .execute()
             .addParameter(MethodType.Stop)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia długość geograficzną w stopniach dziesiętnych (DD), zakres -180 do 180 */
+    setLongitude(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Longitude)
+            .addParameter(value)
+            .build();
+        this.gate.runScript(cmd!);
+    }
+
+    /** Ustawia szerokość geograficzną w stopniach dziesiętnych (DD), zakres -90 do 90 */
+    setLatitude(value: number): void {
+        const cmd: string | null = rawExecutionBuilderFactory(this.objectName)
+            .set()
+            .addParameter(PropertyType.Latitude)
+            .addParameter(value)
             .build();
         this.gate.runScript(cmd!);
     }
