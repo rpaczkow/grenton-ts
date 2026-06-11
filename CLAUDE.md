@@ -35,10 +35,10 @@ here ended generate objects for clus
 
 ### "latest" Re-export Folder
 
-Each module directory (e.g. `src/analog-module/`) must contain a `latest/` folder with one re-export file per wrapper from its newest version folder, so consumers can `import { xxx } from '.../analog-module/latest/xxx'` without depending on a specific firmware version. See `src/analog-module/latest/` as the reference example.
+Each module directory (e.g. `src/analog-module/`) must contain a `latest/` folder with one re-export file per wrapper from its newest version folder, so consumers can `import { Xxx } from '.../analog-module/latest/file-name'` without depending on a specific firmware version. See `src/analog-module/latest/` as the reference example.
 
 - The "newest" version folder is determined by comparing `fvXX_YY[_...]` segments as hex numbers (e.g. `fv0a_00` > `fv09_02`, `fvff_0` > `fv01_0`, `fv1400_02` > `fv1110_02`). For equal segments with non-numeric suffixes (e.g. `_hv1` vs `_hv2`), compare as strings.
-- For each `.ts` file in that version folder, create a file `latest/<camelCaseFileName>.ts` containing a single line `export * as <camelCaseFileName> from '../<version>/<file-without-ext>';`, where `<camelCaseFileName>` is the camelCase form of the file name (e.g. `analog-in.ts` -> `analogIn.ts` containing `export * as analogIn from '../fv11_01/analog-in';`).
+- For each `.ts` file in that version folder, create a file `latest/<file-name>.ts` (same name as the source file) containing a single line `export * from '../<version>/<file-name>';` (e.g. `latest/analog-in.ts` containing `export * from '../fv11_01/analog-in';`).
 - Whenever a wrapper is created or updated (new version folder added, or files added/removed/renamed), regenerate/update the corresponding files in `latest/` to reflect the new latest version and files (add/remove/rename files as needed).
 
 
