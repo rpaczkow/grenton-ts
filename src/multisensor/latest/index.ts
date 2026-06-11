@@ -1,0 +1,9 @@
+export * as airCo2Sensor from '../fv01_02/air-co2-sensor';
+export * as airVocSensor from '../fv01_02/air-voc-sensor';
+export * as humiditySensor from '../fv01_02/humidity-sensor';
+export * as irController from '../fv01_02/ir-controller';
+export * as lightSensorLux from '../fv01_02/light-sensor-lux';
+export * as powerSupplyVoltage from '../fv01_02/power-supply-voltage';
+export * as pressureSensor from '../fv01_02/pressure-sensor';
+export * as soundSensor from '../fv01_02/sound-sensor';
+export * as temperatureSensor from '../fv01_02/temperature-sensor';
