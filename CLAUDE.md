@@ -33,6 +33,14 @@ here ended generate objects for clus
    - apply same rules for all clu_ZWAVE_ft*.xml (TS classes for these go to src/clu-zwave/<version>, including the /clu/objects co-location rule above)
 - Don't generate TS wrappers for clu_ft*.xml files.
 
+### "latest" Re-export Folder
+
+Each module directory (e.g. `src/analog-module/`) must contain a `latest/index.ts` that re-exports the wrappers from its newest version folder, so consumers can `import * as xxx from '.../analog-module/latest'` without depending on a specific firmware version. See `src/analog-module/latest/index.ts` as the reference example.
+
+- The "newest" version folder is determined by comparing `fvXX_YY[_...]` segments as hex numbers (e.g. `fv0a_00` > `fv09_02`, `fvff_0` > `fv01_0`, `fv1400_02` > `fv1110_02`). For equal segments with non-numeric suffixes (e.g. `_hv1` vs `_hv2`), compare as strings.
+- For each `.ts` file in that version folder, add a line `export * as <camelCaseFileName> from '../<version>/<file-without-ext>';`, where `<camelCaseFileName>` is the camelCase form of the file name (e.g. `analog-in.ts` -> `analogIn`).
+- Whenever a wrapper is created or updated (new version folder added, or files added/removed/renamed), regenerate/update the corresponding `latest/index.ts` to reflect the new latest version and files.
+
 
 
 ### Core Pattern
