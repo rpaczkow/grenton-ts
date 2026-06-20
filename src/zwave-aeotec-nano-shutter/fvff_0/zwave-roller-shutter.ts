@@ -61,11 +61,11 @@ interface IZwaveRollerShutter {
     /** Domyślna wartość parametru Time, jeśli wpisano 0 */
     maxTime: number
     /** Roleta do góry. Parametr Time to czas przez jaki roleta ma się otwierać. num - czas otwierania, 0 - czas otwierania równy MaxTime */
-    up: (time?: number) => void
+    up: (time: number) => void
     /** Roleta w dół. Parametr Time to czas przez jaki roleta ma się zamykać. num - czas zamykania, 0 - czas zamykania równy MaxTime */
-    down: (time?: number) => void
+    down: (time: number) => void
     /** Roleta do góry jeśli poprzednio ruch w dół, roleta w dół jeśli poprzednio ruch w górę. Parametr Time to czas przez jaki roleta ma być w ruchu. num - czas jazdy rolety, 0 - czas jazdy równy MaxTime */
-    start: (time?: number) => void
+    start: (time: number) => void
     /** Stop jeśli roleta jest w ruchu */
     stop: () => void
     /** Hold z odwracaniem kierunku */
@@ -113,9 +113,9 @@ class ZwaveRollerShutter implements IZwaveRollerShutter {
     get maxTime(): number { return this.raw.get(PropertyType.MaxTime); }
     set maxTime(val: number) { this.raw.set(PropertyType.MaxTime, val); }
 
-    up(time: number = 0): void { this.raw.execute(MethodType.Up, time); }
-    down(time: number = 0): void { this.raw.execute(MethodType.Down, time); }
-    start(time: number = 0): void { this.raw.execute(MethodType.Start, time); }
+    up(time: number): void { this.raw.execute(MethodType.Up, time); }
+    down(time: number): void { this.raw.execute(MethodType.Down, time); }
+    start(time: number): void { this.raw.execute(MethodType.Start, time); }
     stop(): void { this.raw.execute(MethodType.Stop); }
     hold(): void { this.raw.execute(MethodType.Hold); }
     holdUp(): void { this.raw.execute(MethodType.HoldUp); }
@@ -152,15 +152,15 @@ class ZwaveRollerShutterRemote implements IZwaveRollerShutter {
         this.gate.runScript(cmd!);
     }
 
-    up(time: number = 0): void {
+    up(time: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.Up).addParameter(time).build();
         this.gate.runScript(cmd!);
     }
-    down(time: number = 0): void {
+    down(time: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.Down).addParameter(time).build();
         this.gate.runScript(cmd!);
     }
-    start(time: number = 0): void {
+    start(time: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.Start).addParameter(time).build();
         this.gate.runScript(cmd!);
     }

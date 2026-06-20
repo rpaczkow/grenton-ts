@@ -41,11 +41,11 @@ interface IZwaveDout {
     /** Zwraca 1 dla wyjścia ustawionego na „On" i 0 dla wyjścia ustawionego na „Off" */
     value: ValueType
     /** Zmienia stan wyjścia na przeciwny. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała */
-    switch: (time?: number) => void
+    switch: (time: number) => void
     /** Załącza wyjście. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała */
-    switchOn: (time?: number) => void
+    switchOn: (time: number) => void
     /** Wyłącza wyjście. Parametr Time określa na jak długo następuje zmiana stanu, dla 0 jest ona stała */
-    switchOff: (time?: number) => void
+    switchOff: (time: number) => void
     /** Ustawia stan wyjścia jako 1 lub 0 */
     setValue: (value: ValueType) => void
 }
@@ -74,9 +74,9 @@ class ZwaveDout implements IZwaveDout {
     get value(): ValueType { return this.raw.get(PropertyType.Value); }
     set value(val: ValueType) { this.raw.set(PropertyType.Value, val); }
 
-    switch(time: number = 0): void { this.raw.execute(MethodType.Switch, time); }
-    switchOn(time: number = 0): void { this.raw.execute(MethodType.SwitchOn, time); }
-    switchOff(time: number = 0): void { this.raw.execute(MethodType.SwitchOff, time); }
+    switch(time: number): void { this.raw.execute(MethodType.Switch, time); }
+    switchOn(time: number): void { this.raw.execute(MethodType.SwitchOn, time); }
+    switchOff(time: number): void { this.raw.execute(MethodType.SwitchOff, time); }
 
     setValue(value: ValueType): void { this.raw.set(PropertyType.Value, value); }
 }
@@ -97,15 +97,15 @@ class ZwaveDoutRemote implements IZwaveDout {
         this.gate.runScript(cmd!);
     }
 
-    switch(time: number = 0): void {
+    switch(time: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.Switch).addParameter(time).build();
         this.gate.runScript(cmd!);
     }
-    switchOn(time: number = 0): void {
+    switchOn(time: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SwitchOn).addParameter(time).build();
         this.gate.runScript(cmd!);
     }
-    switchOff(time: number = 0): void {
+    switchOff(time: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SwitchOff).addParameter(time).build();
         this.gate.runScript(cmd!);
     }

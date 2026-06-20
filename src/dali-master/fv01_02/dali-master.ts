@@ -44,17 +44,17 @@ interface IDaliMaster {
     /** Resetuje statecznik */
     resetGear: (address?: number) => void
     /** Ustawia wartość z jaką świeci oprawa. Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s] */
-    setDAPCValue: (value: number, address?: number, rampTime?: number) => void
+    setDAPCValue: (value: number, rampTime: number, address?: number) => void
     /** Włącza oprawę na 2 sekundy */
     identify: (address?: number) => void
     /** Wyszukiwanie stateczników podłączonych do magistrali DALI oraz nadawanie im adresów lokalnych. W momencie nadania adresu, dany statecznik zostaje załączony na 300 ms.\nPodczas DALI_Discovery nie należy wykonywać operacji na urządzeniu */
     daliDiscovery: () => void
     /** Ustawia wartość z jaką świeci oprawa dla podanej grupy. Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s] */
-    setGroupDAPCValue: (groupAddress: number, value: number, rampTime?: number) => void
+    setGroupDAPCValue: (groupAddress: number, value: number, rampTime: number) => void
     /** Włącza oprawy dla podanej grupy. Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s] */
-    groupSwitchOn: (groupAddress: number, rampTime?: number) => void
+    groupSwitchOn: (groupAddress: number, rampTime: number) => void
     /** Wyłącza oprawy dla podanej grupy. Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s] */
-    groupSwitchOff: (groupAddress: number, rampTime?: number) => void
+    groupSwitchOff: (groupAddress: number, rampTime: number) => void
 }
 
 class DaliMaster implements IDaliMaster {
@@ -74,12 +74,12 @@ class DaliMaster implements IDaliMaster {
 
     setLocalAddress(address: number, findGear: number = 255): void { this.raw.execute(MethodType.SetLocalAddress, findGear, address); }
     resetGear(address: number = 255): void { this.raw.execute(MethodType.ResetGear, address); }
-    setDAPCValue(value: number, address: number = 255, rampTime: number = 0): void { this.raw.execute(MethodType.SetDAPCValue, address, value, rampTime); }
+    setDAPCValue(value: number, rampTime: number, address: number = 255): void { this.raw.execute(MethodType.SetDAPCValue, address, value, rampTime); }
     identify(address: number = 255): void { this.raw.execute(MethodType.Identify, address); }
     daliDiscovery(): void { this.raw.execute(MethodType.DALI_Discovery); }
-    setGroupDAPCValue(groupAddress: number, value: number, rampTime: number = 0): void { this.raw.execute(MethodType.SetGroupDAPCValue, groupAddress, value, rampTime); }
-    groupSwitchOn(groupAddress: number, rampTime: number = 0): void { this.raw.execute(MethodType.GroupSwitchOn, groupAddress, rampTime); }
-    groupSwitchOff(groupAddress: number, rampTime: number = 0): void { this.raw.execute(MethodType.GroupSwitchOff, groupAddress, rampTime); }
+    setGroupDAPCValue(groupAddress: number, value: number, rampTime: number): void { this.raw.execute(MethodType.SetGroupDAPCValue, groupAddress, value, rampTime); }
+    groupSwitchOn(groupAddress: number, rampTime: number): void { this.raw.execute(MethodType.GroupSwitchOn, groupAddress, rampTime); }
+    groupSwitchOff(groupAddress: number, rampTime: number): void { this.raw.execute(MethodType.GroupSwitchOff, groupAddress, rampTime); }
 }
 
 class DaliMasterRemote implements IDaliMaster {
@@ -108,7 +108,7 @@ class DaliMasterRemote implements IDaliMaster {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.ResetGear).addParameter(address).build();
         this.gate.runScript(cmd!);
     }
-    setDAPCValue(value: number, address: number = 255, rampTime: number = 0): void {
+    setDAPCValue(value: number, rampTime: number, address: number = 255): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SetDAPCValue).addParameter(address).addParameter(value).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
@@ -120,15 +120,15 @@ class DaliMasterRemote implements IDaliMaster {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.DALI_Discovery).build();
         this.gate.runScript(cmd!);
     }
-    setGroupDAPCValue(groupAddress: number, value: number, rampTime: number = 0): void {
+    setGroupDAPCValue(groupAddress: number, value: number, rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SetGroupDAPCValue).addParameter(groupAddress).addParameter(value).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
-    groupSwitchOn(groupAddress: number, rampTime: number = 0): void {
+    groupSwitchOn(groupAddress: number, rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.GroupSwitchOn).addParameter(groupAddress).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
-    groupSwitchOff(groupAddress: number, rampTime: number = 0): void {
+    groupSwitchOff(groupAddress: number, rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.GroupSwitchOff).addParameter(groupAddress).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }

@@ -70,6 +70,10 @@ All device wrappers follow the same architectural pattern:
       - call="set": method calls `raw.set(PropertyType.X, value)` (Remote: `.set().addParameter(PropertyType.X).addParameter(value)...`). This is generated IN ADDITION TO the corresponding feature property setter (//features/feature with set="true") - the two are not mutually exclusive, even though they wrap the same underlying call.
       - call="get": method calls `raw.get(PropertyType.X)` (Remote: `.get().addParameter(PropertyType.X)...`), in addition to the corresponding feature property getter.
       - Method name is the camelCase form of the method's "name" attribute (e.g. SetValue -> setValue).
+      - Each `<param>` becomes a required parameter (no `?`, no default value) UNLESS the XML marks it optional:
+         - module_*.xml schema: the `<param>` element itself has `optional="true"`.
+      - A `<parametrized>` child with a `value` attribute (e.g. `<parametrized name="Default" value="500"/>`, `<parametrized name="Broadcast" value="255"/>`) only supplies the default value to use when the param IS optional per the rule above - it does NOT by itself make the param optional. Many params carry such a "suggested value" child while remaining required.
+      - When XML param order would put a required param after an optional one, reorder the TS parameter list (required params first, optional/defaulted ones last) for valid TypeScript syntax, but keep the original XML argument order in the `raw.execute(...)`/`.addParameter(...)` calls.
    - For every <event/> in <events /> node generate event. Event name is in name attribute.
 
 3. **Remote Variant** (`*Remote` classes): For cross-gate communication via `RemoteGate`, uses `rawExecutionBuilderFactory` to build command strings. Remote events are not supported.

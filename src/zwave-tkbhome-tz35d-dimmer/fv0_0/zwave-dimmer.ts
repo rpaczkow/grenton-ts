@@ -51,11 +51,11 @@ interface IZwaveDimmer {
     /** Maksymalna wartość ściemniacza w procentach */
     maxValue: number
     /** Przełącza stan ściemniacza na przeciwny (używając wartości MinValue i MaxValue)\nTime - czas, na jaki ściemniacz ma zostać przełączony (wartość 0 oznacza czas nieograniczony) */
-    switch: (time?: number) => void
+    switch: (time: number) => void
     /** Przełącza stan ściemniacza na włączony (używając wartości MaxValue)\nTime - czas, na jaki ściemniacz ma zostać przełączony (wartość 0 oznacza czas nieograniczony) */
-    switchOn: (time?: number) => void
+    switchOn: (time: number) => void
     /** Przełącza stan ściemniacza na wyłączony (używając wartości MinValue)\nTime - czas, na jaki ściemniacz ma zostać przełączony (wartość 0 oznacza czas nieograniczony) */
-    switchOff: (time?: number) => void
+    switchOff: (time: number) => void
     /** Rozpoczyna i przetrzymuje akcje płynnego rozjaśniania/ściemniania w kierunku przeciwnym do poprzedniego */
     hold: () => void
     /** Rozpoczyna i przetrzymuje akcje płynnego rozjaśniania */
@@ -108,9 +108,9 @@ class ZwaveDimmer implements IZwaveDimmer {
     get maxValue(): number { return this.raw.get(PropertyType.MaxValue); }
     set maxValue(val: number) { this.raw.set(PropertyType.MaxValue, val); }
 
-    switch(time: number = 0): void { this.raw.execute(MethodType.Switch, time); }
-    switchOn(time: number = 0): void { this.raw.execute(MethodType.SwitchOn, time); }
-    switchOff(time: number = 0): void { this.raw.execute(MethodType.SwitchOff, time); }
+    switch(time: number): void { this.raw.execute(MethodType.Switch, time); }
+    switchOn(time: number): void { this.raw.execute(MethodType.SwitchOn, time); }
+    switchOff(time: number): void { this.raw.execute(MethodType.SwitchOff, time); }
     hold(): void { this.raw.execute(MethodType.Hold); }
     holdUp(): void { this.raw.execute(MethodType.HoldUp); }
     holdDown(): void { this.raw.execute(MethodType.HoldDown); }
@@ -154,15 +154,15 @@ class ZwaveDimmerRemote implements IZwaveDimmer {
         this.gate.runScript(cmd!);
     }
 
-    switch(time: number = 0): void {
+    switch(time: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.Switch).addParameter(time).build();
         this.gate.runScript(cmd!);
     }
-    switchOn(time: number = 0): void {
+    switchOn(time: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SwitchOn).addParameter(time).build();
         this.gate.runScript(cmd!);
     }
-    switchOff(time: number = 0): void {
+    switchOff(time: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SwitchOff).addParameter(time).build();
         this.gate.runScript(cmd!);
     }

@@ -88,17 +88,17 @@ interface IDaliMaster {
     /** Dla wybranego adresu zapisuje w pamięci statecznika DACPValue jakie ma zostać ustawione po restarcie/awarii magistrali */
     setPowerOnLevel: (address: number, dapcValue: number) => void
     /** Ustawia wartość z jaką świeci oprawa. Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s] */
-    setDAPCValue: (value: number, address?: number, rampTime?: number) => void
+    setDAPCValue: (value: number, rampTime: number, address?: number) => void
     /** Jeżeli statecznik jest wyłączony, włącza statecznik z wartością DACPValue ustawioną przed wyłączeniem */
     setLastActiveLevel: (address: number) => void
     /** Ustawia wartość z jaką świeci oprawa dla podanej grupy. Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s] */
-    setGroupDAPCValue: (groupAddress: number, value: number, rampTime?: number) => void
+    setGroupDAPCValue: (groupAddress: number, value: number, rampTime: number) => void
     /** Zmienia stan wyjścia dla grupy stateczników na przeciwny. Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s] */
-    groupSwitch: (groupAddress: number, rampTime?: number) => void
+    groupSwitch: (groupAddress: number, rampTime: number) => void
     /** Włącza oprawy dla podanej grupy. Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s] */
-    groupSwitchOn: (groupAddress: number, rampTime?: number) => void
+    groupSwitchOn: (groupAddress: number, rampTime: number) => void
     /** Wyłącza oprawy dla podanej grupy. Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s] */
-    groupSwitchOff: (groupAddress: number, rampTime?: number) => void
+    groupSwitchOff: (groupAddress: number, rampTime: number) => void
 }
 
 class DaliMaster implements IDaliMaster {
@@ -132,12 +132,12 @@ class DaliMaster implements IDaliMaster {
     updateMissingGears(): void { this.raw.execute(MethodType.UpdateMissingGears); }
     daliDiscovery(type: DiscoveryType = DiscoveryType.ResetAllLocalAddress): void { this.raw.execute(MethodType.DALI_Discovery, type); }
     setPowerOnLevel(address: number, dapcValue: number): void { this.raw.execute(MethodType.SetPowerOnLevel, address, dapcValue); }
-    setDAPCValue(value: number, address: number = 255, rampTime: number = 0): void { this.raw.execute(MethodType.SetDAPCValue, address, value, rampTime); }
+    setDAPCValue(value: number, rampTime: number, address: number = 255): void { this.raw.execute(MethodType.SetDAPCValue, address, value, rampTime); }
     setLastActiveLevel(address: number): void { this.raw.execute(MethodType.SetLastActiveLevel, address); }
-    setGroupDAPCValue(groupAddress: number, value: number, rampTime: number = 0): void { this.raw.execute(MethodType.SetGroupDAPCValue, groupAddress, value, rampTime); }
-    groupSwitch(groupAddress: number, rampTime: number = 0): void { this.raw.execute(MethodType.GroupSwitch, groupAddress, rampTime); }
-    groupSwitchOn(groupAddress: number, rampTime: number = 0): void { this.raw.execute(MethodType.GroupSwitchOn, groupAddress, rampTime); }
-    groupSwitchOff(groupAddress: number, rampTime: number = 0): void { this.raw.execute(MethodType.GroupSwitchOff, groupAddress, rampTime); }
+    setGroupDAPCValue(groupAddress: number, value: number, rampTime: number): void { this.raw.execute(MethodType.SetGroupDAPCValue, groupAddress, value, rampTime); }
+    groupSwitch(groupAddress: number, rampTime: number): void { this.raw.execute(MethodType.GroupSwitch, groupAddress, rampTime); }
+    groupSwitchOn(groupAddress: number, rampTime: number): void { this.raw.execute(MethodType.GroupSwitchOn, groupAddress, rampTime); }
+    groupSwitchOff(groupAddress: number, rampTime: number): void { this.raw.execute(MethodType.GroupSwitchOff, groupAddress, rampTime); }
 }
 
 class DaliMasterRemote implements IDaliMaster {
@@ -203,7 +203,7 @@ class DaliMasterRemote implements IDaliMaster {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SetPowerOnLevel).addParameter(address).addParameter(dapcValue).build();
         this.gate.runScript(cmd!);
     }
-    setDAPCValue(value: number, address: number = 255, rampTime: number = 0): void {
+    setDAPCValue(value: number, rampTime: number, address: number = 255): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SetDAPCValue).addParameter(address).addParameter(value).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
@@ -211,19 +211,19 @@ class DaliMasterRemote implements IDaliMaster {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SetLastActiveLevel).addParameter(address).build();
         this.gate.runScript(cmd!);
     }
-    setGroupDAPCValue(groupAddress: number, value: number, rampTime: number = 0): void {
+    setGroupDAPCValue(groupAddress: number, value: number, rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SetGroupDAPCValue).addParameter(groupAddress).addParameter(value).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
-    groupSwitch(groupAddress: number, rampTime: number = 0): void {
+    groupSwitch(groupAddress: number, rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.GroupSwitch).addParameter(groupAddress).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
-    groupSwitchOn(groupAddress: number, rampTime: number = 0): void {
+    groupSwitchOn(groupAddress: number, rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.GroupSwitchOn).addParameter(groupAddress).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
-    groupSwitchOff(groupAddress: number, rampTime: number = 0): void {
+    groupSwitchOff(groupAddress: number, rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.GroupSwitchOff).addParameter(groupAddress).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }

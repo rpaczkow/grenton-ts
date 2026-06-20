@@ -49,13 +49,13 @@ interface IDaliGear {
     /** Włącza oprawę na 2 sekundy */
     identify: () => void
     /** Ustawia wartość z jaką świeci oprawa. \nParametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s] */
-    setDAPCValue: (value: number, rampTime?: number) => void
+    setDAPCValue: (value: number, rampTime: number) => void
     /** Zmienia stan oprawy na przeciwny (0 / 254). \nParametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s] */
-    switch: (rampTime?: number) => void
+    switch: (rampTime: number) => void
     /** Włącza oprawę. \nParametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s] */
-    switchOn: (rampTime?: number) => void
+    switchOn: (rampTime: number) => void
     /** Wyłącza oprawę. \nParametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s] */
-    switchOff: (rampTime?: number) => void
+    switchOff: (rampTime: number) => void
     /** Realizuje funkcję rozjaśniania / ściemniania oprawy */
     hold: (rampTime: number) => void
     /** Realizuje funkcję rozjaśniania oprawy */
@@ -91,10 +91,10 @@ class DaliGear implements IDaliGear {
     get dapcValue(): number { return this.raw.get(PropertyType.DAPCValue); }
 
     identify(): void { this.raw.execute(MethodType.Identify); }
-    setDAPCValue(value: number, rampTime: number = 0): void { this.raw.execute(MethodType.SetDAPCValue, value, rampTime); }
-    switch(rampTime: number = 0): void { this.raw.execute(MethodType.Switch, rampTime); }
-    switchOn(rampTime: number = 0): void { this.raw.execute(MethodType.SwitchOn, rampTime); }
-    switchOff(rampTime: number = 0): void { this.raw.execute(MethodType.SwitchOff, rampTime); }
+    setDAPCValue(value: number, rampTime: number): void { this.raw.execute(MethodType.SetDAPCValue, value, rampTime); }
+    switch(rampTime: number): void { this.raw.execute(MethodType.Switch, rampTime); }
+    switchOn(rampTime: number): void { this.raw.execute(MethodType.SwitchOn, rampTime); }
+    switchOff(rampTime: number): void { this.raw.execute(MethodType.SwitchOff, rampTime); }
     hold(rampTime: number): void { this.raw.execute(MethodType.Hold, rampTime); }
     holdUp(rampTime: number): void { this.raw.execute(MethodType.HoldUp, rampTime); }
     holdDown(rampTime: number): void { this.raw.execute(MethodType.HoldDown, rampTime); }
@@ -128,19 +128,19 @@ class DaliGearRemote implements IDaliGear {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.Identify).build();
         this.gate.runScript(cmd!);
     }
-    setDAPCValue(value: number, rampTime: number = 0): void {
+    setDAPCValue(value: number, rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SetDAPCValue).addParameter(value).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
-    switch(rampTime: number = 0): void {
+    switch(rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.Switch).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
-    switchOn(rampTime: number = 0): void {
+    switchOn(rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SwitchOn).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
-    switchOff(rampTime: number = 0): void {
+    switchOff(rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SwitchOff).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }

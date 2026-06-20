@@ -62,17 +62,17 @@ interface IZwaveDimmer {
     /** Ustawia czas narastania wartości wyjścia */
     setRampTime: (value: number) => void
     /** Przełącza stan ściemniacza na przeciwny (używając wartości MinValue i MaxValue) */
-    switch: (time: number, rampTime?: number) => void
+    switch: (time: number, rampTime: number) => void
     /** Przełącza stan ściemniacza na włączony (używając wartości MaxValue) */
-    switchOn: (time: number, rampTime?: number) => void
+    switchOn: (time: number, rampTime: number) => void
     /** Przełącza stan ściemniacza na wyłączony (używając wartości MinValue) */
-    switchOff: (time: number, rampTime?: number) => void
+    switchOff: (time: number, rampTime: number) => void
     /** Rozpoczyna i przetrzymuje akcje płynnego rozjaśniania/ściemniania w kierunku przeciwnym do poprzedniego */
-    hold: (rampTime?: number) => void
+    hold: (rampTime: number) => void
     /** Rozpoczyna i przetrzymuje akcje płynnego rozjaśniania */
-    holdUp: (rampTime?: number) => void
+    holdUp: (rampTime: number) => void
     /** Rozpoczyna i przetrzymuje akcje płynnego ściemniania */
-    holdDown: (rampTime?: number) => void
+    holdDown: (rampTime: number) => void
 }
 
 class ZwaveDimmer implements IZwaveDimmer {
@@ -120,22 +120,22 @@ class ZwaveDimmer implements IZwaveDimmer {
     setMaxValue(value: number): void { this.raw.set(PropertyType.MaxValue, value); }
     setRampTime(value: number): void { this.raw.set(PropertyType.RampTime, value); }
 
-    switch(time: number, rampTime: number = 0): void {
+    switch(time: number, rampTime: number): void {
         this.raw.execute(MethodType.Switch, time, rampTime);
     }
-    switchOn(time: number, rampTime: number = 0): void {
+    switchOn(time: number, rampTime: number): void {
         this.raw.execute(MethodType.SwitchOn, time, rampTime);
     }
-    switchOff(time: number, rampTime: number = 0): void {
+    switchOff(time: number, rampTime: number): void {
         this.raw.execute(MethodType.SwitchOff, time, rampTime);
     }
-    hold(rampTime: number = 15000): void {
+    hold(rampTime: number): void {
         this.raw.execute(MethodType.Hold, rampTime);
     }
-    holdUp(rampTime: number = 15000): void {
+    holdUp(rampTime: number): void {
         this.raw.execute(MethodType.HoldUp, rampTime);
     }
-    holdDown(rampTime: number = 15000): void {
+    holdDown(rampTime: number): void {
         this.raw.execute(MethodType.HoldDown, rampTime);
     }
 }
@@ -199,27 +199,27 @@ class ZwaveDimmerRemote implements IZwaveDimmer {
         this.gate.runScript(cmd!);
     }
 
-    switch(time: number, rampTime: number = 0): void {
+    switch(time: number, rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.Switch).addParameter(time).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
-    switchOn(time: number, rampTime: number = 0): void {
+    switchOn(time: number, rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SwitchOn).addParameter(time).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
-    switchOff(time: number, rampTime: number = 0): void {
+    switchOff(time: number, rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SwitchOff).addParameter(time).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
-    hold(rampTime: number = 15000): void {
+    hold(rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.Hold).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
-    holdUp(rampTime: number = 15000): void {
+    holdUp(rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.HoldUp).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
-    holdDown(rampTime: number = 15000): void {
+    holdDown(rampTime: number): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.HoldDown).addParameter(rampTime).build();
         this.gate.runScript(cmd!);
     }
