@@ -1,4 +1,4 @@
-// Created from: packages/grenton-api/interfaces/module_2_0_TOUCH_PANEL_FM_4_fv01_02.xml, object name="PowerSupplyVoltage" version="01.02"
+// Created from: src/interfaces/module_2_0_TOUCH_PANEL_FM_4_fv01_02.xml, object name="PowerSupplyVoltage" version="01.02"
 
 import { rawExecutionBuilderFactory } from "../../core/execution-builder"
 import { RemoteGate } from "../../core/remote-gate"

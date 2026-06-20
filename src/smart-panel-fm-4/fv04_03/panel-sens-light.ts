@@ -1,4 +1,4 @@
-// Created from: packages/grenton-api/interfaces/module_SMART_PANEL_FM_4_fv04_03.xml, object name="PANELSENSLIGHT" version="04.03"
+// Created from: src/interfaces/module_SMART_PANEL_FM_4_fv04_03.xml, object name="PANELSENSLIGHT" version="04.03"
 
 import { rawExecutionBuilderFactory } from "../../core/execution-builder"
 import { RemoteGate } from "../../core/remote-gate"

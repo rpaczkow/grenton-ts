@@ -1,3 +1,5 @@
+// Created from: src/interfaces/module_2_0_RELAY_DIN_4_fv01_02.xml, object name="DOUT"
+
 import { rawExecutionBuilderFactory } from "../../core/execution-builder"
 import { RemoteGate } from "../../core/remote-gate"
 

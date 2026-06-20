@@ -1,4 +1,4 @@
-// Created from: packages/grenton-api/interfaces/module_2_0_ROLLER_SHUTTER_DIN_3_fv03_02.xml, object name="ROLLER_SHUTTER"
+// Created from: src/interfaces/module_2_0_ROLLER_SHUTTER_DIN_3_fv03_02.xml, object name="ROLLER_SHUTTER"
 
 import { rawExecutionBuilderFactory } from "../../core/execution-builder"
 import { RemoteGate } from "../../core/remote-gate"

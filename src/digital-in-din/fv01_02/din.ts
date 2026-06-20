@@ -1,3 +1,5 @@
+// Created from: src/interfaces/module_2_0_DIGITAL_IN_DIN_fv01_02.xml, object name="DIN"
+
 import { rawExecutionBuilderFactory } from "../../core/execution-builder"
 import { RemoteGate } from "../../core/remote-gate"
 

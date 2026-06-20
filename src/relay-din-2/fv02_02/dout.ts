@@ -1,4 +1,4 @@
-// Created from: packages/grenton-api/interfaces/module_2_0_RELAY_DIN_2_fv02_02.xml, object name="DOUT"
+// Created from: src/interfaces/module_2_0_RELAY_DIN_2_fv02_02.xml, object name="DOUT"
 
 import { rawExecutionBuilderFactory } from "../../core/execution-builder"
 import { RemoteGate } from "../../core/remote-gate"

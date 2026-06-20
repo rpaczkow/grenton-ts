@@ -1,4 +1,4 @@
-// Created from: src/interfaces/module_2_0_MULTISENSOR_fv01_02.xml, object name="PowerSupplyVoltage"
+// Created from: src/interfaces/module_2_0_MULTISENSOR_fv01_02.xml, object name="POWER_SUPPLY_VOLTAGE"
 
 import { rawExecutionBuilderFactory } from "../../core/execution-builder"
 import { RemoteGate } from "../../core/remote-gate"
