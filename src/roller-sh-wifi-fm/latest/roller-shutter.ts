@@ -1,1 +1,1 @@
-export * from '../fv01_02/roller-shutter';
+export * from '../fwType_02_fwApiVersion_01/roller-shutter';

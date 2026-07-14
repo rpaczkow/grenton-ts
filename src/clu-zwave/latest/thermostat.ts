@@ -1,1 +1,1 @@
-export * from '../fv501_03/thermostat';
+export * from '../fwType_03_fwApiVersion_501/thermostat';

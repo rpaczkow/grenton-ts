@@ -1,1 +1,1 @@
-export * from '../fv01_02/rs232-controller';
+export * from '../fwType_02_fwApiVersion_01/rs232-controller';

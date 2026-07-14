@@ -1,1 +1,1 @@
-export * from '../fv01_02/humidity-sensor';
+export * from '../fwType_02_fwApiVersion_01/humidity-sensor';

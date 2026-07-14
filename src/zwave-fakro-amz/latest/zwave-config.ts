@@ -1,1 +1,1 @@
-export * from '../fv01_0/zwave-config';
+export * from '../fwType_0_fwApiVersion_01/zwave-config';

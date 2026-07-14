@@ -1,1 +1,1 @@
-export * from '../fv501_03/clu-zwave';
+export * from '../fwType_03_fwApiVersion_501/clu-zwave';

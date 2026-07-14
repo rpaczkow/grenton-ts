@@ -1,1 +1,1 @@
-export * from '../fv01_02/ledrgb';
+export * from '../fwType_02_fwApiVersion_01/ledrgb';

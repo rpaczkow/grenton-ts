@@ -1,1 +1,1 @@
-export * from '../fv515_03/statistics-pulse';
+export * from '../fwType_03_fwApiVersion_515/statistics-pulse';

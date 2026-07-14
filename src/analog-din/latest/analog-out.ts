@@ -1,1 +1,1 @@
-export * from '../fv01_02/analog-out';
+export * from '../fwType_02_fwApiVersion_01/analog-out';

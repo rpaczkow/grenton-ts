@@ -1,1 +1,1 @@
-export * from '../fvff_0/binary-sensor';
+export * from '../fwType_0_fwApiVersion_ff/binary-sensor';

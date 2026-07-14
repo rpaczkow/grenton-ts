@@ -1,1 +1,1 @@
-export * from '../fv501_03/calendar';
+export * from '../fwType_03_fwApiVersion_501/calendar';

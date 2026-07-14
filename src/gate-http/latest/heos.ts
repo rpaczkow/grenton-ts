@@ -1,1 +1,1 @@
-export * from '../fv1400_03/heos';
+export * from '../fwType_03_fwApiVersion_1400/heos';

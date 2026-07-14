@@ -1,1 +1,1 @@
-export * from '../fv01_02/switch';
+export * from '../fwType_02_fwApiVersion_01/switch';

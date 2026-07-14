@@ -1,1 +1,1 @@
-export * from '../fv01_02/light-sensor-lux';
+export * from '../fwType_02_fwApiVersion_01/light-sensor-lux';

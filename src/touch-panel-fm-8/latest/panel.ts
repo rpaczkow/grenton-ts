@@ -1,1 +1,1 @@
-export * from '../fv01_02/panel';
+export * from '../fwType_02_fwApiVersion_01/panel';

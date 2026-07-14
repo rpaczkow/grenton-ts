@@ -1,1 +1,1 @@
-export * from '../fv1400_02/timer';
+export * from '../fwType_02_fwApiVersion_1400/timer';

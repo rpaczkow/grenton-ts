@@ -1,1 +1,1 @@
-export * from '../fv01_02/air-voc-sensor';
+export * from '../fwType_02_fwApiVersion_01/air-voc-sensor';

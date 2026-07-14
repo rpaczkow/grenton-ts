@@ -1,1 +1,1 @@
-export * from '../fv99_00/dout';
+export * from '../fwType_00_fwApiVersion_99/dout';

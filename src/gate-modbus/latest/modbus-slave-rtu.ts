@@ -1,1 +1,1 @@
-export * from '../fv1400_01/modbus-slave-rtu';
+export * from '../fwType_01_fwApiVersion_1400/modbus-slave-rtu';

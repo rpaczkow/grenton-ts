@@ -19,7 +19,7 @@ here ended generate objects for clus
 - Build output is in dist and dist-js folders.
 - Files module_*.xml
    - Each hardware module has its own directory taken from <module /> node and @name attribute.
-   - Inside each module directory, subfolders use the naming convention `fvXX_YY`.
+   - Inside each module directory, subfolders use the naming convention `fwType_XX_fwApiVersion_YY`, where XX is the firmware type ID (`<firmware typeId="XX">`) and YY is the firmware API version (`<firmware version="YY">`), both taken from the XML source file.
 - Files clu_GATE_ALARM_*.xml
    - wrappers go to src/gate-alarm/<version> directories
    - each version folder contains TS wrapper
@@ -37,8 +37,8 @@ here ended generate objects for clus
 
 Each module directory (e.g. `src/analog-module/`) must contain a `latest/` folder with one re-export file per wrapper from its newest version folder, so consumers can `import { Xxx } from '.../analog-module/latest/file-name'` without depending on a specific firmware version. See `src/analog-module/latest/` as the reference example.
 
-- The "newest" version folder is determined by comparing `fvXX_YY[_...]` segments as hex numbers (e.g. `fv0a_00` > `fv09_02`, `fvff_0` > `fv01_0`, `fv1400_02` > `fv1110_02`). For equal segments with non-numeric suffixes (e.g. `_hv1` vs `_hv2`), compare as strings.
-- For each `.ts` file in that version folder, create a file `latest/<file-name>.ts` (same name as the source file) containing a single line `export * from '../<version>/<file-name>';` (e.g. `latest/analog-in.ts` containing `export * from '../fv11_01/analog-in';`).
+- The "newest" version folder is determined by comparing the numeric parts as hex: first compare fwApiVersion (YY) — higher hex value is newer; break ties by comparing fwType (XX) — higher hex value is newer (e.g. `fwType_01_fwApiVersion_0a` > `fwType_02_fwApiVersion_09`, `fwType_0_fwApiVersion_ff` > `fwType_0_fwApiVersion_01`, `fwType_02_fwApiVersion_1400` > `fwType_02_fwApiVersion_1110`). For non-numeric suffixes (e.g. `_hv1` vs `_hv2`), compare the suffix as a string.
+- For each `.ts` file in that version folder, create a file `latest/<file-name>.ts` (same name as the source file) containing a single line `export * from '../<version>/<file-name>';` (e.g. `latest/analog-in.ts` containing `export * from '../fwType_01_fwApiVersion_11/analog-in';`).
 - Whenever a wrapper is created or updated (new version folder added, or files added/removed/renamed), regenerate/update the corresponding files in `latest/` to reflect the new latest version and files (add/remove/rename files as needed).
 
 

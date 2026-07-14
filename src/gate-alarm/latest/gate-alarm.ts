@@ -1,1 +1,1 @@
-export * from '../fv1400_02/gate-alarm';
+export * from '../fwType_02_fwApiVersion_1400/gate-alarm';

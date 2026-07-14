@@ -1,1 +1,1 @@
-export * from '../fv14_02/panel-sens-temp';
+export * from '../fwType_02_fwApiVersion_14/panel-sens-temp';

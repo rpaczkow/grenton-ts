@@ -1,1 +1,1 @@
-export * from '../fv01_00/generic-zw-node';
+export * from '../fwType_00_fwApiVersion_01/generic-zw-node';

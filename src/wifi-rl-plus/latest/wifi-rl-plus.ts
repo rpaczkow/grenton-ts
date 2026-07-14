@@ -1,1 +1,1 @@
-export * from '../fv1100_01/wifi-rl-plus';
+export * from '../fwType_01_fwApiVersion_1100/wifi-rl-plus';

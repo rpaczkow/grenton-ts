@@ -1,1 +1,1 @@
-export * from '../fv1400_01/gate-modbus';
+export * from '../fwType_01_fwApiVersion_1400/gate-modbus';

@@ -1,1 +1,1 @@
-export * from '../fvff_0/zwave-power-meter';
+export * from '../fwType_0_fwApiVersion_ff/zwave-power-meter';

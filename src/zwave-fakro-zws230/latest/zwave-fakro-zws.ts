@@ -1,1 +1,1 @@
-export * from '../fv01_0/zwave-fakro-zws';
+export * from '../fwType_0_fwApiVersion_01/zwave-fakro-zws';

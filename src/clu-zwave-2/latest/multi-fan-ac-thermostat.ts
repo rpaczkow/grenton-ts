@@ -1,1 +1,1 @@
-export * from '../fv515_03/multi-fan-ac-thermostat';
+export * from '../fwType_03_fwApiVersion_515/multi-fan-ac-thermostat';

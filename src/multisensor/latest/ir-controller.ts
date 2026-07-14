@@ -1,1 +1,1 @@
-export * from '../fv01_02/ir-controller';
+export * from '../fwType_02_fwApiVersion_01/ir-controller';

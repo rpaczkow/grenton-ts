@@ -1,1 +1,1 @@
-export * from '../fv1400_02/jablotron-output';
+export * from '../fwType_02_fwApiVersion_1400/jablotron-output';
