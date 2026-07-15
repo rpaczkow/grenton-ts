@@ -20,6 +20,7 @@ here ended generate objects for clus
 - Files module_*.xml
    - Each hardware module has its own directory taken from <module /> node and @name attribute.
    - Inside each module directory, subfolders use the naming convention `fwType_XX_fwApiVersion_YY`, where XX is the firmware type ID (`<firmware typeId="XX">`) and YY is the firmware API version (`<firmware version="YY">`), both taken from the XML source file.
+   - The `typeId`/`version` attribute text in the XML is hexadecimal. XX and YY in the folder name must be the **decimal** equivalent, not a literal copy of the hex text (e.g. `<firmware typeId="00" version="0a">` → `fwType_00_fwApiVersion_10`; `<firmware typeId="00" version="ff">` → `fwType_00_fwApiVersion_255`). Zero-pad the decimal value to match the digit count of the original hex attribute string when the decimal value would otherwise be shorter (e.g. hex `06` → decimal `06`, not `6`); if the decimal value needs more digits than the original hex string had, leave it unpadded (e.g. hex `ff` → decimal `255`, not `0255`).
 - Files clu_GATE_ALARM_*.xml
    - wrappers go to src/gate-alarm/<version> directories
    - each version folder contains TS wrapper
@@ -37,7 +38,7 @@ here ended generate objects for clus
 
 Each module directory (e.g. `src/analog-module/`) must contain a `latest/` folder with one re-export file per wrapper from its newest version folder, so consumers can `import { Xxx } from '.../analog-module/latest/file-name'` without depending on a specific firmware version. See `src/analog-module/latest/` as the reference example.
 
-- The "newest" version folder is determined by comparing the numeric parts as hex: first compare fwApiVersion (YY) — higher hex value is newer; break ties by comparing fwType (XX) — higher hex value is newer (e.g. `fwType_01_fwApiVersion_0a` > `fwType_02_fwApiVersion_09`, `fwType_0_fwApiVersion_ff` > `fwType_0_fwApiVersion_01`, `fwType_02_fwApiVersion_1400` > `fwType_02_fwApiVersion_1110`). For non-numeric suffixes (e.g. `_hv1` vs `_hv2`), compare the suffix as a string.
+- The "newest" version folder is determined by comparing the numeric parts as decimal numbers (folder names already store XX/YY in decimal, per the rule above): first compare fwApiVersion (YY) — higher value is newer; break ties by comparing fwType (XX) — higher value is newer (e.g. `fwType_01_fwApiVersion_10` > `fwType_02_fwApiVersion_09`, `fwType_0_fwApiVersion_255` > `fwType_0_fwApiVersion_01`, `fwType_02_fwApiVersion_1400` > `fwType_02_fwApiVersion_1110`). For non-numeric suffixes (e.g. `_hv1` vs `_hv2`), compare the suffix as a string.
 - For each `.ts` file in that version folder, create a file `latest/<file-name>.ts` (same name as the source file) containing a single line `export * from '../<version>/<file-name>';` (e.g. `latest/analog-in.ts` containing `export * from '../fwType_01_fwApiVersion_11/analog-in';`).
 - Whenever a wrapper is created or updated (new version folder added, or files added/removed/renamed), regenerate/update the corresponding files in `latest/` to reflect the new latest version and files (add/remove/rename files as needed).
 

@@ -1,1 +1,1 @@
-export * from '../fwType_02_fwApiVersion_14/panel-sens-light';
+export * from '../fwType_02_fwApiVersion_20/panel-sens-light';

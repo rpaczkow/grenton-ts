@@ -1,1 +1,1 @@
-export * from '../fwType_00_fwApiVersion_99/din';
+export * from '../fwType_00_fwApiVersion_153/din';

@@ -1,1 +1,1 @@
-export * from '../fwType_0_fwApiVersion_ff/wake-up';
+export * from '../fwType_0_fwApiVersion_255/wake-up';

@@ -1,1 +1,1 @@
-export * from '../fwType_0_fwApiVersion_ff/zwave-analog-sensor';
+export * from '../fwType_0_fwApiVersion_255/zwave-analog-sensor';

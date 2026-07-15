@@ -1,1 +1,1 @@
-export * from '../fwType_0_fwApiVersion_ff/zwave-rgbw-led';
+export * from '../fwType_0_fwApiVersion_255/zwave-rgbw-led';

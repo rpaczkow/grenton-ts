@@ -1,1 +1,1 @@
-export * from '../fwType_0_fwApiVersion_ff/zwave-din';
+export * from '../fwType_0_fwApiVersion_255/zwave-din';

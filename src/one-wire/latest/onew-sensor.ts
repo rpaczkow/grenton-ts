@@ -1,1 +1,1 @@
-export * from '../fwType_28_fwApiVersion_03/onew-sensor';
+export * from '../fwType_40_fwApiVersion_03/onew-sensor';

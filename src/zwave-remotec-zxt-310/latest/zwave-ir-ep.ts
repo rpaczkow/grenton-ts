@@ -1,1 +1,1 @@
-export * from '../fwType_0_fwApiVersion_ff/zwave-ir-ep';
+export * from '../fwType_0_fwApiVersion_255/zwave-ir-ep';
