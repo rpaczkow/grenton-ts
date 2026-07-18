@@ -3,6 +3,11 @@
 import { rawExecutionBuilderFactory } from "../../core/execution-builder"
 import { RemoteGate } from "../../core/remote-gate"
 
+enum StatusType {
+    Disconnected = 0,
+    Connected = 1
+}
+
 enum EventType {
     OnChange = 0,
     OnRise = 1,
@@ -51,7 +56,7 @@ interface IOnewSensor {
     /** Wartość maksymalna po przekroczeniu której generowane jest zdarzenie OnOutOfRange */
     maxValue: number
     /** Status połączenia czujnika:\n0 - rozłączony,\n1 - połączony */
-    readonly status: number
+    readonly status: StatusType
 }
 
 class OnewSensor implements IOnewSensor {
@@ -97,7 +102,7 @@ class OnewSensor implements IOnewSensor {
     set minValue(val: number) { this.raw.set(PropertyType.MinValue, val); }
     get maxValue(): number { return this.raw.get(PropertyType.MaxValue); }
     set maxValue(val: number) { this.raw.set(PropertyType.MaxValue, val); }
-    get status(): number { return this.raw.get(PropertyType.Status); }
+    get status(): StatusType { return this.raw.get(PropertyType.Status); }
 }
 
 class OnewSensorRemote implements IOnewSensor {
@@ -138,10 +143,10 @@ class OnewSensorRemote implements IOnewSensor {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MaxValue).addParameter(val).build();
         this.gate.runScript(cmd!);
     }
-    get status(): number {
+    get status(): StatusType {
         const cmd = rawExecutionBuilderFactory(this.objectName).get().addParameter(PropertyType.Status).build();
         return this.gate.runScript(cmd!);
     }
 }
 
-export { OnewSensor, OnewSensorRaw, OnewSensorRemote }
+export { OnewSensor, OnewSensorRaw, OnewSensorRemote, StatusType }

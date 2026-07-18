@@ -8,6 +8,13 @@ enum StatisticStateType {
     On = 1
 }
 
+enum StatusType {
+    Disconnected = 0,
+    Connected = 1,
+    Reset = 2,
+    ModuleUnreachable = 3
+}
+
 enum EventType {
     OnValueChange = 0,
     OnValueRise = 1,
@@ -59,7 +66,7 @@ interface IOnewSensor {
     /** Wartość maksymalna po przekroczeniu której generowane jest zdarzenie OnOutOfRange */
     maxValue: number
     /** Status połączenia czujnika:\n0 - rozłączony,\n1 - połączony,\n2 - czujnik w stanie resetu,\n3 - brak połączenia z modułem (koncentratorem) */
-    readonly status: number
+    readonly status: StatusType
     /** Numer seryjny modułu do którego podłączony jest czujnik. 0 oznacza, że czujnik nie został wykryty po włączeniu koncentratora */
     readonly hubSerialNumber: number
     /** Unikalny, pełny numer seryjny czujnika. 0 oznacza, że czujnik nie został wykryty po włączeniu koncentratora */
@@ -111,7 +118,7 @@ class OnewSensor implements IOnewSensor {
     set minValue(val: number) { this.raw.set(PropertyType.MinValue, val); }
     get maxValue(): number { return this.raw.get(PropertyType.MaxValue); }
     set maxValue(val: number) { this.raw.set(PropertyType.MaxValue, val); }
-    get status(): number { return this.raw.get(PropertyType.Status); }
+    get status(): StatusType { return this.raw.get(PropertyType.Status); }
     get hubSerialNumber(): number { return this.raw.get(PropertyType.HubSerialNumber); }
     get sensorSerialNumber(): number { return this.raw.get(PropertyType.SensorSerialNumber); }
     get statisticState(): StatisticStateType { return this.raw.get(PropertyType.StatisticState); }
@@ -156,7 +163,7 @@ class OnewSensorRemote implements IOnewSensor {
         const cmd = rawExecutionBuilderFactory(this.objectName).set().addParameter(PropertyType.MaxValue).addParameter(val).build();
         this.gate.runScript(cmd!);
     }
-    get status(): number {
+    get status(): StatusType {
         const cmd = rawExecutionBuilderFactory(this.objectName).get().addParameter(PropertyType.Status).build();
         return this.gate.runScript(cmd!);
     }
@@ -178,4 +185,4 @@ class OnewSensorRemote implements IOnewSensor {
     }
 }
 
-export { OnewSensor, OnewSensorRaw, OnewSensorRemote, StatisticStateType }
+export { OnewSensor, OnewSensorRaw, OnewSensorRemote, StatisticStateType, StatusType }
