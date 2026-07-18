@@ -81,7 +81,7 @@
 				<hint lang="de" value="Softwareversion Gate"/>
 			    <desc resKey="clu_firmwareversion"/>
             </feature>	
-			<feature default="0" get="true" index="18" name="UseCloud" set="true" type="confirmation" unit="bool">  
+			<feature default="1" get="true" index="18" name="UseCloud" set="true" type="confirmation" unit="bool">
 				<hint lang="pl" value="Określa czy Gate łączy się do chmury"/>  
 				<hint lang="en" value="Specifies whether Gate connects to the cloud"/> 
 				<hint lang="de" value="Gibt an, ob die Gate eine Verbindung zur Cloud herstellt"/>

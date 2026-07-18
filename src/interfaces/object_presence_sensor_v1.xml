@@ -6,7 +6,7 @@
 			<hint lang="en" value="Time (in seconds) from last movement detection. When this time elapses PresenceDetected sets on 0"/>
 		    <desc resKey="presencesensor_timeout"/>
         </feature>
-		<feature enum="0,1" get="true" index="1" name="State" set="true" type="num">
+		<feature enum="0,1" get="true" index="1" name="State" set="true" type="num" default="1">
 			<enum name="Off" resKey="presencesensor_state_enum_off" value="0"/>
 			<enum name="On" resKey="presencesensor_state_enum_on" value="1"/>
 			<hint lang="pl" value="Aktualny stan czujnika obecności, 1 - włączony, 0 - wyłączony"/>

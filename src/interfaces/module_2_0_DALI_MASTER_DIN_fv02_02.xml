@@ -120,8 +120,8 @@
 					<method call="execute" index="12" name="SetPowerOnLevel" return="void">
 						<param name="Address" range="0-63" type="num" unit=""/>
 						<param name="DAPCValue" range="0-253" type="num" unit=""/>
-						<hint lang="pl" value="Dla wybranego adresu zapisuje w pamięci statecznika DACPValue jakie ma zostać ustawione po restarcie/awarii magistrali"/>
-						<hint lang="en" value="For the selected address, it saves in the ballast memory the DACPValue that is to be set after a restart/bus failure"/>
+						<hint lang="pl" value="Dla wybranego adresu zapisuje w pamięci statecznika DAPCValue jakie ma zostać ustawione po restarcie/awarii magistrali"/>
+						<hint lang="en" value="For the selected address, it saves in the ballast memory the DAPCValue that is to be set after a restart/bus failure"/>
 						<hint lang="de" value=""/>
 					    <desc resKey="dali_master_setpoweronlevel"/>
                     </method>
@@ -142,8 +142,8 @@
                     </method>
 					<method call="execute" index="14" name="SetLastActiveLevel" return="void">
 						<param name="Address" range="0-63" type="num" unit=""/>
-						<hint lang="pl" value="Jeżeli statecznik jest wyłączony, włącza statecznik z wartością DACPValue ustawioną przed wyłączeniem"/>
-						<hint lang="en" value="If the ballast is off, turns on the ballast with the DACPValue value set before it was turned off"/>
+						<hint lang="pl" value="Jeżeli statecznik jest wyłączony, włącza statecznik z wartością DAPCValue ustawioną przed wyłączeniem"/>
+						<hint lang="en" value="If the ballast is off, turns on the ballast with the DAPCValue value set before it was turned off"/>
 						<hint lang="de" value=""/>
 					    <desc resKey="dali_master_setlastactivelevel"/>
                     </method>

@@ -1,1 +1,1 @@
-export * from '../fwType_02_fwApiVersion_01/power-supply-voltage';
+export * from '../fwType_02_fwApiVersion_03/power-supply-voltage';

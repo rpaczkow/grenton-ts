@@ -1,1 +1,1 @@
-export * from '../fwType_02_fwApiVersion_02/dali-master';
+export * from '../fwType_02_fwApiVersion_04/dali-master';

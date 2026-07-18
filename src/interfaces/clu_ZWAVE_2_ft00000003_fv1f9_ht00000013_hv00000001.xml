@@ -107,7 +107,7 @@
 				<hint lang="de" value="Softwareversion CLU"/>
 			    <desc resKey="clu_firmwareversion_3"/>
             </feature>	
-			<feature default="0" get="true" index="18" name="UseCloud" set="true" type="confirmation" unit="bool">  
+			<feature default="1" get="true" index="18" name="UseCloud" set="true" type="confirmation" unit="bool">
 				<hint lang="pl" value="Określa czy CLU łączy się do chmury"/>  
 				<hint lang="en" value="Specifies whether CLU connects to the cloud"/> 
 				<hint lang="de" value="Gibt an, ob die CLU eine Verbindung zur Cloud herstellt"/>

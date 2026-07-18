@@ -46,7 +46,7 @@
 				<hint lang="de" value="Alternativer DNS-Server"/>
 			    <desc resKey="clu_secondarydns"/>
             </feature>
-			<feature default="0" get="true" index="18" name="UseCloud" set="true" type="confirmation" unit="bool">  
+			<feature default="1" get="true" index="18" name="UseCloud" set="true" type="confirmation" unit="bool">
 				<hint lang="pl" value="Określa czy GATE łączy się do chmury"/>  
 				<hint lang="en" value="Specifies whether GATE connects to the cloud"/> 
 				<hint lang="de" value=""/>

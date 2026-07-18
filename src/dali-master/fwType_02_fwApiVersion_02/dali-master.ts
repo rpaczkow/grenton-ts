@@ -85,11 +85,11 @@ interface IDaliMaster {
     updateMissingGears: () => void
     /** Wyszukiwanie stateczników podłączonych do magistrali DALI oraz nadawanie im adresów lokalnych:\n - GetConfiguration - pobranie adresów stateczników znajdujących się na magistrali \n - NewWithoutLocalAddress - adresowanie nowych stateczników bez przypisanego adresu; \n - ResetAllLocalAddress - adresowanie wszystkich stateczników na magistrali.\nW momencie nadania adresu, dany statecznik zostaje załączony na 300 ms.\nPodczas DALI_Discovery nie należy wykonywać operacji na urządzeniu */
     daliDiscovery: (type?: DiscoveryType) => void
-    /** Dla wybranego adresu zapisuje w pamięci statecznika DACPValue jakie ma zostać ustawione po restarcie/awarii magistrali */
+    /** Dla wybranego adresu zapisuje w pamięci statecznika DAPCValue jakie ma zostać ustawione po restarcie/awarii magistrali */
     setPowerOnLevel: (address: number, dapcValue: number) => void
     /** Ustawia wartość z jaką świeci oprawa. Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s] */
     setDAPCValue: (value: number, rampTime: number, address?: number) => void
-    /** Jeżeli statecznik jest wyłączony, włącza statecznik z wartością DACPValue ustawioną przed wyłączeniem */
+    /** Jeżeli statecznik jest wyłączony, włącza statecznik z wartością DAPCValue ustawioną przed wyłączeniem */
     setLastActiveLevel: (address: number) => void
     /** Ustawia wartość z jaką świeci oprawa dla podanej grupy. Parametr RampTime ustawiany w skali logarytmicznej 0.8 - 90 [s] */
     setGroupDAPCValue: (groupAddress: number, value: number, rampTime: number) => void

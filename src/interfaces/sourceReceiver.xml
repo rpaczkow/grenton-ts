@@ -14,6 +14,7 @@
 	<srcv id="101" name="Lamp" resKey="src_rcv_lamp" type="DALI_GEAR_DT8"/>
 	<srcv id="101" name="Lamp" resKey="src_rcv_lamp" type="LEDRGB"/>
 	<srcv id="101" name="Lamp" resKey="src_rcv_lamp" type="LEDRGBW"/>
+	<srcv id="101" name="Lamp" resKey="src_rcv_lamp" type="LED_CHANNEL"/>
 	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="DIN"/>
 	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="ZWAVE_DIN"/>
 	<srcv id="102" name="Sensor" resKey="src_rcv_sensor" type="AnalogIN"/>
@@ -86,6 +87,7 @@
 	<srcv id="202" name="Sconce" resKey="src_rcv_sconce" type="LEDRGB"/>
 	<srcv id="202" name="Sconce" resKey="src_rcv_sconce" type="LEDRGBW"/>
 	<srcv id="202" name="Sconce" resKey="src_rcv_sconce" type="ZWAVE_RGBW_LED"/>
+	<srcv id="202" name="Sconce" resKey="src_rcv_sconce" type="LED_CHANNEL"/>
 	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="DOUT"/>
 	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="ZWAVE_DOUT"/>
 	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="DIMM"/>
@@ -95,6 +97,7 @@
 	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="LEDRGB"/>
 	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="LEDRGBW"/>
 	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="ZWAVE_RGBW_LED"/>
+	<srcv id="203" name="Light bulb" resKey="src_rcv_lightbulb" type="LED_CHANNEL"/>
 	<srcv id="24" name="Knob" resKey="src_rcv_knob" type="DIMM"/>
 	<srcv id="24" name="Knob" resKey="src_rcv_knob" type="DALI_GEAR"/>
 	<srcv id="24" name="Knob" resKey="src_rcv_knob" type="DALI_GEAR_DT8"/>
@@ -103,6 +106,7 @@
 	<srcv id="24" name="Knob" resKey="src_rcv_knob" type="LEDRGBW"/>
 	<srcv id="24" name="Knob" resKey="src_rcv_knob" type="ZWAVE_RGBW_LED"/>
 	<srcv id="24" name="Knob" resKey="src_rcv_knob" type="AnalogOUT"/>
+	<srcv id="24" name="Knob" resKey="src_rcv_knob" type="LED_CHANNEL"/>
 	<srcv id="25" name="Socket" resKey="src_rcv_socket" type="DOUT"/>
 	<srcv id="25" name="Socket" resKey="src_rcv_socket" type="ZWAVE_DOUT"/>
 	<srcv id="26" name="TV" resKey="src_rcv_tv" type="DOUT"/>
@@ -177,4 +181,5 @@
 	<srcv id="401" name="Led" resKey="src_rcv_led" type="LEDRGB"/>
 	<srcv id="401" name="Led" resKey="src_rcv_led" type="LEDRGBW"/>
 	<srcv id="401" name="Led" resKey="src_rcv_led" type="ZWAVE_RGBW_LED"/>
+	<srcv id="401" name="Led" resKey="src_rcv_led" type="LED_CHANNEL"/>
 </SourceReceiver>
