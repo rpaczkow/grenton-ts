@@ -1,7 +1,8 @@
 {
   "scripts": {
     "build": "rm -rf dist-js && rm -rf dist && tsc -p src/tsconfig.json && mkdir -p dist && (cd src && find . -name '*.ts' -exec cp --parents {} ../dist/ \\;)",
-    "watch": "tsc -p src/tsconfig.json --watch"
+    "watch": "tsc -p src/tsconfig.json --watch",
+    "publish": "npm login &&npm version patch && npm run build && npm publish --access public"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
