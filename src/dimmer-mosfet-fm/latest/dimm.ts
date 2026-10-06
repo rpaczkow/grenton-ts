@@ -1,1 +1,1 @@
-export * from '../fwType_02_fwApiVersion_01/dimm';
+export * from '../fwType_02_fwApiVersion_03/dimm';

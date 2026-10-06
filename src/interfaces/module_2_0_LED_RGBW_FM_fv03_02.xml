@@ -355,12 +355,16 @@
 							<parametrized name="Time"/>
 						</param>
 						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
-							<parametrized name="Default" type="num" value=""/>
+							<parametrized name="Default" type="num" value="0"/>
 							<parametrized name="Time"/>						
 						</param>
-						<hint lang="pl" value="Ustawia wartość wyjścia na MaxValue"/>
-						<hint lang="en" value="Sets output value to MaxValue"/>
-						<desc resKey="ledrgb_switchon"/>
+						<param name="Mode" optional="true" type="num">
+							<parametrized name="Default" type="num" value="0"/>
+							<parametrized name="LastValue" type="num" value="1"/>
+						</param>
+						<hint lang="pl" value="Ustawia wartość wyjścia na MaxValue. Tryb LastValue załącza wyjście z ostatnią niezerową wartością zamiast MaxValue. Wartość 0 parametru Ramp oznacza użycie czasu z cechy RampTime."/>
+						<hint lang="en" value="Sets output value to MaxValue. LastValue mode switches the output on with the last non-zero value instead of MaxValue. The value 0 of the Ramp parameter applies the time from the RampTime feature."/>
+						<desc resKey="ledrgb_switchon_1"/>
 					</method>
 					<method call="execute" index="2" name="SwitchOff" return="void">
 						<param name="Time" type="num" unit="ms">
@@ -371,26 +375,26 @@
 							<parametrized name="Default" type="num" value=""/>
 							<parametrized name="Time"/>
 						</param>
-						<hint lang="pl" value="Ustawia wartość wyjścia na 0"/>
-						<hint lang="en" value="Sets output value to 0"/>
-						<desc resKey="ledrgb_switchoff_2"/>
+						<hint lang="pl" value="Ustawia wartość wyjścia na 0. Wartość 0 parametru Ramp oznacza użycie czasu z cechy RampTime."/>
+						<hint lang="en" value="Sets output value to 0. The value 0 of the Ramp parameter applies the time from the RampTime feature."/>
+						<desc resKey="ledrgb_switchoff_3"/>
 					</method>
 					<method call="execute" index="3" name="Switch" return="void">
-						<param name="Mode" type="num">
-							<parametrized name="Default" type="num" value="0"/>
-							<parametrized name="LastValue" type="num" value="1"/>
-						</param>
 						<param name="Time" type="num" unit="ms">
 							<parametrized name="Unlimited" type="num" value="0"/>
 							<parametrized name="Time"/>
 						</param>
 						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
-							<parametrized name="Default" type="num" value=""/>
+							<parametrized name="Default" type="num" value="0"/>
 							<parametrized name="Time"/>
 						</param>
-						<hint lang="pl" value="Zmienia stan wyjścia na przeciwny. Tryb LastValue przywraca ostatnią niezerową wartość zamiast MaxValue."/>
-						<hint lang="en" value="Toggles the output state. LastValue mode restores the last non-zero value instead of MaxValue."/>
-						<desc resKey="ledrgb_switch_1"/>
+						<param name="Mode" optional="true" type="num">
+							<parametrized name="Default" type="num" value="0"/>
+							<parametrized name="LastValue" type="num" value="1"/>
+						</param>
+						<hint lang="pl" value="Zmienia stan wyjścia na przeciwny. Tryb LastValue przywraca ostatnią niezerową wartość zamiast MaxValue. Wartość 0 parametru Ramp oznacza użycie czasu z cechy RampTime."/>
+						<hint lang="en" value="Toggles the output state. LastValue mode restores the last non-zero value instead of MaxValue. The value 0 of the Ramp parameter applies the time from the RampTime feature."/>
+						<desc resKey="ledrgb_switch_2"/>
 					</method>
 					<method call="set" index="1" name="SetRampTime" return="void">
 						<param name="RampTime" type="num" unit="ms"/>
@@ -640,35 +644,22 @@
 						<hint lang="en" value="Sets output value (0-255)"/>
 						<desc resKey="led_cct_setvalue"/>
 					</method>
-					<method call="execute" index="3" name="Switch" return="void">
-						<param name="Mode" type="num">
-							<parametrized name="Default" type="num" value="0"/>
-							<parametrized name="LastValue" type="num" value="1"/>
-						</param>
-						<param name="Time" type="num" unit="ms">
-							<parametrized name="Unlimited" type="num" value="0"/>
-							<parametrized name="Time"/>
-						</param>
-						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
-							<parametrized name="Default" type="num" value=""/>
-							<parametrized name="Time"/>
-						</param>
-						<hint lang="pl" value="Zmienia stan wyjścia na przeciwny"/>
-						<hint lang="en" value="Toggles the output state"/>
-						<desc resKey="led_cct_switch"/>
-					</method>
 					<method call="execute" index="4" name="SwitchOn" return="void">
 						<param name="Time" type="num" unit="ms">
 							<parametrized name="Unlimited" type="num" value="0"/>
 							<parametrized name="Time"/>
 						</param>
 						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
-							<parametrized name="Default" type="num" value=""/>
+							<parametrized name="Default" type="num" value="0"/>
 							<parametrized name="Time"/>
 						</param>
-						<hint lang="pl" value="Ustawia wartość wyjścia na MaxValue"/>
-						<hint lang="en" value="Sets output value to MaxValue"/>
-						<desc resKey="led_cct_switchon"/>
+						<param name="Mode" optional="true" type="num">
+							<parametrized name="Default" type="num" value="0"/>
+							<parametrized name="LastValue" type="num" value="1"/>
+						</param>
+						<hint lang="pl" value="Ustawia wartość wyjścia na MaxValue. Tryb LastValue załącza wyjście z ostatnią niezerową jasnością i ostatnią temperaturą barwową zamiast MaxValue. Wartość 0 parametru Ramp oznacza użycie czasu z cechy RampTime."/>
+						<hint lang="en" value="Sets output value to MaxValue. LastValue mode switches the output on with the last non-zero brightness and the last colour temperature instead of MaxValue. The value 0 of the Ramp parameter applies the time from the RampTime feature."/>
+						<desc resKey="led_cct_switchon_1"/>
 					</method>
 					<method call="execute" index="5" name="SwitchOff" return="void">
 						<param name="Time" type="num" unit="ms">
@@ -679,9 +670,26 @@
 							<parametrized name="Default" type="num" value=""/>
 							<parametrized name="Time"/>
 						</param>
-						<hint lang="pl" value="Ustawia wartość wyjścia na 0"/>
-						<hint lang="en" value="Sets output value to 0"/>
-						<desc resKey="led_cct_switchoff"/>
+						<hint lang="pl" value="Ustawia wartość wyjścia na 0. Wartość 0 parametru Ramp oznacza użycie czasu z cechy RampTime."/>
+						<hint lang="en" value="Sets output value to 0. The value 0 of the Ramp parameter applies the time from the RampTime feature."/>
+						<desc resKey="led_cct_switchoff_1"/>
+					</method>
+					<method call="execute" index="3" name="Switch" return="void">
+						<param name="Time" type="num" unit="ms">
+							<parametrized name="Unlimited" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
+							<parametrized name="Default" type="num" value="0"/>
+							<parametrized name="Time"/>
+						</param>
+						<param name="Mode" optional="true" type="num">
+							<parametrized name="Default" type="num" value="0"/>
+							<parametrized name="LastValue" type="num" value="1"/>
+						</param>
+						<hint lang="pl" value="Zmienia stan wyjścia na przeciwny. Tryb LastValue przywraca ostatnią niezerową jasność wraz z ostatnią temperaturą barwową zamiast MaxValue. Wartość 0 parametru Ramp oznacza użycie czasu z cechy RampTime."/>
+						<hint lang="en" value="Toggles the output state. LastValue mode restores the last non-zero brightness together with the last colour temperature instead of MaxValue. The value 0 of the Ramp parameter applies the time from the RampTime feature."/>
+						<desc resKey="led_cct_switch_1"/>
 					</method>
 					<method call="set" index="5" name="SetRampTime" return="void">
 						<param name="RampTime" type="num" unit="ms"/>

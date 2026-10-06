@@ -76,12 +76,12 @@ interface ILedChannel {
     load: number
     /** Ustawia wartość wyjścia (zakres 0-255) */
     setValue: (value: number, ramp?: number) => void
-    /** Ustawia wartość wyjścia na MaxValue */
-    switchOn: (time: number, ramp?: number) => void
-    /** Ustawia wartość wyjścia na 0 */
+    /** Ustawia wartość wyjścia na MaxValue. Tryb LastValue załącza wyjście z ostatnią niezerową wartością zamiast MaxValue. Wartość 0 parametru Ramp oznacza użycie czasu z cechy RampTime. */
+    switchOn: (time: number, ramp?: number, mode?: number) => void
+    /** Ustawia wartość wyjścia na 0. Wartość 0 parametru Ramp oznacza użycie czasu z cechy RampTime. */
     switchOff: (time: number, ramp?: number) => void
-    /** Zmienia stan wyjścia na przeciwny. Tryb LastValue przywraca ostatnią niezerową wartość zamiast MaxValue. */
-    switch: (mode: number, time: number, ramp?: number) => void
+    /** Zmienia stan wyjścia na przeciwny. Tryb LastValue przywraca ostatnią niezerową wartość zamiast MaxValue. Wartość 0 parametru Ramp oznacza użycie czasu z cechy RampTime. */
+    switch: (time: number, ramp?: number, mode?: number) => void
     /** Ustawia czas narastania wartości jasności */
     setRampTime: (rampTime: number) => void
     /** Ustawia maksymalną wartość dla Value */
@@ -147,9 +147,9 @@ class LedChannel implements ILedChannel {
     set load(val: number) { this.raw.set(PropertyType.Load, val); }
 
     setValue(value: number, ramp: number = 0): void { this.raw.execute(MethodType.SetValue, value, ramp); }
-    switchOn(time: number, ramp: number = 0): void { this.raw.execute(MethodType.SwitchOn, time, ramp); }
+    switchOn(time: number, ramp: number = 0, mode: number = 0): void { this.raw.execute(MethodType.SwitchOn, time, ramp, mode); }
     switchOff(time: number, ramp: number = 0): void { this.raw.execute(MethodType.SwitchOff, time, ramp); }
-    switch(mode: number, time: number, ramp: number = 0): void { this.raw.execute(MethodType.Switch, mode, time, ramp); }
+    switch(time: number, ramp: number = 0, mode: number = 0): void { this.raw.execute(MethodType.Switch, time, ramp, mode); }
     setRampTime(rampTime: number): void { this.raw.set(PropertyType.RampTime, rampTime); }
     setMaxValue(value: number): void { this.raw.set(PropertyType.MaxValue, value); }
     setMinValue(value: number): void { this.raw.set(PropertyType.MinValue, value); }
@@ -225,16 +225,16 @@ class LedChannelRemote implements ILedChannel {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SetValue).addParameter(value).addParameter(ramp).build();
         this.gate.runScript(cmd!);
     }
-    switchOn(time: number, ramp: number = 0): void {
-        const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SwitchOn).addParameter(time).addParameter(ramp).build();
+    switchOn(time: number, ramp: number = 0, mode: number = 0): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SwitchOn).addParameter(time).addParameter(ramp).addParameter(mode).build();
         this.gate.runScript(cmd!);
     }
     switchOff(time: number, ramp: number = 0): void {
         const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.SwitchOff).addParameter(time).addParameter(ramp).build();
         this.gate.runScript(cmd!);
     }
-    switch(mode: number, time: number, ramp: number = 0): void {
-        const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.Switch).addParameter(mode).addParameter(time).addParameter(ramp).build();
+    switch(time: number, ramp: number = 0, mode: number = 0): void {
+        const cmd = rawExecutionBuilderFactory(this.objectName).execute().addParameter(MethodType.Switch).addParameter(time).addParameter(ramp).addParameter(mode).build();
         this.gate.runScript(cmd!);
     }
     setRampTime(rampTime: number): void {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <module name="DIMMER_MOSFET_DIN" typeId="1a">
-	<!--hwType=0x1a(26), hwVer=0x1(1), fwType=0x2(2), fwApiVer=0x2(2)-->
-	<firmware typeId="02" version="02">
+	<!--hwType=0x1a(26), hwVer=0x1(1), fwType=0x2(2), fwApiVer=0x3(3)-->
+	<firmware typeId="02" version="03">
 		<object class="5" count="1" name="DIMM" type="out">
 			<interface>
 				<features>
@@ -101,10 +101,14 @@
 							<parametrized name="Default" type="num" value="500"/>
 							<parametrized name="Time"/>
 						</param>
-						<hint lang="pl" value="Zmienia wartość wyjścia na przeciwny (MinValue - MaxValue). Pierwszy parametr (Time) to czas zmiany:&#13;0 - włącza/wyłącza wyjście na stałe,&#13; number - na czas określony w parametrze.&#13;Drugi parametr (Ramp) jest opcjonalny i określa czas narastania wartości (domyślnie 500ms)"/>
-						<hint lang="en" value="Changes the output value to opposite (MinValue - MaxValue). The first parameter is the time of change:&#13;0 - switches output to continuous mode&#13;number - switches output for a specified time by a parameter( in milliseconds)&#13;The second parameter is the ramp (time of value increments which is optional. If this parameter is not specified, the default ramp is used"/>
-						<hint lang="de" value="Ändert den Ausgabewert ins Gegenteil (MinValue - MaxValue). Der erste Parameter ist die Wechselzeit:&#13;0 – schaltet den Ausgang für eine unbestimmte Zeit ein;&#13;num – schaltet den Ausgang für eine mit Parametern bestimmte Zeit (in Millisekunden) ein. &#13;Der zweite Parameter ist die Rampe; się ist optional und bestimmt die Rampenzeit eines Werts (Standardeinstellung 500 ms)"/>
-                        <desc resKey="dimm_switch"/>
+						<param name="Mode" optional="true" type="num">
+							<parametrized name="Default" type="num" value="0"/>
+							<parametrized name="LastValue" type="num" value="1"/>
+						</param>
+						<hint lang="pl" value="Zmienia wartość wyjścia na przeciwny (MinValue - MaxValue). Pierwszy parametr (Time) to czas zmiany:&#13;0 - włącza/wyłącza wyjście na stałe,&#13;number - na czas określony w parametrze.&#13;Drugi parametr (Ramp) jest opcjonalny i określa czas narastania wartości (domyślnie 500 ms); wartość 0 oznacza użycie czasu z cechy RampTime.&#13;Trzeci parametr (Mode) jest opcjonalny:&#13;Default - załącza wyjście z wartością MaxValue,&#13;LastValue - załącza wyjście z ostatnią niezerową wartością."/>
+						<hint lang="en" value="Changes the output value to opposite (MinValue - MaxValue). The first parameter (Time) is the time of change:&#13;0 - switches the output permanently,&#13;number - switches the output for the time given by the parameter (in milliseconds).&#13;The second parameter (Ramp) is optional and sets the time of value increments (500 ms by default); the value 0 applies the time from the RampTime feature.&#13;The third parameter (Mode) is optional:&#13;Default - switches the output on with MaxValue,&#13;LastValue - switches the output on with the last non-zero value."/>
+						<hint lang="de" value="Ändert den Ausgabewert ins Gegenteil (MinValue - MaxValue). Der erste Parameter (Time) ist die Wechselzeit:&#13;0 - schaltet den Ausgang dauerhaft ein oder aus,&#13;num - schaltet den Ausgang für die im Parameter angegebene Zeit (in Millisekunden).&#13;Der zweite Parameter (Ramp) ist optional und bestimmt die Rampenzeit eines Werts (Standardeinstellung 500 ms); der Wert 0 verwendet die Zeit aus der Eigenschaft RampTime.&#13;Der dritte Parameter (Mode) ist optional:&#13;Default - schaltet den Ausgang mit MaxValue ein,&#13;LastValue - schaltet den Ausgang mit dem letzten Wert ungleich Null ein."/>
+                        <desc resKey="dimm_switch_2"/>
                     </method>
 					<method call="execute" index="2" name="SwitchOn" return="void">
 						<param name="Time" type="num" unit="ms">
@@ -115,10 +119,14 @@
 							<parametrized name="Default" type="num" value="500"/>
 							<parametrized name="Time"/>
 						</param>
-						<hint lang="pl" value="Ustawienie wartości wyjścia na MaxValue. Pierwszy parametr to czas na jaki ma się przełączyć; rampa określa czas narastania wartości"/>
-						<hint lang="en" value="Sets output value to MaxValue. The first parameter is the time of switching (how long it is to be switched for). The second parameter is the ramp (time of value increments) which is optional"/>
-						<hint lang="de" value="Bestimmt den Wert von MaxValue (Standardeinstellung 1). Der erste Parameter ist die Zeit, für die umgeschaltet werden soll. Die Rampe bestimmt die Rampenzeit (Anstiegszeit) von Value"/>
-                        <desc resKey="dimm_switchon"/>
+						<param name="Mode" optional="true" type="num">
+							<parametrized name="Default" type="num" value="0"/>
+							<parametrized name="LastValue" type="num" value="1"/>
+						</param>
+						<hint lang="pl" value="Ustawienie wartości wyjścia na MaxValue. Pierwszy parametr (Time) to czas, na jaki ma się przełączyć; drugi parametr (Ramp) określa czas narastania wartości, a wartość 0 oznacza użycie czasu z cechy RampTime.&#13;Trzeci parametr (Mode) jest opcjonalny:&#13;Default - załącza wyjście z wartością MaxValue,&#13;LastValue - załącza wyjście z ostatnią niezerową wartością."/>
+						<hint lang="en" value="Sets output value to MaxValue. The first parameter (Time) is the time of switching; the second parameter (Ramp) sets the time of value increments, and the value 0 applies the time from the RampTime feature.&#13;The third parameter (Mode) is optional:&#13;Default - switches the output on with MaxValue,&#13;LastValue - switches the output on with the last non-zero value."/>
+						<hint lang="de" value="Bestimmt den Wert von MaxValue. Der erste Parameter (Time) ist die Zeit, für die umgeschaltet werden soll; der zweite Parameter (Ramp) bestimmt die Rampenzeit eines Werts, der Wert 0 verwendet die Zeit aus der Eigenschaft RampTime.&#13;Der dritte Parameter (Mode) ist optional:&#13;Default - schaltet den Ausgang mit MaxValue ein,&#13;LastValue - schaltet den Ausgang mit dem letzten Wert ungleich Null ein."/>
+                        <desc resKey="dimm_switchon_1"/>
                     </method>
 					<method call="execute" index="3" name="SwitchOff" return="void">
 						<param name="Time" type="num" unit="ms">
@@ -129,10 +137,10 @@
 							<parametrized name="Default" type="num" value="500"/>
 							<parametrized name="Time"/>
 						</param>
-						<hint lang="pl" value="Ustawienie wartości wyjścia na MinValue. Pierwszy parametr to czas na jaki ma się przełączyć; rampa określa czas narastania wartości"/>
-						<hint lang="en" value="Sets output value to MinValue. The first parameter is the time of switching (how long it is to be switched for). The second parameter is the ramp (time of value increments) which is optional"/>
-						<hint lang="de" value="Bestimmt den Wert von MinValue (Standardeinstellung 0). Der erste Parameter ist die Zeit, für die umgeschaltet werden soll. Die Rampe bestimmt die Rampenzeit (Abfallzeit) von Value"/>
-                        <desc resKey="dimm_switchoff"/>
+						<hint lang="pl" value="Ustawienie wartości wyjścia na MinValue. Pierwszy parametr (Time) to czas, na jaki ma się przełączyć; drugi parametr (Ramp) określa czas narastania wartości, a wartość 0 oznacza użycie czasu z cechy RampTime."/>
+						<hint lang="en" value="Sets output value to MinValue. The first parameter (Time) is the time of switching; the second parameter (Ramp) sets the time of value increments, and the value 0 applies the time from the RampTime feature."/>
+						<hint lang="de" value="Bestimmt den Wert von MinValue. Der erste Parameter (Time) ist die Zeit, für die umgeschaltet werden soll; der zweite Parameter (Ramp) bestimmt die Abfallzeit eines Werts, der Wert 0 verwendet die Zeit aus der Eigenschaft RampTime."/>
+                        <desc resKey="dimm_switchoff_1"/>
                     </method>
 					<method call="execute" index="0" name="HoldValue" return="void">
 						<param name="Ramp" optional="true" range="0-15000" type="num" unit="ms">
